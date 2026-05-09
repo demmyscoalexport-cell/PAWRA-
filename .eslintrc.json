@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-react-app",
+  "rules": {
+    "react-hooks/rules-of-hooks": "warn",
+    "no-unused-vars": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "prefer-const": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
