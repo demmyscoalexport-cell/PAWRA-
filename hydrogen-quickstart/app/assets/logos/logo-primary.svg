@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" fill="none" role="img" aria-label="PAWRA">
+  <circle cx="24" cy="22" r="6" fill="#2EE8A0"/>
+  <circle cx="14" cy="34" r="5" fill="#1B3A2D"/>
+  <circle cx="24" cy="40" r="5" fill="#1B3A2D"/>
+  <circle cx="34" cy="34" r="5" fill="#1B3A2D"/>
+  <ellipse cx="24" cy="48" rx="10" ry="8" fill="#1B3A2D"/>
+  <text x="52" y="38" font-family="Instrument Serif, Georgia, serif" font-size="28" fill="#1B3A2D" letter-spacing="0.08em">PAWRA</text>
+  <text x="52" y="56" font-family="Inter, sans-serif" font-size="8" fill="#1B3A2D" opacity="0.7" letter-spacing="0.12em">EVERY MOMENT. EVERY PET.</text>
+</svg>

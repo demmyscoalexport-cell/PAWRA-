@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import { Await, NavLink, useAsyncValue } from 'react-router';
 import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
 import { useAside } from '~/components/Aside';
+import { Logo } from '~/components/ui/Logo';
+import { Icon } from '~/components/ui/Icon';
 
 /**
  * @param {HeaderProps}
@@ -18,13 +20,7 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
         className="flex items-center gap-3 no-underline"
         aria-label="PAWRA home"
       >
-        <span className="relative flex h-3 w-3" aria-hidden="true">
-          <span className="animate-pawra-pulse-ring absolute inline-flex h-full w-full rounded-full bg-electric-jade opacity-75" />
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-electric-jade" />
-        </span>
-        <strong className="font-serif text-2xl tracking-[0.08em] text-forest-green">
-          PAWRA
-        </strong>
+        <Logo variant="light" height={32} />
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -56,10 +52,9 @@ export function HeaderMenu({ menu, primaryDomainUrl, viewport, publicStoreDomain
           Home
         </NavLink>
       )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+      {PAWRA_HEADER_MENU.items.map((item) => {
         if (!item.url) return null;
 
-        // if the url is internal, we strip the domain
         const url =
           item.url.includes('myshopify.com') ||
           item.url.includes(publicStoreDomain) ||
@@ -68,7 +63,7 @@ export function HeaderMenu({ menu, primaryDomainUrl, viewport, publicStoreDomain
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="header-menu-item font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
             end
             key={item.id}
             onClick={close}
@@ -91,7 +86,7 @@ function HeaderCtas({ isLoggedIn, cart }) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      <NavLink prefetch="intent" to="/account" style={activeLinkStyle} className="hidden text-forest-green sm:inline-flex">
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
@@ -107,8 +102,12 @@ function HeaderCtas({ isLoggedIn, cart }) {
 function HeaderMenuMobileToggle() {
   const { open } = useAside();
   return (
-    <button className="header-menu-mobile-toggle reset" onClick={() => open('mobile')}>
-      <h3>☰</h3>
+    <button
+      className="header-menu-mobile-toggle reset text-forest-green"
+      onClick={() => open('mobile')}
+      aria-label="Open menu"
+    >
+      <Icon name="menu" size="lg" color="text-cloud" />
     </button>
   );
 }
@@ -116,8 +115,8 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const { open } = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
+    <button className="reset text-forest-green" onClick={() => open('search')} aria-label="Search">
+      <Icon name="search" size="md" color="text-cloud" />
     </button>
   );
 }
@@ -132,6 +131,7 @@ function CartBadge({ count }) {
   return (
     <a
       href="/cart"
+      className="relative inline-flex items-center text-forest-green no-underline"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -142,8 +142,14 @@ function CartBadge({ count }) {
           url: window.location.href || '',
         });
       }}
+      aria-label={`Cart, ${count} items`}
     >
-      Cart <span aria-label={`(items: ${count})`}>{count}</span>
+      <Icon name="cart" size="lg" color="text-cloud" />
+      {count > 0 && (
+        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-pill bg-electric-jade px-1 font-mono text-mono-s font-medium text-midnight">
+          {count}
+        </span>
+      )}
     </a>
   );
 }
@@ -167,11 +173,20 @@ function CartBanner() {
   return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }
 
-const FALLBACK_HEADER_MENU = {
-  id: 'gid://shopify/Menu/199655587896',
+const PAWRA_HEADER_MENU = {
+  id: 'gid://shopify/Menu/pawra-main',
   items: [
     {
-      id: 'gid://shopify/MenuItem/461609500728',
+      id: 'gid://shopify/MenuItem/pawra-shop',
+      resourceId: null,
+      tags: [],
+      title: 'Shop',
+      type: 'HTTP',
+      url: '/collections/all',
+      items: [],
+    },
+    {
+      id: 'gid://shopify/MenuItem/pawra-collections',
       resourceId: null,
       tags: [],
       title: 'Collections',
@@ -180,30 +195,30 @@ const FALLBACK_HEADER_MENU = {
       items: [],
     },
     {
-      id: 'gid://shopify/MenuItem/461609533496',
+      id: 'gid://shopify/MenuItem/pawra-walker',
       resourceId: null,
       tags: [],
-      title: 'Blog',
+      title: 'Walker Program',
       type: 'HTTP',
-      url: '/blogs/journal',
+      url: '/pages/walker-program',
       items: [],
     },
     {
-      id: 'gid://shopify/MenuItem/461609566264',
-      resourceId: null,
-      tags: [],
-      title: 'Policies',
-      type: 'HTTP',
-      url: '/policies',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
+      id: 'gid://shopify/MenuItem/pawra-about',
       resourceId: 'gid://shopify/Page/92591030328',
       tags: [],
       title: 'About',
       type: 'PAGE',
       url: '/pages/about',
+      items: [],
+    },
+    {
+      id: 'gid://shopify/MenuItem/pawra-blog',
+      resourceId: null,
+      tags: [],
+      title: 'Blog',
+      type: 'HTTP',
+      url: '/blogs/journal',
       items: [],
     },
   ],
@@ -217,8 +232,8 @@ const FALLBACK_HEADER_MENU = {
  */
 function activeLinkStyle({ isActive, isPending }) {
   return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? '#C9A96E' : '#1B3A2D',
+    fontWeight: isActive ? '600' : undefined,
+    color: isPending ? '#2EE8A0' : undefined,
   };
 }
 

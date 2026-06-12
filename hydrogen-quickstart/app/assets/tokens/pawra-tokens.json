@@ -1,0 +1,23 @@
+{
+  "colors": {
+    "forest-green": "#1B3A2D",
+    "electric-jade": "#2EE8A0",
+    "warm-oat": "#F5F0E8",
+    "midnight": "#0E1A15",
+    "forest-night": "#0F2318",
+    "coral": "#FF6B5B",
+    "cloud": "#F2F2F0",
+    "ink": "#1A1A1A",
+    "champagne": "#C9A96E"
+  },
+  "typography": {
+    "font-serif": "Instrument Serif",
+    "font-sans": "Inter",
+    "font-mono": "JetBrains Mono"
+  },
+  "brand": {
+    "name": "PAWRA",
+    "domain": "shoppawra.com",
+    "tagline": "Every moment. Every pet. Every life."
+  }
+}
