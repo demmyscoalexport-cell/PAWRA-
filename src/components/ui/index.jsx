@@ -1,10 +1,12 @@
 import React from 'react';
 
+export { Button } from './Button';
+
 export const Card = React.forwardRef(({ children, className = '', ...props }, ref) => {
   return (
     <div
       ref={ref}
-      className={`bg-ivory rounded-lg border border-sand/20 shadow-base p-6 transition-all duration-300 hover:shadow-luxury ${className}`}
+      className={`bg-ivory rounded-lg border border-sand/20 shadow-base p-6 transition-all duration-300 hover:shadow-luxury-md ${className}`}
       {...props}
     >
       {children}
