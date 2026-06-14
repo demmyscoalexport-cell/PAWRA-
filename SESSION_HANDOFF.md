@@ -1,6 +1,7 @@
 # PAWRA Session Handoff — Save Point
 
 **Saved:** June 12, 2026  
+**Last updated:** June 14, 2026 — dependencies refreshed, both builds verified passing.
 **Branch:** `pawra-hydrogen-branding`  
 **Remote:** https://github.com/demmyscoalexport-cell/PAWRA-.git  
 **Tagline:** Every moment. Every pet. Every life.  
