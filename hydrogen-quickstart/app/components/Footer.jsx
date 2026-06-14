@@ -13,7 +13,7 @@ const SHOP_LINKS = [
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
   {label: 'Walker Program', to: '/pages/walker-program'},
-  {label: 'Blog', to: '/blogs/journal'},
+  {label: 'Blog', to: '/blog'},
   {label: 'Press', to: '/pages/about'},
 ];
 

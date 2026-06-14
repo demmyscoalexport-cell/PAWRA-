@@ -4,24 +4,27 @@ import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
+import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
 
-export const PAWRA_HEADER_MENU = {
-  id: 'gid://shopify/Menu/pawra-main',
-  items: [
-    {id: 'shop', title: 'Shop', url: '/collections/all'},
-    {id: 'collections', title: 'Collections', url: '/collections'},
-    {id: 'walker', title: 'Walker Program', url: '/pages/walker-program'},
-    {id: 'about', title: 'About', url: '/pages/about'},
-    {id: 'blog', title: 'Blog', url: '/blogs/journal'},
-  ],
-};
+export const PAWRA_HEADER_MENU = [
+  {id: 'shop', title: 'Shop', url: '/collections/all'},
+  {id: 'collections', title: 'Collections', url: '/collections', hasDropdown: true},
+  {id: 'walker', title: 'Walker Program', url: '/pages/walker-program'},
+  {id: 'about', title: 'About', url: '/pages/about'},
+  {id: 'blog', title: 'Blog', url: '/blog'},
+];
+
+export const PAWRA_MOBILE_EXTRA = [
+  {id: 'how-it-works', title: 'How It Works', url: '/pages/how-it-works'},
+];
 
 /**
  * @param {HeaderProps}
  */
-export function Header({cart}) {
+export function Header({cart, isLoggedIn}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
 
   useEffect(() => {
     function onScroll() {
@@ -64,34 +67,80 @@ export function Header({cart}) {
           </NavLink>
 
           <nav className="hidden items-center gap-8 md:flex" role="navigation">
-            {PAWRA_HEADER_MENU.items.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.url}
-                className="font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
-              >
-                {item.title}
-              </NavLink>
-            ))}
+            {PAWRA_HEADER_MENU.map((item) =>
+              item.hasDropdown ? (
+                <div
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => setCollectionsOpen(true)}
+                  onMouseLeave={() => setCollectionsOpen(false)}
+                >
+                  <NavLink
+                    to={item.url}
+                    className="font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
+                  >
+                    {item.title}
+                  </NavLink>
+                  {collectionsOpen && (
+                    <div className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-lg border border-cloud/10 bg-midnight py-2 shadow-lg">
+                      {PAWRA_COLLECTIONS.map((col) => (
+                        <NavLink
+                          key={col.title}
+                          to={col.path}
+                          className="block px-4 py-2 font-sans text-body-s text-cloud no-underline hover:bg-forest-green/50"
+                        >
+                          {col.title}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  key={item.id}
+                  to={item.url}
+                  className="font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
+                >
+                  {item.title}
+                </NavLink>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-4">
-            <SearchToggle />
+            <NavLink to="/search" className="reset" aria-label="Search">
+              <Icon name="search" size="md" color="text-cloud" />
+            </NavLink>
             <button type="button" className="reset hidden sm:inline-flex" aria-label="Wishlist">
               <Icon name="heart" size="md" color="text-cloud" />
             </button>
+            <AccountToggle isLoggedIn={isLoggedIn} />
             <CartToggle cart={cart} />
           </div>
         </div>
       </header>
 
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} isLoggedIn={isLoggedIn} />
     </>
   );
 }
 
-function MobileDrawer({open, onClose}) {
+function AccountToggle({isLoggedIn}) {
+  return (
+    <NavLink
+      to={isLoggedIn ? '/account' : '/account/login'}
+      className="reset hidden sm:inline-flex"
+      aria-label={isLoggedIn ? 'Account' : 'Sign in'}
+    >
+      <Icon name="user" size="md" color="text-cloud" />
+    </NavLink>
+  );
+}
+
+function MobileDrawer({open, onClose, isLoggedIn}) {
   if (!open) return null;
+
+  const links = [...PAWRA_HEADER_MENU, ...PAWRA_MOBILE_EXTRA];
 
   return (
     <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true">
@@ -109,7 +158,7 @@ function MobileDrawer({open, onClose}) {
           </button>
         </div>
         <nav className="flex flex-col gap-1 p-5">
-          {PAWRA_HEADER_MENU.items.map((item) => (
+          {links.map((item) => (
             <NavLink
               key={item.id}
               to={item.url}
@@ -119,18 +168,16 @@ function MobileDrawer({open, onClose}) {
               {item.title}
             </NavLink>
           ))}
+          <NavLink
+            to={isLoggedIn ? '/account' : '/account/login'}
+            onClick={onClose}
+            className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+          >
+            {isLoggedIn ? 'My Account' : 'Sign In'}
+          </NavLink>
         </nav>
       </aside>
     </div>
-  );
-}
-
-function SearchToggle() {
-  const {open} = useAside();
-  return (
-    <button type="button" className="reset" onClick={() => open('search')} aria-label="Search">
-      <Icon name="search" size="md" color="text-cloud" />
-    </button>
   );
 }
 
@@ -139,11 +186,10 @@ function CartBadge({count}) {
   const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
-    <a
-      href="/cart"
-      className="relative inline-flex items-center no-underline"
-      onClick={(e) => {
-        e.preventDefault();
+    <button
+      type="button"
+      className="relative inline-flex items-center reset"
+      onClick={() => {
         open('cart');
         publish('cart_viewed', {cart, prevCart, shop, url: window.location.href || ''});
       }}
@@ -155,7 +201,7 @@ function CartBadge({count}) {
           {count}
         </span>
       )}
-    </a>
+    </button>
   );
 }
 
@@ -177,8 +223,7 @@ function CartBanner() {
 
 /** @typedef {Object} HeaderProps
  * @property {Promise<CartApiQueryFragment|null>} cart
- * @property {string} [publicStoreDomain]
- * @property {string} [primaryDomainUrl]
+ * @property {Promise<boolean>} [isLoggedIn]
  */
 
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */

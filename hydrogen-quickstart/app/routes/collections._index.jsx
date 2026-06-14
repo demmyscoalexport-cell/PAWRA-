@@ -1,114 +1,65 @@
-import {useLoaderData, Link} from 'react-router';
-import {getPaginationVariables, Image} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {useLoaderData} from 'react-router';
+import {getPaginationVariables} from '@shopify/hydrogen';
+import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
+import {PawraCollectionCard} from '~/components/PawraCollectionCard';
 
-/**
- * @param {Route.LoaderArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+export const meta = () => {
+  return [{title: 'PAWRA | Collections'}];
+};
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return {...deferredData, ...criticalData};
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
- */
-async function loadCriticalData({context, request}) {
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
-  });
-
+export async function loader({context, request}) {
+  const paginationVariables = getPaginationVariables(request, {pageBy: 20});
   const [{collections}] = await Promise.all([
-    context.storefront.query(COLLECTIONS_QUERY, {
-      variables: paginationVariables,
-    }),
-    // Add other queries here, so that they are loaded in parallel
+    context.storefront.query(COLLECTIONS_QUERY, {variables: paginationVariables}),
   ]);
 
-  return {collections};
+  const apiByHandle = Object.fromEntries(
+    (collections?.nodes ?? []).map((c) => [c.handle, c]),
+  );
+
+  const displayCollections = PAWRA_COLLECTIONS.map((item) => {
+    const api = item.handle !== 'all' ? apiByHandle[item.handle] : null;
+    return {
+      ...item,
+      image: api?.image ?? null,
+      productCount: api?.products?.nodes?.length ?? null,
+    };
+  });
+
+  return {collections: displayCollections};
 }
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
- */
-function loadDeferredData({context}) {
-  return {};
-}
-
-export default function Collections() {
-  /** @type {LoaderReturnData} */
+export default function CollectionsIndex() {
   const {collections} = useLoaderData();
 
   return (
-    <div className="collections">
-      <h1>Collections</h1>
-      <PaginatedResourceSection
-        connection={collections}
-        resourcesClassName="collections-grid"
-      >
-        {({node: collection, index}) => (
-          <CollectionItem
-            key={collection.id}
-            collection={collection}
-            index={index}
-          />
-        )}
-      </PaginatedResourceSection>
+    <div className="bg-warm-oat px-4 py-12 md:px-8 md:py-20">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="font-serif text-display-s text-forest-green md:text-[3.5rem]">
+          Collections
+        </h1>
+        <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
+          Smart pet technology organized the way you shop — tracking, feeding, safety, and more.
+        </p>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {collections.map((collection) => (
+            <PawraCollectionCard
+              key={`${collection.title}-${collection.path}`}
+              title={collection.title}
+              description={collection.description}
+              to={collection.path}
+              productCount={collection.productCount}
+              productCountLabel={collection.productCountLabel}
+              image={collection.image}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-/**
- * @param {{
- *   collection: CollectionFragment;
- *   index: number;
- * }}
- */
-function CollectionItem({collection, index}) {
-  return (
-    <Link
-      className="collection-item"
-      key={collection.id}
-      to={`/collections/${collection.handle}`}
-      prefetch="intent"
-    >
-      {collection?.image && (
-        <Image
-          alt={collection.image.altText || collection.title}
-          aspectRatio="1/1"
-          data={collection.image}
-          loading={index < 3 ? 'eager' : undefined}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h5>{collection.title}</h5>
-    </Link>
-  );
-}
-
 const COLLECTIONS_QUERY = `#graphql
-  fragment Collection on Collection {
-    id
-    title
-    handle
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
   query StoreCollections(
     $country: CountryCode
     $endCursor: String
@@ -117,25 +68,23 @@ const COLLECTIONS_QUERY = `#graphql
     $last: Int
     $startCursor: String
   ) @inContext(country: $country, language: $language) {
-    collections(
-      first: $first,
-      last: $last,
-      before: $startCursor,
-      after: $endCursor
-    ) {
+    collections(first: $first, last: $last, before: $startCursor, after: $endCursor) {
       nodes {
-        ...Collection
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
+        id
+        title
+        handle
+        image {
+          url
+          altText
+        }
+        products(first: 1) {
+          nodes {
+            id
+          }
+        }
       }
     }
   }
 `;
 
 /** @typedef {import('./+types/collections._index').Route} Route */
-/** @typedef {import('storefrontapi.generated').CollectionFragment} CollectionFragment */
-/** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

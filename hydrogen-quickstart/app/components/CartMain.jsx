@@ -31,7 +31,7 @@ function getLineItemChildrenMap(lines) {
  * It is used by both the /cart route and the cart aside dialog.
  * @param {CartMainProps}
  */
-export function CartMain({ layout, cart: originalCart }) {
+export function CartMain({ layout, cart: originalCart, showSummary = true }) {
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
@@ -63,7 +63,7 @@ export function CartMain({ layout, cart: originalCart }) {
             })}
           </ul>
         </div>
-        {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+        {cartHasItems && showSummary && <CartSummary cart={cart} layout={layout} />}
       </div>
     </section>
   );
@@ -94,6 +94,7 @@ function CartEmpty({ hidden = false }) {
  * @typedef {{
  *   cart: CartApiQueryFragment | null;
  *   layout: CartLayout;
+ *   showSummary?: boolean;
  * }} CartMainProps
  */
 /** @typedef {{[parentId: string]: CartLine[]}} LineItemChildrenMap */
