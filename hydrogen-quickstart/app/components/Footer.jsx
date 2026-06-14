@@ -1,124 +1,94 @@
-import { Suspense } from 'react';
-import { Await, NavLink } from 'react-router';
+import {NavLink} from 'react-router';
+import {Logo} from '~/components/ui/Logo';
+import {Icon} from '~/components/ui/Icon';
 
-/**
- * @param {FooterProps}
- */
-export function Footer({ footer: footerPromise, header, publicStoreDomain }) {
+const SHOP_LINKS = [
+  {label: 'GPS Collar', to: '/collections/all'},
+  {label: 'Fountain', to: '/collections/all'},
+  {label: 'Feeder', to: '/collections/all'},
+  {label: 'LED Collar', to: '/collections/all'},
+  {label: 'Tracker', to: '/collections/all'},
+];
+
+const COMPANY_LINKS = [
+  {label: 'About', to: '/pages/about'},
+  {label: 'Walker Program', to: '/pages/walker-program'},
+  {label: 'Blog', to: '/blogs/journal'},
+  {label: 'Press', to: '/pages/about'},
+];
+
+const SUPPORT_LINKS = [
+  {label: 'Track Order', to: '/account/orders'},
+  {label: 'Contact', to: '/pages/about'},
+  {label: 'Returns', to: '/policies/refund-policy'},
+  {label: 'FAQ', to: '/#faq'},
+  {label: 'Shipping', to: '/policies/shipping-policy'},
+];
+
+const SOCIAL = [
+  {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/shoppawra'},
+  {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@shoppawra'},
+  {label: 'Facebook', icon: 'facebook', href: 'https://facebook.com/shoppawra'},
+  {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/shoppawra'},
+];
+
+function FooterColumn({title, links}) {
   return (
-    <Suspense>
-      <Await resolve={footerPromise}>
-        {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
-          </footer>
-        )}
-      </Await>
-    </Suspense>
+    <div>
+      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud">
+        {title}
+      </p>
+      <ul className="space-y-2">
+        {links.map((link) => (
+          <li key={link.label}>
+            <NavLink
+              to={link.to}
+              className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
+            >
+              {link.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-/**
- * @param {{
- *   menu: FooterQuery['menu'];
- *   primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
- *   publicStoreDomain: string;
- * }}
- */
-function FooterMenu({ menu, primaryDomainUrl, publicStoreDomain }) {
+export function Footer() {
   return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-            {item.title}
-          </a>
-        ) : (
-          <NavLink end key={item.id} prefetch="intent" style={activeLinkStyle} to={url}>
-            {item.title}
-          </NavLink>
-        );
-      })}
-    </nav>
+    <footer className="border-t border-electric-jade bg-forest-night text-cloud">
+      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+          <div className="lg:col-span-2">
+            <Logo variant="light" height={36} />
+            <p className="mt-4 font-serif text-body-l italic text-cloud">
+              Every moment. Every pet. Every life.
+            </p>
+            <div className="mt-6 flex gap-4">
+              {SOCIAL.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="text-cloud/70 transition-colors hover:text-cloud"
+                >
+                  <Icon name={s.icon} size="md" color="text-cloud" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <FooterColumn title="Shop" links={SHOP_LINKS} />
+          <FooterColumn title="Company" links={COMPANY_LINKS} />
+          <FooterColumn title="Support" links={SUPPORT_LINKS} />
+        </div>
+        <div className="mt-12 border-t border-cloud/10 pt-8">
+          <p className="text-center font-mono text-[12px] text-cloud/40">
+            © 2025 PAWRA Group LLC · New York, NY · shoppawra.com
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }
-
-const FALLBACK_FOOTER_MENU = {
-  id: 'gid://shopify/Menu/199655620664',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461633060920',
-      resourceId: 'gid://shopify/ShopPolicy/23358046264',
-      tags: [],
-      title: 'Privacy Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/privacy-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633093688',
-      resourceId: 'gid://shopify/ShopPolicy/23358013496',
-      tags: [],
-      title: 'Refund Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/refund-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633126456',
-      resourceId: 'gid://shopify/ShopPolicy/23358111800',
-      tags: [],
-      title: 'Shipping Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/shipping-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
-      tags: [],
-      title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
-      items: [],
-    },
-  ],
-};
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({ isActive, isPending }) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
-}
-
-/**
- * @typedef {Object} FooterProps
- * @property {Promise<FooterQuery|null>} footer
- * @property {HeaderQuery} header
- * @property {string} publicStoreDomain
- */
-
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */

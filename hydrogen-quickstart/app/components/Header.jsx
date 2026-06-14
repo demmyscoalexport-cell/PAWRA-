@@ -1,146 +1,151 @@
-import { Suspense } from 'react';
-import { Await, NavLink, useAsyncValue } from 'react-router';
-import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
-import { useAside } from '~/components/Aside';
-import { Logo } from '~/components/ui/Logo';
-import { Icon } from '~/components/ui/Icon';
+import {Suspense, useEffect, useState} from 'react';
+import {Await, NavLink, useAsyncValue} from 'react-router';
+import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
+import {useAside} from '~/components/Aside';
+import {Logo} from '~/components/ui/Logo';
+import {Icon} from '~/components/ui/Icon';
+
+export const PAWRA_HEADER_MENU = {
+  id: 'gid://shopify/Menu/pawra-main',
+  items: [
+    {id: 'shop', title: 'Shop', url: '/collections/all'},
+    {id: 'collections', title: 'Collections', url: '/collections'},
+    {id: 'walker', title: 'Walker Program', url: '/pages/walker-program'},
+    {id: 'about', title: 'About', url: '/pages/about'},
+    {id: 'blog', title: 'Blog', url: '/blogs/journal'},
+  ],
+};
 
 /**
  * @param {HeaderProps}
  */
-export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
-  const { shop, menu } = header;
+export function Header({cart}) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive: true});
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   return (
-    <header className="header">
-      <NavLink
-        prefetch="intent"
-        to="/"
-        style={activeLinkStyle}
-        end
-        className="flex items-center gap-3 no-underline"
-        aria-label="PAWRA home"
+    <>
+      <header
+        className={`pawra-header sticky top-0 z-50 bg-forest-green transition-all duration-base ${
+          scrolled ? 'border-b border-electric-jade/15 bg-forest-green/95 backdrop-blur-md' : ''
+        }`}
       >
-        <Logo variant="light" height={32} />
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-    </header>
-  );
-}
-
-/**
- * @param {{
- *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
- *   viewport: Viewport;
- *   publicStoreDomain: HeaderProps['publicStoreDomain'];
- * }}
- */
-export function HeaderMenu({ menu, primaryDomainUrl, viewport, publicStoreDomain }) {
-  const className = `header-menu-${viewport}`;
-  const { close } = useAside();
-
-  return (
-    <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink end onClick={close} prefetch="intent" style={activeLinkStyle} to="/">
-          Home
-        </NavLink>
-      )}
-      {PAWRA_HEADER_MENU.items.map((item) => {
-        if (!item.url) return null;
-
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
-          <NavLink
-            className="header-menu-item font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
-            end
-            key={item.id}
-            onClick={close}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 md:px-8">
+          <button
+            type="button"
+            className="reset md:hidden"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
           >
-            {item.title}
+            <Icon name="menu" size="lg" color="text-cloud" />
+          </button>
+
+          <NavLink to="/" className="hidden no-underline md:flex" aria-label="PAWRA home">
+            <Logo variant="icon" height={36} />
           </NavLink>
-        );
-      })}
-    </nav>
+          <NavLink to="/" className="no-underline md:hidden" aria-label="PAWRA home">
+            <Logo variant="icon" height={32} />
+          </NavLink>
+
+          <nav className="hidden items-center gap-8 md:flex" role="navigation">
+            {PAWRA_HEADER_MENU.items.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.url}
+                className="font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade"
+              >
+                {item.title}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <SearchToggle />
+            <button type="button" className="reset hidden sm:inline-flex" aria-label="Wishlist">
+              <Icon name="heart" size="md" color="text-cloud" />
+            </button>
+            <CartToggle cart={cart} />
+          </div>
+        </div>
+      </header>
+
+      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+    </>
   );
 }
 
-/**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
- */
-function HeaderCtas({ isLoggedIn, cart }) {
-  return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle} className="hidden text-forest-green sm:inline-flex">
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
-    </nav>
-  );
-}
+function MobileDrawer({open, onClose}) {
+  if (!open) return null;
 
-function HeaderMenuMobileToggle() {
-  const { open } = useAside();
   return (
-    <button
-      className="header-menu-mobile-toggle reset text-forest-green"
-      onClick={() => open('mobile')}
-      aria-label="Open menu"
-    >
-      <Icon name="menu" size="lg" color="text-cloud" />
-    </button>
+    <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true">
+      <button
+        type="button"
+        className="absolute inset-0 bg-midnight/60 reset"
+        onClick={onClose}
+        aria-label="Close menu overlay"
+      />
+      <aside className="absolute left-0 top-0 flex h-full w-[min(320px,85vw)] flex-col bg-midnight shadow-xl">
+        <div className="flex items-center justify-between border-b border-cloud/10 px-5 py-4">
+          <Logo variant="light" height={28} />
+          <button type="button" className="reset" onClick={onClose} aria-label="Close menu">
+            <Icon name="close" size="md" color="text-cloud" />
+          </button>
+        </div>
+        <nav className="flex flex-col gap-1 p-5">
+          {PAWRA_HEADER_MENU.items.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.url}
+              onClick={onClose}
+              className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+            >
+              {item.title}
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+    </div>
   );
 }
 
 function SearchToggle() {
-  const { open } = useAside();
+  const {open} = useAside();
   return (
-    <button className="reset text-forest-green" onClick={() => open('search')} aria-label="Search">
+    <button type="button" className="reset" onClick={() => open('search')} aria-label="Search">
       <Icon name="search" size="md" color="text-cloud" />
     </button>
   );
 }
 
-/**
- * @param {{count: number}}
- */
-function CartBadge({ count }) {
-  const { open } = useAside();
-  const { publish, shop, cart, prevCart } = useAnalytics();
+function CartBadge({count}) {
+  const {open} = useAside();
+  const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
     <a
       href="/cart"
-      className="relative inline-flex items-center text-forest-green no-underline"
+      className="relative inline-flex items-center no-underline"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        });
+        publish('cart_viewed', {cart, prevCart, shop, url: window.location.href || ''});
       }}
       aria-label={`Cart, ${count} items`}
     >
@@ -154,10 +159,7 @@ function CartBadge({ count }) {
   );
 }
 
-/**
- * @param {Pick<HeaderProps, 'cart'>}
- */
-function CartToggle({ cart }) {
+function CartToggle({cart}) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
       <Await resolve={cart}>
@@ -173,79 +175,10 @@ function CartBanner() {
   return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }
 
-const PAWRA_HEADER_MENU = {
-  id: 'gid://shopify/Menu/pawra-main',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/pawra-shop',
-      resourceId: null,
-      tags: [],
-      title: 'Shop',
-      type: 'HTTP',
-      url: '/collections/all',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/pawra-collections',
-      resourceId: null,
-      tags: [],
-      title: 'Collections',
-      type: 'HTTP',
-      url: '/collections',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/pawra-walker',
-      resourceId: null,
-      tags: [],
-      title: 'Walker Program',
-      type: 'HTTP',
-      url: '/pages/walker-program',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/pawra-about',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/pawra-blog',
-      resourceId: null,
-      tags: [],
-      title: 'Blog',
-      type: 'HTTP',
-      url: '/blogs/journal',
-      items: [],
-    },
-  ],
-};
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({ isActive, isPending }) {
-  return {
-    fontWeight: isActive ? '600' : undefined,
-    color: isPending ? '#2EE8A0' : undefined,
-  };
-}
-
-/** @typedef {'desktop' | 'mobile'} Viewport */
-/**
- * @typedef {Object} HeaderProps
- * @property {HeaderQuery} header
+/** @typedef {Object} HeaderProps
  * @property {Promise<CartApiQueryFragment|null>} cart
- * @property {Promise<boolean>} isLoggedIn
- * @property {string} publicStoreDomain
+ * @property {string} [publicStoreDomain]
+ * @property {string} [primaryDomainUrl]
  */
 
-/** @typedef {import('@shopify/hydrogen').CartViewPayload} CartViewPayload */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
