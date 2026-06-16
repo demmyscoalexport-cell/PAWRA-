@@ -1,31 +1,32 @@
 import {useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
+import {BRAND} from '~/lib/branding';
 
 const FAQS = [
   {
-    q: 'How does the GPS collar work?',
-    a: 'The PAWRA GPS Smart Collar uses cellular and GPS technology to update your dog\'s location every 30 seconds. View live tracking, set geofences, and receive instant alerts through the PAWRA app.',
-  },
-  {
-    q: 'What is the battery life?',
-    a: 'The GPS collar delivers up to 7 days of battery life on a single charge with typical daily use. Low-battery alerts are sent to your phone before it runs out.',
-  },
-  {
-    q: 'Is the collar waterproof?',
-    a: 'Yes. The PAWRA GPS Smart Collar is IP67 rated — fully waterproof for rain, snow, and splashes during city walks.',
-  },
-  {
-    q: 'How do I track my dog\'s location?',
-    a: 'Download the PAWRA app, pair your collar, and open the live map. Share access with walkers or family members so everyone stays connected.',
-  },
-  {
-    q: 'What is the PAWRA Walker Program?',
-    a: 'Our Walker Program connects professional NYC dog walkers with PAWRA GPS tracking. Owners watch walks in real time; walkers get verified credentials and tools.',
+    q: 'What products does PAWRA sell?',
+    a: 'We curate premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — all delivered to your door.',
   },
   {
     q: 'Do you ship across the US?',
     a: 'Yes. We ship to all 50 states. Free shipping on orders over $75. Most orders arrive within 3–5 business days.',
+  },
+  {
+    q: 'What is your return policy?',
+    a: 'We offer 30-day returns on unused products in original packaging. Contact support@pawrapetshop.com for assistance.',
+  },
+  {
+    q: 'How do I track my order?',
+    a: 'After your order ships, you will receive a tracking link by email. You can also view order status in your account.',
+  },
+  {
+    q: 'How can I contact support?',
+    a: `Email us at ${BRAND.supportEmail}. We typically respond within one business day.`,
+  },
+  {
+    q: 'Are your products safe for both cats and dogs?',
+    a: 'Each product page lists species and sizing details. Always check the description before ordering for your pet.',
   },
 ];
 

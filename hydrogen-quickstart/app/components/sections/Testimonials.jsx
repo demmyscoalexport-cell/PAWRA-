@@ -4,21 +4,21 @@ import {Icon} from '~/components/ui/Icon';
 const REVIEWS = [
   {
     quote:
-      'Took my dog to Central Park and he slipped his leash near the Reservoir. Had his location on my phone in seconds. PAWRA paid for itself that day.',
+      'Finally found a store that carries quality food and beds for both my cat and dog. Fast shipping and great packaging.',
     name: 'Marcus T.',
-    meta: 'Upper East Side · dog Bruno',
+    meta: 'Maine · dog Bruno & cat Cleo',
   },
   {
     quote:
-      'My walker sends me a screenshot of the GPS map every morning. I can see exactly where Milo is during his walk. Worth every penny.',
+      'The grooming kit and treats arrived quickly. Everything feels premium — exactly what I wanted for my pets.',
     name: 'Priya S.',
-    meta: 'Brooklyn Heights · dog Milo',
+    meta: 'Vermont · dog Milo',
   },
   {
     quote:
-      'The smart fountain means I never worry about water when I am in long meetings. The feeder handles everything.',
+      'PAWRA has become our go-to for pet supplies. Reliable quality and excellent customer support.',
     name: 'James O.',
-    meta: 'Tribeca · dog Luna',
+    meta: 'New Hampshire · dog Luna',
   },
 ];
 
@@ -28,7 +28,7 @@ export function Testimonials() {
       <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center font-serif text-display-s text-forest-green">
-            What New York pet owners are saying.
+            What pet owners are saying.
           </h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {REVIEWS.map((review) => (

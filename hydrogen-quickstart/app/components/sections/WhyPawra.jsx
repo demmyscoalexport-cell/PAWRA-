@@ -4,18 +4,18 @@ import {Icon} from '~/components/ui/Icon';
 const PILLARS = [
   {
     icon: 'shield',
-    title: 'Safety First',
-    desc: "Your dog's location updated every 30 seconds. Geofence alerts the moment they leave your zone.",
+    title: 'Quality First',
+    desc: 'Every product is selected for safety, durability, and the wellbeing of your cat or dog.',
   },
   {
     icon: 'heart',
-    title: 'Health Always',
-    desc: 'Activity levels, hydration tracking, and feeding schedules all in one place.',
+    title: 'Pet Wellness',
+    desc: 'Nutrition, comfort, grooming, and wellness essentials in one trusted shop.',
   },
   {
-    icon: 'wifi',
-    title: 'Always Connected',
-    desc: 'The PAWRA app keeps you informed whether you are across the room or across the city.',
+    icon: 'truck',
+    title: 'Delivered to You',
+    desc: 'Fast, reliable shipping across the United States — free on orders over $75.',
   },
 ];
 

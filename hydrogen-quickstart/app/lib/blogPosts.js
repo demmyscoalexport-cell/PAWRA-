@@ -1,29 +1,29 @@
 export const BLOG_POSTS = [
   {
-    slug: 'keep-dog-safe-nyc',
-    category: 'Safety',
-    title: '5 ways to keep your dog safe in New York City',
+    slug: 'choosing-premium-pet-food',
+    category: 'Nutrition',
+    title: 'How to choose premium pet food for cats and dogs',
     date: '2025-03-12',
     excerpt:
-      'From leash slips near Central Park to busy crosswalks in Midtown — practical safety tips every NYC dog owner should know.',
-    href: '/blogs/journal/keep-dog-safe-nyc',
+      'A practical guide to reading labels, understanding ingredients, and picking the right food for your pet.',
+    href: '/blogs/journal/choosing-premium-pet-food',
   },
   {
-    slug: 'walkers-trust-gps',
-    category: 'Walker Program',
-    title: 'Why NYC dog walkers trust GPS collars',
+    slug: 'best-pet-beds-guide',
+    category: 'Comfort',
+    title: 'The complete guide to pet beds and comfort',
     date: '2025-02-28',
     excerpt:
-      'Professional walkers share how live GPS maps build client trust and reduce anxiety on every route.',
-    href: '/blogs/journal/walkers-trust-gps',
+      'From orthopedic options to washable covers — what to look for when shopping for your cat or dog.',
+    href: '/blogs/journal/best-pet-beds-guide',
   },
   {
-    slug: 'pet-health-tracking-guide',
-    category: 'Health',
-    title: 'The complete guide to pet health tracking',
+    slug: 'grooming-essentials',
+    category: 'Wellness',
+    title: 'Grooming essentials every pet owner needs',
     date: '2025-01-15',
     excerpt:
-      'Activity, hydration, feeding schedules, and alerts — how smart devices help you spot issues early.',
-    href: '/blogs/journal/pet-health-tracking-guide',
+      'Brushes, shampoos, nail care, and dental products that keep cats and dogs healthy at home.',
+    href: '/blogs/journal/grooming-essentials',
   },
 ];

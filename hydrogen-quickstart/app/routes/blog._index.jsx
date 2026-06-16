@@ -2,10 +2,12 @@ import {Link} from 'react-router';
 import {BLOG_POSTS} from '~/lib/blogPosts';
 import {Button} from '~/components/ui/Button';
 
+import {BRAND} from '~/lib/branding';
+
 export const meta = () => {
   return [
     {title: 'PAWRA Journal | Blog'},
-    {name: 'description', content: 'Pet safety, health, and NYC walker stories from PAWRA.'},
+    {name: 'description', content: `Pet care tips, product guides, and wellness advice from ${BRAND.name}.`},
   ];
 };
 
@@ -22,7 +24,7 @@ export default function BlogIndex() {
         </p>
         <h1 className="mt-3 font-serif text-display-s text-forest-green">Stories for pet people.</h1>
         <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
-          Safety tips, walker insights, and guides for smarter pet care in the city.
+          Tips, guides, and stories for cat and dog owners who want the best for their pets.
         </p>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {BLOG_POSTS.map((post) => (

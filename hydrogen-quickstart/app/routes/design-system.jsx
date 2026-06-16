@@ -4,9 +4,10 @@ import {Card} from '~/components/ui/Card';
 import {Icon} from '~/components/ui/Icon';
 import {Logo} from '~/components/ui/Logo';
 import {PulseRing} from '~/components/ui/PulseRing';
+import {BRAND} from '~/lib/branding';
 
 export const meta = () => {
-  return [{title: 'PAWRA Design System | shoppawra.com'}];
+  return [{title: `PAWRA Design System | ${BRAND.domain}`}];
 };
 
 const COLORS = [
@@ -91,8 +92,8 @@ export default function DesignSystem() {
         </p>
         <h1 className="font-serif text-display-m text-forest-green">Brand Experience Tokens</h1>
         <p className="mt-3 max-w-2xl font-sans text-body-l text-ink/70">
-          Every moment. Every pet. Every life. — Visual reference for colors, typography,
-          spacing, components, and animations at shoppawra.com.
+          {BRAND.tagline} — Visual reference for colors, typography,
+          spacing, components, and animations at {BRAND.domain}.
         </p>
       </header>
 
@@ -191,7 +192,7 @@ export default function DesignSystem() {
         </div>
       </Section>
 
-      <Section title="Pulse Ring — Live GPS">
+      <Section title="Pulse Ring — Status indicator">
         <div className="flex items-center gap-6 rounded-xl bg-forest-night p-8">
           <PulseRing size="sm" />
           <PulseRing size="md" />
@@ -206,36 +207,36 @@ export default function DesignSystem() {
         <div className="grid gap-6 md:grid-cols-2">
           <Card
             variant="product"
-            title="Urban Leash Pro"
-            description="Premium braided leash for city walks."
+            title="Premium Dog Leash"
+            description="Durable braided leash for daily walks."
             badge="new"
             image={<div className="flex h-full items-center justify-center bg-warm-oat font-serif text-heading-s text-forest-green/30">Product</div>}
           />
           <Card
             variant="product-hero"
-            title="Winter Collection"
-            description="Cold-weather essentials for NYC pets."
+            title="Cozy Pet Beds"
+            description="Comfort essentials for cats and dogs."
             badge="best-seller"
             image={<div className="flex h-full items-center justify-center font-serif text-heading-l text-electric-jade/40">Hero</div>}
           />
           <Card
             variant="feature"
-            title="Walker Program"
-            description="Vetted NYC dog walkers with live GPS tracking."
+            title="Grooming Collection"
+            description="Health and hygiene supplies for every pet."
           />
-          <Card variant="stat" value="2,400+" title="Happy Pets" description="Across Manhattan & Brooklyn" />
+          <Card variant="stat" value="2,400+" title="Happy Pets" description="Across the United States" />
           <Card
             variant="testimonial"
-            quote="PAWRA changed how we walk our corgi in the city."
-            author="Sarah M., Upper West Side"
+            quote="PAWRA has everything we need for our cat and dog in one place."
+            author="Sarah M., Maine"
             description="Verified customer"
           />
           <Card
             variant="walker-program"
-            title="Join the Walker Network"
-            description="Earn with flexible hours. GPS-enabled walks."
-            badge="walker-approved"
-            action={<Button variant="accent" size="sm">Apply Now</Button>}
+            title="Shop Food & Treats"
+            description="Premium nutrition curated for cats and dogs."
+            badge="best-seller"
+            action={<Button variant="accent" size="sm">Shop Now</Button>}
           />
         </div>
       </Section>

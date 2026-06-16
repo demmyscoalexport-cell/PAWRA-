@@ -1,35 +1,36 @@
 import {NavLink} from 'react-router';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
+import {BRAND} from '~/lib/branding';
 
 const SHOP_LINKS = [
-  {label: 'GPS Collar', to: '/collections/all'},
-  {label: 'Fountain', to: '/collections/all'},
-  {label: 'Feeder', to: '/collections/all'},
-  {label: 'LED Collar', to: '/collections/all'},
-  {label: 'Tracker', to: '/collections/all'},
+  {label: 'All Products', to: '/collections/all'},
+  {label: 'Dog Products', to: '/collections/hydrogen'},
+  {label: 'Cat Products', to: '/collections/automated-collection'},
+  {label: 'Food & Treats', to: '/collections/frontpage'},
+  {label: 'Grooming', to: '/collections/all'},
 ];
 
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
-  {label: 'Walker Program', to: '/pages/walker-program'},
+  {label: 'How It Works', to: '/pages/how-it-works'},
   {label: 'Blog', to: '/blog'},
-  {label: 'Press', to: '/pages/about'},
+  {label: 'Contact', to: '/pages/contact'},
 ];
 
 const SUPPORT_LINKS = [
   {label: 'Track Order', to: '/account/orders'},
-  {label: 'Contact', to: '/pages/about'},
+  {label: 'Contact', to: '/pages/contact'},
   {label: 'Returns', to: '/policies/refund-policy'},
   {label: 'FAQ', to: '/#faq'},
   {label: 'Shipping', to: '/policies/shipping-policy'},
 ];
 
 const SOCIAL = [
-  {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/shoppawra'},
-  {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@shoppawra'},
-  {label: 'Facebook', icon: 'facebook', href: 'https://facebook.com/shoppawra'},
-  {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/shoppawra'},
+  {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/pawrapetshop'},
+  {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@pawrapetshop'},
+  {label: 'Facebook', icon: 'facebook', href: 'https://facebook.com/pawrapetshop'},
+  {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/pawrapetshop'},
 ];
 
 function FooterColumn({title, links}) {
@@ -62,7 +63,15 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Logo variant="light" height={36} />
             <p className="mt-4 font-serif text-body-l italic text-cloud">
-              Every moment. Every pet. Every life.
+              {BRAND.tagline}
+            </p>
+            <p className="mt-2 font-sans text-body-s text-cloud/60">
+              {BRAND.address.line1}, {BRAND.address.city}, {BRAND.address.state} {BRAND.address.zip}
+            </p>
+            <p className="mt-1 font-sans text-body-s text-cloud/60">
+              <a href={`mailto:${BRAND.supportEmail}`} className="text-cloud/70 no-underline hover:text-cloud">
+                {BRAND.supportEmail}
+              </a>
             </p>
             <div className="mt-6 flex gap-4">
               {SOCIAL.map((s) => (
@@ -85,7 +94,7 @@ export function Footer() {
         </div>
         <div className="mt-12 border-t border-cloud/10 pt-8">
           <p className="text-center font-mono text-[12px] text-cloud/40">
-            © 2025 PAWRA Group LLC · New York, NY · shoppawra.com
+            {BRAND.copyright}
           </p>
         </div>
       </div>

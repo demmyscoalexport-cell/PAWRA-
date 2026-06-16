@@ -5,7 +5,6 @@ export {HeroProductSpotlight} from './HeroProductSpotlight';
 export {CompleteYourSetup} from './CompleteYourSetup';
 export {WhyPawra} from './WhyPawra';
 export {Ecosystem} from './Ecosystem';
-export {WalkerProgramSection} from './WalkerProgramSection';
 export {FrequentlyBoughtTogether} from './FrequentlyBoughtTogether';
 export {Testimonials} from './Testimonials';
 export {FAQ} from './FAQ';

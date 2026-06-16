@@ -4,11 +4,11 @@ import {Badge} from '~/components/ui/Badge';
 import {ProductImagePlaceholder} from './ProductImagePlaceholder';
 
 const PRODUCTS = [
-  {name: 'PAWRA GPS Smart Collar', price: 'From $69', desc: 'Real-time GPS for city dogs', badge: 'best-seller'},
-  {name: 'PAWRA Smart Water Fountain', price: 'From $45', desc: 'Always-fresh hydration tracking', badge: null},
-  {name: 'PAWRA Automatic Smart Feeder', price: 'From $55', desc: 'Scheduled meals, app controlled', badge: null},
-  {name: 'PAWRA LED Safety Collar', price: 'From $22', desc: 'Visible on every evening walk', badge: null},
-  {name: 'PAWRA Activity Tracker', price: 'From $35', desc: 'Daily steps and wellness insights', badge: null},
+  {name: 'Premium Dog Food', price: 'Shop now', desc: 'Nutrition for every breed', badge: 'best-seller'},
+  {name: 'Cozy Pet Bed', price: 'Shop now', desc: 'Comfort for cats and dogs', badge: null},
+  {name: 'Interactive Toys', price: 'Shop now', desc: 'Playtime essentials', badge: null},
+  {name: 'Grooming Kit', price: 'Shop now', desc: 'Keep coats healthy and clean', badge: null},
+  {name: 'Collars & Leashes', price: 'Shop now', desc: 'Durable everyday gear', badge: null},
 ];
 
 export function CompleteYourSetup() {
@@ -25,7 +25,7 @@ export function CompleteYourSetup() {
                 key={product.name}
                 className="min-w-[240px] flex-shrink-0 rounded-lg bg-cloud p-4 shadow-card transition-shadow hover:shadow-elevated md:min-w-0"
               >
-                <ProductImagePlaceholder label={product.name.split(' ').slice(-2).join(' ')} className="rounded-md" />
+                <ProductImagePlaceholder label={product.name} className="rounded-md" />
                 {product.badge && (
                   <div className="mt-3">
                     <Badge type={product.badge} />
@@ -33,9 +33,8 @@ export function CompleteYourSetup() {
                 )}
                 <h3 className="mt-3 font-sans text-body-m font-semibold text-ink">{product.name}</h3>
                 <p className="mt-1 font-sans text-body-s text-ink/60">{product.desc}</p>
-                <p className="mt-3 font-mono text-mono-m text-forest-green">{product.price}</p>
                 <Button variant="primary" size="sm" className="mt-4 w-full" href="/collections/all">
-                  Add to Cart
+                  {product.price}
                 </Button>
               </article>
             ))}

@@ -21,7 +21,7 @@ export default function AccountDashboard() {
       title: 'Saved Addresses',
       value: 'Manage shipping',
       href: '/account/addresses',
-      icon: 'gps',
+      icon: 'user',
     },
     {
       title: 'Wishlist',
@@ -30,9 +30,9 @@ export default function AccountDashboard() {
       icon: 'heart',
     },
     {
-      title: 'PAWRA Care Plan',
-      value: 'Not active',
-      href: '/pages/how-it-works',
+      title: 'Help & Support',
+      value: 'Contact us',
+      href: '/pages/contact',
       icon: 'star',
     },
   ];

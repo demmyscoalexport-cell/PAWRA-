@@ -11,19 +11,19 @@ import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceho
 
 const PRODUCT_FAQ = [
   {q: 'How long does shipping take?', a: 'Most US orders arrive in 3–5 business days. Free shipping on orders over $75.'},
-  {q: 'Is this compatible with the PAWRA app?', a: 'Yes. All PAWRA smart devices pair with the iOS and Android PAWRA app in under five minutes.'},
-  {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging. Walker Approved items include extended support.'},
-  {q: 'Does it work with professional walkers?', a: 'Yes. Share live GPS access with walkers through the PAWRA Walker Program.'},
-  {q: 'Is the device waterproof?', a: 'Outdoor PAWRA devices are IP67 rated for rain, snow, and splashes during city walks.'},
-  {q: 'What warranty is included?', a: 'Every PAWRA device includes a 1-year limited warranty with optional Care Plan coverage.'},
+  {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
+  {q: 'Are products safe for cats and dogs?', a: 'Every item is curated for pet safety. Check the product description for species-specific guidance.'},
+  {q: 'Do you ship nationwide?', a: 'Yes — we ship to all 50 US states from our Presque Isle, ME fulfillment center.'},
+  {q: 'How do I contact support?', a: 'Email support@pawrapetshop.com and we will respond within one business day.'},
+  {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships.'},
 ];
 
 const FEATURES = [
-  {icon: 'gps', label: 'Live GPS tracking every 30 seconds'},
-  {icon: 'shield', label: 'Geofence and safety alerts'},
-  {icon: 'wifi', label: 'Cellular connectivity included'},
-  {icon: 'check', label: 'Walker Approved for NYC routes'},
-  {icon: 'heart', label: 'Health and activity insights'},
+  {icon: 'shield', label: 'Premium quality materials'},
+  {icon: 'heart', label: 'Designed for pet wellness'},
+  {icon: 'check', label: 'Curated for cats and dogs'},
+  {icon: 'leaf', label: 'Trusted brands and ingredients'},
+  {icon: 'star', label: 'PAWRA quality standards'},
   {icon: 'truck', label: 'Free US shipping over $75'},
 ];
 
@@ -40,7 +40,6 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   const navigate = useNavigate();
   const ctaRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
-  const [carePlan, setCarePlan] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
 
@@ -224,30 +223,12 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </AddToCartButton>
             </div>
 
-            <label className="mt-4 flex cursor-pointer items-start gap-4 rounded-xl border border-champagne bg-cloud/80 p-4">
-              <input
-                type="checkbox"
-                checked={carePlan}
-                onChange={(e) => setCarePlan(e.target.checked)}
-                className="mt-1"
-              />
-              <div>
-                <div className="flex items-center gap-2">
-                  <Icon name="star" size="sm" color="text-champagne" />
-                  <span className="font-sans text-body-m font-semibold text-ink">Add PAWRA Care Plan</span>
-                </div>
-                <p className="mt-1 font-sans text-body-s text-ink/70">
-                  $4.99/month — GPS monitoring, health alerts, priority support
-                </p>
-              </div>
-            </label>
-
             <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">
               {[
                 'Free US shipping',
                 '30-day returns',
-                '1-year warranty',
-                'Walker Approved',
+                'Premium quality',
+                'Cats & dogs',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <Icon name="check" size="sm" color="text-electric-jade" />
@@ -279,11 +260,11 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
           <table className="mt-8 w-full font-mono text-mono-s">
             <tbody>
               {[
-                ['Connectivity', 'LTE + GPS'],
-                ['Battery', 'Up to 7 days'],
-                ['Water rating', 'IP67'],
-                ['Weight', '2.4 oz'],
-                ['Compatibility', 'Dogs 15–120 lbs'],
+                ['Brand', product.vendor || 'PAWRA'],
+                ['Category', product.productType || 'Pet supplies'],
+                ['Availability', selectedVariant?.availableForSale ? 'In stock' : 'Sold out'],
+                ['Shipping', 'Free over $75 (US)'],
+                ['Returns', '30 days'],
               ].map(([k, v]) => (
                 <tr key={k} className="border-b border-forest-green/10">
                   <td className="py-3 text-ink/60">{k}</td>
@@ -299,7 +280,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         <div className="mx-auto max-w-3xl">
           <h2 className="font-serif text-display-s text-forest-green">What&apos;s in the box</h2>
           <ul className="mt-8 space-y-3">
-            {['PAWRA device', 'USB-C charging cable', 'Quick start guide', 'PAWRA app access card'].map(
+            {['Product', 'Care instructions', 'PAWRA quality guarantee'].map(
               (item) => (
                 <li key={item} className="flex items-center gap-3 font-sans text-body-m text-ink">
                   <Icon name="check" size="sm" color="text-electric-jade" />

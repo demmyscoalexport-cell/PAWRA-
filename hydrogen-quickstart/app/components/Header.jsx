@@ -9,13 +9,13 @@ import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
 export const PAWRA_HEADER_MENU = [
   {id: 'shop', title: 'Shop', url: '/collections/all'},
   {id: 'collections', title: 'Collections', url: '/collections', hasDropdown: true},
-  {id: 'walker', title: 'Walker Program', url: '/pages/walker-program'},
   {id: 'about', title: 'About', url: '/pages/about'},
   {id: 'blog', title: 'Blog', url: '/blog'},
 ];
 
 export const PAWRA_MOBILE_EXTRA = [
   {id: 'how-it-works', title: 'How It Works', url: '/pages/how-it-works'},
+  {id: 'contact', title: 'Contact', url: '/pages/contact'},
 ];
 
 /**

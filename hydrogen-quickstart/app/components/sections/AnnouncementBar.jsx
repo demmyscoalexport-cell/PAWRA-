@@ -3,7 +3,7 @@ import {Icon} from '~/components/ui/Icon';
 
 const MESSAGES = [
   'Free shipping on all US orders over $75',
-  'Trusted by New York dog walkers',
+  'Premium products for cats and dogs',
   '30-day returns',
 ];
 const STORAGE_KEY = 'pawra-announcement-closed';

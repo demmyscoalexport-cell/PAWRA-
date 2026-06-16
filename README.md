@@ -1,49 +1,46 @@
 # PAWRA - Premium Pet Lifestyle Ecommerce Platform
 
-A luxury, enterprise-grade headless Shopify storefront built with React, Vite, and modern web technologies.
+A unified headless Shopify storefront for dogs and cats — built with **Shopify Hydrogen**, one brand, one catalog, one app.
 
 ## Quick Start
 
+The **entire PAWRA storefront** lives in `hydrogen-quickstart/`. From the repo root:
+
 ```bash
-# Install dependencies
+# Install dependencies (root + Hydrogen workspace)
 npm install
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your Shopify credentials
-
-# Start development server
+# Start the PAWRA Hydrogen storefront
 npm run dev
+```
 
-# Build for production
+Open the URL shown in the terminal (usually `http://localhost:3000/`).
+
+```bash
+# Production build
 npm run build
 
 # Preview production build
 npm run preview
 ```
 
+Shopify env vars go in `hydrogen-quickstart/.env` (create from Shopify Hydrogen link / mock.shop setup).
+
 ## Architecture
 
 ### Project Structure
 
 ```
-src/
-├── api/                    # Shopify API integration
-├── components/             # React components
-│   ├── ui/                 # Base UI components
-│   ├── layout/             # Layout components
-│   ├── product/            # Product components
-│   ├── cart/               # Cart components
-│   ├── collection/         # Collection components
-│   └── ...
-├── hooks/                  # Custom React hooks
-├── stores/                 # Zustand state management
-├── pages/                  # Page components
-├── utils/                  # Utility functions
-├── styles/                 # Global styles
-├── constants/              # App constants
-├── animations/             # Animation configurations
-└── App.jsx                 # Main app component
+hydrogen-quickstart/          # ← The PAWRA app (run npm run dev from repo root)
+├── app/
+│   ├── components/           # UI, sections, cart, header, footer
+│   ├── routes/               # Homepage, collections, PDP, cart, account, blog
+│   ├── lib/                  # Static pages, collections, blog data
+│   └── styles/               # Tailwind + app CSS
+├── package.json              # Workspace: pawra-store
+└── vite.config.js
+
+src/                          # Legacy Vite prototype (not used by npm run dev)
 ```
 
 ## Key Features

@@ -1,61 +1,60 @@
-/** PAWRA collection cards — handles map to mock.shop where available */
+/** PAWRA collection cards — mapped to Shopify collection handles when available */
 export const PAWRA_COLLECTIONS = [
   {
     handle: 'all',
     title: 'All Products',
-    description: 'Every PAWRA smart pet product in one place.',
+    description: 'Every premium pet product for cats and dogs.',
     path: '/collections/all',
     productCountLabel: 'Shop all',
   },
   {
     handle: 'hydrogen',
-    title: 'GPS and Tracking',
-    description: 'GPS collars and live location tracking for urban dogs.',
+    title: 'Dog Products',
+    description: 'Food, beds, toys, collars, and wellness for dogs.',
     path: '/collections/hydrogen',
     productCountLabel: null,
   },
   {
     handle: 'automated-collection',
-    title: 'Feeding and Hydration',
-    description: 'Smart fountains and automatic feeders for busy NYC schedules.',
+    title: 'Cat Products',
+    description: 'Food, beds, toys, and grooming essentials for cats.',
     path: '/collections/automated-collection',
     productCountLabel: null,
   },
   {
     handle: 'frontpage',
-    title: 'Safety and Visibility',
-    description: 'LED collars, trackers, and visibility gear for city walks.',
+    title: 'Food & Treats',
+    description: 'Premium nutrition and treats for cats and dogs.',
     path: '/collections/frontpage',
     productCountLabel: null,
   },
   {
     handle: 'hydrogen',
-    title: 'Dogs',
-    description: 'Smart technology designed for dogs and their walkers.',
+    title: 'Beds & Comfort',
+    description: 'Cozy beds and comfort essentials for every pet.',
     path: '/collections/hydrogen',
     productCountLabel: null,
   },
   {
     handle: 'automated-collection',
-    title: 'Cats',
-    description: 'Hydration and feeding solutions for urban cats.',
+    title: 'Grooming & Wellness',
+    description: 'Grooming supplies and wellness products delivered to your door.',
     path: '/collections/automated-collection',
     productCountLabel: null,
   },
 ];
 
-/** Fallback metadata when Shopify collection handle is missing */
 export const PAWRA_COLLECTION_FALLBACK = {
   hydrogen: {
-    title: 'GPS and Tracking',
-    description: 'GPS collars and live location tracking for urban dogs.',
+    title: 'Dog Products',
+    description: 'Premium products curated for dogs.',
   },
   'automated-collection': {
-    title: 'Feeding and Hydration',
-    description: 'Smart fountains and automatic feeders.',
+    title: 'Cat Products',
+    description: 'Premium products curated for cats.',
   },
   frontpage: {
-    title: 'Safety and Visibility',
-    description: 'LED collars, trackers, and visibility gear.',
+    title: 'Food & Treats',
+    description: 'Nutrition and treats for cats and dogs.',
   },
 };

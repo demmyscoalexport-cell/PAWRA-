@@ -2,9 +2,9 @@ import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
 
 const ITEMS = [
-  {icon: 'gps', label: 'Real-Time GPS', desc: 'Live location updated every 30 seconds'},
-  {icon: 'shield', label: 'Safety Alerts', desc: 'Instant geofence exit notifications to your phone'},
-  {icon: 'heart', label: 'Health Tracking', desc: 'Activity and wellness data at a glance'},
+  {icon: 'shield', label: 'Premium Quality', desc: 'Curated products for cats and dogs'},
+  {icon: 'heart', label: 'Pet Wellness', desc: 'Food, beds, toys, grooming & more'},
+  {icon: 'check', label: '30-Day Returns', desc: 'Shop with confidence'},
   {icon: 'truck', label: 'Free US Shipping', desc: 'On all orders over $75'},
 ];
 

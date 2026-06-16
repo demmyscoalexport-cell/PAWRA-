@@ -5,22 +5,19 @@ import {
   CompleteYourSetup,
   WhyPawra,
   Ecosystem,
-  WalkerProgramSection,
   FrequentlyBoughtTogether,
   Testimonials,
   FAQ,
 } from '~/components/sections';
+import {BRAND} from '~/lib/branding';
 
-/**
- * @type {Route.MetaFunction}
- */
 export const meta = () => {
   return [
-    {title: 'PAWRA — Peace of Mind for Every Paw | shoppawra.com'},
+    {title: `PAWRA — ${BRAND.tagline} | ${BRAND.domain}`},
     {
       name: 'description',
       content:
-        'Smart pet technology for urban dog owners in New York. GPS collars, health tracking, and the PAWRA Walker Program.',
+        'Premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — delivered to your door.',
     },
   ];
 };
@@ -38,7 +35,6 @@ export default function Homepage() {
       <CompleteYourSetup />
       <WhyPawra />
       <Ecosystem />
-      <WalkerProgramSection />
       <FrequentlyBoughtTogether />
       <Testimonials />
       <div id="faq">
