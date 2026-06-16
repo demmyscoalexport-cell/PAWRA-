@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file graphiql.jsx
+ * @description Route module: graphiql — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {graphiqlLoader} from '@shopify/hydrogen';
 
 const STOREFRONT_API_VERSION = '2026-04';

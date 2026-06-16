@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file PawraProductCard.jsx
+ * @description Shared component: PawraProductCard.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {Link} from 'react-router';
 import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';

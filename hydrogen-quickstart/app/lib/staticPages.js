@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file staticPages.js
+ * @description Storefront utility module: staticPages.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {ABOUT_COPY, BRAND} from '~/lib/branding';
 
 /** @type {Record<string, {title: string; description: string; body: string}>} */

@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file FAQ.jsx
+ * @description Homepage/marketing section: FAQ.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';

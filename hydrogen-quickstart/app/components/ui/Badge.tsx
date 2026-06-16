@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Badge.tsx
+ * @description Design system UI primitive: Badge.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 export type BadgeType =
   | 'new'
   | 'best-seller'

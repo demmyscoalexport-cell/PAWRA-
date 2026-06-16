@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file AnnouncementBar.jsx
+ * @description Homepage/marketing section: AnnouncementBar.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useEffect, useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
 

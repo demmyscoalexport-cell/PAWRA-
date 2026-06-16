@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file account.orders.$id.jsx
+ * @description Route module: account.orders.$id — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {redirect, useLoaderData} from 'react-router';
 import {Money, Image} from '@shopify/hydrogen';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';

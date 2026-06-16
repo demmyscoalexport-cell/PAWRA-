@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file FaqAccordion.jsx
+ * @description Shared component: FaqAccordion.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
 

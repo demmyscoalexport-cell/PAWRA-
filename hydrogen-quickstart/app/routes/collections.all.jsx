@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file collections.all.jsx
+ * @description Route module: collections.all — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useLoaderData} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';

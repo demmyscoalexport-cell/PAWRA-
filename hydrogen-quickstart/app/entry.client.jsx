@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file entry.client.jsx
+ * @description Client-side hydration entry for the Hydrogen storefront.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { HydratedRouter } from 'react-router/dom';
 import { startTransition, StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';

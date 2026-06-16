@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file account_.logout.jsx
+ * @description Route module: account_.logout — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {redirect} from 'react-router';
 
 // if we don't implement this, /account/logout will get caught by account.$.tsx to do login

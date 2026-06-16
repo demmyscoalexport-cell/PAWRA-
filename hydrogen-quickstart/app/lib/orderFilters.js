@@ -1,4 +1,20 @@
 /**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file orderFilters.js
+ * @description Storefront utility module: orderFilters.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
+/**
  * Field name constants for order filtering
  */
 export const ORDER_FILTER_FIELDS = {

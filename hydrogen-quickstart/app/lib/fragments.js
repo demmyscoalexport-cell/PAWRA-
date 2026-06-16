@@ -1,9 +1,40 @@
-// NOTE: https://shopify.dev/docs/api/storefront/latest/queries/cart
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file fragments.js
+ * @description Storefront utility module: fragments.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
+/**
+ * Shared Storefront API GraphQL fragments and queries for PAWRA Pet Shop.
+ * Used by root layout (header/footer), cart, and global navigation.
+ *
+ * @see https://shopify.dev/docs/api/storefront/latest/queries/cart
+ */
+
+// ─── Cart Fragments ───────────────────────────────────────────────────────────
+
+/**
+ * Reusable cart query fragment consumed by Hydrogen's cart handler.
+ * Includes line items, buyer identity, discount codes, and cost breakdown.
+ */
 export const CART_QUERY_FRAGMENT = `#graphql
+  # Money — normalized price representation across cart and checkout
   fragment Money on MoneyV2 {
     currencyCode
     amount
   }
+
+  # CartLine — standard cart line with variant merchandise and pricing
   fragment CartLine on CartLine {
     id
     quantity
@@ -60,6 +91,8 @@ export const CART_QUERY_FRAGMENT = `#graphql
       }
     }
   }
+
+  # CartLineComponent — bundle/component lines (e.g. product bundles)
   fragment CartLineComponent on ComponentizableCartLine {
     id
     quantity
@@ -113,6 +146,8 @@ export const CART_QUERY_FRAGMENT = `#graphql
       ...CartLine
     }
   }
+
+  # CartApiQuery — full cart shape returned by cart.get() and mutations
   fragment CartApiQuery on Cart {
     updatedAt
     id
@@ -171,6 +206,9 @@ export const CART_QUERY_FRAGMENT = `#graphql
   }
 `;
 
+// ─── Navigation Menu Fragments ────────────────────────────────────────────────
+
+/** Nested menu structure for header and footer navigation trees. */
 const MENU_FRAGMENT = `#graphql
   fragment MenuItem on MenuItem {
     id
@@ -197,6 +235,12 @@ const MENU_FRAGMENT = `#graphql
   }
 `;
 
+// ─── Layout Queries ───────────────────────────────────────────────────────────
+
+/**
+ * Header layout query — shop metadata and main navigation menu.
+ * Menu handle is configured in root.jsx loader (`main-menu`).
+ */
 export const HEADER_QUERY = `#graphql
   fragment Shop on Shop {
     id
@@ -228,6 +272,10 @@ export const HEADER_QUERY = `#graphql
   ${MENU_FRAGMENT}
 `;
 
+/**
+ * Footer layout query — footer navigation menu only (deferred in root loader).
+ * Menu handle is configured in root.jsx loader (`footer`).
+ */
 export const FOOTER_QUERY = `#graphql
   query Footer(
     $country: CountryCode

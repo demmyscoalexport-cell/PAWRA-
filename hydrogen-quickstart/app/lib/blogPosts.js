@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file blogPosts.js
+ * @description Storefront utility module: blogPosts.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 export const BLOG_POSTS = [
   {
     slug: 'choosing-premium-pet-food',

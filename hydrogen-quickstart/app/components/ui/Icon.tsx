@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Icon.tsx
+ * @description Design system UI primitive: Icon.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import type {SVGProps} from 'react';
 
 export type IconName =

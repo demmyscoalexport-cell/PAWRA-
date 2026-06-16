@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file ProductForm.jsx
+ * @description Shared component: ProductForm.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {Link, useNavigate} from 'react-router';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';

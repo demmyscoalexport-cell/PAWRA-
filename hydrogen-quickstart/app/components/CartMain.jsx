@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file CartMain.jsx
+ * @description Shared component: CartMain.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { useOptimisticCart } from '@shopify/hydrogen';
 import { Link } from 'react-router';
 import { useAside } from '~/components/Aside';

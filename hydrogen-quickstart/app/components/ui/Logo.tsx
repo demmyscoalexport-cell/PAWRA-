@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Logo.tsx
+ * @description Design system UI primitive: Logo.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import logoPrimary from '~/assets/logos/logo-primary.svg?url';
 import logoHorizontal from '~/assets/logos/logo-horizontal.svg?url';
 import logoIcon from '~/assets/logos/logo-icon.svg?url';

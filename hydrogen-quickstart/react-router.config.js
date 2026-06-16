@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file react-router.config.js
+ * @description React Router 7 config with Shopify Hydrogen preset for Oxygen.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { hydrogenPreset } from '@shopify/hydrogen/react-router-preset';
 
 /**

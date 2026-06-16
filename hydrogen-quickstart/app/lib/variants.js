@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file variants.js
+ * @description Storefront utility module: variants.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { useLocation } from 'react-router';
 import { useMemo } from 'react';
 

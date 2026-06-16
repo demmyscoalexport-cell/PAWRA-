@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file CustomerAddressMutations.js
+ * @description Customer Account GraphQL operation: CustomerAddressMutations.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 // NOTE: https://shopify.dev/docs/api/customer/latest/mutations/customerAddressUpdate
 export const UPDATE_ADDRESS_MUTATION = `#graphql
   mutation customerAddressUpdate(

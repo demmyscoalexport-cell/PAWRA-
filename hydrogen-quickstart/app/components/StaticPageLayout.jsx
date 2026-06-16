@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file StaticPageLayout.jsx
+ * @description Shared component: StaticPageLayout.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {SectionReveal} from '~/components/sections/SectionReveal';
 
 /**

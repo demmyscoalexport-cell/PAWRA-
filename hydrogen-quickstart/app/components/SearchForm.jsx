@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file SearchForm.jsx
+ * @description Shared component: SearchForm.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useRef, useEffect} from 'react';
 import {Form} from 'react-router';
 

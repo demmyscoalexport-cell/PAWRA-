@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file TrustBar.jsx
+ * @description Homepage/marketing section: TrustBar.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
 

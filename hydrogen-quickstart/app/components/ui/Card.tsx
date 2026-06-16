@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Card.tsx
+ * @description Design system UI primitive: Card.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import type {ReactNode} from 'react';
 import {Badge, type BadgeType} from './Badge';
 

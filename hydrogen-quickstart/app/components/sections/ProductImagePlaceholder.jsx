@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file ProductImagePlaceholder.jsx
+ * @description Homepage/marketing section: ProductImagePlaceholder.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 export function ProductImagePlaceholder({label = 'Product', className = '', aspect = 'aspect-square'}) {
   return (
     <div

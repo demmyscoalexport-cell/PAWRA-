@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file .graphqlrc.js
+ * @description GraphQL codegen configuration for Storefront and Customer Account APIs.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { getSchema } from '@shopify/hydrogen-codegen';
 
 /**

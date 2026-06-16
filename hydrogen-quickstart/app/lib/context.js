@@ -1,37 +1,66 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file context.js
+ * @description Storefront utility module: context.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { createHydrogenContext } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
 import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
 
-// Define the additional context object
-const additionalContext = {
-  // Additional context for custom properties, CMS clients, 3P SDKs, etc.
-  // These will be available as both context.propertyName and context.get(propertyContext)
-  // Example of complex objects that could be added:
-  // cms: await createCMSClient(env),
-  // reviews: await createReviewsClient(env),
-};
+// ─── Additional Context ───────────────────────────────────────────────────────
 
 /**
- * Creates Hydrogen context for React Router 7.9.x
- * Returns HydrogenRouterContextProvider with hybrid access patterns
- * @param {Request} request
- * @param {Env} env
- * @param {ExecutionContext} executionContext
+ * Extension point for custom services injected into every route loader/action.
+ * Available as `context.propertyName` and via `context.get(propertyContext)`.
+ */
+const additionalContext = {
+  // TODO: Wire reviews provider (e.g. Judge.me, Yotpo) for product ratings
+  // reviews: await createReviewsClient(env),
+
+  // TODO: Integrate wishlist SDK for saved products across sessions
+  // wishlist: await createWishlistClient(env),
+
+  // TODO: Connect loyalty/rewards program for repeat customers
+  // loyalty: await createLoyaltyClient(env),
+};
+
+// ─── Hydrogen Router Context ────────────────────────────────────────────────────
+
+/**
+ * Bootstraps Hydrogen context for React Router 7 on Oxygen/Workers.
+ * Initializes cache, session, storefront client, cart, and i18n defaults.
+ *
+ * @param {Request} request - Incoming HTTP request
+ * @param {Env} env - Worker environment bindings (Shopify tokens, secrets)
+ * @param {ExecutionContext} executionContext - Cloudflare execution context for waitUntil
+ * @returns {Promise<import('@shopify/hydrogen').HydrogenRouterContextProvider>}
  */
 export async function createHydrogenRouterContext(request, env, executionContext) {
-  /**
-   * Open a cache instance in the worker and a custom session instance.
-   */
+  // ─── Environment Validation ───
   if (!env?.SESSION_SECRET) {
     throw new Error('SESSION_SECRET environment variable is not set');
   }
 
   const waitUntil = executionContext.waitUntil.bind(executionContext);
+
+  // ─── Cache & Session ───
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
     AppSession.init(request, [env.SESSION_SECRET]),
   ]);
 
+  // ─── Hydrogen Context Assembly ───
   const hydrogenContext = createHydrogenContext(
     {
       env,
@@ -45,7 +74,7 @@ export async function createHydrogenRouterContext(request, env, executionContext
         queryFragment: CART_QUERY_FRAGMENT,
       },
     },
-    additionalContext
+    additionalContext,
   );
 
   return hydrogenContext;

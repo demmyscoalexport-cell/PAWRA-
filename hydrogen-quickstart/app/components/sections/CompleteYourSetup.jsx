@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file CompleteYourSetup.jsx
+ * @description Homepage/marketing section: CompleteYourSetup.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
 import {Badge} from '~/components/ui/Badge';

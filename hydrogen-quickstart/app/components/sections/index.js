@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file index.js
+ * @description Homepage/marketing section: index.js.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 export {AnnouncementBar} from './AnnouncementBar';
 export {HeroSection} from './HeroSection';
 export {TrustBar} from './TrustBar';

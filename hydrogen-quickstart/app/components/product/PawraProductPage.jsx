@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file PawraProductPage.jsx
+ * @description Product detail UI: PawraProductPage.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from 'react-router';
 import {Image, Money, Analytics} from '@shopify/hydrogen';
@@ -9,6 +25,9 @@ import {PawraProductCard} from '~/components/PawraProductCard';
 import {Testimonials} from '~/components/sections/Testimonials';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 
+// ─── Static Content ─────────────────────────────────────────────────────────────
+
+/** Product-specific FAQ items shown in the accordion below the fold. */
 const PRODUCT_FAQ = [
   {q: 'How long does shipping take?', a: 'Most US orders arrive in 3–5 business days. Free shipping on orders over $75.'},
   {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
@@ -18,6 +37,7 @@ const PRODUCT_FAQ = [
   {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships.'},
 ];
 
+/** Feature highlights grid — icons map to ~/components/ui/Icon names. */
 const FEATURES = [
   {icon: 'shield', label: 'Premium quality materials'},
   {icon: 'heart', label: 'Designed for pet wellness'},
@@ -27,13 +47,18 @@ const FEATURES = [
   {icon: 'truck', label: 'Free US shipping over $75'},
 ];
 
+// ─── Product Page Component ───────────────────────────────────────────────────
+
 /**
+ * Full PAWRA product detail layout — gallery, variant pickers, add-to-cart,
+ * feature blocks, specs, testimonials, FAQ, related products, and sticky CTA bar.
+ *
  * @param {{
  *   product: ProductFragment;
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  *   productOptions: import('@shopify/hydrogen').MappedProductOptions[];
  *   relatedProducts?: Array<import('storefrontapi.generated').ProductItemFragment>;
- * }}
+ * }} props
  */
 export function PawraProductPage({product, selectedVariant, productOptions, relatedProducts = []}) {
   const {open} = useAside();
@@ -43,6 +68,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
 
+  // ─── Derived State ───
   const images = product.images?.nodes?.length
     ? product.images.nodes
     : selectedVariant?.image
@@ -54,6 +80,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   const compareAt = selectedVariant?.compareAtPrice;
   const installment = price ? (Number(price.amount) / 4).toFixed(2) : null;
 
+  // ─── Sticky Add-to-Cart Bar ───
   useEffect(() => {
     const el = ctaRef.current;
     if (!el) return;
@@ -67,8 +94,10 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
   return (
     <div className="bg-warm-oat">
+      {/* ─── Hero: Gallery & Purchase Panel ─── */}
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* ─── Image Gallery ─── */}
           <div>
             <div className="group relative aspect-square overflow-hidden rounded-xl bg-cloud shadow-card">
               {activeImage ? (
@@ -100,8 +129,10 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
             )}
           </div>
 
+          {/* ─── Product Info & Add to Cart ─── */}
           <div>
             <h1 className="font-serif text-[2.5rem] leading-tight text-forest-green">{product.title}</h1>
+            {/* TODO: Replace hardcoded rating with reviews API (Judge.me, Yotpo, etc.) */}
             <div className="mt-3 flex items-center gap-2">
               <div className="flex gap-0.5">
                 {Array.from({length: 5}, (_, i) => (
@@ -128,6 +159,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </p>
             )}
 
+            {/* ─── Variant Options (color swatches, size buttons) ─── */}
             {productOptions.map((option) => {
               if (option.optionValues.length <= 1) return null;
               const isColor = option.name.toLowerCase().includes('color');
@@ -177,14 +209,18 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     })}
                   </div>
                   {option.name.toLowerCase().includes('size') && (
-                    <Link to="/pages/how-it-works" className="mt-2 inline-block font-sans text-body-s text-forest-green underline">
-                      Size guide
-                    </Link>
+                    <>
+                      {/* TODO: Replace placeholder link with dedicated size guide page/modal */}
+                      <Link to="/pages/how-it-works" className="mt-2 inline-block font-sans text-body-s text-forest-green underline">
+                        Size guide
+                      </Link>
+                    </>
                   )}
                 </div>
               );
             })}
 
+            {/* ─── Quantity Stepper ─── */}
             <div className="mt-8">
               <p className="mb-2 font-sans text-body-s font-semibold text-ink">Quantity</p>
               <div className="inline-flex items-center rounded-md border border-forest-green/20 bg-cloud">
@@ -208,6 +244,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </div>
             </div>
 
+            {/* ─── Primary CTA (observed for sticky bar) ─── */}
             <div ref={ctaRef} className="mt-8">
               <AddToCartButton
                 disabled={!selectedVariant?.availableForSale}
@@ -223,6 +260,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </AddToCartButton>
             </div>
 
+            {/* ─── Trust Badges ─── */}
             <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">
               {[
                 'Free US shipping',
@@ -240,6 +278,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── Features Grid ─── */}
       <section className="border-t border-forest-green/10 bg-cloud px-4 py-16 md:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="font-serif text-display-s text-forest-green">Features</h2>
@@ -254,6 +293,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── Specifications Table ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-serif text-display-s text-forest-green">Specifications</h2>
@@ -276,6 +316,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── What's in the Box ─── */}
       <section className="bg-cloud px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-serif text-display-s text-forest-green">What&apos;s in the box</h2>
@@ -292,8 +333,10 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── Social Proof ─── */}
       <Testimonials />
 
+      {/* ─── Product FAQ ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center font-serif text-display-s text-forest-green">Product FAQ</h2>
@@ -301,6 +344,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── Related Products ─── */}
       {relatedProducts.length > 0 && (
         <section className="border-t border-forest-green/10 px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">
@@ -314,6 +358,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </section>
       )}
 
+      {/* ─── Sticky Mobile/Desktop CTA Bar ─── */}
       {showStickyBar && selectedVariant && (
         <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-electric-jade/20 bg-forest-green px-4 py-3 shadow-lg md:px-8">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
@@ -342,6 +387,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       )}
 
+      {/* ─── Analytics ─── */}
       <Analytics.ProductView
         data={{
           products: [

@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file pawraCollections.js
+ * @description Storefront utility module: pawraCollections.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 /** PAWRA collection cards — mapped to Shopify collection handles when available */
 export const PAWRA_COLLECTIONS = [
   {

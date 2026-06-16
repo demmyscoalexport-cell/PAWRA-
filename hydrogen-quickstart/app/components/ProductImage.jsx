@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file ProductImage.jsx
+ * @description Shared component: ProductImage.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {Image} from '@shopify/hydrogen';
 
 /**

@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file cart.jsx
+ * @description Route module: cart — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useLoaderData, data} from 'react-router';
 import {CartForm, Money} from '@shopify/hydrogen';
 import {Link} from 'react-router';
@@ -7,12 +23,23 @@ import {Icon} from '~/components/ui/Icon';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 
+// ─── SEO Meta ─────────────────────────────────────────────────────────────────
+
+/** Cart page title for browser tab and SEO. */
 export const meta = () => {
   return [{title: 'PAWRA | Cart'}];
 };
 
+/** Propagate action response headers (cart cookie, redirects) to the client. */
 export const headers = ({actionHeaders}) => actionHeaders;
 
+// ─── Cart Action ──────────────────────────────────────────────────────────────
+
+/**
+ * Handles all CartForm mutations — add/update/remove lines, discounts, gift cards.
+ * Supports optional redirect via `redirectTo` form field after mutation.
+ * @param {Route.ActionArgs} args
+ */
 export async function action({request, context}) {
   const {cart} = context;
   const formData = await request.formData();
@@ -25,6 +52,7 @@ export async function action({request, context}) {
   let status = 200;
   let result;
 
+  // ─── Cart Mutation Dispatch ───
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
       result = await cart.addLines(inputs.lines);
@@ -73,6 +101,12 @@ export async function action({request, context}) {
   return data({cart: cartResult, errors, warnings, analytics: {cartId}}, {status, headers});
 }
 
+// ─── Loader ───────────────────────────────────────────────────────────────────
+
+/**
+ * Loads current cart and product recommendations for "Complete your setup".
+ * @param {Route.LoaderArgs} args
+ */
 export async function loader({context}) {
   const {cart, storefront} = context;
   const [cartData, {products}] = await Promise.all([
@@ -82,10 +116,17 @@ export async function loader({context}) {
   return {cart: cartData, recommendations: products?.nodes ?? []};
 }
 
+// ─── Cart Page ────────────────────────────────────────────────────────────────
+
+/**
+ * Full-page cart with line items, order summary sidebar, and cross-sell grid.
+ * Renders empty state when cart has no items.
+ */
 export default function CartPage() {
   const {cart, recommendations} = useLoaderData();
   const hasItems = (cart?.totalQuantity ?? 0) > 0;
 
+  // ─── Empty State ───
   if (!hasItems) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center bg-warm-oat px-4 py-20 text-center">
@@ -106,6 +147,7 @@ export default function CartPage() {
       <div className="mx-auto max-w-7xl">
         <h1 className="font-serif text-display-s text-forest-green">Your cart</h1>
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_380px]">
+          {/* ─── Line Items & Recommendations ─── */}
           <div>
             <CartMain layout="page" cart={cart} showSummary={false} />
             {recommendations.length > 0 && (
@@ -119,6 +161,8 @@ export default function CartPage() {
               </section>
             )}
           </div>
+
+          {/* ─── Order Summary Sidebar ─── */}
           <aside className="h-fit rounded-xl bg-cloud p-6 shadow-md">
             <h2 className="font-serif text-heading-s text-forest-green">Order summary</h2>
             <dl className="mt-6 space-y-3 font-sans text-body-m">
@@ -146,6 +190,7 @@ export default function CartPage() {
                 Checkout
               </a>
             )}
+            {/* TODO: Wire Shop Pay accelerated checkout button */}
             <button
               type="button"
               className="mt-3 flex h-[52px] w-full items-center justify-center rounded-md border border-forest-green/20 bg-warm-oat font-sans text-body-m font-medium text-ink reset"
@@ -170,6 +215,9 @@ export default function CartPage() {
   );
 }
 
+// ─── GraphQL ──────────────────────────────────────────────────────────────────
+
+/** Product recommendations shown below cart line items. */
 const RECOMMENDATIONS_QUERY = `#graphql
   query CartRecommendations($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {
     products(first: $first) {

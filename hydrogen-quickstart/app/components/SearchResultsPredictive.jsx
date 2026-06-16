@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file SearchResultsPredictive.jsx
+ * @description Shared component: SearchResultsPredictive.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { Link, useFetcher } from 'react-router';
 import { Image, Money } from '@shopify/hydrogen';
 import React, { useRef, useEffect } from 'react';

@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file eslint.config.js
+ * @description Pawra Pet Shop source file: eslint.config.js.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {fixupConfigRules, fixupPluginRules} from '@eslint/compat';
 import eslintComments from 'eslint-plugin-eslint-comments';
 import react from 'eslint-plugin-react';

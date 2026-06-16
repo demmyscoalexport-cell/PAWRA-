@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file pages.$handle.jsx
+ * @description Route module: pages.$handle — Pawra Pet Shop page or API handler.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {getStaticPage} from '~/lib/staticPages';

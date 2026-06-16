@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file tailwind.config.ts
+ * @description Tailwind CSS design tokens and theme for Pawra Pet Shop.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import type {Config} from 'tailwindcss';
 
 export default {

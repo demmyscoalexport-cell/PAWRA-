@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file session.js
+ * @description Storefront utility module: session.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { createCookieSessionStorage } from 'react-router';
 
 /**

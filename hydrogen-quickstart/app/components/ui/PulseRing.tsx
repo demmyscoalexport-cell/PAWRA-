@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file PulseRing.tsx
+ * @description Design system UI primitive: PulseRing.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 type PulseRingProps = {
   size?: 'sm' | 'md' | 'lg';
   className?: string;

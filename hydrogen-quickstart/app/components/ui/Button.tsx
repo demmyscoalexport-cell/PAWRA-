@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Button.tsx
+ * @description Design system UI primitive: Button.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
 import {Link} from 'react-router';
 

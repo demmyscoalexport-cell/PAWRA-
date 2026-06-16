@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file root.jsx
+ * @description Root layout, global loaders, analytics, and document shell.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
 import {
   Outlet,
@@ -16,8 +32,11 @@ import tailwindStyles from './styles/tailwind.css?url';
 import appStyles from './styles/app.css?url';
 import { PageLayout } from './components/PageLayout';
 
+// ─── Revalidation Strategy ────────────────────────────────────────────────────
+
 /**
- * This is important to avoid re-fetching root queries on sub-navigations
+ * Controls when root loader data is refetched on client navigations.
+ * Skips revalidation on GET navigations to avoid redundant header/cart fetches.
  * @type {ShouldRevalidateFunction}
  */
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
@@ -35,15 +54,12 @@ export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   return false;
 };
 
+// ─── Document Head Links ──────────────────────────────────────────────────────
+
 /**
- * The main and reset stylesheets are added in the Layout component
- * to prevent a bug in development HMR updates.
- *
- * This avoids the "failed to execute 'insertBefore' on 'Node'" error
- * that occurs after editing and navigating to another page.
- *
- * It's a temporary fix until the issue is resolved.
- * https://github.com/remix-run/remix/issues/9242
+ * Registers global fonts, CDN preconnects, and favicon.
+ * Stylesheets are loaded in Layout to avoid dev HMR insertBefore errors.
+ * @returns {Array<import('react-router').LinkDescriptor>}
  */
 export function links() {
   return [
@@ -72,7 +88,11 @@ export function links() {
   ];
 }
 
+// ─── Root Loader ──────────────────────────────────────────────────────────────
+
 /**
+ * Root route loader — fetches header (critical), defers footer/cart/auth.
+ * Also exposes analytics consent config and public store domain.
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
@@ -103,6 +123,8 @@ export async function loader(args) {
   };
 }
 
+// ─── Critical Data (Above the Fold) ───────────────────────────────────────────
+
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
@@ -123,6 +145,8 @@ async function loadCriticalData({ context }) {
 
   return { header };
 }
+
+// ─── Deferred Data (Below the Fold) ───────────────────────────────────────────
 
 /**
  * Load data for rendering content below the fold. This data is deferred and will be
@@ -153,8 +177,11 @@ function loadDeferredData({ context }) {
   };
 }
 
+// ─── HTML Shell ───────────────────────────────────────────────────────────────
+
 /**
- * @param {{children?: React.ReactNode}}
+ * Document shell wrapping every route — head assets, nonce, and outlet slot.
+ * @param {{children?: React.ReactNode}} props
  */
 export function Layout({ children }) {
   const nonce = useNonce();
@@ -162,6 +189,7 @@ export function Layout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* ─── Global Stylesheets ─── */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
@@ -179,6 +207,12 @@ export function Layout({ children }) {
   );
 }
 
+// ─── App Root ─────────────────────────────────────────────────────────────────
+
+/**
+ * Root application component — wraps routes in analytics and shared PageLayout.
+ * Falls back to bare Outlet when loader data is unavailable (e.g. error routes).
+ */
 export default function App() {
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
@@ -196,6 +230,12 @@ export default function App() {
   );
 }
 
+// ─── Error Boundary ───────────────────────────────────────────────────────────
+
+/**
+ * Global error boundary for unhandled route and loader failures.
+ * Renders HTTP status and message for debugging in development.
+ */
 export function ErrorBoundary() {
   const error = useRouteError();
   let errorMessage = 'Unknown error';

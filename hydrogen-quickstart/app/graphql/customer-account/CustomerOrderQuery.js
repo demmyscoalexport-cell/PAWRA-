@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file CustomerOrderQuery.js
+ * @description Customer Account GraphQL operation: CustomerOrderQuery.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 // NOTE: https://shopify.dev/docs/api/customer/latest/queries/order
 export const CUSTOMER_ORDER_QUERY = `#graphql
   fragment OrderMoney on MoneyV2 {

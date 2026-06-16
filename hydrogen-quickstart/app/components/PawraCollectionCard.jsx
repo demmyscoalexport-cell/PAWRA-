@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file PawraCollectionCard.jsx
+ * @description Shared component: PawraCollectionCard.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {Link} from 'react-router';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 

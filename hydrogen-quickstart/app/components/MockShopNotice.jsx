@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file MockShopNotice.jsx
+ * @description Shared component: MockShopNotice.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {BRAND} from '~/lib/branding';
 
 export function MockShopNotice() {

@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file SectionReveal.jsx
+ * @description Homepage/marketing section: SectionReveal.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {motion, useInView} from 'framer-motion';
 import {useRef} from 'react';
 

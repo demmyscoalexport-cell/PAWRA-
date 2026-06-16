@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file entry.server.jsx
+ * @description Server-side render entry with CSP and streaming HTML.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { ServerRouter } from 'react-router';
 import { isbot } from 'isbot';
 import { renderToReadableStream } from 'react-dom/server';

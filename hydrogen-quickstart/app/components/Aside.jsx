@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Aside.jsx
+ * @description Shared component: Aside.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useId } from 'react';
 

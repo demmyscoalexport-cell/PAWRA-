@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file FrequentlyBoughtTogether.jsx
+ * @description Homepage/marketing section: FrequentlyBoughtTogether.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
 import {ProductImagePlaceholder} from './ProductImagePlaceholder';

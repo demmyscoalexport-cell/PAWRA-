@@ -1,8 +1,27 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Footer.jsx
+ * @description Shared component: Footer.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {NavLink} from 'react-router';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
 import {BRAND} from '~/lib/branding';
 
+// ─── Footer Link Groups ───────────────────────────────────────────────────────
+
+/** Shop category shortcuts — update handles when Shopify collections are finalized. */
 const SHOP_LINKS = [
   {label: 'All Products', to: '/collections/all'},
   {label: 'Dog Products', to: '/collections/hydrogen'},
@@ -11,6 +30,7 @@ const SHOP_LINKS = [
   {label: 'Grooming', to: '/collections/all'},
 ];
 
+/** Company and content pages. */
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
   {label: 'How It Works', to: '/pages/how-it-works'},
@@ -18,6 +38,7 @@ const COMPANY_LINKS = [
   {label: 'Contact', to: '/pages/contact'},
 ];
 
+/** Customer support and policy links. */
 const SUPPORT_LINKS = [
   {label: 'Track Order', to: '/account/orders'},
   {label: 'Contact', to: '/pages/contact'},
@@ -26,6 +47,7 @@ const SUPPORT_LINKS = [
   {label: 'Shipping', to: '/policies/shipping-policy'},
 ];
 
+/** External social profiles for PAWRA Pet Shop. */
 const SOCIAL = [
   {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/pawrapetshop'},
   {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@pawrapetshop'},
@@ -33,6 +55,12 @@ const SOCIAL = [
   {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/pawrapetshop'},
 ];
 
+// ─── Footer Column Helper ─────────────────────────────────────────────────────
+
+/**
+ * Renders a titled column of NavLink items.
+ * @param {{title: string; links: Array<{label: string; to: string}>}} props
+ */
 function FooterColumn({title, links}) {
   return (
     <div>
@@ -55,11 +83,18 @@ function FooterColumn({title, links}) {
   );
 }
 
+// ─── Footer Component ─────────────────────────────────────────────────────────
+
+/**
+ * Site-wide footer — brand block, link columns, social icons, and copyright.
+ * TODO: Add loyalty program CTA (e.g. "Join PAWRA Rewards") when program launches.
+ */
 export function Footer() {
   return (
     <footer className="border-t border-electric-jade bg-forest-night text-cloud">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+          {/* ─── Brand Block ─── */}
           <div className="lg:col-span-2">
             <Logo variant="light" height={36} />
             <p className="mt-4 font-serif text-body-l italic text-cloud">
@@ -73,6 +108,7 @@ export function Footer() {
                 {BRAND.supportEmail}
               </a>
             </p>
+            {/* ─── Social Links ─── */}
             <div className="mt-6 flex gap-4">
               {SOCIAL.map((s) => (
                 <a
@@ -88,10 +124,14 @@ export function Footer() {
               ))}
             </div>
           </div>
+
+          {/* ─── Link Columns ─── */}
           <FooterColumn title="Shop" links={SHOP_LINKS} />
           <FooterColumn title="Company" links={COMPANY_LINKS} />
           <FooterColumn title="Support" links={SUPPORT_LINKS} />
         </div>
+
+        {/* ─── Copyright ─── */}
         <div className="mt-12 border-t border-cloud/10 pt-8">
           <p className="text-center font-mono text-[12px] text-cloud/40">
             {BRAND.copyright}

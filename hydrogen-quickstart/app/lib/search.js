@@ -1,4 +1,20 @@
 /**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file search.js
+ * @description Storefront utility module: search.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
+/**
  * Returns the empty state of a predictive search result to reset the search state.
  */
 export function getEmptyPredictiveSearchResult() {

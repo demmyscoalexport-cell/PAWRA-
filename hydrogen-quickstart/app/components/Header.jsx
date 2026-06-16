@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file Header.jsx
+ * @description Shared component: Header.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {Suspense, useEffect, useState} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
@@ -6,6 +22,9 @@ import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
 import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
 
+// ─── Navigation Config ────────────────────────────────────────────────────────
+
+/** Primary desktop/mobile nav links — Collections uses a hover dropdown. */
 export const PAWRA_HEADER_MENU = [
   {id: 'shop', title: 'Shop', url: '/collections/all'},
   {id: 'collections', title: 'Collections', url: '/collections', hasDropdown: true},
@@ -13,19 +32,26 @@ export const PAWRA_HEADER_MENU = [
   {id: 'blog', title: 'Blog', url: '/blog'},
 ];
 
+/** Extra links shown only in the mobile drawer. */
 export const PAWRA_MOBILE_EXTRA = [
   {id: 'how-it-works', title: 'How It Works', url: '/pages/how-it-works'},
   {id: 'contact', title: 'Contact', url: '/pages/contact'},
 ];
 
+// ─── Header Component ─────────────────────────────────────────────────────────
+
 /**
- * @param {HeaderProps}
+ * Sticky site header with logo, navigation, search, account, cart, and mobile drawer.
+ * Cart count is streamed via Suspense/Await from root deferred loader data.
+ *
+ * @param {HeaderProps} props
  */
 export function Header({cart, isLoggedIn}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
 
+  // ─── Scroll Shadow ───
   useEffect(() => {
     function onScroll() {
       setScrolled(window.scrollY > 8);
@@ -35,6 +61,7 @@ export function Header({cart, isLoggedIn}) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // ─── Mobile Drawer Body Lock ───
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => {
@@ -50,6 +77,7 @@ export function Header({cart, isLoggedIn}) {
         }`}
       >
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 md:px-8">
+          {/* ─── Mobile Menu Toggle ─── */}
           <button
             type="button"
             className="reset md:hidden"
@@ -59,6 +87,7 @@ export function Header({cart, isLoggedIn}) {
             <Icon name="menu" size="lg" color="text-cloud" />
           </button>
 
+          {/* ─── Logo ─── */}
           <NavLink to="/" className="hidden no-underline md:flex" aria-label="PAWRA home">
             <Logo variant="icon" height={36} />
           </NavLink>
@@ -66,6 +95,7 @@ export function Header({cart, isLoggedIn}) {
             <Logo variant="icon" height={32} />
           </NavLink>
 
+          {/* ─── Desktop Navigation ─── */}
           <nav className="hidden items-center gap-8 md:flex" role="navigation">
             {PAWRA_HEADER_MENU.map((item) =>
               item.hasDropdown ? (
@@ -107,10 +137,12 @@ export function Header({cart, isLoggedIn}) {
             )}
           </nav>
 
+          {/* ─── Utility Actions ─── */}
           <div className="flex items-center gap-4">
             <NavLink to="/search" className="reset" aria-label="Search">
               <Icon name="search" size="md" color="text-cloud" />
             </NavLink>
+            {/* TODO: Wire wishlist — persist saved products via app or customer metafields */}
             <button type="button" className="reset hidden sm:inline-flex" aria-label="Wishlist">
               <Icon name="heart" size="md" color="text-cloud" />
             </button>
@@ -125,6 +157,9 @@ export function Header({cart, isLoggedIn}) {
   );
 }
 
+// ─── Account Link ─────────────────────────────────────────────────────────────
+
+/** Account icon — routes to login or account dashboard based on auth state. */
 function AccountToggle({isLoggedIn}) {
   return (
     <NavLink
@@ -137,6 +172,9 @@ function AccountToggle({isLoggedIn}) {
   );
 }
 
+// ─── Mobile Drawer ────────────────────────────────────────────────────────────
+
+/** Full-screen slide-out nav for viewports below md breakpoint. */
 function MobileDrawer({open, onClose, isLoggedIn}) {
   if (!open) return null;
 
@@ -181,6 +219,9 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
   );
 }
 
+// ─── Cart Badge & Toggle ────────────────────────────────────────────────────────
+
+/** Cart icon with optimistic quantity badge; opens cart aside drawer. */
 function CartBadge({count}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
@@ -205,6 +246,7 @@ function CartBadge({count}) {
   );
 }
 
+/** Suspense boundary around deferred cart promise from root loader. */
 function CartToggle({cart}) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
@@ -215,6 +257,7 @@ function CartToggle({cart}) {
   );
 }
 
+/** Resolves cart and applies optimistic updates for instant badge feedback. */
 function CartBanner() {
   const originalCart = useAsyncValue();
   const cart = useOptimisticCart(originalCart);

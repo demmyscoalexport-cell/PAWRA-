@@ -1,3 +1,19 @@
+/**
+ * ╔═══════════════════════════════════════╗
+ * ║          PAWRA PET SHOP               ║
+ * ║    Premium Pets Products Store        ║
+ * ║         pawrapetshop.com              ║
+ * ║          © 2025 Pawra LLC             ║
+ * ╚═══════════════════════════════════════╝
+ */
+
+/**
+ * @file AddToCartButton.jsx
+ * @description Shared component: AddToCartButton.
+ * @author Pawra LLC
+ * @website pawrapetshop.com
+ */
+
 import {CartForm} from '@shopify/hydrogen';
 
 /**
