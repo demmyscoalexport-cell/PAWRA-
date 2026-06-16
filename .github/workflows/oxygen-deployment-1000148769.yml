@@ -7,6 +7,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: oxygen-1000148769
+  cancel-in-progress: true
+
 permissions:
   contents: read
   deployments: write
@@ -34,8 +38,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build and Publish to Oxygen
-        run: npx shopify hydrogen deploy
+      - name: Build Hydrogen storefront
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Publish to Oxygen
+        run: npm exec -- shopify hydrogen deploy --no-lockfile-check --build-command "true"
         env:
           CI: true
           SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000148769 }}
