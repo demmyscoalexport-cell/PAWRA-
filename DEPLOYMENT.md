@@ -56,12 +56,31 @@ Fix any errors before deploying.
 
 ## 4. Deploy to Oxygen
 
+The Hydrogen app lives in **`hydrogen-quickstart/`**. Oxygen must build from that folder (not the repo root).
+
 ```bash
 cd hydrogen-quickstart
 npx shopify hydrogen deploy
 ```
 
-Follow CLI prompts. Oxygen sets production env vars from your linked storefront; verify them in **Shopify Admin → Hydrogen / Oxygen → Environment variables**.
+Or from repo root:
+
+```bash
+npx shopify hydrogen deploy --path hydrogen-quickstart
+```
+
+### GitHub → Oxygen (fixes 404 on deploy)
+
+This repo includes `.github/workflows/oxygen-deployment-1000148769.yml`, which:
+
+- Installs dependencies from `hydrogen-quickstart/package-lock.json`
+- Runs `shopify hydrogen deploy` inside `hydrogen-quickstart/`
+
+Ensure GitHub has the secret **`OXYGEN_DEPLOYMENT_TOKEN_1000148769`** (Shopify adds this when you connect the repo in **Hydrogen → Storefront settings → Oxygen deployments**).
+
+If you previously connected GitHub without merging Shopify’s workflow PR, delete any root-level workflow that runs `npm ci` at the repo root — the root `package-lock.json` is legacy and not the Hydrogen app.
+
+Follow CLI prompts. Verify env vars in **Shopify Admin → Hydrogen → Environment variables**.
 
 ## 5. Custom domain
 

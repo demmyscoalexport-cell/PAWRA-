@@ -22,7 +22,7 @@ export default {
        */
       const handleRequest = createRequestHandler({
         build: serverBuild,
-        mode: process.env.NODE_ENV,
+        mode: process.env.NODE_ENV ?? 'production',
         getLoadContext: () => hydrogenContext,
       });
 
