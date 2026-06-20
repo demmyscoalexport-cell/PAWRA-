@@ -3,96 +3,100 @@
  * ║          PAWRA PET SHOP               ║
  * ║    Premium Pets Products Store        ║
  * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
 
 /**
  * @file collections.all.jsx
- * @description Route module: collections.all — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description All products catalog with species filters and sorting.
  */
 
-import {useLoaderData} from 'react-router';
-import {getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-import {ProductItem} from '~/components/ProductItem';
+import {useLoaderData, useSearchParams} from 'react-router';
+import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
+import {useMemo} from 'react';
+import {CollectionPageShell} from '~/components/CollectionPageShell';
+import {
+  applyCollectionFilters,
+  getCollectionFacets,
+  sortCollectionProducts,
+} from '~/lib/collectionPage';
+import {getCollectionBreadcrumbs} from '~/lib/pawraCollections';
 
-/**
- * @type {Route.MetaFunction}
- */
 export const meta = () => {
-  return [{title: `Hydrogen | Products`}];
+  return [{title: 'PAWRA | All Products'}];
 };
 
-/**
- * @param {Route.LoaderArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return {...deferredData, ...criticalData};
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
- */
-async function loadCriticalData({context, request}) {
+export async function loader({context, request}) {
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+  const paginationVariables = getPaginationVariables(request, {pageBy: 48});
+
+  const {products} = await storefront.query(CATALOG_QUERY, {
+    variables: {...paginationVariables},
   });
 
-  const [{products}] = await Promise.all([
-    storefront.query(CATALOG_QUERY, {
-      variables: {...paginationVariables},
-    }),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
-  return {products};
+  return {
+    collection: {
+      id: 'all-products',
+      handle: 'all',
+      title: 'All Products',
+      description: 'Every premium PAWRA product for cats and dogs — curated and delivered to your door.',
+      products,
+    },
+  };
 }
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
- */
-function loadDeferredData({context}) {
-  return {};
-}
+export default function AllProductsPage() {
+  const {collection} = useLoaderData();
+  const [searchParams] = useSearchParams();
 
-export default function Collection() {
-  /** @type {LoaderReturnData} */
-  const {products} = useLoaderData();
+  const filterParams = {
+    sort: searchParams.get('sort') || 'featured',
+    price: searchParams.get('price') || '',
+    type: searchParams.get('type') || '',
+    tag: searchParams.get('tag') || '',
+    species: searchParams.get('species') || '',
+  };
+
+  const allNodes = useMemo(
+    () => collection.products?.nodes ?? [],
+    [collection.products?.nodes],
+  );
+
+  const filteredProducts = useMemo(() => {
+    let nodes = applyCollectionFilters(allNodes, filterParams);
+
+    if (filterParams.species) {
+      const species = filterParams.species.toLowerCase();
+      nodes = nodes.filter((p) =>
+        (p.tags ?? []).some((t) => t.toLowerCase() === species),
+      );
+    }
+
+    return sortCollectionProducts(nodes, filterParams.sort);
+  }, [allNodes, filterParams]);
+
+  const facets = useMemo(() => getCollectionFacets(allNodes), [allNodes]);
 
   return (
-    <div className="collection">
-      <h1>Products</h1>
-      <PaginatedResourceSection
-        connection={products}
-        resourcesClassName="products-grid"
-      >
-        {({node: product, index}) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        )}
-      </PaginatedResourceSection>
-    </div>
+    <>
+      <CollectionPageShell
+        title={collection.title}
+        description={collection.description}
+        breadcrumbs={getCollectionBreadcrumbs('all')}
+        products={filteredProducts}
+        facets={facets}
+        showSpeciesFilter
+      />
+      <Analytics.CollectionView
+        data={{
+          collection: {id: collection.id, handle: collection.handle},
+        }}
+      />
+    </>
   );
 }
 
-const COLLECTION_ITEM_FRAGMENT = `#graphql
+const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyCollectionItem on MoneyV2 {
     amount
     currencyCode
@@ -101,6 +105,8 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    productType
+    tags
     featuredImage {
       id
       altText
@@ -119,7 +125,6 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
   }
 `;
 
-// NOTE: https://shopify.dev/docs/api/storefront/latest/objects/product
 const CATALOG_QUERY = `#graphql
   query Catalog(
     $country: CountryCode
@@ -141,9 +146,7 @@ const CATALOG_QUERY = `#graphql
       }
     }
   }
-  ${COLLECTION_ITEM_FRAGMENT}
+  ${PRODUCT_ITEM_FRAGMENT}
 `;
 
 /** @typedef {import('./+types/collections.all').Route} Route */
-/** @typedef {import('storefrontapi.generated').CollectionItemFragment} CollectionItemFragment */
-/** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

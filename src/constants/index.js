@@ -27,10 +27,10 @@ export const PRICE_RANGES = [
 ];
 
 export const FEATURED_COLLECTIONS = [
-  { handle: 'grooming', title: 'Grooming', icon: '🧴' },
-  { handle: 'toys', title: 'Toys', icon: '🎾' },
-  { handle: 'feeding', title: 'Feeding', icon: '🍽️' },
-  { handle: 'treats', title: 'Treats', icon: '🍖' },
+  {handle: 'dogs-grooming', title: 'Dog Grooming', icon: '🧴'},
+  {handle: 'dogs-toys', title: 'Dog Toys', icon: '🎾'},
+  {handle: 'cats-treats', title: 'Cat Treats', icon: '🍖'},
+  {handle: 'cats-litter', title: 'Cat Litter', icon: '🐱'},
 ];
 
 export const PAGES = {

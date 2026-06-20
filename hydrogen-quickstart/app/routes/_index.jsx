@@ -9,15 +9,18 @@
 
 /**
  * @file _index.jsx
- * @description Route module: _index — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description PAWRA homepage with Chewy-inspired discovery flow.
  */
 
+import {useLoaderData} from 'react-router';
 import {
   HeroSection,
   TrustBar,
+  SpeciesEntry,
+  NewPetEssentials,
   HeroProductSpotlight,
+  BestSellers,
+  SubscribeBanner,
   CompleteYourSetup,
   WhyPawra,
   Ecosystem,
@@ -27,12 +30,6 @@ import {
 } from '~/components/sections';
 import {BRAND} from '~/lib/branding';
 
-// ─── SEO Meta ─────────────────────────────────────────────────────────────────
-
-/**
- * Homepage meta tags for PAWRA landing page.
- * @returns {Array<import('react-router').MetaDescriptor>}
- */
 export const meta = () => {
   return [
     {title: `PAWRA — ${BRAND.tagline} | ${BRAND.domain}`},
@@ -44,48 +41,79 @@ export const meta = () => {
   ];
 };
 
-// ─── Loader ───────────────────────────────────────────────────────────────────
+export async function loader({context}) {
+  const {storefront} = context;
 
-/**
- * Homepage loader — section components fetch their own data where needed.
- * @returns {Promise<Record<string, never>>}
- */
-export async function loader() {
-  return {};
+  try {
+    const {products} = await storefront.query(HOMEPAGE_PRODUCTS_QUERY, {
+      variables: {first: 12},
+    });
+    const nodes = products?.nodes ?? [];
+    return {
+      featuredProducts: nodes.slice(0, 4),
+      bestSellers: nodes.slice(0, 4),
+      newPetProducts: nodes.slice(4, 8),
+    };
+  } catch {
+    return {featuredProducts: [], bestSellers: [], newPetProducts: []};
+  }
 }
 
-// ─── Homepage ─────────────────────────────────────────────────────────────────
-
-/**
- * PAWRA homepage — stacked marketing sections from hero through FAQ.
- * Each section is a self-contained component in `~/components/sections`.
- */
 export default function Homepage() {
+  const {bestSellers, newPetProducts} = useLoaderData();
+
   return (
     <div className="home">
-      {/* ─── Hero & Trust ─── */}
       <HeroSection />
       <TrustBar />
-
-      {/* ─── Product Discovery ─── */}
+      <SpeciesEntry />
+      <NewPetEssentials products={newPetProducts} />
       <HeroProductSpotlight />
+      <BestSellers products={bestSellers} />
+      <SubscribeBanner />
       <CompleteYourSetup />
-
-      {/* ─── Brand Story ─── */}
       <WhyPawra />
       <Ecosystem />
-
-      {/* ─── Social Proof ─── */}
-      {/* TODO: Replace static Testimonials with reviews API or Shopify metafields */}
       <FrequentlyBoughtTogether />
       <Testimonials />
-
-      {/* ─── FAQ Anchor ─── */}
       <div id="faq">
         <FAQ />
       </div>
     </div>
   );
 }
+
+const PRODUCT_CARD_FRAGMENT = `#graphql
+  fragment HomepageProduct on Product {
+    id
+    handle
+    title
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+`;
+
+const HOMEPAGE_PRODUCTS_QUERY = `#graphql
+  ${PRODUCT_CARD_FRAGMENT}
+  query HomepageProducts($first: Int!, $country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
+    products(first: $first, sortKey: BEST_SELLING) {
+      nodes {
+        ...HomepageProduct
+      }
+    }
+  }
+`;
 
 /** @typedef {import('./+types/_index').Route} Route */

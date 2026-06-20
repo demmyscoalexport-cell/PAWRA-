@@ -19,10 +19,10 @@ import {Button} from '~/components/ui/Button';
 import {Icon} from '~/components/ui/Icon';
 
 const CATEGORIES = [
-  {icon: 'paw', name: 'Dogs', desc: 'Food, beds, toys, collars & wellness', href: '/collections/hydrogen'},
-  {icon: 'heart', name: 'Cats', desc: 'Food, beds, toys & grooming essentials', href: '/collections/automated-collection'},
-  {icon: 'leaf', name: 'Food & Treats', desc: 'Premium nutrition for every pet', href: '/collections/frontpage'},
-  {icon: 'shield', name: 'Grooming & Wellness', desc: 'Health and hygiene supplies', href: '/collections/all'},
+  {icon: 'paw', name: 'Dogs', desc: 'Food, beds, toys, collars & wellness', href: '/collections/dogs'},
+  {icon: 'heart', name: 'Cats', desc: 'Food, beds, toys & grooming essentials', href: '/collections/cats'},
+  {icon: 'leaf', name: 'Food & Treats', desc: 'Premium nutrition for every pet', href: '/collections/food-and-treats'},
+  {icon: 'shield', name: 'Grooming & Wellness', desc: 'Health and hygiene supplies', href: '/collections/grooming-wellness'},
 ];
 
 export function Ecosystem() {

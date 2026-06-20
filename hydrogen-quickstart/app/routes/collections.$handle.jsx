@@ -9,17 +9,24 @@
 
 /**
  * @file collections.$handle.jsx
- * @description Route module: collections.$handle — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Collection page with Chewy-style filters, breadcrumbs, and fallbacks.
  */
 
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {useMemo} from 'react';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {PAWRA_COLLECTION_FALLBACK} from '~/lib/pawraCollections';
-import {PawraProductCard} from '~/components/PawraProductCard';
+import {
+  PAWRA_COLLECTION_FALLBACK,
+  filterProductsByRule,
+  getCollectionBreadcrumbs,
+} from '~/lib/pawraCollections';
+import {
+  applyCollectionFilters,
+  getCollectionFacets,
+  sortCollectionProducts,
+} from '~/lib/collectionPage';
+import {CollectionPageShell} from '~/components/CollectionPageShell';
 
 export const meta = ({data}) => {
   return [{title: `PAWRA | ${data?.collection.title ?? 'Collection'}`}];
@@ -28,7 +35,7 @@ export const meta = ({data}) => {
 export async function loader({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 24});
+  const paginationVariables = getPaginationVariables(request, {pageBy: 48});
 
   if (!handle) {
     throw redirect('/collections');
@@ -39,131 +46,86 @@ export async function loader({context, params, request}) {
       variables: {handle, ...paginationVariables},
     }),
     storefront.query(FALLBACK_PRODUCTS_QUERY, {
-      variables: getPaginationVariables(request, {pageBy: 24}),
+      variables: getPaginationVariables(request, {pageBy: 48}),
     }),
   ]);
 
   if (collection) {
     redirectIfHandleIsLocalized(request, {handle, data: collection});
-    return {collection, isFallback: false};
+    return {collection, isFallback: false, handle};
   }
 
   const fallback = PAWRA_COLLECTION_FALLBACK[handle];
   if (fallback && allProducts) {
+    const filteredNodes = filterProductsByRule(allProducts.nodes ?? [], fallback);
     return {
       collection: {
         id: `fallback-${handle}`,
         handle,
         title: fallback.title,
         description: fallback.description,
-        products: allProducts,
+        products: {
+          nodes: filteredNodes.length ? filteredNodes : allProducts.nodes,
+          pageInfo: allProducts.pageInfo,
+        },
       },
       isFallback: true,
+      handle,
     };
   }
 
   throw new Response(`Collection ${handle} not found`, {status: 404});
 }
 
-const SORT_OPTIONS = [
-  {value: 'featured', label: 'Featured'},
-  {value: 'price-asc', label: 'Price: low to high'},
-  {value: 'price-desc', label: 'Price: high to low'},
-  {value: 'newest', label: 'Newest'},
-];
-
 export default function CollectionPage() {
-  const {collection} = useLoaderData();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get('sort') || 'featured';
+  const {collection, handle} = useLoaderData();
+  const [searchParams] = useSearchParams();
 
-  const sortedNodes = useMemo(() => {
-    const nodes = [...(collection.products?.nodes ?? [])];
-    if (sort === 'price-asc') {
-      nodes.sort(
-        (a, b) =>
-          Number(a.priceRange.minVariantPrice.amount) -
-          Number(b.priceRange.minVariantPrice.amount),
+  const filterParams = {
+    sort: searchParams.get('sort') || 'featured',
+    price: searchParams.get('price') || '',
+    type: searchParams.get('type') || '',
+    tag: searchParams.get('tag') || '',
+    species: searchParams.get('species') || '',
+  };
+
+  const allNodes = useMemo(
+    () => collection.products?.nodes ?? [],
+    [collection.products?.nodes],
+  );
+
+  const filteredProducts = useMemo(() => {
+    let nodes = applyCollectionFilters(allNodes, filterParams);
+
+    if (filterParams.species) {
+      const species = filterParams.species.toLowerCase();
+      nodes = nodes.filter((p) =>
+        (p.tags ?? []).some((t) => t.toLowerCase() === species),
       );
-    } else if (sort === 'price-desc') {
-      nodes.sort(
-        (a, b) =>
-          Number(b.priceRange.minVariantPrice.amount) -
-          Number(a.priceRange.minVariantPrice.amount),
-      );
-    } else if (sort === 'newest') {
-      nodes.reverse();
     }
-    return nodes;
-  }, [collection.products?.nodes, sort]);
+
+    return sortCollectionProducts(nodes, filterParams.sort);
+  }, [allNodes, filterParams]);
+
+  const facets = useMemo(() => getCollectionFacets(allNodes), [allNodes]);
+  const breadcrumbs = getCollectionBreadcrumbs(handle);
 
   return (
-    <div className="bg-warm-oat">
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="font-serif text-[3.5rem] leading-[1.1] text-forest-green">
-            {collection.title}
-          </h1>
-          {collection.description && (
-            <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
-              {collection.description}
-            </p>
-          )}
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <p className="font-mono text-mono-s text-ink/60">
-            {sortedNodes.length} products
-          </p>
-          <label className="flex items-center gap-2 font-sans text-body-s">
-            <span className="text-ink/60">Sort by</span>
-            <select
-              value={sort}
-              onChange={(e) => setSearchParams({sort: e.target.value})}
-              className="rounded-md border border-forest-green/20 bg-cloud px-3 py-2 font-sans text-body-s text-ink"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
-          {sortedNodes.map((product, index) => (
-            <PawraProductCard
-              key={product.id}
-              product={product}
-              loading={index < 8 ? 'eager' : undefined}
-            />
-          ))}
-        </div>
-
-        {!sortedNodes.length && (
-          <p className="py-16 text-center font-sans text-body-m text-ink/60">
-            No products in this collection yet.
-          </p>
-        )}
-
-        {collection.products?.pageInfo?.hasNextPage && (
-          <p className="mt-8 text-center font-sans text-body-s text-ink/60">
-            <a href="?cursor=next" className="text-forest-green underline">
-              Load more products
-            </a>
-          </p>
-        )}
-      </div>
-
+    <>
+      <CollectionPageShell
+        title={collection.title}
+        description={collection.description}
+        breadcrumbs={breadcrumbs}
+        products={filteredProducts}
+        facets={facets}
+        showSpeciesFilter={handle === 'all'}
+      />
       <Analytics.CollectionView
         data={{
           collection: {id: collection.id, handle: collection.handle},
         }}
       />
-    </div>
+    </>
   );
 }
 
@@ -176,6 +138,8 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    productType
+    tags
     featuredImage {
       id
       altText

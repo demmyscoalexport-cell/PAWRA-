@@ -9,9 +9,7 @@
 
 /**
  * @file Header.jsx
- * @description Shared component: Header.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Sticky header with species mega menus, search, account, and cart.
  */
 
 import {Suspense, useEffect, useState} from 'react';
@@ -20,38 +18,19 @@ import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
-import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
-
-// ─── Navigation Config ────────────────────────────────────────────────────────
-
-/** Primary desktop/mobile nav links — Collections uses a hover dropdown. */
-export const PAWRA_HEADER_MENU = [
-  {id: 'shop', title: 'Shop', url: '/collections/all'},
-  {id: 'collections', title: 'Collections', url: '/collections', hasDropdown: true},
-  {id: 'about', title: 'About', url: '/pages/about'},
-  {id: 'blog', title: 'Blog', url: '/blog'},
-];
-
-/** Extra links shown only in the mobile drawer. */
-export const PAWRA_MOBILE_EXTRA = [
-  {id: 'how-it-works', title: 'How It Works', url: '/pages/how-it-works'},
-  {id: 'contact', title: 'Contact', url: '/pages/contact'},
-];
-
-// ─── Header Component ─────────────────────────────────────────────────────────
+import {MegaMenu, MobileSpeciesMenu} from '~/components/MegaMenu';
+import {PAWRA_HEADER_MENU, PAWRA_MOBILE_EXTRA} from '~/lib/pawraCollections';
 
 /**
  * Sticky site header with logo, navigation, search, account, cart, and mobile drawer.
- * Cart count is streamed via Suspense/Await from root deferred loader data.
- *
  * @param {HeaderProps} props
  */
 export function Header({cart, isLoggedIn}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [openMegaMenu, setOpenMegaMenu] = useState(null);
+  const [mobileSpeciesOpen, setMobileSpeciesOpen] = useState(null);
 
-  // ─── Scroll Shadow ───
   useEffect(() => {
     function onScroll() {
       setScrolled(window.scrollY > 8);
@@ -61,13 +40,17 @@ export function Header({cart, isLoggedIn}) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ─── Mobile Drawer Body Lock ───
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
   }, [mobileOpen]);
+
+  function closeMobile() {
+    setMobileOpen(false);
+    setMobileSpeciesOpen(null);
+  }
 
   return (
     <>
@@ -76,8 +59,7 @@ export function Header({cart, isLoggedIn}) {
           scrolled ? 'border-b border-electric-jade/15 bg-forest-green/95 backdrop-blur-md' : ''
         }`}
       >
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 md:px-8">
-          {/* ─── Mobile Menu Toggle ─── */}
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
           <button
             type="button"
             className="reset md:hidden"
@@ -87,23 +69,21 @@ export function Header({cart, isLoggedIn}) {
             <Icon name="menu" size="lg" color="text-cloud" />
           </button>
 
-          {/* ─── Logo ─── */}
-          <NavLink to="/" className="hidden no-underline md:flex" aria-label="PAWRA home">
+          <NavLink to="/" className="hidden shrink-0 no-underline md:flex" aria-label="PAWRA home">
             <Logo variant="icon" height={36} />
           </NavLink>
-          <NavLink to="/" className="no-underline md:hidden" aria-label="PAWRA home">
+          <NavLink to="/" className="shrink-0 no-underline md:hidden" aria-label="PAWRA home">
             <Logo variant="icon" height={32} />
           </NavLink>
 
-          {/* ─── Desktop Navigation ─── */}
-          <nav className="hidden items-center gap-8 md:flex" role="navigation">
+          <nav className="hidden flex-1 items-center justify-center gap-6 lg:gap-8 md:flex" role="navigation">
             {PAWRA_HEADER_MENU.map((item) =>
-              item.hasDropdown ? (
+              item.hasMegaMenu ? (
                 <div
                   key={item.id}
                   className="relative"
-                  onMouseEnter={() => setCollectionsOpen(true)}
-                  onMouseLeave={() => setCollectionsOpen(false)}
+                  onMouseEnter={() => setOpenMegaMenu(item.speciesId)}
+                  onMouseLeave={() => setOpenMegaMenu(null)}
                 >
                   <NavLink
                     to={item.url}
@@ -111,18 +91,8 @@ export function Header({cart, isLoggedIn}) {
                   >
                     {item.title}
                   </NavLink>
-                  {collectionsOpen && (
-                    <div className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-lg border border-cloud/10 bg-midnight py-2 shadow-lg">
-                      {PAWRA_COLLECTIONS.map((col) => (
-                        <NavLink
-                          key={col.title}
-                          to={col.path}
-                          className="block px-4 py-2 font-sans text-body-s text-cloud no-underline hover:bg-forest-green/50"
-                        >
-                          {col.title}
-                        </NavLink>
-                      ))}
-                    </div>
+                  {openMegaMenu === item.speciesId && (
+                    <MegaMenu speciesId={item.speciesId} />
                   )}
                 </div>
               ) : (
@@ -137,12 +107,18 @@ export function Header({cart, isLoggedIn}) {
             )}
           </nav>
 
-          {/* ─── Utility Actions ─── */}
-          <div className="flex items-center gap-4">
-            <NavLink to="/search" className="reset" aria-label="Search">
+          <div className="flex items-center gap-3 md:gap-4">
+            <NavLink
+              to="/search"
+              className="hidden max-w-[200px] flex-1 items-center gap-2 rounded-md border border-cloud/20 bg-forest-green/50 px-3 py-2 no-underline lg:flex xl:max-w-[260px]"
+              aria-label="Search products"
+            >
+              <Icon name="search" size="sm" color="text-cloud/70" />
+              <span className="truncate font-sans text-body-s text-cloud/60">Search products…</span>
+            </NavLink>
+            <NavLink to="/search" className="reset lg:hidden" aria-label="Search">
               <Icon name="search" size="md" color="text-cloud" />
             </NavLink>
-            {/* TODO: Wire wishlist — persist saved products via app or customer metafields */}
             <button type="button" className="reset hidden sm:inline-flex" aria-label="Wishlist">
               <Icon name="heart" size="md" color="text-cloud" />
             </button>
@@ -152,14 +128,17 @@ export function Header({cart, isLoggedIn}) {
         </div>
       </header>
 
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} isLoggedIn={isLoggedIn} />
+      <MobileDrawer
+        open={mobileOpen}
+        onClose={closeMobile}
+        isLoggedIn={isLoggedIn}
+        speciesOpen={mobileSpeciesOpen}
+        setSpeciesOpen={setMobileSpeciesOpen}
+      />
     </>
   );
 }
 
-// ─── Account Link ─────────────────────────────────────────────────────────────
-
-/** Account icon — routes to login or account dashboard based on auth state. */
 function AccountToggle({isLoggedIn}) {
   return (
     <NavLink
@@ -172,13 +151,8 @@ function AccountToggle({isLoggedIn}) {
   );
 }
 
-// ─── Mobile Drawer ────────────────────────────────────────────────────────────
-
-/** Full-screen slide-out nav for viewports below md breakpoint. */
-function MobileDrawer({open, onClose, isLoggedIn}) {
+function MobileDrawer({open, onClose, isLoggedIn, speciesOpen, setSpeciesOpen}) {
   if (!open) return null;
-
-  const links = [...PAWRA_HEADER_MENU, ...PAWRA_MOBILE_EXTRA];
 
   return (
     <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true">
@@ -188,7 +162,7 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
         onClick={onClose}
         aria-label="Close menu overlay"
       />
-      <aside className="absolute left-0 top-0 flex h-full w-[min(320px,85vw)] flex-col bg-midnight shadow-xl">
+      <aside className="absolute left-0 top-0 flex h-full w-[min(320px,85vw)] flex-col overflow-y-auto bg-midnight shadow-xl">
         <div className="flex items-center justify-between border-b border-cloud/10 px-5 py-4">
           <Logo variant="light" height={28} />
           <button type="button" className="reset" onClick={onClose} aria-label="Close menu">
@@ -196,12 +170,40 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
           </button>
         </div>
         <nav className="flex flex-col gap-1 p-5">
-          {links.map((item) => (
+          {PAWRA_HEADER_MENU.map((item) =>
+            item.hasMegaMenu ? (
+              <div key={item.id}>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between rounded-md px-3 py-3 text-left font-sans text-body-m font-medium text-cloud reset hover:bg-forest-green/50"
+                  onClick={() =>
+                    setSpeciesOpen(speciesOpen === item.speciesId ? null : item.speciesId)
+                  }
+                >
+                  {item.title}
+                  <span className="text-cloud/50">{speciesOpen === item.speciesId ? '−' : '+'}</span>
+                </button>
+                {speciesOpen === item.speciesId && (
+                  <MobileSpeciesMenu speciesId={item.speciesId} onNavigate={onClose} />
+                )}
+              </div>
+            ) : (
+              <NavLink
+                key={item.id}
+                to={item.url}
+                onClick={onClose}
+                className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+              >
+                {item.title}
+              </NavLink>
+            ),
+          )}
+          {PAWRA_MOBILE_EXTRA.map((item) => (
             <NavLink
               key={item.id}
               to={item.url}
               onClick={onClose}
-              className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+              className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud/80 no-underline hover:bg-forest-green/50"
             >
               {item.title}
             </NavLink>
@@ -219,9 +221,6 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
   );
 }
 
-// ─── Cart Badge & Toggle ────────────────────────────────────────────────────────
-
-/** Cart icon with optimistic quantity badge; opens cart aside drawer. */
 function CartBadge({count}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
@@ -246,7 +245,6 @@ function CartBadge({count}) {
   );
 }
 
-/** Suspense boundary around deferred cart promise from root loader. */
 function CartToggle({cart}) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
@@ -257,7 +255,6 @@ function CartToggle({cart}) {
   );
 }
 
-/** Resolves cart and applies optimistic updates for instant badge feedback. */
 function CartBanner() {
   const originalCart = useAsyncValue();
   const cart = useOptimisticCart(originalCart);

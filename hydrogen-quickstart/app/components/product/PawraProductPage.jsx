@@ -20,6 +20,8 @@ import {Image, Money, Analytics} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {Icon} from '~/components/ui/Icon';
+import {Breadcrumbs} from '~/components/Breadcrumbs';
+import {getProductBreadcrumbs} from '~/lib/pawraCollections';
 import {FaqAccordion} from '~/components/FaqAccordion';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {Testimonials} from '~/components/sections/Testimonials';
@@ -96,7 +98,8 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
     <div className="bg-warm-oat">
       {/* ─── Hero: Gallery & Purchase Panel ─── */}
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <Breadcrumbs crumbs={getProductBreadcrumbs(product)} />
+        <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* ─── Image Gallery ─── */}
           <div>
             <div className="group relative aspect-square overflow-hidden rounded-xl bg-cloud shadow-card">

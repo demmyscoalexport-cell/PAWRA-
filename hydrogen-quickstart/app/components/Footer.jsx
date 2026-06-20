@@ -18,17 +18,11 @@ import {NavLink} from 'react-router';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
 import {BRAND} from '~/lib/branding';
+import {PAWRA_FOOTER_SHOP_LINKS} from '~/lib/pawraCollections';
 
 // ─── Footer Link Groups ───────────────────────────────────────────────────────
 
-/** Shop category shortcuts — update handles when Shopify collections are finalized. */
-const SHOP_LINKS = [
-  {label: 'All Products', to: '/collections/all'},
-  {label: 'Dog Products', to: '/collections/hydrogen'},
-  {label: 'Cat Products', to: '/collections/automated-collection'},
-  {label: 'Food & Treats', to: '/collections/frontpage'},
-  {label: 'Grooming', to: '/collections/all'},
-];
+const SHOP_LINKS = PAWRA_FOOTER_SHOP_LINKS;
 
 /** Company and content pages. */
 const COMPANY_LINKS = [

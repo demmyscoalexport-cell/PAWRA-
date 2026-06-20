@@ -20,6 +20,8 @@ import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {PawraProductCard} from '~/components/PawraProductCard';
+import {PAWRA_SPECIES, CURATED_COLLECTIONS} from '~/lib/pawraCollections';
+import {Link} from 'react-router';
 
 export const meta = () => {
   return [{title: 'PAWRA | Search'}];
@@ -72,6 +74,29 @@ export default function SearchPage() {
         {!term || !result?.total ? (
           <div className="mt-12">
             <SearchResults.Empty />
+            <div className="mt-12">
+              <h2 className="font-serif text-heading-m text-forest-green">Popular categories</h2>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {PAWRA_SPECIES.map((s) => (
+                  <Link
+                    key={s.id}
+                    to={s.path}
+                    className="rounded-pill border border-forest-green/30 px-4 py-2 font-sans text-body-s text-forest-green no-underline hover:bg-forest-green hover:text-cloud"
+                  >
+                    {s.title}
+                  </Link>
+                ))}
+                {CURATED_COLLECTIONS.filter((c) => c.handle !== 'all').slice(0, 4).map((c) => (
+                  <Link
+                    key={c.handle}
+                    to={c.path}
+                    className="rounded-pill border border-forest-green/30 px-4 py-2 font-sans text-body-s text-forest-green no-underline hover:bg-forest-green hover:text-cloud"
+                  >
+                    {c.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         ) : (
           <SearchResults result={result} term={term}>

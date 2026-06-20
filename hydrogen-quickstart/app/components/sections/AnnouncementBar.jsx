@@ -19,8 +19,9 @@ import {Icon} from '~/components/ui/Icon';
 
 const MESSAGES = [
   'Free shipping on all US orders over $75',
+  'Subscribe & Save — 10% off recurring deliveries',
   'Premium products for cats and dogs',
-  '30-day returns',
+  '30-day returns · Secure Shopify checkout',
 ];
 const STORAGE_KEY = 'pawra-announcement-closed';
 

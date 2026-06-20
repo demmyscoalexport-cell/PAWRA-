@@ -37,11 +37,14 @@ export function HeroSection() {
               delivered to your door.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button variant="primary" size="lg" href="/collections/all">
-                Shop All Products
+              <Button variant="primary" size="lg" href="/collections/dogs">
+                Shop Dogs
               </Button>
-              <Button variant="ghost" size="lg" href="/pages/about">
-                About PAWRA
+              <Button variant="secondary" size="lg" href="/collections/cats">
+                Shop Cats
+              </Button>
+              <Button variant="ghost" size="lg" href="/collections/all">
+                Shop All
               </Button>
             </div>
             <div className="mt-8 flex items-start gap-3">

@@ -1,0 +1,50 @@
+{
+  "$schema": "PAWRA Shopify Collection Setup — 2026",
+  "instructions": "Create these collections in Shopify Admin → Products → Collections. Use automated rules where noted. Tag every product with species (dogs or cats) plus category tags.",
+  "requiredProductTags": {
+    "species": ["dogs", "cats"],
+    "categories": [
+      "grooming",
+      "toys",
+      "treats",
+      "feeding",
+      "harness",
+      "leash",
+      "paw",
+      "dental",
+      "litter",
+      "interactive",
+      "bestseller",
+      "new-pet",
+      "essentials"
+    ]
+  },
+  "collections": [
+    {"handle": "dogs", "title": "All Dog Products", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}]},
+    {"handle": "cats", "title": "All Cat Products", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}]},
+    {"handle": "dogs-grooming", "title": "Dog Grooming", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Grooming"}]},
+    {"handle": "dogs-toys", "title": "Dog Toys", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Toys"}]},
+    {"handle": "dogs-treats", "title": "Dog Treats", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Treats"}]},
+    {"handle": "dogs-feeding", "title": "Dog Feeding", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Feeding"}]},
+    {"handle": "dogs-walk-travel", "title": "Dog Walk & Travel", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Harnesses & Leashes"}]},
+    {"handle": "dogs-paw-wellness", "title": "Dog Paw & Wellness", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Paw Protection"}]},
+    {"handle": "dogs-dental", "title": "Dog Dental Care", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "dogs"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Dental Care"}]},
+    {"handle": "cats-grooming", "title": "Cat Grooming", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Grooming"}]},
+    {"handle": "cats-toys", "title": "Cat Toys & Enrichment", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Interactive Toys"}]},
+    {"handle": "cats-treats", "title": "Cat Treats", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Treats"}]},
+    {"handle": "cats-feeding", "title": "Cat Feeding", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Feeding"}]},
+    {"handle": "cats-walk-travel", "title": "Cat Walk & Travel", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Harnesses & Leashes"}]},
+    {"handle": "cats-paw-wellness", "title": "Cat Paw & Wellness", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Paw Protection"}]},
+    {"handle": "cats-dental", "title": "Cat Dental Care", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Dental Care"}]},
+    {"handle": "cats-litter", "title": "Cat Litter & Waste", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "cats"}, {"column": "TYPE", "relation": "EQUALS", "condition": "Litter & Waste"}]},
+    {"handle": "food-and-treats", "title": "Food & Treats", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "treats"}]},
+    {"handle": "grooming-wellness", "title": "Grooming & Wellness", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "grooming"}]},
+    {"handle": "best-sellers", "title": "PAWRA Best Sellers", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "bestseller"}]},
+    {"handle": "new-pet-essentials", "title": "New Pet Essentials", "rules": [{"column": "TAG", "relation": "EQUALS", "condition": "new-pet"}]}
+  ],
+  "paymentSetup": {
+    "note": "Payments are handled by Shopify Checkout — enable in Admin → Settings → Payments",
+    "recommended": ["Shopify Payments", "PayPal", "Apple Pay", "Google Pay", "Shop Pay"],
+    "checkoutDomain": "pawrapetshop.myshopify.com"
+  }
+}
