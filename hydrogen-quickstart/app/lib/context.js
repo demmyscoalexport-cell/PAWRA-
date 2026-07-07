@@ -17,6 +17,7 @@
 import { createHydrogenContext } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
 import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
+import {validateMeilisearchEnv} from '~/lib/meilisearch/env';
 
 // ─── Additional Context ───────────────────────────────────────────────────────
 
@@ -51,6 +52,8 @@ export async function createHydrogenRouterContext(request, env, executionContext
   if (!env?.SESSION_SECRET) {
     throw new Error('SESSION_SECRET environment variable is not set');
   }
+
+  validateMeilisearchEnv(env);
 
   const waitUntil = executionContext.waitUntil.bind(executionContext);
 

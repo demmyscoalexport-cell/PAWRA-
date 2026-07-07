@@ -22,6 +22,12 @@ import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {PAWRA_SPECIES, CURATED_COLLECTIONS} from '~/lib/pawraCollections';
 import {Link} from 'react-router';
+import {
+  getMeilisearchConfig,
+  isMeilisearchConfigured,
+  multiIndexSearch,
+  predictiveAutocomplete,
+} from '~/lib/meilisearch';
 
 export const meta = () => {
   return [{title: 'PAWRA | Search'}];
@@ -133,10 +139,65 @@ export default function SearchPage() {
 }
 
 async function regularSearch({request, context}) {
-  const {storefront} = context;
+  const {storefront, env} = context;
   const url = new URL(request.url);
   const variables = getPaginationVariables(request, {pageBy: 12});
   const term = String(url.searchParams.get('q') || '');
+
+  if (isMeilisearchConfigured(env) && term) {
+    try {
+      const config = getMeilisearchConfig(env);
+      const species = url.searchParams.get('species');
+      const results = await multiIndexSearch(config, term, {
+        limit: variables.first ?? 12,
+        species: species === 'dogs' || species === 'cats' ? species : undefined,
+      });
+
+      const items = {
+        products: {
+          nodes: results.products.hits.map((product) => ({
+            __typename: 'Product',
+            id: product.id,
+            handle: product.handle,
+            title: product.title,
+            selectedOrFirstAvailableVariant: {
+              image: product.imageUrl
+                ? {url: product.imageUrl, altText: product.imageAlt ?? null}
+                : null,
+              price:
+                product.price != null && product.currencyCode
+                  ? {amount: String(product.price), currencyCode: product.currencyCode}
+                  : null,
+            },
+          })),
+          pageInfo: {hasNextPage: false, hasPreviousPage: false},
+        },
+        pages: {
+          nodes: results.pages.map((page) => ({
+            id: page.id,
+            title: page.title,
+            handle: page.handle,
+          })),
+        },
+        articles: {
+          nodes: results.articles.map((article) => ({
+            id: article.id,
+            title: article.title,
+            handle: article.handle,
+          })),
+        },
+      };
+
+      return {
+        type: 'regular',
+        term,
+        result: {total: results.total, items},
+        source: 'meilisearch',
+      };
+    } catch (error) {
+      console.error('[Meilisearch] regular search failed, falling back to Shopify:', error);
+    }
+  }
 
   const {errors, ...items} = await storefront.query(SEARCH_QUERY, {
     variables: {...variables, term},
@@ -149,17 +210,27 @@ async function regularSearch({request, context}) {
   const total = Object.values(items).reduce((acc, {nodes}) => acc + nodes.length, 0);
   const error = errors ? errors.map(({message}) => message).join(', ') : undefined;
 
-  return {type: 'regular', term, error, result: {total, items}};
+  return {type: 'regular', term, error, result: {total, items}, source: 'shopify'};
 }
 
 async function predictiveSearch({request, context}) {
-  const {storefront} = context;
+  const {storefront, env} = context;
   const url = new URL(request.url);
   const term = String(url.searchParams.get('q') || '').trim();
   const limit = Number(url.searchParams.get('limit') || 10);
   const type = 'predictive';
 
   if (!term) return {type, term, result: getEmptyPredictiveSearchResult()};
+
+  if (isMeilisearchConfigured(env)) {
+    try {
+      const config = getMeilisearchConfig(env);
+      const {items, total} = await predictiveAutocomplete(config, term, limit);
+      return {type, term, result: {items, total}, source: 'meilisearch'};
+    } catch (error) {
+      console.error('[Meilisearch] predictive search failed, falling back to Shopify:', error);
+    }
+  }
 
   const {predictiveSearch: items, errors} = await storefront.query(PREDICTIVE_SEARCH_QUERY, {
     variables: {limit, limitScope: 'EACH', term},
@@ -174,7 +245,7 @@ async function predictiveSearch({request, context}) {
   }
 
   const total = Object.values(items).reduce((acc, item) => acc + item.length, 0);
-  return {type, term, result: {items, total}};
+  return {type, term, result: {items, total}, source: 'shopify'};
 }
 
 const SEARCH_PRODUCT_FRAGMENT = `#graphql

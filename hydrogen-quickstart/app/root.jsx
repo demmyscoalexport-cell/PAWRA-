@@ -31,6 +31,7 @@ import resetStyles from './styles/reset.css?url';
 import tailwindStyles from './styles/tailwind.css?url';
 import appStyles from './styles/app.css?url';
 import { PageLayout } from './components/PageLayout';
+import {getMeilisearchPublicConfig} from '~/lib/meilisearch/env';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -120,6 +121,7 @@ export async function loader(args) {
       country: args.context.storefront.i18n.country,
       language: args.context.storefront.i18n.language,
     },
+    meilisearch: getMeilisearchPublicConfig(env),
   };
 }
 
