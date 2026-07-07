@@ -20,6 +20,7 @@ import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {PawraProductCard} from '~/components/PawraProductCard';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 
 export const meta = () => {
   return [{title: 'PAWRA | Search'}];
@@ -61,7 +62,7 @@ export default function SearchPage() {
               />
               <button
                 type="submit"
-                className="rounded-md bg-forest-green px-6 py-3 font-sans text-body-m font-medium text-cloud"
+                className={`rounded-md px-6 py-3 font-sans text-body-m font-medium ${PRIMARY_CTA_CLASSES}`}
               >
                 Search
               </button>

@@ -23,6 +23,7 @@ import {Icon} from '~/components/ui/Icon';
 import {FaqAccordion} from '~/components/FaqAccordion';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {Testimonials} from '~/components/sections/Testimonials';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
@@ -254,7 +255,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     ? [{merchandiseId: selectedVariant.id, quantity, selectedVariant}]
                     : []
                 }
-                className="flex h-[52px] w-full items-center justify-center rounded-md bg-forest-green font-sans text-body-l font-medium text-cloud reset hover:bg-forest-night"
+                className={`flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium reset ${PRIMARY_CTA_CLASSES}`}
               >
                 {selectedVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
               </AddToCartButton>

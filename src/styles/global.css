@@ -73,7 +73,7 @@ a:hover {
 }
 
 .btn-primary {
-  @apply bg-matte-black text-ivory hover:bg-charcoal;
+  @apply bg-[#10B981] text-[#0E1A15] hover:bg-[#059669] active:bg-[#047857] shadow-sm;
 }
 
 .btn-secondary {

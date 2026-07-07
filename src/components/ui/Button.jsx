@@ -16,9 +16,10 @@ export const Button = React.forwardRef(
     const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-matte-black text-ivory hover:bg-charcoal focus:ring-matte-black',
+      primary:
+        'bg-[#10B981] text-[#0E1A15] hover:bg-[#059669] active:bg-[#047857] focus:ring-[#10B981] shadow-sm',
       secondary: 'bg-ivory border-2 border-matte-black text-matte-black hover:bg-warm-white focus:ring-matte-black',
-      accent: 'bg-soft-emerald text-ivory hover:bg-opacity-90 focus:ring-soft-emerald',
+      accent: 'bg-soft-emerald text-[#0E1A15] hover:bg-opacity-90 focus:ring-soft-emerald shadow-sm',
       ghost: 'text-matte-black hover:bg-warm-white focus:ring-matte-black',
       danger: 'bg-error text-ivory hover:bg-opacity-90 focus:ring-error',
     };

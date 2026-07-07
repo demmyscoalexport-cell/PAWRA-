@@ -16,6 +16,7 @@
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
 import {Link} from 'react-router';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 
 export type ButtonVariant =
   | 'primary'
@@ -28,14 +29,13 @@ export type ButtonVariant =
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary:
-    'bg-forest-green text-cloud border border-forest-green hover:bg-forest-night active:bg-midnight focus-visible:ring-electric-jade',
+  primary: PRIMARY_CTA_CLASSES,
   secondary:
     'bg-transparent text-forest-green border border-forest-green hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
   ghost:
     'bg-transparent text-forest-green border border-transparent hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
   accent:
-    'bg-electric-jade text-midnight border border-electric-jade hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green shadow-jade-glow',
+    'bg-electric-jade text-midnight border border-electric-jade hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green shadow-xs',
   premium:
     'bg-champagne text-midnight border border-champagne hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green',
   destructive:

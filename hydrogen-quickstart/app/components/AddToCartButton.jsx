@@ -15,6 +15,9 @@
  */
 
 import {CartForm} from '@shopify/hydrogen';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
+
+const DEFAULT_ADD_TO_CART_CLASSES = `rounded-md px-6 py-3 font-sans text-body-m font-medium reset ${PRIMARY_CTA_CLASSES}`;
 
 /**
  * @param {{
@@ -44,7 +47,7 @@ export function AddToCartButton({
           />
           <button
             type="submit"
-            className={className || undefined}
+            className={className || DEFAULT_ADD_TO_CART_CLASSES}
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >

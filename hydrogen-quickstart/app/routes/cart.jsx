@@ -19,6 +19,7 @@ import {CartForm, Money} from '@shopify/hydrogen';
 import {Link} from 'react-router';
 import {CartMain} from '~/components/CartMain';
 import {Button} from '~/components/ui/Button';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 import {Icon} from '~/components/ui/Icon';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
@@ -185,7 +186,7 @@ export default function CartPage() {
             {cart?.checkoutUrl && (
               <a
                 href={cart.checkoutUrl}
-                className="mt-6 flex h-[52px] w-full items-center justify-center rounded-md bg-forest-green font-sans text-body-l font-medium text-cloud no-underline hover:bg-forest-night"
+                className={`mt-6 flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium no-underline ${PRIMARY_CTA_CLASSES}`}
               >
                 Checkout
               </a>
