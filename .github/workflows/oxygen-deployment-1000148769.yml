@@ -1,15 +1,29 @@
 # Don't change the line below!
 #! oxygen_storefront_id: 1000148769
 
+# PAWRA Oxygen CI/CD
+# - push to main        → Production (auto-promoted; no manual "Make current" step)
+# - push to any branch  → Preview only
+# - failed build/deploy → previous Production deployment stays live
+#
+# When you connect a NEW Hydrogen storefront, Shopify opens a PR with a new
+# workflow file and secret (OXYGEN_DEPLOYMENT_TOKEN_<new-id>). Merge that PR
+# and remove or disable this file if the storefront ID changes.
+
 name: Storefront 1000148769
+
 on:
   push:
-    branches:
-      - main
-
-concurrency:
-  group: oxygen-1000148769
-  cancel-in-progress: true
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Oxygen environment target
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - preview
 
 permissions:
   contents: read
@@ -20,6 +34,9 @@ jobs:
     name: Deploy to Oxygen
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    concurrency:
+      group: oxygen-1000148769-${{ github.ref == 'refs/heads/main' && 'production' || format('preview-{0}', github.ref_name) }}
+      cancel-in-progress: true
     defaults:
       run:
         working-directory: hydrogen-quickstart
@@ -43,8 +60,33 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Publish to Oxygen
-        run: npm exec -- shopify hydrogen deploy --no-lockfile-check --build-command "true"
+      # Production: main branch only. Oxygen points the Production environment URL
+      # (and pawrapetshop.com when connected) to this deployment automatically.
+      - name: Publish to Oxygen (Production)
+        if: |
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'workflow_dispatch' && inputs.target == 'production')
+        run: >
+          npm exec -- shopify hydrogen deploy
+          --no-lockfile-check
+          --build-command "true"
+          --env-branch main
+          --metadata-user "github-actions"
+        env:
+          CI: true
+          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000148769 }}
+
+      # Preview: all non-main branches. Never replaces Production.
+      - name: Publish to Oxygen (Preview)
+        if: |
+          (github.event_name == 'push' && github.ref != 'refs/heads/main') ||
+          (github.event_name == 'workflow_dispatch' && inputs.target == 'preview')
+        run: >
+          npm exec -- shopify hydrogen deploy
+          --preview
+          --no-lockfile-check
+          --build-command "true"
+          --metadata-user "github-actions"
         env:
           CI: true
           SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000148769 }}
