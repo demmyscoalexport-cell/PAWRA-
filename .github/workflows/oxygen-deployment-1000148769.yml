@@ -1,11 +1,14 @@
 # Don't change the line below!
 #! oxygen_storefront_id: 1000148769
 
+# AUTO-DEPLOY PAUSED (2026-07-07)
+# Production green store must stay on Oxygen until repo split is complete.
+# Deploy manually from GitHub Actions → Run workflow when ready.
+# Do NOT re-enable push-to-main until PAWRA-.git main is restored to production-green.
+
 name: Storefront 1000148769
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 concurrency:
   group: oxygen-1000148769
