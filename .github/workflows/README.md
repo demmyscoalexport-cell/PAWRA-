@@ -1,33 +1,21 @@
 # GitHub Actions — Oxygen deploy
 
-## Active workflow
+## Workflow
 
-**[`oxygen-deploy.yml`](oxygen-deploy.yml)** — deploys `hydrogen-quickstart/` to Shopify Oxygen.
+[`oxygen-deploy.yml`](./oxygen-deploy.yml) deploys the Hydrogen app in `hydrogen-quickstart/`.
 
-| Trigger | Target |
-|---------|--------|
+| Event | Oxygen target |
+|-------|----------------|
 | Push to `main` | Production (`--env-branch main`) |
-| Push to other branches | Preview (`--preview`) |
+| Push to other branches | Preview |
 | Manual `workflow_dispatch` | Choose production or preview |
 
 ## Required secret
 
-Add in **GitHub → Settings → Secrets and variables → Actions**:
+| Name | Where to create |
+|------|-----------------|
+| `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` | Shopify Admin → **Hydrogen** → Storefront settings → **Oxygen deployments** → Create token |
 
-| Name | Value |
-|------|--------|
-| `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` | From **Hydrogen Admin → Storefront settings → Oxygen deployments → Create token** |
+Add it at: **GitHub → Settings → Secrets and variables → Actions**
 
-## Removed (old store)
-
-- `oxygen-deployment-1000148769.yml` — deleted (old storefront `1000148769`)
-- `OXYGEN_DEPLOYMENT_TOKEN_1000148769` — delete from GitHub if still present
-
-## Shopify auto-generated workflow
-
-When you connect GitHub from Hydrogen Admin, Shopify may open a PR with `oxygen-deployment-XXXXXXXX.yml`. You can:
-
-- **Option A:** Use this repo’s `oxygen-deploy.yml` + `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` (recommended)
-- **Option B:** Merge Shopify’s PR and remove `oxygen-deploy.yml` to avoid duplicate deploys
-
-Use **only one** Oxygen workflow.
+Use **one** Oxygen deploy workflow only. If Shopify opens a PR with `oxygen-deployment-XXXXXXXX.yml`, either adopt that file **or** keep `oxygen-deploy.yml` — not both.
