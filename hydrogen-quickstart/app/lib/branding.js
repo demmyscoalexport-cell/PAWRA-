@@ -24,7 +24,7 @@
 /** Core brand metadata used in meta tags, footer, and about pages. */
 export const BRAND = {
   name: 'PAWRA',
-  tagline: 'Premium pet products for cats and dogs',
+  tagline: 'Every moment. Every pet. Every life.',
   domain: 'pawrapetshop.com',
   url: 'https://pawrapetshop.com',
   supportEmail: 'support@pawrapetshop.com',

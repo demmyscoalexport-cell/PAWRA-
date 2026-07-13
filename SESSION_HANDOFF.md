@@ -5,7 +5,7 @@
 **Branch:** `pawra-hydrogen-branding`  
 **Remote:** https://github.com/demmyscoalexport-cell/PAWRA-.git  
 **Tagline:** Every moment. Every pet. Every life.  
-**Domain:** shoppawra.com
+**Domain:** pawrapetshop.com
 
 ---
 

@@ -158,16 +158,13 @@ VITE_COMMERCE_CURRENCY=USD
 npm run build
 ```
 
-### Deploy to Vercel
+### Deploy to Shopify Oxygen
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** — PAWRA deploys via Hydrogen to Oxygen, not Vercel/Netlify.
 
 ```bash
-vercel
-```
-
-### Deploy to Netlify
-
-```bash
-netlify deploy --prod --dir=dist
+cd hydrogen-quickstart
+npx shopify hydrogen deploy --env-branch main
 ```
 
 ## Future Features
@@ -196,7 +193,7 @@ Private - PAWRA Brand
 
 ## Support
 
-For technical support, contact: support@pawra.com
+For technical support, contact: support@pawrapetshop.com
 
 ---
 

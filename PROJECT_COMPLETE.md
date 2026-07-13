@@ -207,14 +207,11 @@ Plus 160+ additional product variants for testing and scaling.
 
 ### Environment Variables (in .env)
 ```
-VITE_SHOPIFY_STORE_DOMAIN=pawra-pets.myshopify.com
-VITE_SHOPIFY_STOREFRONT_TOKEN=9d6f32c3c4f1a2b5e8c9d0e1f2a3b4c5
-VITE_API_BASE_URL=http://localhost:5173
-VITE_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
-VITE_COMMERCE_CURRENCY=USD
+VITE_SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+VITE_SHOPIFY_STOREFRONT_TOKEN=your_storefront_token
 ```
 
-Replace with your actual Shopify credentials.
+Replace with your actual Shopify credentials. The live PAWRA app uses `hydrogen-quickstart/.env` — see `hydrogen-quickstart/.env.example`.
 
 ## 🎯 Next Steps to Customize
 
