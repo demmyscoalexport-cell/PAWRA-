@@ -2,7 +2,7 @@
  * ╔═══════════════════════════════════════╗
  * ║          PAWRA PET SHOP               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapercares.com             ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,11 +11,11 @@
  * @file branding.js
  * @description Storefront utility module: branding.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapercares.com
  */
 
 /**
- * PAWRA Pet Shop brand constants — pawrapetshop.com
+ * PAWRA Pet Shop brand constants — pawrapercares.com
  * Single source of truth for site-wide copy, contact info, and legal footer text.
  */
 
@@ -24,10 +24,10 @@
 /** Core brand metadata used in meta tags, footer, and about pages. */
 export const BRAND = {
   name: 'PAWRA',
-  tagline: 'Premium pet products for cats and dogs',
-  domain: 'pawrapetshop.com',
-  url: 'https://pawrapetshop.com',
-  supportEmail: 'support@pawrapetshop.com',
+  tagline: 'Every moment. Every pet. Every life.',
+  domain: 'pawrapercares.com',
+  url: 'https://pawrapercares.com',
+  supportEmail: 'support@pawrapercares.com',
   address: {
     line1: '256 Chapman Road',
     city: 'Presque Isle',
@@ -35,7 +35,7 @@ export const BRAND = {
     zip: '04769',
     country: 'United States',
   },
-  copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapetshop.com',
+  copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapercares.com',
 };
 
 // ─── About Page Copy ────────────────────────────────────────────────────────────

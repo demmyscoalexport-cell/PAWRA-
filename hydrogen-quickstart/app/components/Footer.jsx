@@ -49,10 +49,10 @@ const SUPPORT_LINKS = [
 
 /** External social profiles for PAWRA Pet Shop. */
 const SOCIAL = [
-  {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/pawrapetshop'},
-  {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@pawrapetshop'},
-  {label: 'Facebook', icon: 'facebook', href: 'https://facebook.com/pawrapetshop'},
-  {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/pawrapetshop'},
+  {label: 'Instagram', icon: 'instagram', href: 'https://instagram.com/pawrapercares'},
+  {label: 'TikTok', icon: 'tiktok', href: 'https://tiktok.com/@pawrapercares'},
+  {label: 'Facebook', icon: 'facebook', href: 'https://facebook.com/pawrapercares'},
+  {label: 'Pinterest', icon: 'pinterest', href: 'https://pinterest.com/pawrapercares'},
 ];
 
 // ─── Footer Column Helper ─────────────────────────────────────────────────────

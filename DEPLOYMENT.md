@@ -1,109 +1,114 @@
 # Deploy PAWRA to Shopify Oxygen
 
-PAWRA runs on **Shopify Oxygen** (Cloudflare Workers). Do not deploy this Hydrogen app to Vercel or Netlify.
+PAWRA runs on **Shopify Oxygen**. The Hydrogen app lives in **`hydrogen-quickstart/`**.
 
-## Prerequisites
+## New store setup (start here)
 
-- Node.js 22+ and npm
-- [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) (`npm install -g @shopify/cli @shopify/cli-hydrogen`)
-- Shopify store: **pawrapetshop.myshopify.com**
-- GitHub repo: https://github.com/demmyscoalexport-cell/PAWRA-.git
+Old Shopify accounts and storefront IDs have been removed from this repo. Connect a **new** store:
 
-## 1. Link the storefront
+### 1. Shopify Admin (new store)
 
-From the repo root:
+1. **Basic+** plan
+2. Install **Hydrogen** sales channel (not Headless — see below)
+3. **Create storefront** (e.g. `PAWRA`)
+4. **Settings → Customer accounts** — enable
+5. **Settings → Payments** — configure Shopify Payments
+6. Import or create products
+7. **Products → Bulk edit → Sales channels** — publish to your **Hydrogen storefront** (not Online Store only)
+8. **Settings → Domains** — connect `pawrapercares.com`
+9. **Hydrogen → Domains** — assign domain to **Production**
+
+### 2. Link locally
 
 ```bash
 cd hydrogen-quickstart
-npx shopify hydrogen link
-```
-
-Select **pawrapetshop.myshopify.com** when prompted. This writes store credentials locally and prepares the Oxygen project.
-
-## 2. Local environment
-
-```bash
 cp .env.example .env
+npx shopify hydrogen link      # pick NEW store → create/link storefront
+npx shopify hydrogen env pull  # fills .env with tokens
+npm run dev                    # http://localhost:3000
 ```
 
-Fill in values from Shopify Admin → **Sales channels → Headless** (or from `hydrogen link` output). At minimum:
+### 3. Oxygen Production env vars
+
+**Hydrogen → Storefront settings → Environments → Production** — paste from `env pull`:
 
 | Variable | Description |
 |----------|-------------|
-| `SESSION_SECRET` | Long random string (required) |
-| `PUBLIC_STOREFRONT_API_TOKEN` | Storefront API public token |
-| `PUBLIC_STORE_DOMAIN` | `pawrapetshop.myshopify.com` |
-| `PUBLIC_STOREFRONT_ID` | Headless storefront ID |
-| `PUBLIC_CHECKOUT_DOMAIN` | `pawrapetshop.myshopify.com` |
-| `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` | Customer Account API client ID |
-| `PUBLIC_CUSTOMER_ACCOUNT_API_URL` | Customer Account API URL |
+| `SESSION_SECRET` | Random 32+ char string |
+| `PUBLIC_STOREFRONT_API_TOKEN` | Public Storefront API token |
+| `PRIVATE_STOREFRONT_API_TOKEN` | Private Storefront API token |
+| `PUBLIC_STORE_DOMAIN` | `your-store.myshopify.com` |
+| `PUBLIC_STOREFRONT_ID` | Hydrogen storefront ID |
+| `PUBLIC_CHECKOUT_DOMAIN` | Same as store domain |
+| `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` | Customer Account API |
+| `PUBLIC_CUSTOMER_ACCOUNT_API_URL` | `https://shopify.com/...` |
 
-Run locally from repo root:
+### 4. GitHub CI/CD
 
-```bash
-npm run dev
-```
+1. **Hydrogen → Oxygen deployments** → create deployment token
+2. **GitHub → repo → Settings → Secrets → Actions**
+3. Add secret: **`SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN`** (token value)
+4. Push to `main` → Production deploy (auto-promoted)
+5. Push to feature branches → Preview only
 
-Storefront: http://localhost:3000
+Workflow: [`.github/workflows/oxygen-deploy.yml`](.github/workflows/oxygen-deploy.yml)
 
-## 3. Production build
+If Shopify opens a PR with its own `oxygen-deployment-XXXXXXXX.yml`, you may merge that instead — use **one** workflow, not both.
 
-```bash
-npm run build
-```
-
-Fix any errors before deploying.
-
-## 4. Deploy to Oxygen
-
-The Hydrogen app lives in **`hydrogen-quickstart/`**. Oxygen must build from that folder (not the repo root).
+### 5. First production deploy
 
 ```bash
 cd hydrogen-quickstart
-npx shopify hydrogen deploy
+npx shopify hydrogen deploy --env-branch main
 ```
 
-Or from repo root:
+Or merge to `main` after the GitHub secret is set.
+
+---
+
+## Hydrogen vs Headless channel
+
+| Channel | Use for PAWRA? |
+|---------|----------------|
+| **Hydrogen** | **Yes** — Oxygen, `hydrogen link`, `hydrogen deploy`, product publishing |
+| **Headless** | No — self-hosted only; cannot deploy to Oxygen |
+| **Online Store** | Optional — separate from pawrapercares.com |
+
+---
+
+## CI/CD behavior
+
+| Git event | Oxygen target | Live at pawrapercares.com? |
+|-----------|---------------|---------------------------|
+| Push to `main` | Production | Yes (after successful deploy) |
+| Push to other branches | Preview | No |
+| Failed build/deploy | Previous Production unchanged | Yes |
+
+Rollback: **Hydrogen → Production → View deployments → Make current** (manual).
+
+---
+
+## Local commands
 
 ```bash
-npx shopify hydrogen deploy --path hydrogen-quickstart
+npm install          # from repo root
+npm run dev          # Hydrogen dev server
+npm run build        # production build
+npm run deploy       # manual Oxygen deploy (from hydrogen-quickstart)
 ```
 
-### GitHub → Oxygen (fixes 404 on deploy)
+---
 
-This repo includes `.github/workflows/oxygen-deployment-1000148769.yml`, which:
+## Pre-launch checklist
 
-- Installs dependencies from `hydrogen-quickstart/package-lock.json`
-- Runs `shopify hydrogen deploy` inside `hydrogen-quickstart/`
-
-Ensure GitHub has the secret **`OXYGEN_DEPLOYMENT_TOKEN_1000148769`** (Shopify adds this when you connect the repo in **Hydrogen → Storefront settings → Oxygen deployments**).
-
-If you previously connected GitHub without merging Shopify’s workflow PR, delete any root-level workflow that runs `npm ci` at the repo root — the root `package-lock.json` is legacy and not the Hydrogen app.
-
-Follow CLI prompts. Verify env vars in **Shopify Admin → Hydrogen → Environment variables**.
-
-## 5. Custom domain
-
-In Shopify Admin:
-
-1. **Settings → Domains** — connect **pawrapetshop.com**
-2. Point your Oxygen storefront to the primary domain
-3. Enable SSL (automatic on Oxygen)
-
-## 6. GitHub workflow
-
-Push `main` to https://github.com/demmyscoalexport-cell/PAWRA-.git. You can connect the repo to Oxygen for CI deploys from Shopify Admin after the first manual deploy.
-
-## Pre-deployment checklist
-
-- [ ] All placeholder NYC / GPS / walker content removed
-- [ ] `.env` not committed; `.env.example` has placeholders only
+- [ ] New store linked via `hydrogen link`
+- [ ] Products published to **Hydrogen** sales channel
+- [ ] Oxygen Production env vars set
+- [ ] `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` in GitHub
+- [ ] `pawrapercares.com` on Production environment
 - [ ] `npm run build` passes
-- [ ] Store linked via `shopify hydrogen link`
-- [ ] Real products and collections exist in Shopify Admin
-- [ ] Custom domain DNS configured for pawrapetshop.com
-- [ ] Support email support@pawrapetshop.com is monitored
+- [ ] `.env` not committed
 
-## Support
+---
 
-**PAWRA LLC** · 256 Chapman Road, Presque Isle, ME 04769 · support@pawrapetshop.com
+**PAWRA LLC** · Presque Isle, ME · support@pawrapercares.com
