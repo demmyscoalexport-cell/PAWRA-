@@ -34,7 +34,7 @@ const PRODUCT_FAQ = [
   {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
   {q: 'Are products safe for cats and dogs?', a: 'Every item is curated for pet safety. Check the product description for species-specific guidance.'},
   {q: 'Do you ship nationwide?', a: 'Yes — we ship to all 50 US states from our Presque Isle, ME fulfillment center.'},
-  {q: 'How do I contact support?', a: 'Email support@pawrapetshop.com and we will respond within one business day.'},
+  {q: 'How do I contact support?', a: 'Email support@pawrapercares.com and we will respond within one business day.'},
   {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships.'},
 ];
 

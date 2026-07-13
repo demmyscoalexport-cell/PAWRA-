@@ -15,7 +15,7 @@ Old Shopify accounts and storefront IDs have been removed from this repo. Connec
 5. **Settings → Payments** — configure Shopify Payments
 6. Import or create products
 7. **Products → Bulk edit → Sales channels** — publish to your **Hydrogen storefront** (not Online Store only)
-8. **Settings → Domains** — connect `pawrapetshop.com`
+8. **Settings → Domains** — connect `pawrapercares.com`
 9. **Hydrogen → Domains** — assign domain to **Production**
 
 ### 2. Link locally
@@ -72,13 +72,13 @@ Or merge to `main` after the GitHub secret is set.
 |---------|----------------|
 | **Hydrogen** | **Yes** — Oxygen, `hydrogen link`, `hydrogen deploy`, product publishing |
 | **Headless** | No — self-hosted only; cannot deploy to Oxygen |
-| **Online Store** | Optional — separate from pawrapetshop.com |
+| **Online Store** | Optional — separate from pawrapercares.com |
 
 ---
 
 ## CI/CD behavior
 
-| Git event | Oxygen target | Live at pawrapetshop.com? |
+| Git event | Oxygen target | Live at pawrapercares.com? |
 |-----------|---------------|---------------------------|
 | Push to `main` | Production | Yes (after successful deploy) |
 | Push to other branches | Preview | No |
@@ -105,10 +105,10 @@ npm run deploy       # manual Oxygen deploy (from hydrogen-quickstart)
 - [ ] Products published to **Hydrogen** sales channel
 - [ ] Oxygen Production env vars set
 - [ ] `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` in GitHub
-- [ ] `pawrapetshop.com` on Production environment
+- [ ] `pawrapercares.com` on Production environment
 - [ ] `npm run build` passes
 - [ ] `.env` not committed
 
 ---
 
-**PAWRA LLC** · Presque Isle, ME · support@pawrapetshop.com
+**PAWRA LLC** · Presque Isle, ME · support@pawrapercares.com
