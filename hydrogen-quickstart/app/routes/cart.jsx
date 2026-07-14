@@ -16,7 +16,6 @@
 
 import {useLoaderData, data} from 'react-router';
 import {CartForm, Money} from '@shopify/hydrogen';
-import {Link} from 'react-router';
 import {CartMain} from '~/components/CartMain';
 import {Button} from '~/components/ui/Button';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
@@ -184,20 +183,22 @@ export default function CartPage() {
               <span>{cart?.cost?.totalAmount ? <Money data={cart.cost.totalAmount} /> : '—'}</span>
             </div>
             {cart?.checkoutUrl && (
-              <a
-                href={cart.checkoutUrl}
-                className={`mt-6 flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium no-underline ${PRIMARY_CTA_CLASSES}`}
-              >
-                Checkout
-              </a>
+              <>
+                <a
+                  href={cart.checkoutUrl}
+                  className={`mt-6 flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium no-underline ${PRIMARY_CTA_CLASSES}`}
+                >
+                  Checkout
+                </a>
+                <a
+                  href={cart.checkoutUrl}
+                  className="mt-3 flex h-[52px] w-full items-center justify-center rounded-md bg-[#5a31f4] font-sans text-body-m font-semibold text-white no-underline hover:brightness-110"
+                  aria-label="Checkout with Shop Pay"
+                >
+                  Shop Pay
+                </a>
+              </>
             )}
-            {/* TODO: Wire Shop Pay accelerated checkout button */}
-            <button
-              type="button"
-              className="mt-3 flex h-[52px] w-full items-center justify-center rounded-md border border-forest-green/20 bg-warm-oat font-sans text-body-m font-medium text-ink reset"
-            >
-              Shop Pay
-            </button>
             <div className="mt-6 flex flex-wrap justify-center gap-4 border-t border-forest-green/10 pt-6">
               <span className="flex items-center gap-1 font-sans text-body-xs text-ink/60">
                 <Icon name="shield" size="sm" /> Secure checkout

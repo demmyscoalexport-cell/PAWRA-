@@ -1,24 +1,12 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file policies._index.jsx
- * @description Route module: policies._index — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Shopify policy index with PAWRA styling.
  */
 
 import {useLoaderData, Link} from 'react-router';
 
-/**
- * @param {Route.LoaderArgs}
- */
+export const meta = () => [{title: 'PAWRA | Policies'}];
+
 export async function loader({context}) {
   const data = await context.storefront.query(POLICIES_QUERY);
 
@@ -39,18 +27,27 @@ export async function loader({context}) {
 }
 
 export default function Policies() {
-  /** @type {LoaderReturnData} */
   const {policies} = useLoaderData();
 
   return (
-    <div className="policies">
-      <h1>Policies</h1>
-      <div>
-        {policies.map((policy) => (
-          <fieldset key={policy.id}>
-            <Link to={`/policies/${policy.handle}`}>{policy.title}</Link>
-          </fieldset>
-        ))}
+    <div className="bg-warm-oat px-4 py-12 md:px-8 md:py-20">
+      <div className="mx-auto max-w-3xl">
+        <h1 className="font-serif text-display-s text-forest-green">Policies</h1>
+        <p className="mt-4 font-sans text-body-l text-ink/80">
+          Shipping, returns, privacy, and terms for shopping at PAWRA.
+        </p>
+        <ul className="mt-10 space-y-4">
+          {policies.map((policy) => (
+            <li key={policy.id}>
+              <Link
+                to={`/policies/${policy.handle}`}
+                className="block rounded-xl bg-cloud px-6 py-4 font-sans text-body-m font-semibold text-forest-green no-underline shadow-card hover:shadow-md"
+              >
+                {policy.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -87,6 +84,3 @@ const POLICIES_QUERY = `#graphql
 `;
 
 /** @typedef {import('./+types/policies._index').Route} Route */
-/** @typedef {import('storefrontapi.generated').PoliciesQuery} PoliciesQuery */
-/** @typedef {import('storefrontapi.generated').PolicyItemFragment} PolicyItemFragment */
-/** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

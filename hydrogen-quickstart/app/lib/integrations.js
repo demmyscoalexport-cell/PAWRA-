@@ -51,13 +51,20 @@ export function getPublicIntegrations(integrations) {
     swym: integrations.swym.enabled
       ? {storeId: integrations.swym.storeId, wishlistUrl: integrations.swym.wishlistUrl}
       : null,
-    smile: integrations.smile.enabled
-      ? {publishableKey: integrations.smile.publishableKey, rewardsUrl: integrations.smile.rewardsUrl}
-      : null,
+    smile: {
+      publishableKey: integrations.smile.publishableKey,
+      rewardsUrl: integrations.smile.rewardsUrl,
+    },
     gorgias: integrations.gorgias.enabled
       ? {widgetId: integrations.gorgias.widgetId}
       : null,
     ga4: integrations.ga4.enabled ? {measurementId: integrations.ga4.measurementId} : null,
+    loopReturns: integrations.loopReturns.enabled
+      ? {returnsUrl: integrations.loopReturns.returnsUrl}
+      : null,
+    recharge: integrations.recharge.enabled
+      ? {storeIdentifier: integrations.recharge.storeIdentifier}
+      : null,
     judgeMe: integrations.judgeMe.enabled
       ? {shopDomain: integrations.judgeMe.shopDomain}
       : null,

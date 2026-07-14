@@ -1,56 +1,31 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file account._index.jsx
- * @description Route module: account._index — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Account dashboard with orders, wishlist, and loyalty shortcuts.
  */
 
-import {Link, useOutletContext} from 'react-router';
+import {Link, useOutletContext, useRouteLoaderData} from 'react-router';
 import {Icon} from '~/components/ui/Icon';
 
 export const meta = () => [{title: 'PAWRA | My Account'}];
 
 export default function AccountDashboard() {
-  /** @type {{customer: {firstName?: string; lastName?: string; orders?: {nodes?: unknown[]}}}} */
+  /** @type {{customer: {firstName?: string; orders?: {nodes?: unknown[]}}}} */
   const {customer} = useOutletContext();
+  /** @type {{ integrations?: { swym?: { wishlistUrl?: string }; smile?: { rewardsUrl?: string } } } | undefined} */
+  const rootData = useRouteLoaderData('root');
 
   const name = customer?.firstName || 'there';
   const orderCount = customer?.orders?.nodes?.length ?? 0;
+  const wishlistUrl = rootData?.integrations?.swym?.wishlistUrl || '/pages/wishlist';
+  const rewardsUrl = rootData?.integrations?.smile?.rewardsUrl || '/pages/rewards';
 
   const cards = [
-    {
-      title: 'Recent Orders',
-      value: `${orderCount} orders`,
-      href: '/account/orders',
-      icon: 'cart',
-    },
-    {
-      title: 'Saved Addresses',
-      value: 'Manage shipping',
-      href: '/account/addresses',
-      icon: 'user',
-    },
-    {
-      title: 'Wishlist',
-      value: '0 items',
-      href: '/collections/all',
-      icon: 'heart',
-    },
-    {
-      title: 'Help & Support',
-      value: 'Contact us',
-      href: '/pages/contact',
-      icon: 'star',
-    },
+    {title: 'Recent Orders', value: `${orderCount} orders`, href: '/account/orders', icon: 'cart'},
+    {title: 'Saved Addresses', value: 'Manage shipping', href: '/account/addresses', icon: 'user'},
+    {title: 'Wishlist', value: 'Saved products', href: wishlistUrl, icon: 'heart'},
+    {title: 'PAWRA Rewards', value: 'Earn points', href: rewardsUrl, icon: 'star'},
+    {title: 'Subscribe & Save', value: 'Autoship essentials', href: '/pages/subscribe-and-save', icon: 'leaf'},
+    {title: 'Help & Support', value: 'Contact us', href: '/pages/contact', icon: 'shield'},
   ];
 
   return (
@@ -58,9 +33,9 @@ export default function AccountDashboard() {
       <div className="mx-auto max-w-7xl">
         <h1 className="font-serif text-[2.5rem] text-forest-green">Welcome back, {name}</h1>
         <p className="mt-2 font-sans text-body-m text-ink/70">
-          Manage orders, addresses, and your PAWRA devices.
+          Manage orders, saved products, and your PAWRA rewards.
         </p>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card) => (
             <Link
               key={card.title}
@@ -72,17 +47,6 @@ export default function AccountDashboard() {
               <p className="mt-1 font-mono text-mono-s text-ink/60">{card.value}</p>
             </Link>
           ))}
-        </div>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Link to="/account/orders" className="font-sans text-body-s font-semibold text-forest-green underline">
-            View orders
-          </Link>
-          <Link to="/account/profile" className="font-sans text-body-s text-forest-green underline">
-            Edit profile
-          </Link>
-          <Link to="/account/addresses" className="font-sans text-body-s text-forest-green underline">
-            Addresses
-          </Link>
         </div>
       </div>
     </div>

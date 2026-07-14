@@ -47,8 +47,8 @@ export const PAWRA_HERO_SLIDES = [
     image: heroImageUrl('autoship'),
     video: cloudinaryVideoUrl(HERO_VIDEO_PUBLIC_IDS.autoship, HERO_VIDEO_OPTS),
     imageAlt: 'Dog enjoying meal time at home',
-    ctaPrimary: {label: 'Shop food', href: '/collections/all'},
-    ctaSecondary: {label: 'How it works', href: '/pages/how-it-works'},
+    ctaPrimary: {label: 'Shop food', href: '/collections/food-treats'},
+    ctaSecondary: {label: 'Subscribe & Save', href: '/pages/subscribe-and-save'},
   },
   {
     id: 'deals',

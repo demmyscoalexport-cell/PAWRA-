@@ -1,39 +1,20 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file policies.$handle.jsx
- * @description Route module: policies.$handle — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Individual Shopify policy page with PAWRA styling.
  */
 
 import {Link, useLoaderData} from 'react-router';
 
-/**
- * @type {Route.MetaFunction}
- */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.policy.title ?? ''}`}];
+  return [{title: `PAWRA | ${data?.policy.title ?? 'Policy'}`}];
 };
 
-/**
- * @param {Route.LoaderArgs}
- */
 export async function loader({params, context}) {
   if (!params.handle) {
     throw new Response('No handle was passed in', {status: 404});
   }
 
-  const policyName = params.handle.replace(/-([a-z])/g, (_, m1) =>
-    m1.toUpperCase(),
-  );
+  const policyName = params.handle.replace(/-([a-z])/g, (_, m1) => m1.toUpperCase());
 
   const data = await context.storefront.query(POLICY_CONTENT_QUERY, {
     variables: {
@@ -56,24 +37,24 @@ export async function loader({params, context}) {
 }
 
 export default function Policy() {
-  /** @type {LoaderReturnData} */
   const {policy} = useLoaderData();
 
   return (
-    <div className="policy">
-      <br />
-      <br />
-      <div>
-        <Link to="/policies">← Back to Policies</Link>
+    <div className="bg-warm-oat px-4 py-12 md:px-8 md:py-20">
+      <div className="mx-auto max-w-3xl">
+        <Link to="/policies" className="font-sans text-body-s text-forest-green underline">
+          ← All policies
+        </Link>
+        <h1 className="mt-6 font-serif text-display-s text-forest-green">{policy.title}</h1>
+        <div
+          className="prose-pawra mt-10 font-sans text-body-m text-ink [&_a]:text-forest-green [&_a]:underline [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-heading-s [&_p]:mt-4"
+          dangerouslySetInnerHTML={{__html: policy.body}}
+        />
       </div>
-      <br />
-      <h1>{policy.title}</h1>
-      <div dangerouslySetInnerHTML={{__html: policy.body}} />
     </div>
   );
 }
 
-// NOTE: https://shopify.dev/docs/api/storefront/latest/objects/Shop
 const POLICY_CONTENT_QUERY = `#graphql
   fragment Policy on ShopPolicy {
     body
@@ -107,13 +88,4 @@ const POLICY_CONTENT_QUERY = `#graphql
   }
 `;
 
-/**
- * @typedef {keyof Pick<
- *   Shop,
- *   'privacyPolicy' | 'shippingPolicy' | 'termsOfService' | 'refundPolicy'
- * >} SelectedPolicies
- */
-
 /** @typedef {import('./+types/policies.$handle').Route} Route */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').Shop} Shop */
-/** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

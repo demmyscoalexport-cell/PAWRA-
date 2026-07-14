@@ -36,10 +36,16 @@ export async function adminGraphql(query, variables = {}) {
 
   const json = await res.json();
 
-  if (!res.ok || json.errors?.length) {
+  if (!res.ok) {
     const message =
-      json.errors?.map((/** @type {{ message: string }} */ e) => e.message).join('; ') ||
-      `HTTP ${res.status}`;
+      (Array.isArray(json.errors)
+        ? json.errors.map((/** @type {{ message: string }} */ e) => e.message).join('; ')
+        : null) || json.message || `HTTP ${res.status}`;
+    throw new Error(`Admin API error: ${message}`);
+  }
+
+  if (json.errors?.length) {
+    const message = json.errors.map((/** @type {{ message: string }} */ e) => e.message).join('; ');
     throw new Error(`Admin API error: ${message}`);
   }
 

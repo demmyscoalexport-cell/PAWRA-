@@ -252,6 +252,13 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 {selectedVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
               </AddToCartButton>
             </div>
+            <p className="mt-4 font-sans text-body-s text-ink/70">
+              Save on repeat orders with{' '}
+              <Link to="/pages/subscribe-and-save" className="font-semibold text-forest-green underline">
+                Subscribe &amp; Save
+              </Link>
+              .
+            </p>
 
             {/* ─── Trust Badges ─── */}
             <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">

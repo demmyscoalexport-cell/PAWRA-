@@ -14,7 +14,10 @@
     "media:upload-hero": "node scripts/uploadHeroMedia.js",
     "media:generate-hero-videos": "node scripts/generateHeroVideos.js",
     "probe:storefront": "node scripts/probe-storefront.mjs",
-    "probe:admin": "node scripts/probe-admin.mjs"
+    "probe:admin": "node scripts/probe-admin.mjs",
+    "catalog:setup": "node scripts/setup-catalog.mjs",
+    "oxygen:env-checklist": "node scripts/print-oxygen-env.mjs",
+    "qa:nav": "node scripts/qa-navigation.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
