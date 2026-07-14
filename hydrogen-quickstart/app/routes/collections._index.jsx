@@ -55,7 +55,7 @@ export default function CollectionsIndex() {
           Collections
         </h1>
         <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
-          Smart pet technology organized the way you shop — tracking, feeding, safety, and more.
+          Premium pet products for cats and dogs — shop by category or browse the full catalog.
         </p>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {collections.map((collection) => (

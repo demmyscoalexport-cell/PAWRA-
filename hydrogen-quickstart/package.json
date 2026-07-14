@@ -10,10 +10,16 @@
     "preview": "shopify hydrogen preview --build",
     "deploy": "shopify hydrogen deploy --no-lockfile-check",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen && react-router typegen"
+    "codegen": "shopify hydrogen codegen && react-router typegen",
+    "media:upload-hero": "node scripts/uploadHeroMedia.js",
+    "media:generate-hero-videos": "node scripts/generateHeroVideos.js",
+    "probe:storefront": "node scripts/probe-storefront.mjs",
+    "probe:admin": "node scripts/probe-admin.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
+    "@datadog/browser-rum": "^7.5.0",
+    "@datadog/browser-rum-react": "^7.5.0",
     "@shopify/hydrogen": "2026.4.3",
     "framer-motion": "^12.40.0",
     "graphql": "^16.10.0",

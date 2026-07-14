@@ -1,76 +1,168 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
+ * PAWRA navigation collections — handles must exist in Shopify Admin
+ * or use built-in keyword fallbacks until collections are created.
  */
 
-/**
- * @file pawraCollections.js
- * @description Storefront utility module: pawraCollections.
- * @author Pawra LLC
- * @website pawrapetshop.com
- */
+/** @typedef {{ handle: string; title: string; description: string; path: string; productCountLabel?: string | null; fallbackKeywords?: string[]; filterTags?: string[] }} PawraCollection */
 
-/** PAWRA collection cards — mapped to Shopify collection handles when available */
+/** @type {PawraCollection[]} */
 export const PAWRA_COLLECTIONS = [
   {
     handle: 'all',
     title: 'All Products',
-    description: 'Every premium pet product for cats and dogs.',
+    description: 'Every product for cats, dogs, and pet parents.',
     path: '/collections/all',
     productCountLabel: 'Shop all',
   },
   {
-    handle: 'hydrogen',
+    handle: 'dogs',
     title: 'Dog Products',
     description: 'Food, beds, toys, collars, and wellness for dogs.',
-    path: '/collections/hydrogen',
-    productCountLabel: null,
+    path: '/collections/dogs',
+    fallbackKeywords: ['dog', 'puppy', 'canine'],
+    filterTags: ['dog'],
   },
   {
-    handle: 'automated-collection',
+    handle: 'cats',
     title: 'Cat Products',
     description: 'Food, beds, toys, and grooming essentials for cats.',
-    path: '/collections/automated-collection',
-    productCountLabel: null,
+    path: '/collections/cats',
+    fallbackKeywords: ['cat', 'kitten', 'feline', 'kitty'],
+    filterTags: ['cat'],
+  },
+  {
+    handle: 'food-treats',
+    title: 'Food & Treats',
+    description: 'Nutritious meals and treats for cats and dogs.',
+    path: '/collections/food-treats',
+    fallbackKeywords: ['food', 'treat', 'kibble', 'meal'],
+    filterTags: ['food'],
+  },
+  {
+    handle: 'beds-comfort',
+    title: 'Beds & Comfort',
+    description: 'Beds, blankets, and comfort essentials.',
+    path: '/collections/beds-comfort',
+    fallbackKeywords: ['bed', 'mat', 'blanket', 'cushion'],
+    filterTags: ['beds'],
+  },
+  {
+    handle: 'grooming-wellness',
+    title: 'Grooming & Wellness',
+    description: 'Grooming kits, supplements, and wellness products.',
+    path: '/collections/grooming-wellness',
+    fallbackKeywords: ['groom', 'brush', 'shampoo', 'wellness', 'supplement'],
+    filterTags: ['grooming'],
   },
   {
     handle: 'frontpage',
-    title: 'Food & Treats',
-    description: 'Premium nutrition and treats for cats and dogs.',
+    title: 'Featured',
+    description: 'Hand-picked favorites from the PAWRA catalog.',
     path: '/collections/frontpage',
-    productCountLabel: null,
-  },
-  {
-    handle: 'hydrogen',
-    title: 'Beds & Comfort',
-    description: 'Cozy beds and comfort essentials for every pet.',
-    path: '/collections/hydrogen',
-    productCountLabel: null,
-  },
-  {
-    handle: 'automated-collection',
-    title: 'Grooming & Wellness',
-    description: 'Grooming supplies and wellness products delivered to your door.',
-    path: '/collections/automated-collection',
-    productCountLabel: null,
   },
 ];
 
-export const PAWRA_COLLECTION_FALLBACK = {
-  hydrogen: {
-    title: 'Dog Products',
-    description: 'Premium products curated for dogs.',
-  },
-  'automated-collection': {
-    title: 'Cat Products',
-    description: 'Premium products curated for cats.',
-  },
-  frontpage: {
-    title: 'Food & Treats',
-    description: 'Nutrition and treats for cats and dogs.',
-  },
-};
+/** @type {Record<string, { title: string; description: string; fallbackKeywords?: string[]; filterTags?: string[] }>} */
+export const PAWRA_COLLECTION_FALLBACK = Object.fromEntries(
+  PAWRA_COLLECTIONS.filter((c) => c.handle !== 'all').map((c) => [
+    c.handle,
+    {
+      title: c.title,
+      description: c.description,
+      fallbackKeywords: c.fallbackKeywords,
+      filterTags: c.filterTags,
+    },
+  ]),
+);
+
+/** @param {string} handle */
+export function collectionPath(handle) {
+  return handle === 'all' ? '/collections/all' : `/collections/${handle}`;
+}
+
+/**
+ * Filter products by title keywords when a Shopify collection does not exist yet.
+ * @param {Array<{ title?: string; tags?: string[] }>} products
+ * @param {string[]} keywords
+ */
+export function filterProductsByKeywords(products, keywords) {
+  if (!keywords?.length) return products;
+  const lower = keywords.map((k) => k.toLowerCase());
+  return products.filter((p) => {
+    const title = (p.title ?? '').toLowerCase();
+    const tagMatch = (p.tags ?? []).some((t) => lower.includes(t.toLowerCase()));
+    const titleMatch = lower.some((kw) => title.includes(kw));
+    return tagMatch || titleMatch;
+  });
+}
+
+/**
+ * Client-side species filter using product tags.
+ * @param {Array<{ tags?: string[]; title?: string }>} products
+ * @param {'dog' | 'cat' | 'all'} species
+ */
+export function filterProductsBySpecies(products, species) {
+  if (!species || species === 'all') return products;
+  return products.filter((p) => {
+    const tags = (p.tags ?? []).map((t) => t.toLowerCase());
+    if (tags.includes(species)) return true;
+    const title = (p.title ?? '').toLowerCase();
+    if (species === 'dog') return /\bdog|\bpuppy|\bcanine\b/.test(title);
+    if (species === 'cat') return /\bcat|\bkitten|\bfeline|\bkitty\b/.test(title);
+    return false;
+  });
+}
+
+/**
+ * Client-side price range filter.
+ * @param {Array<{ priceRange?: { minVariantPrice?: { amount?: string } } }>} products
+ * @param {number | null} min
+ * @param {number | null} max
+ */
+export function filterProductsByPrice(products, min, max) {
+  return products.filter((p) => {
+    const amount = Number(p.priceRange?.minVariantPrice?.amount ?? 0);
+    if (min != null && amount < min) return false;
+    if (max != null && amount > max) return false;
+    return true;
+  });
+}
+
+/** @typedef {'featured' | 'price-asc' | 'price-desc' | 'newest'} SortOption */
+
+/**
+ * @param {Array<{ priceRange?: { minVariantPrice?: { amount?: string } } }>} products
+ * @param {SortOption} sort
+ */
+export function sortProducts(products, sort) {
+  const nodes = [...products];
+  if (sort === 'price-asc') {
+    nodes.sort(
+      (a, b) =>
+        Number(a.priceRange?.minVariantPrice?.amount ?? 0) -
+        Number(b.priceRange?.minVariantPrice?.amount ?? 0),
+    );
+  } else if (sort === 'price-desc') {
+    nodes.sort(
+      (a, b) =>
+        Number(b.priceRange?.minVariantPrice?.amount ?? 0) -
+        Number(a.priceRange?.minVariantPrice?.amount ?? 0),
+    );
+  } else if (sort === 'newest') {
+    nodes.reverse();
+  }
+  return nodes;
+}
+
+export const COLLECTION_SORT_OPTIONS = [
+  {value: 'featured', label: 'Featured'},
+  {value: 'price-asc', label: 'Price: low to high'},
+  {value: 'price-desc', label: 'Price: high to low'},
+  {value: 'newest', label: 'Newest'},
+];
+
+export const SPECIES_FILTER_OPTIONS = [
+  {value: 'all', label: 'All pets'},
+  {value: 'dog', label: 'Dogs'},
+  {value: 'cat', label: 'Cats'},
+];

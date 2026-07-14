@@ -1,22 +1,10 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file $.jsx
- * @description Route module: $ — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Branded 404 catch-all route.
  */
 
-/**
- * @param {Route.LoaderArgs}
- */
+import {PawraNotFound} from '~/components/PawraNotFound';
+
 export async function loader({request}) {
   throw new Response(`${new URL(request.url).pathname} not found`, {
     status: 404,
@@ -24,8 +12,7 @@ export async function loader({request}) {
 }
 
 export default function CatchAllPage() {
-  return null;
+  return <PawraNotFound />;
 }
 
 /** @typedef {import('./+types/$').Route} Route */
-/** @typedef {ReturnType<typeof useLoaderData<typeof loader>>} LoaderReturnData */

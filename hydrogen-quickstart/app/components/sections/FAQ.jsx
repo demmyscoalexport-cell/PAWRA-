@@ -30,7 +30,7 @@ const FAQS = [
   },
   {
     q: 'What is your return policy?',
-    a: 'We offer 30-day returns on unused products in original packaging. Contact support@pawrapercares.com for assistance.',
+    a: `We offer 30-day returns on unused products in original packaging. Contact ${BRAND.supportEmail} for assistance.`,
   },
   {
     q: 'How do I track my order?',

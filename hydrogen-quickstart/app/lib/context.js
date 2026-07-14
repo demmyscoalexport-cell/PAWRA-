@@ -1,66 +1,61 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file context.js
- * @description Storefront utility module: context.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Hydrogen router context with integration services.
  */
 
 import { createHydrogenContext } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
 import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
-
-// ─── Additional Context ───────────────────────────────────────────────────────
+import { getIntegrations } from '~/lib/integrations';
 
 /**
- * Extension point for custom services injected into every route loader/action.
- * Available as `context.propertyName` and via `context.get(propertyContext)`.
+ * @param {Env} env
  */
-const additionalContext = {
-  // TODO: Wire reviews provider (e.g. Judge.me, Yotpo) for product ratings
-  // reviews: await createReviewsClient(env),
+function createAdditionalContext(env) {
+  const integrations = getIntegrations(env);
 
-  // TODO: Integrate wishlist SDK for saved products across sessions
-  // wishlist: await createWishlistClient(env),
-
-  // TODO: Connect loyalty/rewards program for repeat customers
-  // loyalty: await createLoyaltyClient(env),
-};
-
-// ─── Hydrogen Router Context ────────────────────────────────────────────────────
+  return {
+    integrations,
+    reviews: integrations.judgeMe.enabled
+      ? {
+          shopDomain: integrations.judgeMe.shopDomain,
+          apiToken: integrations.judgeMe.apiToken,
+        }
+      : null,
+    wishlist: integrations.swym.enabled
+      ? {
+          storeId: integrations.swym.storeId,
+          wishlistUrl: integrations.swym.wishlistUrl,
+        }
+      : null,
+    loyalty: integrations.smile.enabled
+      ? {
+          publishableKey: integrations.smile.publishableKey,
+          rewardsUrl: integrations.smile.rewardsUrl,
+        }
+      : null,
+  };
+}
 
 /**
- * Bootstraps Hydrogen context for React Router 7 on Oxygen/Workers.
- * Initializes cache, session, storefront client, cart, and i18n defaults.
- *
- * @param {Request} request - Incoming HTTP request
- * @param {Env} env - Worker environment bindings (Shopify tokens, secrets)
- * @param {ExecutionContext} executionContext - Cloudflare execution context for waitUntil
- * @returns {Promise<import('@shopify/hydrogen').HydrogenRouterContextProvider>}
+ * @param {Request} request
+ * @param {Env} env
+ * @param {ExecutionContext} executionContext
  */
 export async function createHydrogenRouterContext(request, env, executionContext) {
-  // ─── Environment Validation ───
   if (!env?.SESSION_SECRET) {
     throw new Error('SESSION_SECRET environment variable is not set');
   }
 
   const waitUntil = executionContext.waitUntil.bind(executionContext);
 
-  // ─── Cache & Session ───
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
     AppSession.init(request, [env.SESSION_SECRET]),
   ]);
 
-  // ─── Hydrogen Context Assembly ───
+  const additionalContext = createAdditionalContext(env);
+
   const hydrogenContext = createHydrogenContext(
     {
       env,
@@ -68,7 +63,6 @@ export async function createHydrogenRouterContext(request, env, executionContext
       cache,
       waitUntil,
       session,
-      // Or detect from URL path based on locale subpath, cookies, or any other strategy
       i18n: { language: 'EN', country: 'US' },
       cart: {
         queryFragment: CART_QUERY_FRAGMENT,
@@ -79,7 +73,5 @@ export async function createHydrogenRouterContext(request, env, executionContext
 
   return hydrogenContext;
 }
-
-/** @typedef {Class<additionalContext>} AdditionalContextType */
 
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */

@@ -15,7 +15,7 @@
  */
 
 import {Suspense, useEffect, useState} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
+import {Await, NavLink, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {Logo} from '~/components/ui/Logo';
@@ -42,11 +42,12 @@ export const PAWRA_MOBILE_EXTRA = [
 
 /**
  * Sticky site header with logo, navigation, search, account, cart, and mobile drawer.
- * Cart count is streamed via Suspense/Await from root deferred loader data.
- *
  * @param {HeaderProps} props
  */
 export function Header({cart, isLoggedIn}) {
+  const rootData = useRouteLoaderData('root');
+  const wishlistUrl = rootData?.integrations?.swym?.wishlistUrl || '/account/wishlist';
+  const wishlistEnabled = Boolean(rootData?.integrations?.swym);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
@@ -142,17 +143,24 @@ export function Header({cart, isLoggedIn}) {
             <NavLink to="/search" className="reset" aria-label="Search">
               <Icon name="search" size="md" color="text-cloud" />
             </NavLink>
-            {/* TODO: Wire wishlist — persist saved products via app or customer metafields */}
-            <button type="button" className="reset hidden sm:inline-flex" aria-label="Wishlist">
-              <Icon name="heart" size="md" color="text-cloud" />
-            </button>
+            {wishlistEnabled ? (
+              <NavLink to={wishlistUrl} className="reset hidden sm:inline-flex" aria-label="Wishlist">
+                <Icon name="heart" size="md" color="text-cloud" />
+              </NavLink>
+            ) : null}
             <AccountToggle isLoggedIn={isLoggedIn} />
             <CartToggle cart={cart} />
           </div>
         </div>
       </header>
 
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} isLoggedIn={isLoggedIn} />
+      <MobileDrawer
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        isLoggedIn={isLoggedIn}
+        wishlistUrl={wishlistUrl}
+        wishlistEnabled={wishlistEnabled}
+      />
     </>
   );
 }
@@ -175,10 +183,12 @@ function AccountToggle({isLoggedIn}) {
 // ─── Mobile Drawer ────────────────────────────────────────────────────────────
 
 /** Full-screen slide-out nav for viewports below md breakpoint. */
-function MobileDrawer({open, onClose, isLoggedIn}) {
+function MobileDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnabled}) {
+  const [collectionsExpanded, setCollectionsExpanded] = useState(false);
+
   if (!open) return null;
 
-  const links = [...PAWRA_HEADER_MENU, ...PAWRA_MOBILE_EXTRA];
+  const topLinks = PAWRA_HEADER_MENU.filter((item) => !item.hasDropdown);
 
   return (
     <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true">
@@ -195,8 +205,8 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
             <Icon name="close" size="md" color="text-cloud" />
           </button>
         </div>
-        <nav className="flex flex-col gap-1 p-5">
-          {links.map((item) => (
+        <nav className="flex flex-col gap-1 overflow-y-auto p-5">
+          {topLinks.map((item) => (
             <NavLink
               key={item.id}
               to={item.url}
@@ -206,6 +216,56 @@ function MobileDrawer({open, onClose, isLoggedIn}) {
               {item.title}
             </NavLink>
           ))}
+
+          <button
+            type="button"
+            className="flex items-center justify-between rounded-md px-3 py-3 text-left font-sans text-body-m font-medium text-cloud reset hover:bg-forest-green/50"
+            onClick={() => setCollectionsExpanded((v) => !v)}
+            aria-expanded={collectionsExpanded}
+          >
+            Collections
+            <Icon
+              name="chevron-down"
+              size="sm"
+              color="text-cloud"
+              className={`transition-transform duration-base ${collectionsExpanded ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {collectionsExpanded && (
+            <div className="ml-3 flex flex-col gap-1 border-l border-cloud/10 pl-3">
+              {PAWRA_COLLECTIONS.map((col) => (
+                <NavLink
+                  key={col.handle}
+                  to={col.path}
+                  onClick={onClose}
+                  className="rounded-md px-3 py-2 font-sans text-body-s text-cloud/90 no-underline hover:bg-forest-green/50"
+                >
+                  {col.title}
+                </NavLink>
+              ))}
+            </div>
+          )}
+
+          {PAWRA_MOBILE_EXTRA.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.url}
+              onClick={onClose}
+              className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+            >
+              {item.title}
+            </NavLink>
+          ))}
+
+          {wishlistEnabled && (
+            <NavLink
+              to={wishlistUrl}
+              onClick={onClose}
+              className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+            >
+              Wishlist
+            </NavLink>
+          )}
           <NavLink
             to={isLoggedIn ? '/account' : '/account/login'}
             onClick={onClose}

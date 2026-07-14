@@ -14,10 +14,11 @@
  * @website pawrapetshop.com
  */
 
-import {useLoaderData} from 'react-router';
+import {useLoaderData, useParams} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {getStaticPage} from '~/lib/staticPages';
 import {StaticPageLayout} from '~/components/StaticPageLayout';
+import {SocialLinks} from '~/components/SocialLinks';
 
 export const meta = ({data}) => {
   return [{title: `PAWRA | ${data?.page.title ?? 'Page'}`}];
@@ -64,10 +65,18 @@ export async function loader({context, request, params}) {
 
 export default function Page() {
   const {page} = useLoaderData();
+  const params = useParams();
+  const showSocial = params.handle === 'contact';
 
   return (
     <StaticPageLayout title={page.title} description={page.description}>
       <div dangerouslySetInnerHTML={{__html: page.bodyHtml}} />
+      {showSocial && (
+        <div className="mt-10 border-t border-forest-green/10 pt-8">
+          <p className="font-sans text-body-s font-semibold text-ink">Follow PAWRA</p>
+          <SocialLinks variant="light" className="mt-4" />
+        </div>
+      )}
     </StaticPageLayout>
   );
 }

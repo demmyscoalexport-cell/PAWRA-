@@ -17,12 +17,13 @@
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
 import {Icon} from '~/components/ui/Icon';
+import {collectionPath} from '~/lib/pawraCollections';
 
 const CATEGORIES = [
-  {icon: 'paw', name: 'Dogs', desc: 'Food, beds, toys, collars & wellness', href: '/collections/hydrogen'},
-  {icon: 'heart', name: 'Cats', desc: 'Food, beds, toys & grooming essentials', href: '/collections/automated-collection'},
-  {icon: 'leaf', name: 'Food & Treats', desc: 'Premium nutrition for every pet', href: '/collections/frontpage'},
-  {icon: 'shield', name: 'Grooming & Wellness', desc: 'Health and hygiene supplies', href: '/collections/all'},
+  {icon: 'paw', name: 'Dogs', desc: 'Food, beds, toys, collars & wellness', href: collectionPath('dogs')},
+  {icon: 'heart', name: 'Cats', desc: 'Food, beds, toys & grooming essentials', href: collectionPath('cats')},
+  {icon: 'leaf', name: 'Featured', desc: 'Hand-picked favorites from PAWRA', href: collectionPath('frontpage')},
+  {icon: 'shield', name: 'All Products', desc: 'Browse the full catalog', href: collectionPath('all')},
 ];
 
 export function Ecosystem() {

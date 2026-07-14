@@ -1,23 +1,12 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file Testimonials.jsx
  * @description Homepage/marketing section: Testimonials.
- * @author Pawra LLC
- * @website pawrapetshop.com
  */
 
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
 
-const REVIEWS = [
+const DEFAULT_REVIEWS = [
   {
     quote:
       'Finally found a store that carries quality food and beds for both my cat and dog. Fast shipping and great packaging.',
@@ -38,7 +27,12 @@ const REVIEWS = [
   },
 ];
 
-export function Testimonials() {
+/**
+ * @param {{ reviews?: Array<{ quote: string; name: string; meta: string; rating?: number }> | null }} props
+ */
+export function Testimonials({reviews}) {
+  const items = reviews?.length ? reviews : DEFAULT_REVIEWS;
+
   return (
     <SectionReveal>
       <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
@@ -47,11 +41,17 @@ export function Testimonials() {
             What pet owners are saying.
           </h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {REVIEWS.map((review) => (
-              <article key={review.name} className="rounded-xl bg-cloud p-6 shadow-card">
+            {items.map((review) => (
+              <article key={review.name + review.quote.slice(0, 24)} className="rounded-xl bg-cloud p-6 shadow-card">
                 <div className="flex gap-0.5">
                   {Array.from({length: 5}, (_, i) => (
-                    <Icon key={`${review.name}-star-${i}`} name="star" size="sm" color="text-champagne" className="!h-4 !w-4" />
+                    <Icon
+                      key={`${review.name}-star-${i}`}
+                      name="star"
+                      size="sm"
+                      color={i < (review.rating ?? 5) ? 'text-champagne' : 'text-ink/20'}
+                      className="!h-4 !w-4"
+                    />
                   ))}
                 </div>
                 <blockquote className="mt-4 line-clamp-4 font-serif text-heading-xs italic text-ink">

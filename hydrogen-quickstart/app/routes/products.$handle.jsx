@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file products.$handle.jsx
- * @description Route module: products.$handle — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Product detail route with related products and reviews.
  */
 
 import {useLoaderData} from 'react-router';
@@ -24,13 +13,9 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {PawraProductPage} from '~/components/product/PawraProductPage';
+import {getIntegrations} from '~/lib/integrations';
+import {fetchJudgeMeProductReviews} from '~/lib/judgeme';
 
-// ─── SEO Meta ─────────────────────────────────────────────────────────────────
-
-/**
- * Product page meta — dynamic title and canonical URL from loader data.
- * @param {{data: {product?: {title?: string; handle?: string}}}} args
- */
 export const meta = ({data}) => {
   return [
     {title: `PAWRA | ${data?.product.title ?? 'Product'}`},
@@ -38,26 +23,21 @@ export const meta = ({data}) => {
   ];
 };
 
-// ─── Loader ───────────────────────────────────────────────────────────────────
-
-/**
- * Fetches product by handle and a small set of related products for cross-sell.
- * Redirects localized handles and 404s when product is missing.
- * @param {Route.LoaderArgs} args
- */
 export async function loader({context, params, request}) {
   const {handle} = params;
-  const {storefront} = context;
+  const {storefront, env} = context;
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
 
-  const [{product}, {products: relatedProducts}] = await Promise.all([
+  const [{product}, relatedResult] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
-    storefront.query(RELATED_QUERY, {variables: {first: 4}}),
+    storefront.query(RELATED_QUERY, {
+      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+    }),
   ]);
 
   if (!product?.id) {
@@ -66,22 +46,24 @@ export async function loader({context, params, request}) {
 
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
+  const integrations = getIntegrations(env);
+  const reviews = integrations.judgeMe.enabled
+    ? await fetchJudgeMeProductReviews(integrations.judgeMe, product)
+    : null;
+
+  const recommendations =
+    relatedResult?.productRecommendations?.filter((p) => p.handle !== handle) ?? [];
+
   return {
     product,
-    relatedProducts: relatedProducts?.nodes?.filter((p) => p.handle !== handle) ?? [],
+    relatedProducts: recommendations.slice(0, 4),
+    reviews,
   };
 }
 
-// ─── Product Route Component ──────────────────────────────────────────────────
-
-/**
- * Product detail route — resolves selected variant from URL options and
- * delegates rendering to PawraProductPage.
- */
 export default function Product() {
-  const {product, relatedProducts} = useLoaderData();
+  const {product, relatedProducts, reviews} = useLoaderData();
 
-  // ─── Variant Selection ───
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
@@ -100,13 +82,11 @@ export default function Product() {
       selectedVariant={selectedVariant}
       productOptions={productOptions}
       relatedProducts={relatedProducts}
+      reviews={reviews}
     />
   );
 }
 
-// ─── GraphQL Fragments & Queries ──────────────────────────────────────────────
-
-/** Variant fields shared across product, selected, and adjacent variants. */
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
@@ -144,13 +124,13 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
   }
 `;
 
-/** Full product shape including images, options, swatches, and SEO. */
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
     id
     title
     vendor
     handle
+    productType
     descriptionHtml
     description
     encodedVariantExistence
@@ -195,7 +175,6 @@ const PRODUCT_FRAGMENT = `#graphql
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
 
-/** Primary product query — keyed by handle with selected option context. */
 const PRODUCT_QUERY = `#graphql
   query Product(
     $country: CountryCode
@@ -210,29 +189,41 @@ const PRODUCT_QUERY = `#graphql
   ${PRODUCT_FRAGMENT}
 `;
 
-/** Related products — first N catalog items excluding current handle in loader. */
-const RELATED_QUERY = `#graphql
-  query RelatedProducts($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {
-    products(first: $first) {
-      nodes {
-        id
-        handle
-        title
-        featuredImage {
-          url
-          altText
-          width
-          height
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
+const RELATED_PRODUCT_FRAGMENT = `#graphql
+  fragment RelatedProduct on Product {
+    id
+    handle
+    title
+    featuredImage {
+      url
+      altText
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
       }
     }
   }
+`;
+
+const RELATED_QUERY = `#graphql
+  query RelatedProducts(
+    $country: CountryCode
+    $language: LanguageCode
+    $handle: String!
+    $selectedOptions: [SelectedOptionInput!]!
+  ) @inContext(country: $country, language: $language) {
+    product(handle: $handle) {
+      id
+    }
+    productRecommendations(productHandle: $handle) {
+      ...RelatedProduct
+    }
+  }
+  ${RELATED_PRODUCT_FRAGMENT}
 `;
 
 /** @typedef {import('./+types/products.$handle').Route} Route */

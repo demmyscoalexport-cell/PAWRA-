@@ -31,6 +31,9 @@ import resetStyles from './styles/reset.css?url';
 import tailwindStyles from './styles/tailwind.css?url';
 import appStyles from './styles/app.css?url';
 import { PageLayout } from './components/PageLayout';
+import { PawraNotFound } from '~/components/PawraNotFound';
+import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
+import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -103,11 +106,13 @@ export async function loader(args) {
   const criticalData = await loadCriticalData(args);
 
   const { storefront, env } = args.context;
+  const integrations = getPublicIntegrations(getIntegrations(env));
 
   return {
     ...deferredData,
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
+    integrations,
     shop: getShopAnalytics({
       storefront,
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
@@ -185,6 +190,8 @@ function loadDeferredData({ context }) {
  */
 export function Layout({ children }) {
   const nonce = useNonce();
+  /** @type {RootLoader | undefined} */
+  const data = useRouteLoaderData('root');
 
   return (
     <html lang="en">
@@ -200,6 +207,7 @@ export function Layout({ children }) {
       </head>
       <body>
         {children}
+        <ThirdPartyScripts integrations={data?.integrations} />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>
@@ -246,6 +254,10 @@ export function ErrorBoundary() {
     errorStatus = error.status;
   } else if (error instanceof Error) {
     errorMessage = error.message;
+  }
+
+  if (errorStatus === 404) {
+    return <PawraNotFound />;
   }
 
   return (

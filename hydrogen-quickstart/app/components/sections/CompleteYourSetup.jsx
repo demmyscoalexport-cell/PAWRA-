@@ -1,33 +1,16 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file CompleteYourSetup.jsx
- * @description Homepage/marketing section: CompleteYourSetup.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Horizontal featured products row from Shopify catalog.
  */
 
 import {SectionReveal} from './SectionReveal';
+import {PawraProductCard} from '~/components/PawraProductCard';
 import {Button} from '~/components/ui/Button';
-import {Badge} from '~/components/ui/Badge';
-import {ProductImagePlaceholder} from './ProductImagePlaceholder';
 
-const PRODUCTS = [
-  {name: 'Premium Dog Food', price: 'Shop now', desc: 'Nutrition for every breed', badge: 'best-seller'},
-  {name: 'Cozy Pet Bed', price: 'Shop now', desc: 'Comfort for cats and dogs', badge: null},
-  {name: 'Interactive Toys', price: 'Shop now', desc: 'Playtime essentials', badge: null},
-  {name: 'Grooming Kit', price: 'Shop now', desc: 'Keep coats healthy and clean', badge: null},
-  {name: 'Collars & Leashes', price: 'Shop now', desc: 'Durable everyday gear', badge: null},
-];
-
-export function CompleteYourSetup() {
+/**
+ * @param {{ products?: import('~/lib/homepageProducts').HomepageProduct[] }} props
+ */
+export function CompleteYourSetup({products = []}) {
   return (
     <SectionReveal>
       <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
@@ -35,25 +18,23 @@ export function CompleteYourSetup() {
           <h2 className="text-center font-serif text-display-s text-forest-green">
             Everything your pet needs. Nothing they don&apos;t.
           </h2>
-          <div className="mt-10 flex gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
-            {PRODUCTS.map((product) => (
-              <article
-                key={product.name}
-                className="min-w-[240px] flex-shrink-0 rounded-lg bg-cloud p-4 shadow-card transition-shadow hover:shadow-elevated md:min-w-0"
-              >
-                <ProductImagePlaceholder label={product.name} className="rounded-md" />
-                {product.badge && (
-                  <div className="mt-3">
-                    <Badge type={product.badge} />
-                  </div>
-                )}
-                <h3 className="mt-3 font-sans text-body-m font-semibold text-ink">{product.name}</h3>
-                <p className="mt-1 font-sans text-body-s text-ink/60">{product.desc}</p>
-                <Button variant="primary" size="sm" className="mt-4 w-full" href="/collections/all">
-                  {product.price}
-                </Button>
-              </article>
-            ))}
+          {products.length > 0 ? (
+            <div className="mt-10 flex gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
+              {products.map((product, index) => (
+                <div key={product.id} className="min-w-[240px] flex-shrink-0 md:min-w-0">
+                  <PawraProductCard product={product} loading={index < 2 ? 'eager' : undefined} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-10 text-center font-sans text-body-m text-ink/60">
+              Products will appear here once published to your Headless storefront.
+            </p>
+          )}
+          <div className="mt-10 text-center">
+            <Button variant="ghost" size="lg" href="/collections/all">
+              View all products
+            </Button>
           </div>
         </div>
       </section>

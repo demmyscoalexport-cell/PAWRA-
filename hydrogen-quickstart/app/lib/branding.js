@@ -38,6 +38,14 @@ export const BRAND = {
   copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapercares.com',
 };
 
+/** Official PAWRA social profiles — used in footer and contact page. */
+export const SOCIAL_LINKS = [
+  {platform: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/pawrapercares'},
+  {platform: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@pawrapercares'},
+  {platform: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/pawrapercares'},
+  {platform: 'pinterest', label: 'Pinterest', href: 'https://www.pinterest.com/pawrapercares'},
+];
+
 // ─── About Page Copy ────────────────────────────────────────────────────────────
 
 /** Pre-rendered HTML body for the About page (`/pages/about`). */

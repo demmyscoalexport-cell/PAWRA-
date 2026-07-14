@@ -25,6 +25,8 @@ import {PawraProductCard} from '~/components/PawraProductCard';
 import {Testimonials} from '~/components/sections/Testimonials';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
+import {ProductRating} from '~/components/product/ProductRating';
+import {BRAND} from '~/lib/branding';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
 
@@ -34,7 +36,7 @@ const PRODUCT_FAQ = [
   {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
   {q: 'Are products safe for cats and dogs?', a: 'Every item is curated for pet safety. Check the product description for species-specific guidance.'},
   {q: 'Do you ship nationwide?', a: 'Yes — we ship to all 50 US states from our Presque Isle, ME fulfillment center.'},
-  {q: 'How do I contact support?', a: 'Email support@pawrapercares.com and we will respond within one business day.'},
+  {q: 'How do I contact support?', a: `Email ${BRAND.supportEmail} and we will respond within one business day.`},
   {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships.'},
 ];
 
@@ -59,9 +61,10 @@ const FEATURES = [
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  *   productOptions: import('@shopify/hydrogen').MappedProductOptions[];
  *   relatedProducts?: Array<import('storefrontapi.generated').ProductItemFragment>;
+ *   reviews?: { rating: number; count: number; reviews: Array<{ quote: string; name: string; meta: string }> } | null;
  * }} props
  */
-export function PawraProductPage({product, selectedVariant, productOptions, relatedProducts = []}) {
+export function PawraProductPage({product, selectedVariant, productOptions, relatedProducts = [], reviews = null}) {
   const {open} = useAside();
   const navigate = useNavigate();
   const ctaRef = useRef(null);
@@ -133,15 +136,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
           {/* ─── Product Info & Add to Cart ─── */}
           <div>
             <h1 className="font-serif text-[2.5rem] leading-tight text-forest-green">{product.title}</h1>
-            {/* TODO: Replace hardcoded rating with reviews API (Judge.me, Yotpo, etc.) */}
-            <div className="mt-3 flex items-center gap-2">
-              <div className="flex gap-0.5">
-                {Array.from({length: 5}, (_, i) => (
-                  <Icon key={`rating-${i}`} name="star" size="sm" color="text-champagne" className="!h-4 !w-4" />
-                ))}
-              </div>
-              <span className="font-mono text-mono-s text-ink/60">4.9 · 128 reviews</span>
-            </div>
+            <ProductRating rating={reviews?.rating} count={reviews?.count} />
             <div className="mt-6 flex flex-wrap items-baseline gap-3">
               {price && (
                 <span className="font-mono text-[1.5rem] text-forest-green">
@@ -210,12 +205,9 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     })}
                   </div>
                   {option.name.toLowerCase().includes('size') && (
-                    <>
-                      {/* TODO: Replace placeholder link with dedicated size guide page/modal */}
-                      <Link to="/pages/how-it-works" className="mt-2 inline-block font-sans text-body-s text-forest-green underline">
-                        Size guide
-                      </Link>
-                    </>
+                    <Link to="/pages/size-guide" className="mt-2 inline-block font-sans text-body-s text-forest-green underline">
+                      Size guide
+                    </Link>
                   )}
                 </div>
               );
@@ -335,7 +327,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </section>
 
       {/* ─── Social Proof ─── */}
-      <Testimonials />
+      <Testimonials reviews={reviews?.reviews} />
 
       {/* ─── Product FAQ ─── */}
       <section className="px-4 py-16 md:px-8">

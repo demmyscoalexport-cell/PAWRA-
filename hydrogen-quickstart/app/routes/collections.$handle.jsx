@@ -1,25 +1,15 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file collections.$handle.jsx
- * @description Route module: collections.$handle — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Collection PLP with filters, sort, and cursor pagination.
  */
 
 import {redirect, useLoaderData, useSearchParams} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {useMemo} from 'react';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {PAWRA_COLLECTION_FALLBACK} from '~/lib/pawraCollections';
-import {PawraProductCard} from '~/components/PawraProductCard';
+import {PAWRA_COLLECTION_FALLBACK, filterProductsByKeywords} from '~/lib/pawraCollections';
+import {CollectionFilters, applyCollectionFilters} from '~/components/CollectionFilters';
+import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
 
 export const meta = ({data}) => {
   return [{title: `PAWRA | ${data?.collection.title ?? 'Collection'}`}];
@@ -39,7 +29,7 @@ export async function loader({context, params, request}) {
       variables: {handle, ...paginationVariables},
     }),
     storefront.query(FALLBACK_PRODUCTS_QUERY, {
-      variables: getPaginationVariables(request, {pageBy: 24}),
+      variables: paginationVariables,
     }),
   ]);
 
@@ -50,13 +40,20 @@ export async function loader({context, params, request}) {
 
   const fallback = PAWRA_COLLECTION_FALLBACK[handle];
   if (fallback && allProducts) {
+    const nodes = fallback.fallbackKeywords
+      ? filterProductsByKeywords(allProducts.nodes ?? [], fallback.fallbackKeywords)
+      : (allProducts.nodes ?? []);
+
     return {
       collection: {
         id: `fallback-${handle}`,
         handle,
         title: fallback.title,
         description: fallback.description,
-        products: allProducts,
+        products: {
+          ...allProducts,
+          nodes,
+        },
       },
       isFallback: true,
     };
@@ -65,37 +62,14 @@ export async function loader({context, params, request}) {
   throw new Response(`Collection ${handle} not found`, {status: 404});
 }
 
-const SORT_OPTIONS = [
-  {value: 'featured', label: 'Featured'},
-  {value: 'price-asc', label: 'Price: low to high'},
-  {value: 'price-desc', label: 'Price: high to low'},
-  {value: 'newest', label: 'Newest'},
-];
-
 export default function CollectionPage() {
   const {collection} = useLoaderData();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get('sort') || 'featured';
+  const [searchParams] = useSearchParams();
 
-  const sortedNodes = useMemo(() => {
-    const nodes = [...(collection.products?.nodes ?? [])];
-    if (sort === 'price-asc') {
-      nodes.sort(
-        (a, b) =>
-          Number(a.priceRange.minVariantPrice.amount) -
-          Number(b.priceRange.minVariantPrice.amount),
-      );
-    } else if (sort === 'price-desc') {
-      nodes.sort(
-        (a, b) =>
-          Number(b.priceRange.minVariantPrice.amount) -
-          Number(a.priceRange.minVariantPrice.amount),
-      );
-    } else if (sort === 'newest') {
-      nodes.reverse();
-    }
-    return nodes;
-  }, [collection.products?.nodes, sort]);
+  const filteredProducts = useMemo(
+    () => applyCollectionFilters(collection.products?.nodes ?? [], searchParams),
+    [collection.products?.nodes, searchParams],
+  );
 
   return (
     <div className="bg-warm-oat">
@@ -113,49 +87,18 @@ export default function CollectionPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <p className="font-mono text-mono-s text-ink/60">
-            {sortedNodes.length} products
+            {filteredProducts.length} products
           </p>
-          <label className="flex items-center gap-2 font-sans text-body-s">
-            <span className="text-ink/60">Sort by</span>
-            <select
-              value={sort}
-              onChange={(e) => setSearchParams({sort: e.target.value})}
-              className="rounded-md border border-forest-green/20 bg-cloud px-3 py-2 font-sans text-body-s text-ink"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </label>
+          <CollectionFilters />
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
-          {sortedNodes.map((product, index) => (
-            <PawraProductCard
-              key={product.id}
-              product={product}
-              loading={index < 8 ? 'eager' : undefined}
-            />
-          ))}
-        </div>
-
-        {!sortedNodes.length && (
-          <p className="py-16 text-center font-sans text-body-m text-ink/60">
-            No products in this collection yet.
-          </p>
-        )}
-
-        {collection.products?.pageInfo?.hasNextPage && (
-          <p className="mt-8 text-center font-sans text-body-s text-ink/60">
-            <a href="?cursor=next" className="text-forest-green underline">
-              Load more products
-            </a>
-          </p>
-        )}
+        <PawraCollectionGrid
+          connection={collection.products}
+          products={filteredProducts}
+          emptyMessage="No products in this collection yet."
+        />
       </div>
 
       <Analytics.CollectionView
@@ -176,6 +119,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    tags
     featuredImage {
       id
       altText
