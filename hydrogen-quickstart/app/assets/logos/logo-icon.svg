@@ -1,7 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="PAWRA icon">
-  <circle cx="24" cy="14" r="6" fill="#2EE8A0"/>
-  <circle cx="14" cy="24" r="5" fill="#1B3A2D"/>
-  <circle cx="24" cy="30" r="5" fill="#1B3A2D"/>
-  <circle cx="34" cy="24" r="5" fill="#1B3A2D"/>
-  <ellipse cx="24" cy="38" rx="10" ry="8" fill="#1B3A2D"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="PAWRA">
+  <rect width="48" height="48" rx="12" fill="#1B3A2D"/>
+  <circle cx="24" cy="15" r="4.2" fill="#2EE8A0"/>
+  <circle cx="16.5" cy="22.5" r="3.4" fill="#F2F2F0"/>
+  <circle cx="24" cy="26" r="3.4" fill="#F2F2F0"/>
+  <circle cx="31.5" cy="22.5" r="3.4" fill="#F2F2F0"/>
+  <ellipse cx="24" cy="33" rx="6.8" ry="5.2" fill="#F2F2F0"/>
 </svg>

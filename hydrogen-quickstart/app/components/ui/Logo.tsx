@@ -31,11 +31,11 @@ const LOGO_SOURCES: Record<LogoVariant, string> = {
 };
 
 const LOGO_SIZES: Record<LogoVariant, {width: number; height: number}> = {
-  primary: {width: 120, height: 80},
-  horizontal: {width: 180, height: 48},
+  primary: {width: 160, height: 96},
+  horizontal: {width: 200, height: 48},
   icon: {width: 48, height: 48},
-  light: {width: 180, height: 48},
-  dark: {width: 180, height: 48},
+  light: {width: 200, height: 48},
+  dark: {width: 200, height: 48},
 };
 
 type LogoProps = {
