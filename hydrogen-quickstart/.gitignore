@@ -5,6 +5,7 @@ node_modules
 /public/build
 /.mf
 .env
+oxygen-env-to-mirror.env
 .shopify
 .react-router
 h2_deploy_log.json
