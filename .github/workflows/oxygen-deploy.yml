@@ -1,10 +1,14 @@
 # PAWRA → Shopify Oxygen
-# Requires GitHub secret: SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
-# Create the token in: Hydrogen Admin → Storefront settings → Oxygen deployments
-# Secret name MUST be exactly: SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
 #
-# main branch / production dispatch → Production (--env production)
-# other branches / preview dispatch → Preview (--preview)
+# Required GitHub repository secret (Settings → Secrets and variables → Actions):
+#   Name:  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
+#   Value: token from Shopify Admin → Hydrogen → Storefront settings → Oxygen deployments
+#
+# Also accepts legacy/alternate names if present:
+#   OXYGEN_DEPLOYMENT_TOKEN
+#
+# main / production dispatch → Production
+# other branches / preview   → Preview
 
 name: Deploy to Oxygen
 
@@ -36,6 +40,9 @@ jobs:
     defaults:
       run:
         working-directory: hydrogen-quickstart
+    env:
+      # Prefer the Shopify-documented name; fall back to a common alternate.
+      SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN || secrets.OXYGEN_DEPLOYMENT_TOKEN }}
 
     steps:
       - name: Checkout
@@ -49,16 +56,20 @@ jobs:
           cache-dependency-path: hydrogen-quickstart/package-lock.json
 
       - name: Verify Oxygen deployment token secret
-        env:
-          TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
         run: |
-          if [ -z "$TOKEN" ]; then
-            echo "::error::GitHub secret SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN is missing or empty."
-            echo "Create a token in Shopify Admin → Hydrogen → Storefront settings → Oxygen deployments,"
-            echo "then add it as a repository secret named exactly SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN."
+          if [ -z "$SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN" ]; then
+            echo "::error::No Oxygen deployment token found in GitHub Actions secrets."
+            echo ""
+            echo "Fix:"
+            echo "  1. Shopify Admin → Sales channels → Hydrogen → your storefront"
+            echo "  2. Storefront settings → Oxygen deployments → Create/copy token"
+            echo "  3. GitHub → PAWRA- → Settings → Secrets and variables → Actions"
+            echo "  4. New repository secret named EXACTLY:"
+            echo "       SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+            echo "  5. Paste the token value and save, then re-run this workflow"
             exit 1
           fi
-          echo "SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN is set (${#TOKEN} chars)."
+          echo "Oxygen deployment token is set (${#SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN} chars)."
 
       - name: Install dependencies
         run: npm ci
@@ -81,7 +92,6 @@ jobs:
           --metadata-user "github-actions"
         env:
           CI: true
-          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
 
       - name: Publish to Oxygen (Preview)
         if: |
@@ -96,4 +106,3 @@ jobs:
           --metadata-user "github-actions"
         env:
           CI: true
-          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
