@@ -9,6 +9,7 @@
     "dev": "shopify hydrogen dev --codegen",
     "preview": "shopify hydrogen preview --build",
     "deploy": "shopify hydrogen deploy --no-lockfile-check",
+    "deploy:env": "node scripts/deploy-with-env.mjs",
     "lint": "eslint --no-error-on-unmatched-pattern .",
     "codegen": "shopify hydrogen codegen && react-router typegen",
     "media:upload-hero": "node scripts/uploadHeroMedia.js",
