@@ -1,12 +1,14 @@
 # PAWRA → Shopify Oxygen
 #
-# Required: GitHub repository (or Environment → production) secret named:
+# Preferred GitHub Repository secret name:
 #   SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
 #
-# Also accepts: OXYGEN_DEPLOYMENT_TOKEN, OXYGEN_DEPLOYMENT_TOKEN_157631
+# Also accepted (in order):
+#   OXYGEN_DEPLOYMENT_TOKEN
+#   oxygen_deployment_token
+#   OXYGEN_DEPLOYMENT_TOKEN_157631
 #
 # Do NOT pass --env in CI — Oxygen picks the environment from the Git branch.
-# Ensure Hydrogen Production environment is linked to branch `main`.
 
 name: Deploy to Oxygen
 
@@ -32,16 +34,12 @@ jobs:
     name: Deploy Hydrogen to Oxygen
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    # Intentionally NOT using `environment: production` — an empty Environment
-    # secret with the same name would override a valid Repository secret.
     concurrency:
       group: oxygen-${{ github.ref == 'refs/heads/main' && 'production' || format('preview-{0}', github.ref_name) }}
       cancel-in-progress: true
     defaults:
       run:
         working-directory: hydrogen-quickstart
-    env:
-      SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN || secrets.OXYGEN_DEPLOYMENT_TOKEN || secrets.OXYGEN_DEPLOYMENT_TOKEN_157631 }}
 
     steps:
       - name: Checkout
@@ -54,23 +52,37 @@ jobs:
           cache: npm
           cache-dependency-path: hydrogen-quickstart/package-lock.json
 
-      - name: Verify Oxygen deployment token secret
+      - name: Resolve Oxygen deployment token
+        id: token
         env:
           S1: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
           S2: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN }}
-          S3: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_157631 }}
+          S3: ${{ secrets.oxygen_deployment_token }}
+          S4: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_157631 }}
         run: |
           echo "Secret name check (lengths only — values never printed):"
           echo "  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN = ${#S1} chars"
           echo "  OXYGEN_DEPLOYMENT_TOKEN          = ${#S2} chars"
-          echo "  OXYGEN_DEPLOYMENT_TOKEN_157631   = ${#S3} chars"
-          if [ -z "$SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN" ]; then
-            echo "::error::No usable Oxygen token. Name must match EXACTLY one of the three above."
-            echo "Open: Settings → Secrets and variables → Actions → Repository secrets"
-            echo "Compare the name character-for-character (no spaces, correct spelling)."
+          echo "  oxygen_deployment_token          = ${#S3} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN_157631   = ${#S4} chars"
+
+          TOKEN=""
+          if [ -n "$S1" ]; then TOKEN="$S1"; NAME="SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+          elif [ -n "$S2" ]; then TOKEN="$S2"; NAME="OXYGEN_DEPLOYMENT_TOKEN"
+          elif [ -n "$S3" ]; then TOKEN="$S3"; NAME="oxygen_deployment_token"
+          elif [ -n "$S4" ]; then TOKEN="$S4"; NAME="OXYGEN_DEPLOYMENT_TOKEN_157631"
+          fi
+
+          if [ -z "$TOKEN" ]; then
+            echo "::error::No Oxygen token found under any known secret name."
+            echo "Rename your Repository secret to exactly: SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+            echo "(GitHub secret names cannot contain spaces — use underscores.)"
             exit 1
           fi
-          echo "Using token (${#SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN} chars)."
+
+          echo "Using secret name: $NAME (${#TOKEN} chars)"
+          echo "::add-mask::$TOKEN"
+          echo "SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN=$TOKEN" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: npm ci
