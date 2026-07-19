@@ -1,9 +1,10 @@
 # PAWRA → Shopify Oxygen
 #
-# Preferred GitHub Repository secret name:
-#   SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
+# Preferred GitHub Repository secret name (this storefront):
+#   OXYGEN_DEPLOYMENT_TOKEN_1000157996
 #
-# Also accepted (in order):
+# Also accepted:
+#   SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN
 #   OXYGEN_DEPLOYMENT_TOKEN
 #   oxygen_deployment_token
 #   OXYGEN_DEPLOYMENT_TOKEN_157631
@@ -55,19 +56,22 @@ jobs:
       - name: Resolve Oxygen deployment token
         id: token
         env:
+          S0: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000157996 }}
           S1: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
           S2: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN }}
           S3: ${{ secrets.oxygen_deployment_token }}
           S4: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_157631 }}
         run: |
           echo "Secret name check (lengths only — values never printed):"
-          echo "  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN = ${#S1} chars"
-          echo "  OXYGEN_DEPLOYMENT_TOKEN          = ${#S2} chars"
-          echo "  oxygen_deployment_token          = ${#S3} chars"
-          echo "  OXYGEN_DEPLOYMENT_TOKEN_157631   = ${#S4} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN_1000157996 = ${#S0} chars"
+          echo "  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN  = ${#S1} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN            = ${#S2} chars"
+          echo "  oxygen_deployment_token            = ${#S3} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN_157631     = ${#S4} chars"
 
           TOKEN=""
-          if [ -n "$S1" ]; then TOKEN="$S1"; NAME="SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+          if [ -n "$S0" ]; then TOKEN="$S0"; NAME="OXYGEN_DEPLOYMENT_TOKEN_1000157996"
+          elif [ -n "$S1" ]; then TOKEN="$S1"; NAME="SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
           elif [ -n "$S2" ]; then TOKEN="$S2"; NAME="OXYGEN_DEPLOYMENT_TOKEN"
           elif [ -n "$S3" ]; then TOKEN="$S3"; NAME="oxygen_deployment_token"
           elif [ -n "$S4" ]; then TOKEN="$S4"; NAME="OXYGEN_DEPLOYMENT_TOKEN_157631"
@@ -75,8 +79,7 @@ jobs:
 
           if [ -z "$TOKEN" ]; then
             echo "::error::No Oxygen token found under any known secret name."
-            echo "Rename your Repository secret to exactly: SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
-            echo "(GitHub secret names cannot contain spaces — use underscores.)"
+            echo "Expected Repository secret: OXYGEN_DEPLOYMENT_TOKEN_1000157996"
             exit 1
           fi
 
