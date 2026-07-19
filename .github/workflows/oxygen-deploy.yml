@@ -54,20 +54,22 @@ jobs:
           cache-dependency-path: hydrogen-quickstart/package-lock.json
 
       - name: Verify Oxygen deployment token secret
+        env:
+          S1: ${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}
+          S2: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN }}
+          S3: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_157631 }}
         run: |
+          echo "Secret name check (lengths only — values never printed):"
+          echo "  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN = ${#S1} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN          = ${#S2} chars"
+          echo "  OXYGEN_DEPLOYMENT_TOKEN_157631   = ${#S3} chars"
           if [ -z "$SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN" ]; then
-            echo "::error::No Oxygen deployment token found in GitHub Actions secrets."
-            echo ""
-            echo "Add a REPOSITORY secret:"
-            echo "  GitHub → PAWRA- → Settings → Secrets and variables → Actions"
-            echo "  Repository secrets → New repository secret"
-            echo "  Name:  SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
-            echo "  Value: paste the full Oxygen token (usually starts with eyJ...)"
-            echo ""
-            echo "Or Environments → production → Environment secrets with the same name."
+            echo "::error::No usable Oxygen token. Name must match EXACTLY one of the three above."
+            echo "Open: Settings → Secrets and variables → Actions → Repository secrets"
+            echo "Compare the name character-for-character (no spaces, correct spelling)."
             exit 1
           fi
-          echo "Oxygen deployment token is set (${#SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN} chars)."
+          echo "Using token (${#SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN} chars)."
 
       - name: Install dependencies
         run: npm ci
