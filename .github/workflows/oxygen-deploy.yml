@@ -32,7 +32,8 @@ jobs:
     name: Deploy Hydrogen to Oxygen
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    environment: production
+    # Intentionally NOT using `environment: production` — an empty Environment
+    # secret with the same name would override a valid Repository secret.
     concurrency:
       group: oxygen-${{ github.ref == 'refs/heads/main' && 'production' || format('preview-{0}', github.ref_name) }}
       cancel-in-progress: true
