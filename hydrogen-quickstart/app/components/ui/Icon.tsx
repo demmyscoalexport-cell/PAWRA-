@@ -36,6 +36,8 @@ export type IconName =
   | 'truck'
   | 'wifi'
   | 'chevron-down'
+  | 'chevron-right'
+  | 'chevron-left'
   | 'instagram'
   | 'tiktok'
   | 'facebook'
@@ -165,6 +167,16 @@ const ICONS: Record<IconName, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   'chevron-down': (props) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="m6 9 6 6 6-6" />
+    </svg>
+  ),
+  'chevron-right': (props) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  ),
+  'chevron-left': (props) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="m15 6-6 6 6 6" />
     </svg>
   ),
   instagram: (props) => (
