@@ -6,6 +6,7 @@
 import {useLoaderData} from 'react-router';
 import {
   HeroSection,
+  ShopByPet,
   TrustBar,
   HeroProductSpotlight,
   CompleteYourSetup,
@@ -73,6 +74,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <HeroSection />
+      <ShopByPet />
       <TrustBar />
       <HeroProductSpotlight product={featuredProduct} />
       <CompleteYourSetup products={featuredProducts} />

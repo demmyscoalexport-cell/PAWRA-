@@ -60,11 +60,17 @@ function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className="mt-4">
+      <a
+        href={checkoutUrl}
+        target="_self"
+        className="flex h-12 w-full items-center justify-center rounded-md bg-cta-primary font-sans text-body-m font-semibold text-cloud no-underline transition hover:bg-cta-primary-hover"
+      >
+        Secure checkout
       </a>
-      <br />
+      <p className="mt-2 text-center font-sans text-body-s text-ink/55">
+        Taxes and shipping calculated at checkout
+      </p>
     </div>
   );
 }

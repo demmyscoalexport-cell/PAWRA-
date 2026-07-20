@@ -19,6 +19,7 @@ import {Link, useNavigate, useRouteLoaderData} from 'react-router';
 import {Image, Money, Analytics} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
+import {Breadcrumbs} from '~/components/Breadcrumbs';
 import {Icon} from '~/components/ui/Icon';
 import {FaqAccordion} from '~/components/FaqAccordion';
 import {PawraProductCard} from '~/components/PawraProductCard';
@@ -28,12 +29,13 @@ import {ProductRating} from '~/components/product/ProductRating';
 import {JudgeMeReviews} from '~/components/product/JudgeMeReviews';
 import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 import {BRAND} from '~/lib/branding';
+import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
 
 /** Product-specific FAQ items shown in the accordion below the fold. */
 const PRODUCT_FAQ = [
-  {q: 'How long does shipping take?', a: 'Most US orders arrive in 3–5 business days. Free shipping on orders over $75.'},
+  {q: 'How long does shipping take?', a: `Most US orders arrive in 3–5 business days. Free shipping on orders over $${FREE_SHIPPING_THRESHOLD_USD}.`},
   {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
   {q: 'Are products safe for cats and dogs?', a: 'Every item is curated for pet safety. Check the product description for species-specific guidance.'},
   {q: 'Do you ship nationwide?', a: 'Yes — we ship to all 50 US states from our Presque Isle, ME fulfillment center.'},
@@ -48,7 +50,7 @@ const FEATURES = [
   {icon: 'check', label: 'Curated for cats and dogs'},
   {icon: 'leaf', label: 'Trusted brands and ingredients'},
   {icon: 'star', label: 'PAWRA quality standards'},
-  {icon: 'truck', label: 'Free US shipping over $75'},
+  {icon: 'truck', label: `Free US shipping over $${FREE_SHIPPING_THRESHOLD_USD}`},
 ];
 
 // ─── Product Page Component ───────────────────────────────────────────────────
@@ -103,6 +105,17 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
     <div className="bg-warm-oat">
       {/* ─── Hero: Gallery & Purchase Panel ─── */}
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
+        <Breadcrumbs
+          className="mb-6"
+          items={[
+            {label: 'Home', to: '/'},
+            {label: 'Shop', to: '/collections/all'},
+            ...(product.productType
+              ? [{label: product.productType, to: `/collections/all`}]
+              : []),
+            {label: product.title},
+          ]}
+        />
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* ─── Image Gallery ─── */}
           <div>
@@ -267,7 +280,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
             {/* ─── Trust Badges ─── */}
             <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">
               {[
-                'Free US shipping',
+                `Free US shipping over $${FREE_SHIPPING_THRESHOLD_USD}`,
                 '30-day returns',
                 'Premium quality',
                 'Cats & dogs',
@@ -282,8 +295,27 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
+      {/* ─── Product description (Chewy-style details) ─── */}
+      {(product.descriptionHtml || product.description) && (
+        <section className="border-t border-forest-green/10 bg-cloud px-4 py-16 md:px-8">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="font-serif text-display-s text-forest-green">About this item</h2>
+            {product.descriptionHtml ? (
+              <div
+                className="prose prose-forest mt-8 max-w-none font-sans text-body-m text-ink [&_a]:text-forest-green [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
+                dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+              />
+            ) : (
+              <p className="mt-8 font-sans text-body-m text-ink whitespace-pre-line">
+                {product.description}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ─── Features Grid ─── */}
-      <section className="border-t border-forest-green/10 bg-cloud px-4 py-16 md:px-8">
+      <section className="border-t border-forest-green/10 bg-warm-oat px-4 py-16 md:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="font-serif text-display-s text-forest-green">Features</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -307,7 +339,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 ['Brand', product.vendor || 'PAWRA'],
                 ['Category', product.productType || 'Pet supplies'],
                 ['Availability', selectedVariant?.availableForSale ? 'In stock' : 'Sold out'],
-                ['Shipping', 'Free over $75 (US)'],
+                ['Shipping', `Free over $${FREE_SHIPPING_THRESHOLD_USD} (US)`],
                 ['Returns', '30 days'],
               ].map(([k, v]) => (
                 <tr key={k} className="border-b border-forest-green/10">
