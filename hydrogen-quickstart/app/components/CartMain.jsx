@@ -63,20 +63,19 @@ export function CartMain({ layout, cart: originalCart, showSummary = true }) {
   return (
     <section className={className} aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}>
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
-        {cartHasItems ? (
-          <FreeShippingProgress
-            subtotalAmount={cart?.cost?.subtotalAmount}
-            className="mb-4"
-          />
-        ) : null}
-        <p id="cart-lines" className="sr-only">
-          Line items
-        </p>
-        <div>
+      <div className={`cart-details ${layout === 'aside' ? 'cart-details-aside' : ''}`} hidden={!linesCount}>
+        <div className="cart-details-scroll">
+          {cartHasItems ? (
+            <FreeShippingProgress
+              subtotalAmount={cart?.cost?.subtotalAmount}
+              className="mb-4"
+            />
+          ) : null}
+          <p id="cart-lines" className="sr-only">
+            Line items
+          </p>
           <ul aria-labelledby="cart-lines">
             {(cart?.lines?.nodes ?? []).map((line) => {
-              // we do not render non-parent lines at the root of the cart
               if ('parentRelationship' in line && line.parentRelationship?.parent) {
                 return null;
               }

@@ -25,8 +25,8 @@ const PETS = [
 
 export function ShopByPet() {
   return (
-    <SectionReveal>
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-10 md:px-8 md:py-14">
+    <SectionReveal eager>
+      <section className="border-b border-forest-green/10 bg-cloud px-4 py-10 md:px-8 md:py-12">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

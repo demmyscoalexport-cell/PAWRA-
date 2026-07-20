@@ -1,53 +1,63 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file CartSummary.jsx
- * @description Shared component: CartSummary.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Cart totals + sticky full-width Checkout CTA.
  */
 
-import { CartForm, Money } from '@shopify/hydrogen';
-import { useEffect, useId, useRef, useState } from 'react';
-import { useFetcher } from 'react-router';
+import {CartForm, Money} from '@shopify/hydrogen';
+import {useEffect, useId, useRef, useState} from 'react';
+import {useFetcher} from 'react-router';
 
 /**
  * @param {CartSummaryProps}
  */
-export function CartSummary({ cart, layout }) {
-  const className = layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+export function CartSummary({cart, layout}) {
+  const className =
+    layout === 'page'
+      ? 'cart-summary-page mt-8 rounded-xl border border-forest-green/10 bg-cloud p-6'
+      : 'cart-summary-aside';
   const summaryId = useId();
   const discountsHeadingId = useId();
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
   const giftCardInputId = useId();
+  const [showExtras, setShowExtras] = useState(false);
 
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>Totals</h4>
-      <dl role="group" className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
+      <h4 id={summaryId} className="font-sans text-body-m font-semibold text-ink">
+        Order summary
+      </h4>
+      <dl role="group" className="cart-subtotal mt-3 flex items-center justify-between font-sans text-body-m">
+        <dt className="text-ink/70">Subtotal</dt>
+        <dd className="font-mono font-semibold text-forest-green">
           {cart?.cost?.subtotalAmount?.amount ? <Money data={cart?.cost?.subtotalAmount} /> : '-'}
         </dd>
       </dl>
-      <CartDiscounts
-        discountCodes={cart?.discountCodes}
-        discountsHeadingId={discountsHeadingId}
-        discountCodeInputId={discountCodeInputId}
-      />
-      <CartGiftCard
-        giftCardCodes={cart?.appliedGiftCards}
-        giftCardHeadingId={giftCardHeadingId}
-        giftCardInputId={giftCardInputId}
-      />
+
+      <button
+        type="button"
+        className="reset mt-3 font-sans text-body-s font-semibold text-forest-green underline"
+        onClick={() => setShowExtras((v) => !v)}
+        aria-expanded={showExtras}
+      >
+        {showExtras ? 'Hide discount & gift card' : 'Add discount or gift card'}
+      </button>
+
+      {showExtras ? (
+        <div className="mt-3 space-y-4">
+          <CartDiscounts
+            discountCodes={cart?.discountCodes}
+            discountsHeadingId={discountsHeadingId}
+            discountCodeInputId={discountCodeInputId}
+          />
+          <CartGiftCard
+            giftCardCodes={cart?.appliedGiftCards}
+            giftCardHeadingId={giftCardHeadingId}
+            giftCardInputId={giftCardInputId}
+          />
+        </div>
+      ) : null}
+
       <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
     </div>
   );
@@ -56,20 +66,27 @@ export function CartSummary({ cart, layout }) {
 /**
  * @param {{checkoutUrl?: string}}
  */
-function CartCheckoutActions({ checkoutUrl }) {
-  if (!checkoutUrl) return null;
+function CartCheckoutActions({checkoutUrl}) {
+  if (!checkoutUrl) {
+    return (
+      <p className="mt-4 rounded-md border border-coral/30 bg-coral/10 px-3 py-3 font-sans text-body-s text-ink">
+        Checkout is unavailable right now. Refresh and try again, or confirm{' '}
+        <code className="font-mono text-mono-s">PUBLIC_CHECKOUT_DOMAIN</code> is set on Oxygen.
+      </p>
+    );
+  }
 
   return (
     <div className="mt-4">
       <a
         href={checkoutUrl}
         target="_self"
-        className="flex h-12 w-full items-center justify-center rounded-md bg-cta-primary font-sans text-body-m font-semibold text-cloud no-underline transition hover:bg-cta-primary-hover"
+        className="flex h-14 w-full items-center justify-center rounded-md bg-cta-primary font-sans text-body-l font-bold tracking-wide text-cloud no-underline shadow-md transition hover:bg-cta-primary-hover"
       >
-        Secure checkout
+        Checkout
       </a>
       <p className="mt-2 text-center font-sans text-body-s text-ink/55">
-        Taxes and shipping calculated at checkout
+        Secure Shopify checkout · taxes & shipping calculated next
       </p>
     </div>
   );
@@ -82,16 +99,17 @@ function CartCheckoutActions({ checkoutUrl }) {
  *   discountCodeInputId: string;
  * }}
  */
-function CartDiscounts({ discountCodes, discountsHeadingId, discountCodeInputId }) {
+function CartDiscounts({discountCodes, discountsHeadingId, discountCodeInputId}) {
   const codes =
-    discountCodes?.filter((discount) => discount.applicable)?.map(({ code }) => code) || [];
+    discountCodes?.filter((discount) => discount.applicable)?.map(({code}) => code) || [];
 
   return (
-    <section aria-label="Discounts">
-      {/* Have existing discount, display it with a remove option */}
+    <section aria-label="Discounts" className="space-y-2">
       <dl hidden={!codes.length}>
         <div>
-          <dt id={discountsHeadingId}>Discounts</dt>
+          <dt id={discountsHeadingId} className="sr-only">
+            Discounts
+          </dt>
           <UpdateDiscountForm>
             <div className="cart-discount" role="group" aria-labelledby={discountsHeadingId}>
               <code>{codes?.join(', ')}</code>
@@ -104,9 +122,8 @@ function CartDiscounts({ discountCodes, discountsHeadingId, discountCodeInputId 
         </div>
       </dl>
 
-      {/* Show an input to apply a discount */}
       <UpdateDiscountForm discountCodes={codes}>
-        <div>
+        <div className="flex gap-2">
           <label htmlFor={discountCodeInputId} className="sr-only">
             Discount code
           </label>
@@ -115,9 +132,13 @@ function CartDiscounts({ discountCodes, discountsHeadingId, discountCodeInputId 
             type="text"
             name="discountCode"
             placeholder="Discount code"
+            className="min-w-0 flex-1 rounded-md border border-forest-green/20 bg-warm-oat px-3 py-2 font-sans text-body-s"
           />
-          &nbsp;
-          <button type="submit" aria-label="Apply discount code">
+          <button
+            type="submit"
+            aria-label="Apply discount code"
+            className="rounded-md border border-forest-green/25 px-3 py-2 font-sans text-body-s font-semibold text-forest-green"
+          >
             Apply
           </button>
         </div>
@@ -132,7 +153,7 @@ function CartDiscounts({ discountCodes, discountsHeadingId, discountCodeInputId 
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({ discountCodes, children }) {
+function UpdateDiscountForm({discountCodes, children}) {
   return (
     <CartForm
       route="/cart"
@@ -153,11 +174,11 @@ function UpdateDiscountForm({ discountCodes, children }) {
  *   giftCardInputId: string;
  * }}
  */
-function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
+function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
   const giftCardCodeInput = useRef(null);
   const removeButtonRefs = useRef(new Map());
   const previousCardIdsRef = useRef([]);
-  const giftCardAddFetcher = useFetcher({ key: 'gift-card-add' });
+  const giftCardAddFetcher = useFetcher({key: 'gift-card-add'});
   const [removedCardIndex, setRemovedCardIndex] = useState(null);
 
   useEffect(() => {
@@ -196,10 +217,12 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
   };
 
   return (
-    <section aria-label="Gift cards">
+    <section aria-label="Gift cards" className="space-y-2">
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
-          <dt id={giftCardHeadingId}>Applied Gift Card(s)</dt>
+          <dt id={giftCardHeadingId} className="font-sans text-body-s text-ink/60">
+            Applied gift card(s)
+          </dt>
           {giftCardCodes.map((giftCard) => (
             <dd key={giftCard.id} className="cart-discount">
               <RemoveGiftCardForm
@@ -224,7 +247,7 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
       )}
 
       <AddGiftCardForm fetcherKey="gift-card-add">
-        <div>
+        <div className="flex gap-2">
           <label htmlFor={giftCardInputId} className="sr-only">
             Gift card code
           </label>
@@ -234,12 +257,13 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
             name="giftCardCode"
             placeholder="Gift card code"
             ref={giftCardCodeInput}
+            className="min-w-0 flex-1 rounded-md border border-forest-green/20 bg-warm-oat px-3 py-2 font-sans text-body-s"
           />
-          &nbsp;
           <button
             type="submit"
             disabled={giftCardAddFetcher.state !== 'idle'}
             aria-label="Apply gift card code"
+            className="rounded-md border border-forest-green/25 px-3 py-2 font-sans text-body-s font-semibold text-forest-green"
           >
             Apply
           </button>
@@ -255,7 +279,7 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
  *   children: React.ReactNode;
  * }}
  */
-function AddGiftCardForm({ fetcherKey, children }) {
+function AddGiftCardForm({fetcherKey, children}) {
   return (
     <CartForm fetcherKey={fetcherKey} route="/cart" action={CartForm.ACTIONS.GiftCardCodesAdd}>
       {children}
@@ -272,7 +296,7 @@ function AddGiftCardForm({ fetcherKey, children }) {
  *   buttonRef?: (el: HTMLButtonElement | null) => void;
  * }}
  */
-function RemoveGiftCardForm({ giftCardId, lastCharacters, children, onRemoveClick, buttonRef }) {
+function RemoveGiftCardForm({giftCardId, lastCharacters, children, onRemoveClick, buttonRef}) {
   return (
     <CartForm
       route="/cart"
