@@ -14,8 +14,8 @@ export const NAV_MAIN = [
     path: '/collections/dogs',
     children: [
       {id: 'dogs-all', title: 'Shop all Dog', path: '/collections/dogs'},
-      {id: 'dogs-food', title: 'Food', path: '/collections/food-treats?species=dog'},
-      {id: 'dogs-treats', title: 'Treats', path: '/collections/food-treats?species=dog'},
+      {id: 'dogs-food', title: 'Food', path: '/collections/food-treats?species=dog&category=food'},
+      {id: 'dogs-treats', title: 'Treats', path: '/collections/food-treats?species=dog&category=treats'},
       {id: 'dogs-beds', title: 'Beds & Comfort', path: '/collections/beds-comfort?species=dog'},
       {id: 'dogs-grooming', title: 'Grooming & Wellness', path: '/collections/grooming-wellness?species=dog'},
       {id: 'dogs-featured', title: 'Best Sellers', path: '/collections/frontpage'},
@@ -27,8 +27,8 @@ export const NAV_MAIN = [
     path: '/collections/cats',
     children: [
       {id: 'cats-all', title: 'Shop all Cat', path: '/collections/cats'},
-      {id: 'cats-food', title: 'Food', path: '/collections/food-treats?species=cat'},
-      {id: 'cats-treats', title: 'Treats', path: '/collections/food-treats?species=cat'},
+      {id: 'cats-food', title: 'Food', path: '/collections/food-treats?species=cat&category=food'},
+      {id: 'cats-treats', title: 'Treats', path: '/collections/food-treats?species=cat&category=treats'},
       {id: 'cats-beds', title: 'Beds & Comfort', path: '/collections/beds-comfort?species=cat'},
       {id: 'cats-grooming', title: 'Grooming & Wellness', path: '/collections/grooming-wellness?species=cat'},
       {id: 'cats-featured', title: 'Best Sellers', path: '/collections/frontpage'},

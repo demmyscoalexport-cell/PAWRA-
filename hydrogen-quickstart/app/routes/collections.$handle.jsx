@@ -8,7 +8,7 @@ import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {useMemo} from 'react';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {PAWRA_COLLECTION_FALLBACK, filterProductsByKeywords} from '~/lib/pawraCollections';
-import {CollectionFilters, applyCollectionFilters} from '~/components/CollectionFilters';
+import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
 import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
 
@@ -19,7 +19,12 @@ export const meta = ({data}) => {
 export async function loader({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 24});
+  const url = new URL(request.url);
+  const filtersActive = hasClientCollectionFilters(url.searchParams);
+  // Ignore leftover cursor when filters are on — always restart from the first page.
+  const paginationVariables = filtersActive
+    ? {first: 100}
+    : getPaginationVariables(request, {pageBy: 24});
 
   if (!handle) {
     throw redirect('/collections');
@@ -66,6 +71,7 @@ export async function loader({context, params, request}) {
 export default function CollectionPage() {
   const {collection} = useLoaderData();
   const [searchParams] = useSearchParams();
+  const filtersActive = hasClientCollectionFilters(searchParams);
 
   const filteredProducts = useMemo(
     () => applyCollectionFilters(collection.products?.nodes ?? [], searchParams),
@@ -108,6 +114,7 @@ export default function CollectionPage() {
         <PawraCollectionGrid
           connection={collection.products}
           products={filteredProducts}
+          filtersActive={filtersActive}
           emptyMessage="No products in this collection yet."
         />
       </div>
@@ -131,6 +138,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     handle
     title
     tags
+    productType
     featuredImage {
       id
       altText

@@ -6,7 +6,7 @@
 import {useLoaderData, useSearchParams} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {useMemo} from 'react';
-import {CollectionFilters, applyCollectionFilters} from '~/components/CollectionFilters';
+import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
 import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
 
@@ -14,7 +14,11 @@ export const meta = () => [{title: 'PAWRA | All Products'}];
 
 export async function loader({context, request}) {
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 24});
+  const url = new URL(request.url);
+  const filtersActive = hasClientCollectionFilters(url.searchParams);
+  const paginationVariables = filtersActive
+    ? {first: 100}
+    : getPaginationVariables(request, {pageBy: 24});
 
   const {products} = await storefront.query(CATALOG_QUERY, {
     variables: paginationVariables,
@@ -26,6 +30,7 @@ export async function loader({context, request}) {
 export default function AllProductsPage() {
   const {products} = useLoaderData();
   const [searchParams] = useSearchParams();
+  const filtersActive = hasClientCollectionFilters(searchParams);
 
   const filteredProducts = useMemo(
     () => applyCollectionFilters(products?.nodes ?? [], searchParams),
@@ -66,6 +71,7 @@ export default function AllProductsPage() {
         <PawraCollectionGrid
           connection={products}
           products={filteredProducts}
+          filtersActive={filtersActive}
           emptyMessage="No products published to your Headless storefront yet."
         />
       </div>
@@ -89,6 +95,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     handle
     title
     tags
+    productType
     featuredImage {
       id
       altText

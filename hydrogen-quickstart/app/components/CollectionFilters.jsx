@@ -3,6 +3,7 @@ import {
   COLLECTION_SORT_OPTIONS,
   SPECIES_FILTER_OPTIONS,
   filterProductsBySpecies,
+  filterProductsByCategory,
   filterProductsByPrice,
   sortProducts,
 } from '~/lib/pawraCollections';
@@ -14,6 +15,9 @@ const PRICE_PRESETS = [
   {label: '$100+', priceMin: '100', priceMax: ''},
 ];
 
+/** Hydrogen cursor pagination keys — clear when filters change so PLP restarts at page 1. */
+const PAGINATION_KEYS = ['cursor', 'direction'];
+
 /**
  * Chewy-style PLP filters — pet chips, price presets, sort.
  * @param {{ showSpecies?: boolean }} props
@@ -22,6 +26,7 @@ export function CollectionFilters({showSpecies = true}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort') || 'featured';
   const species = searchParams.get('species') || 'all';
+  const category = searchParams.get('category') || 'all';
   const priceMin = searchParams.get('priceMin') || '';
   const priceMax = searchParams.get('priceMax') || '';
 
@@ -35,20 +40,27 @@ export function CollectionFilters({showSpecies = true}) {
         next.set(key, value);
       }
     }
+    for (const key of PAGINATION_KEYS) next.delete(key);
     setSearchParams(next, {preventScrollReset: true});
   }
 
   function clearFilters() {
     const next = new URLSearchParams(searchParams);
     next.delete('species');
+    next.delete('category');
     next.delete('priceMin');
     next.delete('priceMax');
     next.delete('sort');
+    for (const key of PAGINATION_KEYS) next.delete(key);
     setSearchParams(next, {preventScrollReset: true});
   }
 
   const hasActiveFilters =
-    (showSpecies && species !== 'all') || priceMin || priceMax || sort !== 'featured';
+    (showSpecies && species !== 'all') ||
+    category !== 'all' ||
+    priceMin ||
+    priceMax ||
+    sort !== 'featured';
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -140,15 +152,33 @@ export function CollectionFilters({showSpecies = true}) {
  */
 export function applyCollectionFilters(products, searchParams) {
   const species = searchParams.get('species') || 'all';
+  const category = searchParams.get('category') || 'all';
   const priceMin = searchParams.get('priceMin');
   const priceMax = searchParams.get('priceMax');
   const sort = searchParams.get('sort') || 'featured';
 
   let filtered = filterProductsBySpecies(products, species);
+  filtered = filterProductsByCategory(filtered, category);
   filtered = filterProductsByPrice(
     filtered,
     priceMin ? Number(priceMin) : null,
     priceMax ? Number(priceMax) : null,
   );
   return sortProducts(filtered, sort);
+}
+
+/** True when URL has client-side filters that shrink the current page of products. */
+export function hasClientCollectionFilters(searchParams) {
+  const species = searchParams.get('species');
+  const category = searchParams.get('category');
+  const priceMin = searchParams.get('priceMin');
+  const priceMax = searchParams.get('priceMax');
+  const sort = searchParams.get('sort');
+  return Boolean(
+    (species && species !== 'all') ||
+      (category && category !== 'all') ||
+      priceMin ||
+      priceMax ||
+      (sort && sort !== 'featured'),
+  );
 }

@@ -3,21 +3,30 @@ import {PawraProductCard} from '~/components/PawraProductCard';
 
 /**
  * Product grid with clear Previous / Next pagination buttons.
+ * When client-side filters are active, cursor pagination is hidden so
+ * Next/Previous never disagree with the filtered product list.
  * @param {{
  *   connection: { nodes?: unknown[]; pageInfo?: unknown };
  *   products: Array<import('storefrontapi.generated').ProductItemFragment>;
  *   emptyMessage?: string;
+ *   filtersActive?: boolean;
  * }} props
  */
-export function PawraCollectionGrid({connection, products, emptyMessage}) {
+export function PawraCollectionGrid({
+  connection,
+  products,
+  emptyMessage,
+  filtersActive = false,
+}) {
   return (
     <Pagination connection={connection}>
       {({nodes, isLoading, NextLink, PreviousLink, hasNextPage, hasPreviousPage}) => {
-        const displayProducts = products.length ? products : nodes;
+        const displayProducts = products.length || filtersActive ? products : nodes;
+        const showPagination = !filtersActive;
 
         return (
           <>
-            {hasPreviousPage ? (
+            {showPagination && hasPreviousPage ? (
               <div className="mb-6 flex justify-center">
                 <PreviousLink className="inline-flex h-12 min-w-[12rem] items-center justify-center rounded-md border border-forest-green/30 bg-cloud px-6 font-sans text-body-m font-semibold text-forest-green no-underline hover:bg-warm-oat">
                   {isLoading ? 'Loading…' : '← Previous'}
@@ -41,7 +50,7 @@ export function PawraCollectionGrid({connection, products, emptyMessage}) {
               </p>
             )}
 
-            {hasNextPage ? (
+            {showPagination && hasNextPage ? (
               <div className="mt-10 flex justify-center">
                 <NextLink className="inline-flex h-14 min-w-[14rem] items-center justify-center rounded-md bg-forest-green px-8 font-sans text-body-l font-semibold text-cloud no-underline shadow-md hover:brightness-110">
                   {isLoading ? 'Loading…' : 'Next products →'}
@@ -49,7 +58,9 @@ export function PawraCollectionGrid({connection, products, emptyMessage}) {
               </div>
             ) : displayProducts.length > 0 ? (
               <p className="mt-10 text-center font-sans text-body-s text-ink/50">
-                You&apos;ve reached the end of this collection
+                {filtersActive
+                  ? 'Showing matches from this page — clear filters to browse the full collection'
+                  : "You've reached the end of this collection"}
               </p>
             ) : null}
           </>
