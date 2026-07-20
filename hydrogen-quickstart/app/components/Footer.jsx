@@ -18,6 +18,7 @@ const SHOP_LINKS = PAWRA_COLLECTIONS.filter((c) => c.handle !== 'frontpage').map
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
   {label: 'How It Works', to: '/pages/how-it-works'},
+  {label: 'Walker Program', to: '/pages/walker-program'},
   {label: 'Subscribe & Save', to: '/pages/subscribe-and-save'},
   {label: 'Blog', to: '/blog'},
   {label: 'Contact', to: '/pages/contact'},

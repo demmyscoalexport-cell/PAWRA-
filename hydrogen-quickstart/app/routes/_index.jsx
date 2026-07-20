@@ -12,6 +12,7 @@ import {
   WhyPawra,
   Ecosystem,
   FrequentlyBoughtTogether,
+  WalkerProgramSection,
   Testimonials,
   FAQ,
 } from '~/components/sections';
@@ -78,6 +79,7 @@ export default function Homepage() {
       <WhyPawra />
       <Ecosystem />
       <FrequentlyBoughtTogether products={bundleProducts} />
+      <WalkerProgramSection />
       <Testimonials reviews={featuredReviews} />
       <div id="faq">
         <FAQ />

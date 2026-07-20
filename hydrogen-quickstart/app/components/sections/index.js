@@ -24,5 +24,6 @@ export {Ecosystem} from './Ecosystem';
 export {FrequentlyBoughtTogether} from './FrequentlyBoughtTogether';
 export {Testimonials} from './Testimonials';
 export {FAQ} from './FAQ';
+export {WalkerProgramSection} from './WalkerProgramSection';
 export {SectionReveal} from './SectionReveal';
 export {ProductImagePlaceholder} from './ProductImagePlaceholder';

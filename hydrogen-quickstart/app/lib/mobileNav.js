@@ -36,6 +36,7 @@ export const NAV_MAIN = [
 export const NAV_PAGE_LINKS = [
   {id: 'about', title: 'About', path: '/pages/about'},
   {id: 'how-it-works', title: 'How It Works', path: '/pages/how-it-works'},
+  {id: 'walker-program', title: 'Walker Program', path: '/pages/walker-program'},
   {id: 'blog', title: 'Blog', path: '/blog'},
   {id: 'contact', title: 'Contact', path: '/pages/contact'},
 ];

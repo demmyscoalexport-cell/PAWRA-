@@ -111,4 +111,15 @@ npm run deploy       # manual Oxygen deploy (from hydrogen-quickstart)
 
 ---
 
+## Walker Referral Program (ops)
+
+1. Applicant emails support from `/pages/walker-program`
+2. Approve in email; create a unique Shopify **Discount code** (e.g. `WALKER-MAYA10`)
+3. Email the walker their code + share tips (checkout field)
+4. Track redemptions under Shopify Admin → Discounts
+
+Storefront page: `/pages/walker-program`
+
+---
+
 **PAWRA LLC** · Presque Isle, ME · support@pawrapercares.com

@@ -19,14 +19,29 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {getStaticPage} from '~/lib/staticPages';
 import {StaticPageLayout} from '~/components/StaticPageLayout';
 import {SocialLinks} from '~/components/SocialLinks';
+import {WalkerProgramPage} from '~/components/WalkerProgramPage';
+import {WALKER_PROGRAM} from '~/lib/walkerProgram';
 
-export const meta = ({data}) => {
+export const meta = ({data, params}) => {
+  if (params?.handle === 'walker-program') {
+    return [{title: `PAWRA | ${WALKER_PROGRAM.title}`}];
+  }
   return [{title: `PAWRA | ${data?.page.title ?? 'Page'}`}];
 };
 
 export async function loader({context, request, params}) {
   if (!params.handle) {
     throw new Error('Missing page handle');
+  }
+
+  if (params.handle === 'walker-program') {
+    return {
+      page: {
+        title: WALKER_PROGRAM.title,
+        description: WALKER_PROGRAM.description,
+        isWalkerProgram: true,
+      },
+    };
   }
 
   const staticPage = getStaticPage(params.handle);
@@ -67,6 +82,10 @@ export default function Page() {
   const {page} = useLoaderData();
   const params = useParams();
   const showSocial = params.handle === 'contact';
+
+  if (page.isWalkerProgram) {
+    return <WalkerProgramPage />;
+  }
 
   return (
     <StaticPageLayout title={page.title} description={page.description}>
