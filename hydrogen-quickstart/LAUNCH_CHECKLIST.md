@@ -9,7 +9,7 @@ Use this after connecting a **new** Shopify account to the Hydrogen storefront.
 - [ ] Hydrogen storefront created (e.g. `PAWRA`)
 - [ ] **Settings → Customer accounts** enabled
 - [ ] **Settings → Payments** — Shopify Payments + bank
-- [ ] **Settings → Domains** — `pawrapercares.com` connected
+- [ ] **Settings → Domains** — `pawrapetcares.com` on **Hydrogen Production**
 
 ## 2. Products (critical)
 
@@ -38,10 +38,11 @@ Use this after connecting a **new** Shopify account to the Hydrogen storefront.
 - [ ] `npm run build` passes locally
 - [ ] `npm run dev` — products visible at localhost:3000
 - [ ] Push to `main` — GitHub Action deploy succeeds
-- [ ] https://www.pawrapercares.com/collections/all shows products
+- [ ] https://www.pawrapetcares.com/collections/all shows products
+- [ ] https://pawrapetcares.com/pages/reviews loads reviews page
 - [ ] Add to cart → Shopify Checkout works
 
 ## 6. Legal & support
 
 - [ ] Refund, shipping, privacy policies in Admin
-- [ ] support@pawrapercares.com monitored
+- [ ] support@pawrapetcares.com monitored

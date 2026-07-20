@@ -64,6 +64,13 @@ export function ThirdPartyScripts({integrations}) {
     }
 
     if (integrations.judgeMe?.shopDomain) {
+      window.jdgm = window.jdgm || {};
+      window.jdgm.SHOP_DOMAIN = integrations.judgeMe.shopDomain;
+      window.jdgm.PLATFORM = 'shopify';
+      if (integrations.judgeMe.publicToken) {
+        window.jdgm.PUBLIC_TOKEN = integrations.judgeMe.publicToken;
+      }
+
       const s = document.createElement('script');
       s.async = true;
       s.src = `https://cdn.judge.me/widget_preloader.js?shop=${integrations.judgeMe.shopDomain}`;

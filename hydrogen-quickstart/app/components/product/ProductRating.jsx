@@ -19,14 +19,16 @@ export function ProductRating({rating = 0, count = 0, compact = false}) {
             name="star"
             size="sm"
             color={i < stars ? 'text-champagne' : 'text-ink/20'}
-            className="!h-4 !w-4"
+            className={compact ? '!h-3.5 !w-3.5' : '!h-4 !w-4'}
           />
         ))}
       </div>
-      <span className="font-mono text-mono-s text-ink/60">
-        {displayRating?.toFixed(1)}
-        {count > 0 ? ` · ${count} review${count === 1 ? '' : 's'}` : ''}
-      </span>
+      {!compact && (
+        <span className="font-mono text-mono-s text-ink/60">
+          {displayRating?.toFixed(1)}
+          {count > 0 ? ` · ${count} review${count === 1 ? '' : 's'}` : ''}
+        </span>
+      )}
     </div>
   );
 }

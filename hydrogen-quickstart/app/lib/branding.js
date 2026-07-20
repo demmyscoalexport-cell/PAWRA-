@@ -1,9 +1,9 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES              ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapercares.com             ║
- * ║          © 2025 Pawra LLC             ║
+ * ║         pawrapetcares.com             ║
+ * ║          © 2026 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
 
@@ -11,11 +11,11 @@
  * @file branding.js
  * @description Storefront utility module: branding.
  * @author Pawra LLC
- * @website pawrapercares.com
+ * @website pawrapetcares.com
  */
 
 /**
- * PAWRA Pet Shop brand constants — pawrapercares.com
+ * PAWRA Pet Cares brand constants — pawrapetcares.com
  * Single source of truth for site-wide copy, contact info, and legal footer text.
  */
 
@@ -25,9 +25,9 @@
 export const BRAND = {
   name: 'PAWRA',
   tagline: 'Every moment. Every pet. Every life.',
-  domain: 'pawrapercares.com',
-  url: 'https://pawrapercares.com',
-  supportEmail: 'support@pawrapercares.com',
+  domain: 'pawrapetcares.com',
+  url: 'https://pawrapetcares.com',
+  supportEmail: 'support@pawrapetcares.com',
   address: {
     line1: '256 Chapman Road',
     city: 'Presque Isle',
@@ -35,15 +35,15 @@ export const BRAND = {
     zip: '04769',
     country: 'United States',
   },
-  copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapercares.com',
+  copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapetcares.com',
 };
 
 /** Official PAWRA social profiles — used in footer and contact page. */
 export const SOCIAL_LINKS = [
-  {platform: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/pawrapercares'},
-  {platform: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@pawrapercares'},
-  {platform: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/pawrapercares'},
-  {platform: 'pinterest', label: 'Pinterest', href: 'https://www.pinterest.com/pawrapercares'},
+  {platform: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/pawrapetcares'},
+  {platform: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@pawrapetcares'},
+  {platform: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/pawrapetcares'},
+  {platform: 'pinterest', label: 'Pinterest', href: 'https://www.pinterest.com/pawrapetcares'},
 ];
 
 // ─── About Page Copy ────────────────────────────────────────────────────────────

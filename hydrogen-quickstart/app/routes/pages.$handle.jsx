@@ -20,11 +20,18 @@ import {getStaticPage} from '~/lib/staticPages';
 import {StaticPageLayout} from '~/components/StaticPageLayout';
 import {SocialLinks} from '~/components/SocialLinks';
 import {WalkerProgramPage} from '~/components/WalkerProgramPage';
+import {JudgeMeAllReviews} from '~/components/product/JudgeMeAllReviews';
 import {WALKER_PROGRAM} from '~/lib/walkerProgram';
+import {getIntegrations} from '~/lib/integrations';
+import {fetchJudgeMeAllReviewsWidget} from '~/lib/judgeme';
+import {BRAND} from '~/lib/branding';
 
 export const meta = ({data, params}) => {
   if (params?.handle === 'walker-program') {
     return [{title: `PAWRA | ${WALKER_PROGRAM.title}`}];
+  }
+  if (params?.handle === 'reviews') {
+    return [{title: `PAWRA | Customer Reviews | ${BRAND.domain}`}];
   }
   return [{title: `PAWRA | ${data?.page.title ?? 'Page'}`}];
 };
@@ -40,6 +47,22 @@ export async function loader({context, request, params}) {
         title: WALKER_PROGRAM.title,
         description: WALKER_PROGRAM.description,
         isWalkerProgram: true,
+      },
+    };
+  }
+
+  if (params.handle === 'reviews') {
+    const integrations = getIntegrations(context.env);
+    const widgetHtml = integrations.judgeMe.enabled
+      ? await fetchJudgeMeAllReviewsWidget(integrations.judgeMe)
+      : '';
+
+    return {
+      page: {
+        title: 'Customer reviews',
+        description: `See what pet parents say about products from ${BRAND.name}.`,
+        isReviews: true,
+        widgetHtml,
       },
     };
   }
@@ -85,6 +108,14 @@ export default function Page() {
 
   if (page.isWalkerProgram) {
     return <WalkerProgramPage />;
+  }
+
+  if (page.isReviews) {
+    return (
+      <StaticPageLayout title={page.title} description={page.description}>
+        <JudgeMeAllReviews widgetHtml={page.widgetHtml} />
+      </StaticPageLayout>
+    );
   }
 
   return (

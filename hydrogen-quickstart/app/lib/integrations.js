@@ -8,6 +8,7 @@ export function getIntegrations(env) {
       enabled: Boolean(env.PUBLIC_JUDGEME_SHOP_DOMAIN && env.JUDGEME_API_TOKEN),
       shopDomain: env.PUBLIC_JUDGEME_SHOP_DOMAIN || '',
       apiToken: env.JUDGEME_API_TOKEN || '',
+      publicToken: env.PUBLIC_JUDGEME_PUBLIC_TOKEN || '',
     },
     klaviyo: {
       enabled: Boolean(env.PUBLIC_KLAVIYO_COMPANY_ID),
@@ -66,7 +67,10 @@ export function getPublicIntegrations(integrations) {
       ? {storeIdentifier: integrations.recharge.storeIdentifier}
       : null,
     judgeMe: integrations.judgeMe.enabled
-      ? {shopDomain: integrations.judgeMe.shopDomain}
+      ? {
+          shopDomain: integrations.judgeMe.shopDomain,
+          publicToken: integrations.judgeMe.publicToken || null,
+        }
       : null,
   };
 }

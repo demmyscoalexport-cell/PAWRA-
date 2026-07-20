@@ -2,7 +2,7 @@
 /**
  * Smoke-test navigation URLs on a running or deployed PAWRA storefront.
  *   npm run qa:nav
- *   npm run qa:nav -- https://pawrapercares.com
+ *   npm run qa:nav -- https://pawrapetcares.com
  */
 
 const base = (process.argv[2] || process.env.PAWRA_QA_BASE_URL || 'http://localhost:3000').replace(/\/$/, '');

@@ -15,8 +15,9 @@ Old Shopify accounts and storefront IDs have been removed from this repo. Connec
 5. **Settings → Payments** — configure Shopify Payments
 6. Import or create products
 7. **Products → Bulk edit → Sales channels** — publish to your **Hydrogen storefront** (not Online Store only)
-8. **Settings → Domains** — connect `pawrapercares.com`
-9. **Hydrogen → Domains** — assign domain to **Production**
+8. **Settings → Domains** — connect `pawrapetcares.com` to **Hydrogen Production** (not Online Store)
+9. Add `checkout.pawrapetcares.com` → Target **Online Store** (checkout)
+10. **Hydrogen → Domains** — confirm brand domain is Primary on Production
 
 ### 2. Link locally
 
@@ -39,7 +40,7 @@ npm run dev                    # http://localhost:3000
 | `PRIVATE_STOREFRONT_API_TOKEN` | Private Storefront API token |
 | `PUBLIC_STORE_DOMAIN` | `your-store.myshopify.com` |
 | `PUBLIC_STOREFRONT_ID` | Hydrogen storefront ID |
-| `PUBLIC_CHECKOUT_DOMAIN` | Same as store domain |
+| `PUBLIC_CHECKOUT_DOMAIN` | `checkout.pawrapetcares.com` (checkout subdomain) |
 | `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` | Customer Account API |
 | `PUBLIC_CUSTOMER_ACCOUNT_API_URL` | `https://shopify.com/...` |
 
@@ -72,13 +73,13 @@ Or merge to `main` after the GitHub secret is set.
 |---------|----------------|
 | **Hydrogen** | **Yes** — Oxygen, `hydrogen link`, `hydrogen deploy`, product publishing |
 | **Headless** | No — self-hosted only; cannot deploy to Oxygen |
-| **Online Store** | Optional — separate from pawrapercares.com |
+| **Online Store** | Optional — keep for checkout subdomain only; brand site is pawrapetcares.com |
 
 ---
 
 ## CI/CD behavior
 
-| Git event | Oxygen target | Live at pawrapercares.com? |
+| Git event | Oxygen target | Live at pawrapetcares.com? |
 |-----------|---------------|---------------------------|
 | Push to `main` | Production | Yes (after successful deploy) |
 | Push to other branches | Preview | No |
@@ -105,7 +106,7 @@ npm run deploy       # manual Oxygen deploy (from hydrogen-quickstart)
 - [ ] Products published to **Hydrogen** sales channel
 - [ ] Oxygen Production env vars set
 - [ ] `SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN` in GitHub
-- [ ] `pawrapercares.com` on Production environment
+- [ ] `pawrapetcares.com` on Production environment
 - [ ] `npm run build` passes
 - [ ] `.env` not committed
 
@@ -118,8 +119,9 @@ npm run deploy       # manual Oxygen deploy (from hydrogen-quickstart)
 3. Email the walker their code + share tips (checkout field)
 4. Track redemptions under Shopify Admin → Discounts
 
+**PAWRA LLC** · Presque Isle, ME · support@pawrapetcares.com
 Storefront page: `/pages/walker-program`
 
 ---
 
-**PAWRA LLC** · Presque Isle, ME · support@pawrapercares.com
+**PAWRA LLC** · Presque Isle, ME · support@pawrapetcares.com

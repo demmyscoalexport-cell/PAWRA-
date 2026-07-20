@@ -15,17 +15,18 @@
  */
 
 import {useEffect, useRef, useState} from 'react';
-import {Link, useNavigate} from 'react-router';
+import {Link, useNavigate, useRouteLoaderData} from 'react-router';
 import {Image, Money, Analytics} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
 import {Icon} from '~/components/ui/Icon';
 import {FaqAccordion} from '~/components/FaqAccordion';
 import {PawraProductCard} from '~/components/PawraProductCard';
-import {Testimonials} from '~/components/sections/Testimonials';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 import {ProductRating} from '~/components/product/ProductRating';
+import {JudgeMeReviews} from '~/components/product/JudgeMeReviews';
+import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 import {BRAND} from '~/lib/branding';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
@@ -67,6 +68,8 @@ const FEATURES = [
 export function PawraProductPage({product, selectedVariant, productOptions, relatedProducts = [], reviews = null}) {
   const {open} = useAside();
   const navigate = useNavigate();
+  const rootData = useRouteLoaderData('root');
+  const judgeMeShopDomain = rootData?.integrations?.judgeMe?.shopDomain || '';
   const ctaRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -136,6 +139,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
           {/* ─── Product Info & Add to Cart ─── */}
           <div>
             <h1 className="font-serif text-[2.5rem] leading-tight text-forest-green">{product.title}</h1>
+            <JudgeMePreviewBadge productId={product.id} className="mt-2" />
             <ProductRating rating={reviews?.rating} count={reviews?.count} />
             <div className="mt-6 flex flex-wrap items-baseline gap-3">
               {price && (
@@ -333,8 +337,16 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         </div>
       </section>
 
-      {/* ─── Social Proof ─── */}
-      <Testimonials reviews={reviews?.reviews} />
+      {/* ─── Judge.me reviews + write-a-review widget ─── */}
+      <div className="px-4 py-4 md:px-8">
+        <div className="mx-auto max-w-3xl">
+          <JudgeMeReviews
+            product={product}
+            reviews={reviews}
+            shopDomain={judgeMeShopDomain}
+          />
+        </div>
+      </div>
 
       {/* ─── Product FAQ ─── */}
       <section className="px-4 py-16 md:px-8">

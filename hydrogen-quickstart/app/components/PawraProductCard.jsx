@@ -18,6 +18,7 @@ import {Link} from 'react-router';
 import {Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
+import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 
 /**
  * @param {{
@@ -51,6 +52,7 @@ export function PawraProductCard({product, loading}) {
       </div>
       <div className="flex flex-1 flex-col p-4">
         <h3 className="font-sans text-body-m font-semibold text-ink line-clamp-2">{product.title}</h3>
+        <JudgeMePreviewBadge productId={product.id} className="mt-1" />
         <p className="mt-2 font-mono text-mono-m text-forest-green">
           <Money data={product.priceRange.minVariantPrice} />
         </p>
