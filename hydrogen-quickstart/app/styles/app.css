@@ -4,24 +4,38 @@
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
   --header-height: 72px;
-  --color-forest-green: #1b3a2d;
+  /* RGB channels — used by Tailwind theme colors (supports /opacity) */
+  --color-forest-green: 27 58 45;
+  --color-warm-oat: 245 240 232;
+  --color-cloud: 242 242 240;
+  --color-ink: 26 26 26;
+  --color-header: 27 58 45;
   --color-electric-jade: #2ee8a0;
-  --color-warm-oat: #f5f0e8;
   --color-midnight: #0e1a15;
   --color-forest-night: #0f2318;
   --color-coral: #ff6b5b;
-  --color-cloud: #f2f2f0;
-  --color-ink: #1a1a1a;
   --color-champagne: #c9a96e;
-  --color-dark: var(--color-midnight);
-  --color-light: var(--color-warm-oat);
+  --color-dark: #0e1a15;
+  --color-light: #f5f0e8;
+}
+
+html.dark {
+  --color-forest-green: 126 214 168;
+  --color-warm-oat: 14 26 21;
+  --color-cloud: 22 40 32;
+  --color-ink: 236 240 237;
+  --color-header: 27 58 45;
+  --color-dark: #0e1a15;
+  --color-light: #162820;
+  color-scheme: dark;
 }
 
 html,
 body,
 main {
-  background-color: var(--color-warm-oat);
-  color: var(--color-ink);
+  background-color: rgb(var(--color-warm-oat));
+  color: rgb(var(--color-ink));
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 img {
@@ -44,8 +58,8 @@ img {
 * --------------------------------------------------
 */
 .mock-shop-notice {
-  background: var(--color-cloud);
-  border: 1px solid var(--color-forest-green);
+  background: rgb(var(--color-cloud));
+  border: 1px solid rgb(var(--color-forest-green));
   border-left: 0.5rem solid var(--color-electric-jade);
   margin: 1rem 0;
   padding: 0;
@@ -243,7 +257,7 @@ button.reset:hover:not(:has(> *)) {
 */
 .header {
   align-items: center;
-  background: var(--color-forest-green);
+  background: rgb(var(--color-header));
   border-bottom: 1px solid rgba(46, 232, 160, 0.15);
   display: flex;
   height: var(--header-height);
@@ -255,11 +269,11 @@ button.reset:hover:not(:has(> *)) {
 
 .header a,
 .header button {
-  color: var(--color-cloud);
+  color: #f2f2f0;
 }
 
 .header .header-menu-item {
-  color: var(--color-cloud);
+  color: #f2f2f0;
 }
 
 .header .header-menu-item:hover {
@@ -309,7 +323,7 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 .footer {
-  background: var(--color-forest-green);
+  background: rgb(var(--color-header));
   margin-top: auto;
 }
 
@@ -378,8 +392,8 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .cart-summary-aside {
-  background: var(--color-warm-oat, #f5f0e8);
-  border-top: 1px solid var(--color-forest-green, #1b3a2d);
+  background: rgb(var(--color-warm-oat));
+  border-top: 1px solid rgb(var(--color-header));
   flex-shrink: 0;
   margin-top: auto;
   padding: 1rem 0 0.25rem;
@@ -467,7 +481,7 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 .home {
-  background: var(--color-warm-oat);
+  background: rgb(var(--color-warm-oat));
 }
 
 .pawra-hero {
@@ -662,7 +676,7 @@ button.reset:hover:not(:has(> *)) {
   border: 1px solid rgba(27, 58, 45, 0.15);
   border-radius: 4px;
   padding: 1rem;
-  background: var(--color-cloud);
+  background: rgb(var(--color-cloud));
 }
 
 .order-search-legend {
@@ -695,7 +709,7 @@ button.reset:hover:not(:has(> *)) {
   border: 1px solid rgba(27, 58, 45, 0.2);
   border-radius: 4px;
   font-size: 1rem;
-  background: var(--color-warm-oat);
+  background: rgb(var(--color-warm-oat));
 }
 
 .order-search-buttons {

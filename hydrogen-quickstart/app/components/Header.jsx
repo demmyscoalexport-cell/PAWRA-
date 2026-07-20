@@ -12,6 +12,7 @@ import {Icon} from '~/components/ui/Icon';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {getNavItemById, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {ThemeToggle} from '~/components/ThemeToggle';
 
 /**
  * Sticky site header with logo, mega-nav (desktop), hamburger (mobile), search, cart.
@@ -56,8 +57,8 @@ export function Header({cart, isLoggedIn}) {
   return (
     <>
       <header
-        className={`pawra-header sticky top-0 z-50 bg-forest-green transition-all duration-base ${
-          scrolled ? 'border-b border-electric-jade/15 bg-forest-green/95 backdrop-blur-md' : ''
+        className={`pawra-header sticky top-0 z-50 bg-header transition-all duration-base ${
+          scrolled ? 'border-b border-electric-jade/15 bg-header/95 backdrop-blur-md' : ''
         }`}
         onMouseLeave={scheduleCloseMega}
       >
@@ -119,6 +120,7 @@ export function Header({cart, isLoggedIn}) {
           </div>
 
           <div className="ml-auto flex shrink-0 items-center gap-3 md:gap-4">
+            <ThemeToggle />
             <button
               type="button"
               className="reset md:hidden"
@@ -449,6 +451,11 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               >
                 {isLoggedIn ? 'My Account' : 'Sign In'}
               </NavLink>
+
+              <div className="mt-4 flex items-center justify-between rounded-md px-3 py-3">
+                <span className="font-sans text-body-m font-medium text-cloud/90">Appearance</span>
+                <ThemeToggle />
+              </div>
             </nav>
 
             <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">

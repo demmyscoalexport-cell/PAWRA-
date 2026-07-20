@@ -18,17 +18,21 @@ import type {Config} from 'tailwindcss';
 
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'forest-green': '#1B3A2D',
+        // Themeable via CSS vars in app.css (:root / html.dark)
+        'forest-green': 'rgb(var(--color-forest-green) / <alpha-value>)',
+        'warm-oat': 'rgb(var(--color-warm-oat) / <alpha-value>)',
+        cloud: 'rgb(var(--color-cloud) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        // Fixed chrome (header stays deep green in both themes)
+        header: 'rgb(var(--color-header) / <alpha-value>)',
         'electric-jade': '#2EE8A0',
-        'warm-oat': '#F5F0E8',
         midnight: '#0E1A15',
         'forest-night': '#0F2318',
         coral: '#FF6B5B',
-        cloud: '#F2F2F0',
-        ink: '#1A1A1A',
         champagne: '#C9A96E',
         'cta-primary': '#10B981',
         'cta-primary-hover': '#059669',
