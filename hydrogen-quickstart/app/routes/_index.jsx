@@ -1,14 +1,14 @@
 /**
  * @file _index.jsx
- * @description PAWRA homepage — hero, featured products, and brand sections.
+ * @description PAWRA homepage — greet with products, then brand sections.
  */
 
 import {useLoaderData} from 'react-router';
 import {
   HeroSection,
+  ShopByPet,
   TrustBar,
   HeroProductSpotlight,
-  CompleteYourSetup,
   WhyPawra,
   Ecosystem,
   FrequentlyBoughtTogether,
@@ -16,6 +16,7 @@ import {
   Testimonials,
   FAQ,
 } from '~/components/sections';
+import {ProductCarousel} from '~/components/ProductCarousel';
 import {BRAND} from '~/lib/branding';
 import {HOMEPAGE_COLLECTION_QUERY, HOMEPAGE_PRODUCTS_QUERY} from '~/lib/homepageProducts';
 import {getIntegrations} from '~/lib/integrations';
@@ -38,11 +39,11 @@ export async function loader({context}) {
 
   const [{products}, {collection}, featuredReviews] = await Promise.all([
     storefront.query(HOMEPAGE_PRODUCTS_QUERY, {
-      variables: {first: 12},
+      variables: {first: 16},
       cache: storefront.CacheShort(),
     }),
     storefront.query(HOMEPAGE_COLLECTION_QUERY, {
-      variables: {handle: 'frontpage', first: 8},
+      variables: {handle: 'frontpage', first: 12},
       cache: storefront.CacheShort(),
     }),
     integrations.judgeMe.enabled
@@ -56,7 +57,7 @@ export async function loader({context}) {
 
   return {
     featuredProduct: pool[0] ?? null,
-    featuredProducts: pool.slice(0, 5),
+    greetingProducts: pool.slice(0, 12),
     bundleProducts: pickBundleProducts(pool.length > 0 ? pool : catalog),
     featuredReviews,
   };
@@ -68,14 +69,19 @@ function pickBundleProducts(products) {
 }
 
 export default function Homepage() {
-  const {featuredProduct, featuredProducts, bundleProducts, featuredReviews} = useLoaderData();
+  const {featuredProduct, greetingProducts, bundleProducts, featuredReviews} = useLoaderData();
 
   return (
     <div className="home">
       <HeroSection />
+      <ProductCarousel
+        products={greetingProducts}
+        title="Welcome — shop bestsellers"
+        subtitle="Products pets love right now. Use Next to browse more, or open any card to buy."
+      />
+      <ShopByPet />
       <TrustBar />
       <HeroProductSpotlight product={featuredProduct} />
-      <CompleteYourSetup products={featuredProducts} />
       <WhyPawra />
       <Ecosystem />
       <FrequentlyBoughtTogether products={bundleProducts} />

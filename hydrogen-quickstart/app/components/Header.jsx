@@ -1,26 +1,32 @@
 /**
  * @file Header.jsx
- * @description Sticky header + nested Collections hamburger (mobile & desktop).
+ * @description Chewy-style header: shop-by-pet mega nav, predictive search, cart.
  */
 
-import {Suspense, useEffect, useState} from 'react';
+import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await, NavLink, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {Logo} from '~/components/ui/Logo';
 import {Icon} from '~/components/ui/Icon';
-import {getNavItemById, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
+import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import {getNavItemById, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {ThemeToggle} from '~/components/ThemeToggle';
 
 /**
- * Sticky site header with logo, hamburger collections menu, search, account, cart.
+ * Sticky site header with logo, mega-nav (desktop), hamburger (mobile), search, cart.
  * @param {HeaderProps} props
  */
 export function Header({cart, isLoggedIn}) {
   const rootData = useRouteLoaderData('root');
   const wishlistUrl = rootData?.integrations?.swym?.wishlistUrl || '/account/wishlist';
   const wishlistEnabled = Boolean(rootData?.integrations?.swym);
+  const {open} = useAside();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(null);
+  const megaCloseTimer = useRef(null);
 
   useEffect(() => {
     function onScroll() {
@@ -38,18 +44,29 @@ export function Header({cart, isLoggedIn}) {
     };
   }, [menuOpen]);
 
+  function openMega(id) {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    setMegaOpen(id);
+  }
+
+  function scheduleCloseMega() {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    megaCloseTimer.current = setTimeout(() => setMegaOpen(null), 160);
+  }
+
   return (
     <>
       <header
-        className={`pawra-header sticky top-0 z-50 bg-forest-green transition-all duration-base ${
-          scrolled ? 'border-b border-electric-jade/15 bg-forest-green/95 backdrop-blur-md' : ''
+        className={`pawra-header sticky top-0 z-50 bg-header transition-all duration-base ${
+          scrolled ? 'border-b border-electric-jade/15 bg-header/95 backdrop-blur-md' : ''
         }`}
+        onMouseLeave={scheduleCloseMega}
       >
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-3 px-4 md:gap-6 md:px-8">
+          <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
-              className="reset"
+              className="reset lg:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Open collections menu"
               aria-expanded={menuOpen}
@@ -62,17 +79,56 @@ export function Header({cart, isLoggedIn}) {
             </NavLink>
           </div>
 
-          <NavLink
-            to="/collections/all"
-            className="hidden font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:text-electric-jade sm:inline"
-          >
-            Shop
-          </NavLink>
+          {/* Desktop shop-by-pet mega nav */}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Shop by pet">
+            {MEGA_NAV_ITEMS.map((item) => (
+              <div
+                key={item.id}
+                className="relative"
+                onMouseEnter={() => openMega(item.id)}
+                onFocus={() => openMega(item.id)}
+              >
+                <NavLink
+                  to={item.path || '#'}
+                  className={`inline-flex items-center gap-1 rounded-md px-3 py-2 font-sans text-body-s font-semibold no-underline transition-colors ${
+                    megaOpen === item.id
+                      ? 'bg-cloud/10 text-electric-jade'
+                      : 'text-cloud hover:bg-cloud/10 hover:text-electric-jade'
+                  }`}
+                  aria-expanded={megaOpen === item.id}
+                  aria-haspopup="true"
+                >
+                  {item.title}
+                  <Icon name="chevron-right" size="sm" color="text-cloud/70" className="rotate-90" />
+                </NavLink>
+              </div>
+            ))}
+            {NAV_MAIN.filter((item) => !item.children?.length).map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.path}
+                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:bg-cloud/10 hover:text-electric-jade"
+              >
+                {item.title}
+              </NavLink>
+            ))}
+          </nav>
 
-          <div className="flex items-center gap-4">
-            <NavLink to="/search" className="reset" aria-label="Search">
+          {/* Center search — opens predictive results (Chewy autosuggest) */}
+          <div className="mx-auto hidden min-w-0 flex-1 max-w-xl md:block">
+            <HeaderSearchField />
+          </div>
+
+          <div className="ml-auto flex shrink-0 items-center gap-3 md:gap-4">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="reset md:hidden"
+              onClick={() => open('search')}
+              aria-label="Search"
+            >
               <Icon name="search" size="md" color="text-cloud" />
-            </NavLink>
+            </button>
             {wishlistEnabled ? (
               <NavLink to={wishlistUrl} className="reset hidden sm:inline-flex" aria-label="Wishlist">
                 <Icon name="heart" size="md" color="text-cloud" />
@@ -82,6 +138,14 @@ export function Header({cart, isLoggedIn}) {
             <CartToggle cart={cart} />
           </div>
         </div>
+
+        {megaOpen ? (
+          <MegaMenu
+            item={getNavItemById(megaOpen)}
+            onClose={() => setMegaOpen(null)}
+            onMouseEnter={() => openMega(megaOpen)}
+          />
+        ) : null}
       </header>
 
       <CollectionsDrawer
@@ -92,6 +156,183 @@ export function Header({cart, isLoggedIn}) {
         wishlistEnabled={wishlistEnabled}
       />
     </>
+  );
+}
+
+function HeaderSearchField() {
+  const queriesDatalistId = useId();
+  const [focused, setFocused] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function onPointerDown(event) {
+      if (!containerRef.current?.contains(event.target)) {
+        setFocused(false);
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="relative w-full">
+      <SearchFormPredictive className="w-full">
+        {({fetchResults, goToSearch, inputRef}) => (
+          <div className="flex items-center gap-2 rounded-md bg-cloud px-3 py-2 shadow-sm">
+            <Icon name="search" size="sm" color="text-forest-green/70" />
+            <input
+              name="q"
+              onChange={(event) => {
+                setFocused(true);
+                fetchResults(event);
+              }}
+              onFocus={(event) => {
+                setFocused(true);
+                fetchResults(event);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  goToSearch();
+                  setFocused(false);
+                }
+              }}
+              placeholder="Search food, treats, beds…"
+              ref={inputRef}
+              type="search"
+              list={queriesDatalistId}
+              className="w-full border-0 bg-transparent font-sans text-body-s text-ink outline-none placeholder:text-ink/45"
+              aria-label="Search products"
+              autoComplete="off"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                goToSearch();
+                setFocused(false);
+              }}
+              className="reset shrink-0 rounded-md bg-forest-green px-3 py-1.5 font-sans text-body-s font-semibold text-cloud"
+            >
+              Search
+            </button>
+          </div>
+        )}
+      </SearchFormPredictive>
+
+      {focused ? (
+        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-forest-green/10 bg-cloud p-3 shadow-lg">
+          <SearchResultsPredictive>
+            {({items, total, term, state, closeSearch}) => {
+              const {articles, collections, pages, products, queries} = items;
+              if (state === 'loading' && term.current) {
+                return <p className="px-2 py-3 font-sans text-body-s text-ink/60">Searching…</p>;
+              }
+              if (!term.current) {
+                return (
+                  <p className="px-2 py-3 font-sans text-body-s text-ink/60">
+                    Try “dog food”, “cat bed”, or a brand name.
+                  </p>
+                );
+              }
+              if (!total) {
+                return <SearchResultsPredictive.Empty term={term} />;
+              }
+              return (
+                <>
+                  <SearchResultsPredictive.Queries queries={queries} queriesDatalistId={queriesDatalistId} />
+                  <SearchResultsPredictive.Products
+                    products={products}
+                    closeSearch={() => {
+                      closeSearch();
+                      setFocused(false);
+                    }}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Collections
+                    collections={collections}
+                    closeSearch={() => {
+                      closeSearch();
+                      setFocused(false);
+                    }}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Pages
+                    pages={pages}
+                    closeSearch={() => {
+                      closeSearch();
+                      setFocused(false);
+                    }}
+                    term={term}
+                  />
+                  <SearchResultsPredictive.Articles
+                    articles={articles}
+                    closeSearch={() => {
+                      closeSearch();
+                      setFocused(false);
+                    }}
+                    term={term}
+                  />
+                  {term.current && total ? (
+                    <NavLink
+                      to={`${SEARCH_ENDPOINT}?q=${encodeURIComponent(term.current)}`}
+                      className="mt-2 block px-2 py-2 font-sans text-body-s font-semibold text-forest-green no-underline"
+                      onClick={() => setFocused(false)}
+                    >
+                      View all results for <q>{term.current}</q> →
+                    </NavLink>
+                  ) : null}
+                </>
+              );
+            }}
+          </SearchResultsPredictive>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function MegaMenu({item, onClose, onMouseEnter}) {
+  if (!item?.children?.length) return null;
+
+  return (
+    <div
+      className="absolute left-0 right-0 top-full border-t border-cloud/10 bg-cloud shadow-lg"
+      onMouseEnter={onMouseEnter}
+      role="region"
+      aria-label={`${item.title} categories`}
+    >
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:grid-cols-[220px_1fr] md:px-8">
+        <div>
+          <p className="font-serif text-display-s text-forest-green">{item.title}</p>
+          <p className="mt-2 font-sans text-body-s text-ink/65">
+            Shop {item.title.toLowerCase()} essentials the way you would on a pet superstore — food, comfort, and care.
+          </p>
+          {item.path ? (
+            <NavLink
+              to={item.path}
+              onClick={onClose}
+              className="mt-4 inline-flex font-sans text-body-s font-semibold text-forest-green no-underline hover:underline"
+            >
+              Shop all {item.title} →
+            </NavLink>
+          ) : null}
+        </div>
+        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {item.children.map((child) => (
+            <li key={child.id}>
+              <NavLink
+                to={child.path}
+                onClick={onClose}
+                className="flex items-center justify-between rounded-md border border-forest-green/10 bg-warm-oat/60 px-4 py-3 font-sans text-body-m font-medium text-ink no-underline transition-colors hover:border-forest-green/30 hover:bg-warm-oat"
+              >
+                {child.title}
+                <Icon name="chevron-right" size="sm" color="text-forest-green/50" />
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -109,7 +350,7 @@ function AccountToggle({isLoggedIn}) {
 
 /**
  * Nested Collections drawer — Level 1 (main) → Level 2 (sub-collections).
- * Works on mobile and desktop.
+ * Mobile + tablet; desktop uses mega menu.
  */
 function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnabled}) {
   const [panel, setPanel] = useState('root');
@@ -154,10 +395,9 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               panel === 'root' ? 'translate-x-0' : '-translate-x-1/2'
             }`}
           >
-            {/* Level 1 */}
             <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
               <p className="mb-2 px-3 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud/50">
-                Collections
+                Shop by pet
               </p>
               {NAV_MAIN.map((item) =>
                 item.children?.length ? (
@@ -211,9 +451,13 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               >
                 {isLoggedIn ? 'My Account' : 'Sign In'}
               </NavLink>
+
+              <div className="mt-4 flex items-center justify-between rounded-md px-3 py-3">
+                <span className="font-sans text-body-m font-medium text-cloud/90">Appearance</span>
+                <ThemeToggle />
+              </div>
             </nav>
 
-            {/* Level 2 */}
             <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
               {activeItem ? (
                 <>

@@ -18,6 +18,7 @@ import { useOptimisticCart } from '@shopify/hydrogen';
 import { Link } from 'react-router';
 import { useAside } from '~/components/Aside';
 import { CartLineItem } from '~/components/CartLineItem';
+import { FreeShippingProgress } from '~/components/FreeShippingProgress';
 import { CartSummary } from './CartSummary';
 /**
  * Returns a map of all line items and their children.
@@ -62,14 +63,19 @@ export function CartMain({ layout, cart: originalCart, showSummary = true }) {
   return (
     <section className={className} aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}>
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
-        <p id="cart-lines" className="sr-only">
-          Line items
-        </p>
-        <div>
+      <div className={`cart-details ${layout === 'aside' ? 'cart-details-aside' : ''}`} hidden={!linesCount}>
+        <div className="cart-details-scroll">
+          {cartHasItems ? (
+            <FreeShippingProgress
+              subtotalAmount={cart?.cost?.subtotalAmount}
+              className="mb-4"
+            />
+          ) : null}
+          <p id="cart-lines" className="sr-only">
+            Line items
+          </p>
           <ul aria-labelledby="cart-lines">
             {(cart?.lines?.nodes ?? []).map((line) => {
-              // we do not render non-parent lines at the root of the cart
               if ('parentRelationship' in line && line.parentRelationship?.parent) {
                 return null;
               }
@@ -94,13 +100,37 @@ export function CartMain({ layout, cart: originalCart, showSummary = true }) {
 function CartEmpty({ hidden = false }) {
   const { close } = useAside();
   return (
-    <div hidden={hidden}>
-      <br />
-      <p>Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you started!</p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+    <div hidden={hidden} className="px-1 py-6">
+      <p className="font-sans text-body-l font-semibold text-ink">Your cart is empty</p>
+      <p className="mt-2 font-sans text-body-s text-ink/65">
+        Find food, treats, beds, and more for dogs and cats.
+      </p>
+      <div className="mt-5 flex flex-col gap-2">
+        <Link
+          to="/collections/dogs"
+          onClick={close}
+          prefetch="viewport"
+          className="rounded-md bg-forest-green px-4 py-3 text-center font-sans text-body-s font-semibold text-cloud no-underline"
+        >
+          Shop Dog
+        </Link>
+        <Link
+          to="/collections/cats"
+          onClick={close}
+          prefetch="viewport"
+          className="rounded-md border border-forest-green/25 px-4 py-3 text-center font-sans text-body-s font-semibold text-forest-green no-underline"
+        >
+          Shop Cat
+        </Link>
+        <Link
+          to="/collections/all"
+          onClick={close}
+          prefetch="viewport"
+          className="pt-1 text-center font-sans text-body-s font-medium text-forest-green no-underline hover:underline"
+        >
+          Browse all products →
+        </Link>
+      </div>
     </div>
   );
 }

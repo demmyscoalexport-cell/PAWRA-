@@ -85,9 +85,9 @@ export function HeroSection() {
   const slide = SLIDES[active];
 
   return (
-    <SectionReveal>
+    <SectionReveal eager>
       <section
-        className="bg-warm-oat px-4 py-12 md:px-8 md:py-20 lg:py-24"
+        className="bg-warm-oat px-4 py-8 md:px-8 md:py-12 lg:py-14"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-roledescription="carousel"

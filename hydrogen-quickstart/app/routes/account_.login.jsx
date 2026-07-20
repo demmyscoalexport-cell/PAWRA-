@@ -1,25 +1,32 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file account_.login.jsx
- * @description Route module: account_.login — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Customer Account API login — Shopify sends a one-time email code.
  */
 
-import {Form, Link} from 'react-router';
+import {Form, Link, useLoaderData} from 'react-router';
 import {Logo} from '~/components/ui/Logo';
 import {Button} from '~/components/ui/Button';
+import {BRAND} from '~/lib/branding';
 
 export const meta = () => [{title: 'PAWRA | Sign In'}];
 
+/**
+ * @param {Route.LoaderArgs} args
+ */
+export async function loader({context}) {
+  const {env} = context;
+  const customerAccountConfigured = Boolean(
+    env.PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID && env.PUBLIC_CUSTOMER_ACCOUNT_API_URL,
+  );
+
+  return {customerAccountConfigured};
+}
+
+/**
+ * Starts Shopify Customer Account OAuth. Shopify emails a one-time code —
+ * this form does not collect or verify a password.
+ * @param {Route.ActionArgs} args
+ */
 export async function action({request, context}) {
   const url = new URL(request.url);
   return context.customerAccount.login({
@@ -29,6 +36,8 @@ export async function action({request, context}) {
 }
 
 export default function LoginPage() {
+  const {customerAccountConfigured} = useLoaderData();
+
   return (
     <div className="flex min-h-[70vh] items-center justify-center bg-warm-oat px-4 py-16">
       <div className="w-full max-w-md rounded-xl bg-cloud p-8 shadow-card md:p-10">
@@ -36,47 +45,43 @@ export default function LoginPage() {
           <Logo variant="primary" height={36} />
         </div>
         <h1 className="mt-8 text-center font-serif text-[2.5rem] text-forest-green">Welcome back</h1>
+        <p className="mt-3 text-center font-sans text-body-m text-ink/70">
+          Sign in with your email. Shopify will send you a one-time code — no password needed.
+        </p>
+
+        {!customerAccountConfigured ? (
+          <div
+            className="mt-8 rounded-md border border-coral/40 bg-coral/10 px-4 py-3 font-sans text-body-s text-ink"
+            role="alert"
+          >
+            <p className="font-semibold">Customer login is not configured yet.</p>
+            <p className="mt-2 text-ink/75">
+              In Shopify Admin enable <strong>Customer accounts</strong>, then set{' '}
+              <code className="font-mono text-mono-s">PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID</code> and{' '}
+              <code className="font-mono text-mono-s">PUBLIC_CUSTOMER_ACCOUNT_API_URL</code> on your
+              Hydrogen / Oxygen environment (or run <code className="font-mono text-mono-s">npx shopify hydrogen env pull</code>).
+            </p>
+          </div>
+        ) : null}
+
         <Form method="post" className="mt-8 space-y-4">
-          <div>
-            <label htmlFor="email" className="font-sans text-body-s font-medium text-ink">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              className="mt-1 w-full rounded-md border border-forest-green/20 bg-warm-oat px-4 py-3 font-sans text-body-m"
-              placeholder="you@example.com"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="font-sans text-body-s font-medium text-ink">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              className="mt-1 w-full rounded-md border border-forest-green/20 bg-warm-oat px-4 py-3 font-sans text-body-m"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <label className="flex items-center gap-2 font-sans text-body-s text-ink/70">
-              <input type="checkbox" name="remember" /> Remember me
-            </label>
-            <Link to="/account/login" className="font-sans text-body-s text-forest-green underline">
-              Forgot password?
-            </Link>
-          </div>
-          <Button type="submit" variant="primary" size="lg" className="w-full">
-            Sign In
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            className="w-full"
+            disabled={!customerAccountConfigured}
+          >
+            Continue with email
           </Button>
         </Form>
-        <p className="my-6 text-center font-sans text-body-s text-ink/50">or</p>
-        <p className="text-center font-sans text-body-s text-ink/70">
-          New to PAWRA?{' '}
+
+        <p className="mt-4 text-center font-sans text-body-s text-ink/55">
+          You&apos;ll enter your email on Shopify&apos;s secure sign-in page, then check your inbox for a code.
+        </p>
+
+        <p className="mt-8 text-center font-sans text-body-s text-ink/70">
+          New to {BRAND.name}?{' '}
           <Link to="/account/register" className="font-semibold text-forest-green underline">
             Create an account
           </Link>

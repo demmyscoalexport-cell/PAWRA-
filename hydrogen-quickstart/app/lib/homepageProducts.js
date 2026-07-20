@@ -23,6 +23,11 @@ export const HOMEPAGE_PRODUCT_FRAGMENT = `#graphql
         ...MoneyHomepageProduct
       }
     }
+    compareAtPriceRange {
+      minVariantPrice {
+        ...MoneyHomepageProduct
+      }
+    }
   }
 `;
 

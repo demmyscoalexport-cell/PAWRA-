@@ -113,6 +113,36 @@ export function filterProductsBySpecies(products, species) {
   });
 }
 
+const FOOD_KEYWORDS = ['food', 'kibble', 'meal', 'diet', 'recipe', 'wet food', 'dry food'];
+const TREAT_KEYWORDS = ['treat', 'treats', 'snack', 'snacks', 'chew', 'chews', 'biscuit', 'jerky'];
+
+/**
+ * Split Food vs Treats within the shared food-treats collection.
+ * @param {Array<{ tags?: string[]; title?: string; productType?: string }>} products
+ * @param {'food' | 'treats' | 'all' | null | undefined} category
+ */
+export function filterProductsByCategory(products, category) {
+  if (!category || category === 'all') return products;
+
+  return products.filter((p) => {
+    const tags = (p.tags ?? []).map((t) => t.toLowerCase());
+    const title = (p.title ?? '').toLowerCase();
+    const productType = (p.productType ?? '').toLowerCase();
+    const haystack = `${title} ${productType} ${tags.join(' ')}`;
+
+    const isTreat =
+      tags.some((t) => TREAT_KEYWORDS.includes(t)) ||
+      TREAT_KEYWORDS.some((kw) => haystack.includes(kw));
+    const isFood =
+      tags.some((t) => FOOD_KEYWORDS.includes(t) || t === 'food') ||
+      FOOD_KEYWORDS.some((kw) => haystack.includes(kw));
+
+    if (category === 'treats') return isTreat;
+    if (category === 'food') return isFood && !isTreat;
+    return true;
+  });
+}
+
 /**
  * Client-side price range filter.
  * @param {Array<{ priceRange?: { minVariantPrice?: { amount?: string } } }>} products

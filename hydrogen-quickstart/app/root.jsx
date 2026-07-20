@@ -34,6 +34,7 @@ import { PageLayout } from './components/PageLayout';
 import { PawraNotFound } from '~/components/PawraNotFound';
 import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
 import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
+import { THEME_BOOT_SCRIPT } from '~/lib/theme';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -78,7 +79,10 @@ export function links() {
     {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+      // display=swap keeps text visible while webfonts load
     },
+    {rel: 'dns-prefetch', href: 'https://cdn.judge.me'},
+    {rel: 'dns-prefetch', href: 'https://static.klaviyo.com'},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -194,11 +198,12 @@ export function Layout({ children }) {
   const data = useRouteLoaderData('root');
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* ─── Global Stylesheets ─── */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <script nonce={nonce} dangerouslySetInnerHTML={{__html: THEME_BOOT_SCRIPT}} />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={tailwindStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>

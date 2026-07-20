@@ -392,6 +392,9 @@ export type HomepageProductFragment = Pick<
   priceRange: {
     minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
   };
+  compareAtPriceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
 };
 
 export type HomepageProductsQueryVariables = StorefrontAPI.Exact<{
@@ -411,6 +414,12 @@ export type HomepageProductsQuery = {
           >
         >;
         priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
           minVariantPrice: Pick<
             StorefrontAPI.MoneyV2,
             'amount' | 'currencyCode'
@@ -441,6 +450,12 @@ export type HomepageCollectionQuery = {
               >
             >;
             priceRange: {
+              minVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
+            compareAtPriceRange: {
               minVariantPrice: Pick<
                 StorefrontAPI.MoneyV2,
                 'amount' | 'currencyCode'
@@ -484,7 +499,7 @@ export type MoneyProductItemFragment = Pick<
 
 export type ProductItemFragment = Pick<
   StorefrontAPI.Product,
-  'id' | 'handle' | 'title' | 'tags'
+  'id' | 'handle' | 'title' | 'tags' | 'productType'
 > & {
   featuredImage?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Image, 'id' | 'altText' | 'url' | 'width' | 'height'>
@@ -492,6 +507,9 @@ export type ProductItemFragment = Pick<
   priceRange: {
     minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
     maxVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
+  compareAtPriceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
   };
 };
 
@@ -517,7 +535,10 @@ export type CollectionQuery = {
     > & {
       products: {
         nodes: Array<
-          Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title' | 'tags'> & {
+          Pick<
+            StorefrontAPI.Product,
+            'id' | 'handle' | 'title' | 'tags' | 'productType'
+          > & {
             featuredImage?: StorefrontAPI.Maybe<
               Pick<
                 StorefrontAPI.Image,
@@ -530,6 +551,12 @@ export type CollectionQuery = {
                 'amount' | 'currencyCode'
               >;
               maxVariantPrice: Pick<
+                StorefrontAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
+            };
+            compareAtPriceRange: {
+              minVariantPrice: Pick<
                 StorefrontAPI.MoneyV2,
                 'amount' | 'currencyCode'
               >;
@@ -561,7 +588,10 @@ export type FallbackProductsQueryVariables = StorefrontAPI.Exact<{
 export type FallbackProductsQuery = {
   products: {
     nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title' | 'tags'> & {
+      Pick<
+        StorefrontAPI.Product,
+        'id' | 'handle' | 'title' | 'tags' | 'productType'
+      > & {
         featuredImage?: StorefrontAPI.Maybe<
           Pick<
             StorefrontAPI.Image,
@@ -574,6 +604,12 @@ export type FallbackProductsQuery = {
             'amount' | 'currencyCode'
           >;
           maxVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
+          minVariantPrice: Pick<
             StorefrontAPI.MoneyV2,
             'amount' | 'currencyCode'
           >;
@@ -629,7 +665,10 @@ export type CatalogQueryVariables = StorefrontAPI.Exact<{
 export type CatalogQuery = {
   products: {
     nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title' | 'tags'> & {
+      Pick<
+        StorefrontAPI.Product,
+        'id' | 'handle' | 'title' | 'tags' | 'productType'
+      > & {
         featuredImage?: StorefrontAPI.Maybe<
           Pick<
             StorefrontAPI.Image,
@@ -642,6 +681,12 @@ export type CatalogQuery = {
             'amount' | 'currencyCode'
           >;
           maxVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
+          minVariantPrice: Pick<
             StorefrontAPI.MoneyV2,
             'amount' | 'currencyCode'
           >;
@@ -997,6 +1042,9 @@ export type RelatedProductFragment = Pick<
   priceRange: {
     minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
   };
+  compareAtPriceRange: {
+    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  };
 };
 
 export type RelatedProductsQueryVariables = StorefrontAPI.Exact<{
@@ -1017,6 +1065,12 @@ export type RelatedProductsQuery = {
           Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
         >;
         priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
           minVariantPrice: Pick<
             StorefrontAPI.MoneyV2,
             'amount' | 'currencyCode'
@@ -1117,11 +1171,11 @@ interface GeneratedQueryTypes {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageProducts($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    products(first: $first, sortKey: BEST_SELLING) {\n      nodes {\n        ...HomepageProduct\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageProducts($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    products(first: $first, sortKey: BEST_SELLING) {\n      nodes {\n        ...HomepageProduct\n      }\n    }\n  }\n': {
     return: HomepageProductsQuery;
     variables: HomepageProductsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageCollection($handle: String!, $country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      products(first: $first) {\n        nodes {\n          ...HomepageProduct\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageCollection($handle: String!, $country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      products(first: $first) {\n        nodes {\n          ...HomepageProduct\n        }\n      }\n    }\n  }\n': {
     return: HomepageCollectionQuery;
     variables: HomepageCollectionQueryVariables;
   };
@@ -1129,11 +1183,11 @@ interface GeneratedQueryTypes {
     return: CartRecommendationsQuery;
     variables: CartRecommendationsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n        nodes {\n          ...ProductItem\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    productType\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n        nodes {\n          ...ProductItem\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
     return: CollectionQuery;
     variables: CollectionQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query FallbackProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...ProductItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        endCursor\n        startCursor\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    productType\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query FallbackProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...ProductItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        endCursor\n        startCursor\n      }\n    }\n  }\n': {
     return: FallbackProductsQuery;
     variables: FallbackProductsQueryVariables;
   };
@@ -1141,7 +1195,7 @@ interface GeneratedQueryTypes {
     return: StoreCollectionsQuery;
     variables: StoreCollectionsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...ProductItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        endCursor\n        startCursor\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    tags\n    productType\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...ProductItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        endCursor\n        startCursor\n      }\n    }\n  }\n': {
     return: CatalogQuery;
     variables: CatalogQueryVariables;
   };
@@ -1161,7 +1215,7 @@ interface GeneratedQueryTypes {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
-  '#graphql\n  query RelatedProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      id\n    }\n    productRecommendations(productHandle: $handle) {\n      ...RelatedProduct\n    }\n  }\n  #graphql\n  fragment RelatedProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      url\n      altText\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query RelatedProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      id\n    }\n    productRecommendations(productHandle: $handle) {\n      ...RelatedProduct\n    }\n  }\n  #graphql\n  fragment RelatedProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      url\n      altText\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n  }\n\n': {
     return: RelatedProductsQuery;
     variables: RelatedProductsQueryVariables;
   };

@@ -6,14 +6,19 @@
 import {useLoaderData, useSearchParams} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {useMemo} from 'react';
-import {CollectionFilters, applyCollectionFilters} from '~/components/CollectionFilters';
+import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
 import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
+import {Breadcrumbs} from '~/components/Breadcrumbs';
 
 export const meta = () => [{title: 'PAWRA | All Products'}];
 
 export async function loader({context, request}) {
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {pageBy: 24});
+  const url = new URL(request.url);
+  const filtersActive = hasClientCollectionFilters(url.searchParams);
+  const paginationVariables = filtersActive
+    ? {first: 100}
+    : getPaginationVariables(request, {pageBy: 24});
 
   const {products} = await storefront.query(CATALOG_QUERY, {
     variables: paginationVariables,
@@ -25,6 +30,7 @@ export async function loader({context, request}) {
 export default function AllProductsPage() {
   const {products} = useLoaderData();
   const [searchParams] = useSearchParams();
+  const filtersActive = hasClientCollectionFilters(searchParams);
 
   const filteredProducts = useMemo(
     () => applyCollectionFilters(products?.nodes ?? [], searchParams),
@@ -35,6 +41,14 @@ export default function AllProductsPage() {
     <div className="bg-warm-oat">
       <section className="border-b border-forest-green/10 bg-cloud px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto max-w-7xl">
+          <Breadcrumbs
+            className="mb-4"
+            items={[
+              {label: 'Home', to: '/'},
+              {label: 'Collections', to: '/collections'},
+              {label: 'All Products'},
+            ]}
+          />
           <h1 className="font-serif text-[3.5rem] leading-[1.1] text-forest-green">
             All Products
           </h1>
@@ -45,16 +59,19 @@ export default function AllProductsPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <p className="font-mono text-mono-s text-ink/60">
+        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <p className="shrink-0 font-mono text-mono-s text-ink/60">
             {filteredProducts.length} products
           </p>
-          <CollectionFilters />
+          <div className="w-full max-w-3xl">
+            <CollectionFilters />
+          </div>
         </div>
 
         <PawraCollectionGrid
           connection={products}
           products={filteredProducts}
+          filtersActive={filtersActive}
           emptyMessage="No products published to your Headless storefront yet."
         />
       </div>
@@ -78,6 +95,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     handle
     title
     tags
+    productType
     featuredImage {
       id
       altText
@@ -90,6 +108,11 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
       maxVariantPrice {
+        ...MoneyProductItem
+      }
+    }
+    compareAtPriceRange {
+      minVariantPrice {
         ...MoneyProductItem
       }
     }
