@@ -4,6 +4,7 @@
  */
 
 import {NavLink, useRouteLoaderData} from 'react-router';
+import {JudgemeAllReviewsCount, JudgemeAllReviewsRating} from '@judgeme/shopify-hydrogen';
 import {Logo} from '~/components/ui/Logo';
 import {SocialLinks} from '~/components/SocialLinks';
 import {FooterNewsletter} from '~/components/FooterNewsletter';
@@ -99,6 +100,7 @@ export function Footer() {
   const klaviyoId = rootData?.integrations?.klaviyo?.companyId;
   const rewardsUrl = rootData?.integrations?.smile?.rewardsUrl || '/pages/rewards';
   const loopReturnsUrl = rootData?.integrations?.loopReturns?.returnsUrl;
+  const judgeMeEnabled = Boolean(rootData?.judgeme || rootData?.integrations?.judgeMe);
 
   return (
     <footer className="border-t border-electric-jade bg-forest-night text-cloud">
@@ -109,6 +111,17 @@ export function Footer() {
             <p className="mt-4 font-serif text-body-l italic text-cloud">
               {BRAND.tagline}
             </p>
+            {judgeMeEnabled ? (
+              <NavLink
+                to="/pages/reviews"
+                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-cloud/70 no-underline hover:text-cloud"
+              >
+                <JudgemeAllReviewsRating />
+                <span>
+                  <JudgemeAllReviewsCount /> reviews
+                </span>
+              </NavLink>
+            ) : null}
             <p className="mt-2 font-sans text-body-s text-cloud/60">
               {BRAND.address.line1}, {BRAND.address.city}, {BRAND.address.state} {BRAND.address.zip}
             </p>

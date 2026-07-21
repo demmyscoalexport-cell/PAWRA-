@@ -16,6 +16,7 @@
 
 import {Await, Link} from 'react-router';
 import {Suspense, useId} from 'react';
+import {JudgemeReviewsTab} from '@judgeme/shopify-hydrogen';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header} from '~/components/Header';
@@ -31,6 +32,7 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  judgeme,
 }) {
   return (
     <Aside.Provider>
@@ -46,6 +48,7 @@ export function PageLayout({
       )}
       <main>{children}</main>
       <Footer />
+      {judgeme ? <JudgemeReviewsTab /> : null}
     </Aside.Provider>
   );
 }

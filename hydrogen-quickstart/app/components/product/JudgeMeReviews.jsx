@@ -1,9 +1,8 @@
+import {JudgemeReviewWidget} from '@judgeme/shopify-hydrogen';
 import {ProductRating} from '~/components/product/ProductRating';
 
 /**
- * Judge.me review block for Hydrogen PDPs.
- * Renders API reviews as a readable fallback and mounts the official widget
- * for Write a review + full Judge.me UI (hydrated by widget_preloader.js).
+ * Judge.me review block for Hydrogen PDPs — official widget + optional API summary.
  *
  * @param {{
  *   product: { id?: string; title?: string; handle?: string };
@@ -11,36 +10,22 @@ import {ProductRating} from '~/components/product/ProductRating';
  *     rating?: number;
  *     count?: number;
  *     reviews?: Array<{ quote: string; name: string; meta: string; rating: number }>;
- *     widgetHtml?: string;
- *     productId?: string;
  *   } | null;
- *   shopDomain?: string;
  * }} props
  */
-export function JudgeMeReviews({product, reviews, shopDomain}) {
-  const productId =
-    reviews?.productId ||
-    (typeof product?.id === 'string'
-      ? product.id.match(/Product\/(\d+)/)?.[1] ?? ''
-      : '');
-  const list = reviews?.reviews ?? [];
-  const hasApiReviews = list.length > 0;
-  const widgetHtml = reviews?.widgetHtml || '';
+export function JudgeMeReviews({product, reviews}) {
+  if (!product?.id) return null;
 
-  if (!shopDomain && !hasApiReviews && !widgetHtml) {
-    return null;
-  }
+  const list = reviews?.reviews ?? [];
 
   return (
     <section id="reviews" className="mt-16 border-t border-forest-green/10 pt-12">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-serif text-heading-s text-forest-green">Customer reviews</h2>
-          <ProductRating rating={reviews?.rating} count={reviews?.count} />
-        </div>
+      <div className="mb-6">
+        <h2 className="font-serif text-heading-s text-forest-green">Customer reviews</h2>
+        <ProductRating rating={reviews?.rating} count={reviews?.count} />
       </div>
 
-      {hasApiReviews && (
+      {list.length > 0 && (
         <ul className="mb-10 space-y-6">
           {list.map((review, index) => (
             <li
@@ -58,33 +43,7 @@ export function JudgeMeReviews({product, reviews, shopDomain}) {
         </ul>
       )}
 
-      {/* Official Judge.me widget mount — Write a review + full widget UI */}
-      {shopDomain && productId ? (
-        widgetHtml ? (
-          <div
-            id="judgeme_product_reviews"
-            className="jdgm-widget jdgm-review-widget"
-            data-id={productId}
-            data-product-title={product.title || ''}
-            data-auto-install="false"
-            dangerouslySetInnerHTML={{__html: widgetHtml}}
-          />
-        ) : (
-          <div
-            id="judgeme_product_reviews"
-            className="jdgm-widget jdgm-review-widget"
-            data-id={productId}
-            data-product-title={product.title || ''}
-            data-auto-install="false"
-          />
-        )
-      ) : null}
-
-      {!hasApiReviews && !widgetHtml && (
-        <p className="font-sans text-body-m text-ink/60">
-          No reviews yet. Be the first to share feedback on this product.
-        </p>
-      )}
+      <JudgemeReviewWidget id={product.id} />
     </section>
   );
 }

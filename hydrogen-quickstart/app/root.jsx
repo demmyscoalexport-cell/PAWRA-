@@ -25,6 +25,7 @@ import {
   ScrollRestoration,
   useRouteLoaderData,
 } from 'react-router';
+import { useJudgeme } from '@judgeme/shopify-hydrogen';
 import favicon from './assets/favicon.svg?url';
 import { FOOTER_QUERY, HEADER_QUERY } from '~/lib/fragments';
 import resetStyles from './styles/reset.css?url';
@@ -110,13 +111,22 @@ export async function loader(args) {
   const criticalData = await loadCriticalData(args);
 
   const { storefront, env } = args.context;
-  const integrations = getPublicIntegrations(getIntegrations(env));
+  const allIntegrations = getIntegrations(env);
+  const integrations = getPublicIntegrations(allIntegrations);
 
   return {
     ...deferredData,
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     integrations,
+    judgeme: allIntegrations.judgeMe.widgetsEnabled
+      ? {
+          shopDomain: allIntegrations.judgeMe.shopDomain,
+          publicToken: allIntegrations.judgeMe.publicToken,
+          cdnHost: allIntegrations.judgeMe.cdnHost,
+          delay: 500,
+        }
+      : null,
     shop: getShopAnalytics({
       storefront,
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
@@ -229,6 +239,15 @@ export function Layout({ children }) {
 export default function App() {
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
+
+  useJudgeme(
+    data?.judgeme ?? {
+      shopDomain: '',
+      publicToken: '',
+      cdnHost: '',
+      delay: 500,
+    },
+  );
 
   if (!data) {
     return <Outlet />;

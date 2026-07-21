@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 
 /**
  * Loads third-party scripts after idle so first paint stays fast.
+ * Judge.me is loaded via useJudgeme in root (official Hydrogen package).
  * @param {{ integrations?: Record<string, any> | null }} props
  */
 export function ThirdPartyScripts({integrations}) {
@@ -63,21 +64,6 @@ export function ThirdPartyScripts({integrations}) {
         const s = document.createElement('script');
         s.async = true;
         s.src = `https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=${integrations.gorgias.widgetId}`;
-        document.head.appendChild(s);
-        injected.push(s);
-      }
-
-      if (integrations.judgeMe?.shopDomain) {
-        window.jdgm = window.jdgm || {};
-        window.jdgm.SHOP_DOMAIN = integrations.judgeMe.shopDomain;
-        window.jdgm.PLATFORM = 'shopify';
-        if (integrations.judgeMe.publicToken) {
-          window.jdgm.PUBLIC_TOKEN = integrations.judgeMe.publicToken;
-        }
-
-        const s = document.createElement('script');
-        s.async = true;
-        s.src = `https://cdn.judge.me/widget_preloader.js?shop=${integrations.judgeMe.shopDomain}`;
         document.head.appendChild(s);
         injected.push(s);
       }

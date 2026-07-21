@@ -17,6 +17,7 @@ import {
   FAQ,
 } from '~/components/sections';
 import {ProductCarousel} from '~/components/ProductCarousel';
+import {JudgemeCarousel} from '@judgeme/shopify-hydrogen';
 import {BRAND} from '~/lib/branding';
 import {HOMEPAGE_COLLECTION_QUERY, HOMEPAGE_PRODUCTS_QUERY} from '~/lib/homepageProducts';
 import {getIntegrations} from '~/lib/integrations';
@@ -46,7 +47,7 @@ export async function loader({context}) {
       variables: {handle: 'frontpage', first: 12},
       cache: storefront.CacheShort(),
     }),
-    integrations.judgeMe.enabled
+    integrations.judgeMe.apiEnabled
       ? fetchJudgeMeFeaturedReviews(integrations.judgeMe)
       : Promise.resolve([]),
   ]);
@@ -60,6 +61,7 @@ export async function loader({context}) {
     greetingProducts: pool.slice(0, 12),
     bundleProducts: pickBundleProducts(pool.length > 0 ? pool : catalog),
     featuredReviews,
+    judgeMeWidgets: integrations.judgeMe.widgetsEnabled,
   };
 }
 
@@ -69,7 +71,8 @@ function pickBundleProducts(products) {
 }
 
 export default function Homepage() {
-  const {featuredProduct, greetingProducts, bundleProducts, featuredReviews} = useLoaderData();
+  const {featuredProduct, greetingProducts, bundleProducts, featuredReviews, judgeMeWidgets} =
+    useLoaderData();
 
   return (
     <div className="home">
@@ -86,7 +89,18 @@ export default function Homepage() {
       <Ecosystem />
       <FrequentlyBoughtTogether products={bundleProducts} />
       <WalkerProgramSection />
-      <Testimonials reviews={featuredReviews} />
+      {judgeMeWidgets ? (
+        <section className="bg-cloud px-4 py-16 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <h2 className="mb-8 text-center font-serif text-display-s text-forest-green">
+              Loved by pet parents
+            </h2>
+            <JudgemeCarousel />
+          </div>
+        </section>
+      ) : (
+        <Testimonials reviews={featuredReviews} />
+      )}
       <div id="faq">
         <FAQ />
       </div>

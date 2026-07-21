@@ -47,7 +47,7 @@ export async function loader({context, params, request}) {
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
   const integrations = getIntegrations(env);
-  const reviews = integrations.judgeMe.enabled
+  const reviews = integrations.judgeMe.apiEnabled
     ? await fetchJudgeMeProductReviews(integrations.judgeMe, product)
     : null;
 

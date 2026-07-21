@@ -16,7 +16,7 @@ function createAdditionalContext(env) {
 
   return {
     integrations,
-    reviews: integrations.judgeMe.enabled
+    reviews: integrations.judgeMe.apiEnabled
       ? {
           shopDomain: integrations.judgeMe.shopDomain,
           apiToken: integrations.judgeMe.apiToken,

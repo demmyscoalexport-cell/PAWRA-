@@ -3,12 +3,20 @@
  * @param {Env} env
  */
 export function getIntegrations(env) {
+  const judgeMeShop = env.PUBLIC_JUDGEME_SHOP_DOMAIN || '';
+  const judgeMePublic = env.PUBLIC_JUDGEME_PUBLIC_TOKEN || '';
+  const judgeMePrivate = env.JUDGEME_API_TOKEN || '';
+
   return {
     judgeMe: {
-      enabled: Boolean(env.PUBLIC_JUDGEME_SHOP_DOMAIN && env.JUDGEME_API_TOKEN),
-      shopDomain: env.PUBLIC_JUDGEME_SHOP_DOMAIN || '',
-      apiToken: env.JUDGEME_API_TOKEN || '',
-      publicToken: env.PUBLIC_JUDGEME_PUBLIC_TOKEN || '',
+      // Widgets need shop + public token; API helpers need private token
+      enabled: Boolean(judgeMeShop && (judgeMePublic || judgeMePrivate)),
+      widgetsEnabled: Boolean(judgeMeShop && judgeMePublic),
+      apiEnabled: Boolean(judgeMeShop && judgeMePrivate),
+      shopDomain: judgeMeShop,
+      apiToken: judgeMePrivate,
+      publicToken: judgeMePublic,
+      cdnHost: env.PUBLIC_JUDGEME_CDN_HOST || 'https://cdn.judge.me',
     },
     klaviyo: {
       enabled: Boolean(env.PUBLIC_KLAVIYO_COMPANY_ID),
@@ -66,10 +74,11 @@ export function getPublicIntegrations(integrations) {
     recharge: integrations.recharge.enabled
       ? {storeIdentifier: integrations.recharge.storeIdentifier}
       : null,
-    judgeMe: integrations.judgeMe.enabled
+    judgeMe: integrations.judgeMe.widgetsEnabled
       ? {
           shopDomain: integrations.judgeMe.shopDomain,
-          publicToken: integrations.judgeMe.publicToken || null,
+          publicToken: integrations.judgeMe.publicToken,
+          cdnHost: integrations.judgeMe.cdnHost,
         }
       : null,
   };

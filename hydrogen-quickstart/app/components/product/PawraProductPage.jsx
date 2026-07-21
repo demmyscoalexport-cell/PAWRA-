@@ -15,7 +15,7 @@
  */
 
 import {useEffect, useRef, useState} from 'react';
-import {Link, useNavigate, useRouteLoaderData} from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import {Image, Money, Analytics} from '@shopify/hydrogen';
 import {AddToCartButton} from '~/components/AddToCartButton';
 import {useAside} from '~/components/Aside';
@@ -70,8 +70,6 @@ const FEATURES = [
 export function PawraProductPage({product, selectedVariant, productOptions, relatedProducts = [], reviews = null}) {
   const {open} = useAside();
   const navigate = useNavigate();
-  const rootData = useRouteLoaderData('root');
-  const judgeMeShopDomain = rootData?.integrations?.judgeMe?.shopDomain || '';
   const ctaRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -372,11 +370,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Judge.me reviews + write-a-review widget ─── */}
       <div className="px-4 py-4 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <JudgeMeReviews
-            product={product}
-            reviews={reviews}
-            shopDomain={judgeMeShopDomain}
-          />
+          <JudgeMeReviews product={product} reviews={reviews} />
         </div>
       </div>
 

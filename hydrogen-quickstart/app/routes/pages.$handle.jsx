@@ -22,8 +22,6 @@ import {SocialLinks} from '~/components/SocialLinks';
 import {WalkerProgramPage} from '~/components/WalkerProgramPage';
 import {JudgeMeAllReviews} from '~/components/product/JudgeMeAllReviews';
 import {WALKER_PROGRAM} from '~/lib/walkerProgram';
-import {getIntegrations} from '~/lib/integrations';
-import {fetchJudgeMeAllReviewsWidget} from '~/lib/judgeme';
 import {BRAND} from '~/lib/branding';
 
 export const meta = ({data, params}) => {
@@ -52,17 +50,11 @@ export async function loader({context, request, params}) {
   }
 
   if (params.handle === 'reviews') {
-    const integrations = getIntegrations(context.env);
-    const widgetHtml = integrations.judgeMe.enabled
-      ? await fetchJudgeMeAllReviewsWidget(integrations.judgeMe)
-      : '';
-
     return {
       page: {
         title: 'Customer reviews',
         description: `See what pet parents say about products from ${BRAND.name}.`,
         isReviews: true,
-        widgetHtml,
       },
     };
   }
@@ -113,7 +105,7 @@ export default function Page() {
   if (page.isReviews) {
     return (
       <StaticPageLayout title={page.title} description={page.description}>
-        <JudgeMeAllReviews widgetHtml={page.widgetHtml} />
+        <JudgeMeAllReviews />
       </StaticPageLayout>
     );
   }
