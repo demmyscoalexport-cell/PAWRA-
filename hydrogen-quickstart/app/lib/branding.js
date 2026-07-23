@@ -29,13 +29,13 @@ export const BRAND = {
   url: 'https://pawrapetcares.com',
   supportEmail: 'support@pawrapetcares.com',
   address: {
-    line1: '256 Chapman Road',
-    city: 'Presque Isle',
-    state: 'ME',
-    zip: '04769',
+    line1: '76 Main St',
+    city: 'Sparrow Bush',
+    state: 'NY',
+    zip: '12780',
     country: 'United States',
   },
-  copyright: '© 2026 PAWRA LLC · Presque Isle, ME · pawrapetcares.com',
+  copyright: '© 2026 PAWRA LLC · Sparrow Bush, NY · pawrapetcares.com',
 };
 
 /** Official PAWRA social profiles — used in footer and contact page. */

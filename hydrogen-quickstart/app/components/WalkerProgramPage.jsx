@@ -33,6 +33,7 @@ export function WalkerProgramPage() {
         </div>
       </div>
 
+      <p className="font-sans text-body-s text-ink/60">{FEATURED_WALKER.address}</p>
       <p>{FEATURED_WALKER.blurb}</p>
 
       <h3>What clients say about her walks</h3>
@@ -59,7 +60,7 @@ export function WalkerProgramPage() {
         </li>
         <li>
           <strong>Get approved</strong> — we email you a unique PAWRA discount code (for example{' '}
-          <code>WALKER-MAYA10</code>).
+          <code>{WALKER_PROGRAM.exampleDiscountCode}</code>).
         </li>
         <li>
           <strong>Share with clients</strong> — recommend PAWRA food, beds, leashes, and wellness

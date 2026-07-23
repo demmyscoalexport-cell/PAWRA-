@@ -157,4 +157,4 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 
 ---
 
-**PAWRA LLC** · Presque Isle, ME · support@pawrapetcares.com
+**PAWRA LLC** · 76 Main St, Sparrow Bush, NY 12780 · support@pawrapetcares.com
