@@ -59,6 +59,35 @@ npm run dev
 
 ---
 
+## Customer login (email OTP) — perfect setup
+
+Auth is Shopify Customer Account API (not a custom password system).
+
+### Application setup values
+| Field | Values |
+|-------|--------|
+| Callback URI(s) | `https://pawrapetcares.com/account/authorize` and `https://www.pawrapetcares.com/account/authorize` |
+| Javascript origin(s) | `https://pawrapetcares.com` and `https://www.pawrapetcares.com` |
+| Logout URI | `https://pawrapetcares.com` and `https://www.pawrapetcares.com` |
+
+Also add Oxygen preview host if testing `*.o2.myshopify.dev` (same paths).
+
+### Admin checklist
+1. **Settings → Customer accounts** → new Customer accounts **enabled**
+2. Client type = **Public**
+3. Application URIs saved (table above)
+4. Oxygen Production has `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` + `PUBLIC_CUSTOMER_ACCOUNT_API_URL`
+5. Test only on **https://pawrapetcares.com** (not localhost) in Incognito
+6. Flow: Login → Shopify page → enter email → code email → return to `/account/authorize`
+
+### If still broken
+- Error `redirect_uri` mismatch → Callback URI wrong/missing
+- Never leave PAWRA → button/env/config issue
+- Reach Shopify, no email → spam, wrong inbox, or Shopify notification delay
+- Code works but return fails → Callback URI / authorize route
+
+---
+
 ## Do next (in order)
 
 ### 1. Oxygen Production env (critical)

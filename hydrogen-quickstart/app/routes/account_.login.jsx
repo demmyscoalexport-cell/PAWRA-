@@ -80,6 +80,22 @@ export default function LoginPage() {
           You&apos;ll enter your email on Shopify&apos;s secure sign-in page, then check your inbox for a code.
         </p>
 
+        <details className="mt-6 rounded-md border border-forest-green/15 bg-warm-oat/60 px-4 py-3 text-left">
+          <summary className="cursor-pointer font-sans text-body-s font-semibold text-forest-green">
+            Not getting a code?
+          </summary>
+          <ul className="mt-3 list-disc space-y-2 pl-5 font-sans text-body-s text-ink/70">
+            <li>Check spam / promotions for mail from Shopify.</li>
+            <li>Enter your email on the Shopify page (not only this PAWRA screen).</li>
+            <li>Try another email address or wait 2 minutes and request again.</li>
+            <li>
+              Store owner: Hydrogen → Customer Account API must list{' '}
+              <span className="font-mono text-mono-s">https://pawrapetcares.com/account/authorize</span> as
+              Callback URI.
+            </li>
+          </ul>
+        </details>
+
         <p className="mt-8 text-center font-sans text-body-s text-ink/70">
           New to {BRAND.name}?{' '}
           <Link to="/account/register" className="font-semibold text-forest-green underline">
