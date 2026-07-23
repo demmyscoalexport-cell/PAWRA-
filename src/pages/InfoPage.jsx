@@ -27,7 +27,7 @@ const PAGE_CONTENT = {
   },
   press: {
     title: 'Press',
-    body: 'For media and partnership requests, reach out to press@pawrapetshop.com. Brand assets and official announcements can be maintained on this page.',
+    body: 'For media and partnership requests, reach out to support@pawrapetcares.com. Brand assets and official announcements can be maintained on this page.',
   },
   sustainability: {
     title: 'Sustainability',

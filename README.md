@@ -193,7 +193,7 @@ Private - PAWRA Brand
 
 ## Support
 
-For technical support, contact: support@pawrapetshop.com
+For technical support, contact: support@pawrapetcares.com
 
 ---
 

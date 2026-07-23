@@ -65,7 +65,7 @@ export const Footer = () => {
             <h3 className="font-semibold mb-4">Customer Care</h3>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:support@pawrapetshop.com" className="text-sand hover:text-ivory transition-colors text-sm">
+                <a href="mailto:support@pawrapetcares.com" className="text-sand hover:text-ivory transition-colors text-sm">
                   Contact Us
                 </a>
               </li>
