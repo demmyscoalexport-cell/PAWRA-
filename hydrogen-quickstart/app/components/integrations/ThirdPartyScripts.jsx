@@ -60,22 +60,7 @@ export function ThirdPartyScripts({integrations}) {
         injected.push(s);
       }
 
-      if (integrations.gorgias?.widgetId) {
-        const s = document.createElement('script');
-        s.id = 'gorgias-chat-widget-install-v3';
-        s.async = true;
-        s.src = `https://config.gorgias.chat/bundle-loader/${integrations.gorgias.widgetId}`;
-        document.head.appendChild(s);
-        injected.push(s);
-      }
-
-      if (integrations.gorgias?.convertId) {
-        const s = document.createElement('script');
-        s.async = true;
-        s.src = `https://static.9gtb.com/loader.js?g_cvt_id=${integrations.gorgias.convertId}`;
-        document.head.appendChild(s);
-        injected.push(s);
-      }
+      // Gorgias Chat is loaded by <GorgiasProvider /> in root Layout (body, once).
     }
 
     /** @type {number | ReturnType<typeof setTimeout>} */

@@ -34,6 +34,7 @@ import appStyles from './styles/app.css?url';
 import { PageLayout } from './components/PageLayout';
 import { PawraNotFound } from '~/components/PawraNotFound';
 import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
+import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
 import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
 import { THEME_BOOT_SCRIPT } from '~/lib/theme';
 
@@ -84,6 +85,8 @@ export function links() {
     },
     {rel: 'dns-prefetch', href: 'https://cdn.judge.me'},
     {rel: 'dns-prefetch', href: 'https://static.klaviyo.com'},
+    {rel: 'dns-prefetch', href: 'https://config.gorgias.chat'},
+    {rel: 'dns-prefetch', href: 'https://static.9gtb.com'},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -91,6 +94,11 @@ export function links() {
     {
       rel: 'preconnect',
       href: 'https://shop.app',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://config.gorgias.chat',
+      crossOrigin: 'anonymous',
     },
     { rel: 'icon', type: 'image/svg+xml', href: favicon },
   ];
@@ -225,6 +233,8 @@ export function Layout({ children }) {
         <ThirdPartyScripts integrations={data?.integrations} />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        {/* Gorgias — body only, mounts once, persists across SPA navigations */}
+        <GorgiasProvider />
       </body>
     </html>
   );

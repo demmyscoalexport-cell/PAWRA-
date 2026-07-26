@@ -1,3 +1,8 @@
+import {
+  DEFAULT_GORGIAS_CONVERT_ID,
+  DEFAULT_GORGIAS_WIDGET_ID,
+} from '~/lib/gorgias';
+
 /**
  * Third-party app integration config — activated when env vars are set in .env / Oxygen.
  * @param {Env} env
@@ -6,6 +11,8 @@ export function getIntegrations(env) {
   const judgeMeShop = env.PUBLIC_JUDGEME_SHOP_DOMAIN || '';
   const judgeMePublic = env.PUBLIC_JUDGEME_PUBLIC_TOKEN || '';
   const judgeMePrivate = env.JUDGEME_API_TOKEN || '';
+  const gorgiasWidgetId = env.PUBLIC_GORGIAS_WIDGET_ID || DEFAULT_GORGIAS_WIDGET_ID;
+  const gorgiasConvertId = env.PUBLIC_GORGIAS_CONVERT_ID || DEFAULT_GORGIAS_CONVERT_ID;
 
   return {
     judgeMe: {
@@ -33,9 +40,10 @@ export function getIntegrations(env) {
       rewardsUrl: env.PUBLIC_SMILE_REWARDS_URL || '/pages/rewards',
     },
     gorgias: {
-      enabled: Boolean(env.PUBLIC_GORGIAS_WIDGET_ID || env.PUBLIC_GORGIAS_CONVERT_ID),
-      widgetId: env.PUBLIC_GORGIAS_WIDGET_ID || '',
-      convertId: env.PUBLIC_GORGIAS_CONVERT_ID || '',
+      // Public chat IDs ship with defaults so Oxygen works before env mirror
+      enabled: Boolean(gorgiasWidgetId || gorgiasConvertId),
+      widgetId: gorgiasWidgetId,
+      convertId: gorgiasConvertId,
     },
     loopReturns: {
       enabled: Boolean(env.PUBLIC_LOOP_RETURNS_URL),

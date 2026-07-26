@@ -13,6 +13,7 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {PawraProductPage} from '~/components/product/PawraProductPage';
+import {GorgiasPageContext} from '~/components/gorgias/GorgiasPageContext';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeProductReviews} from '~/lib/judgeme';
 
@@ -77,13 +78,24 @@ export default function Product() {
   });
 
   return (
-    <PawraProductPage
-      product={product}
-      selectedVariant={selectedVariant}
-      productOptions={productOptions}
-      relatedProducts={relatedProducts}
-      reviews={reviews}
-    />
+    <>
+      <GorgiasPageContext
+        pageType="product"
+        product={{
+          id: product.id,
+          title: product.title,
+          handle: product.handle,
+          price: selectedVariant?.price?.amount,
+        }}
+      />
+      <PawraProductPage
+        product={product}
+        selectedVariant={selectedVariant}
+        productOptions={productOptions}
+        relatedProducts={relatedProducts}
+        reviews={reviews}
+      />
+    </>
   );
 }
 

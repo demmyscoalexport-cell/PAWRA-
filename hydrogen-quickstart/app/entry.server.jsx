@@ -38,6 +38,40 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    // Gorgias Chat v3 + Convert campaign bundle (Hydrogen CSP blocks these otherwise)
+    scriptSrc: [
+      'https://config.gorgias.chat',
+      'https://assets.gorgias.chat',
+      'https://static.9gtb.com',
+    ],
+    connectSrc: [
+      'https://config.gorgias.chat',
+      'https://config.gorgias.io',
+      'https://*.gorgias.chat',
+      'https://*.gorgias.com',
+      'https://*.gorgias.work',
+      'wss://*.gorgias.chat',
+      'https://static.9gtb.com',
+      'https://storage.googleapis.com',
+    ],
+    frameSrc: ['https://config.gorgias.chat', 'https://*.gorgias.chat'],
+    imgSrc: [
+      "'self'",
+      'data:',
+      'blob:',
+      'https://cdn.shopify.com',
+      'https://*.gorgias.chat',
+      'https://storage.googleapis.com',
+    ],
+    styleSrc: ['https://*.gorgias.chat'],
+    fontSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://fonts.gstatic.com',
+      'https://*.gorgias.chat',
+    ],
+    workerSrc: ["'self'", 'blob:', 'https://*.gorgias.chat'],
+    mediaSrc: ['https://*.gorgias.chat'],
   });
 
   const body = await renderToReadableStream(
