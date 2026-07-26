@@ -113,7 +113,7 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 | Priority | App | Env var(s) | Code status |
 |----------|-----|------------|-------------|
 | A | Judge.me | (above) | Done — finish Oxygen |
-| A | Klaviyo | `PUBLIC_KLAVIYO_COMPANY_ID=XeFt95`, `PUBLIC_KLAVIYO_FORM_ID` | Company ID live (default + env); still need embed form ID |
+| A | Klaviyo | `PUBLIC_KLAVIYO_COMPANY_ID=XeFt95`, `PUBLIC_KLAVIYO_FORM_ID=UkZJYH` | Company ID + footer embed form live (defaults + env) |
 | A | GA4 | `PUBLIC_GA4_MEASUREMENT_ID` | Done — script + SPA pageviews + ecommerce events |
 | B | Gorgias / Inbox | `PUBLIC_GORGIAS_WIDGET_ID`, `PUBLIC_GORGIAS_CONVERT_ID` | Done — chat + AI bridge live |
 | B | Smile.io | `PUBLIC_SMILE_PUBLISHABLE_KEY` | Script + rewards page ready (paste key) |
