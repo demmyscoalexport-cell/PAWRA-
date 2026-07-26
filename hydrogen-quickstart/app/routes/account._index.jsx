@@ -25,7 +25,7 @@ export default function AccountDashboard() {
     {title: 'Wishlist', value: 'Saved products', href: wishlistUrl, icon: 'heart'},
     {title: 'PAWRA Rewards', value: 'Earn points', href: rewardsUrl, icon: 'star'},
     {title: 'Subscribe & Save', value: 'Autoship essentials', href: '/pages/subscribe-and-save', icon: 'leaf'},
-    {title: 'Help & Support', value: 'Contact us', href: '/pages/contact', icon: 'shield'},
+    {title: 'Help & Support', value: 'Live chat or email', href: '/pages/contact', icon: 'chat'},
   ];
 
   return (

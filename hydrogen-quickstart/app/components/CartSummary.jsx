@@ -6,6 +6,7 @@
 import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
+import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 
 /**
  * @param {CartSummaryProps}
@@ -88,6 +89,9 @@ function CartCheckoutActions({checkoutUrl}) {
       <p className="mt-2 text-center font-sans text-body-s text-ink/55">
         Secure Shopify checkout · taxes & shipping calculated next
       </p>
+      <div className="mt-3">
+        <GorgiasChatButton label="Need help with your cart?" variant="link" className="w-full justify-center text-body-s" />
+      </div>
     </div>
   );
 }

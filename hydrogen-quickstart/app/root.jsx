@@ -35,6 +35,7 @@ import { PageLayout } from './components/PageLayout';
 import { PawraNotFound } from '~/components/PawraNotFound';
 import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
 import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
+import { GORGIAS_CUSTOMER_QUERY } from '~/graphql/customer-account/GorgiasCustomerQuery';
 import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
 import { THEME_BOOT_SCRIPT } from '~/lib/theme';
 
@@ -197,9 +198,35 @@ function loadDeferredData({ context }) {
       console.error(error);
       return null;
     });
+
+  // Logged-in email for Gorgias AI Agent order lookup (best-effort, never blocks page)
+  const gorgiasCustomer = customerAccount
+    .isLoggedIn()
+    .then(async (loggedIn) => {
+      if (!loggedIn) return null;
+      try {
+        const {data} = await customerAccount.query(GORGIAS_CUSTOMER_QUERY, {
+          variables: {language: customerAccount.i18n.language},
+        });
+        const customer = data?.customer;
+        const email = customer?.emailAddress?.emailAddress;
+        if (!email) return null;
+        return {
+          email,
+          name: [customer.firstName, customer.lastName].filter(Boolean).join(' ').trim(),
+          id: customer.id || '',
+          phone: '',
+        };
+      } catch {
+        return null;
+      }
+    })
+    .catch(() => null);
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
+    gorgiasCustomer,
     footer,
   };
 }

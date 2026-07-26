@@ -21,6 +21,7 @@ import {StaticPageLayout} from '~/components/StaticPageLayout';
 import {SocialLinks} from '~/components/SocialLinks';
 import {WalkerProgramPage} from '~/components/WalkerProgramPage';
 import {JudgeMeAllReviews} from '~/components/product/JudgeMeAllReviews';
+import {ContactSupportPanel} from '~/components/gorgias/ContactSupportPanel';
 import {WALKER_PROGRAM} from '~/lib/walkerProgram';
 import {BRAND} from '~/lib/branding';
 
@@ -114,10 +115,13 @@ export default function Page() {
     <StaticPageLayout title={page.title} description={page.description}>
       <div dangerouslySetInnerHTML={{__html: page.bodyHtml}} />
       {showSocial && (
-        <div className="mt-10 border-t border-forest-green/10 pt-8">
-          <p className="font-sans text-body-s font-semibold text-ink">Follow PAWRA</p>
-          <SocialLinks variant="light" className="mt-4" />
-        </div>
+        <>
+          <ContactSupportPanel />
+          <div className="mt-10 border-t border-forest-green/10 pt-8">
+            <p className="font-sans text-body-s font-semibold text-ink">Follow PAWRA</p>
+            <SocialLinks variant="light" className="mt-4" />
+          </div>
+        </>
       )}
     </StaticPageLayout>
   );

@@ -18,6 +18,7 @@ import {useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
 import {BRAND} from '~/lib/branding';
+import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 
 const FAQS = [
   {
@@ -30,15 +31,15 @@ const FAQS = [
   },
   {
     q: 'What is your return policy?',
-    a: `We offer 30-day returns on unused products in original packaging. Contact ${BRAND.supportEmail} for assistance.`,
+    a: `We offer 30-day returns on unused products in original packaging. Start live chat or email ${BRAND.supportEmail} for help.`,
   },
   {
     q: 'How do I track my order?',
-    a: 'After your order ships, you will receive a tracking link by email. You can also view order status in your account.',
+    a: 'After your order ships, you will receive a tracking link by email. You can also view order status in your account, or ask in live chat.',
   },
   {
     q: 'How can I contact support?',
-    a: `Email us at ${BRAND.supportEmail}. We typically respond within one business day.`,
+    a: `Use the chat bubble for the fastest answer, or email ${BRAND.supportEmail}. We typically reply to email within one business day.`,
   },
   {
     q: 'Are your products safe for both cats and dogs?',
@@ -83,6 +84,10 @@ export function FAQ() {
                 </div>
               );
             })}
+          </div>
+          <div className="mt-8 flex flex-col items-center gap-3 text-center">
+            <p className="font-sans text-body-m text-ink/70">Still have a question?</p>
+            <GorgiasChatButton label="Chat with PAWRA support" variant="secondary" />
           </div>
         </div>
       </section>

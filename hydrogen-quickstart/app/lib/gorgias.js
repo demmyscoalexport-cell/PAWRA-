@@ -51,6 +51,36 @@ export function whenGorgiasReady() {
   });
 }
 
+/** Open the Gorgias chat bubble (used by support CTAs). */
+export function openGorgiasChat() {
+  return whenGorgiasReady().then((api) => {
+    try {
+      api?.open?.();
+    } catch {
+      // Best-effort — widget may still be mounting.
+    }
+    return api;
+  });
+}
+
+/**
+ * Prefer logged-in Customer Account profile, fall back to cart buyer identity.
+ * @param {{email?: string; name?: string; id?: string; phone?: string} | null | undefined} accountCustomer
+ * @param {any} cart
+ */
+export function resolveGorgiasCustomer(accountCustomer, cart) {
+  const fromCart = customerFromCart(cart);
+  const email = accountCustomer?.email || fromCart?.email || '';
+  if (!email) return null;
+
+  return {
+    email,
+    name: accountCustomer?.name || fromCart?.name || '',
+    id: accountCustomer?.id || fromCart?.id || '',
+    phone: accountCustomer?.phone || fromCart?.phone || '',
+  };
+}
+
 /**
  * Infer storefront page type from the current path.
  * @param {string} pathname

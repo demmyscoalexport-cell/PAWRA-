@@ -10,6 +10,7 @@ import {SocialLinks} from '~/components/SocialLinks';
 import {FooterNewsletter} from '~/components/FooterNewsletter';
 import {BRAND} from '~/lib/branding';
 import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
+import {openGorgiasChat} from '~/lib/gorgias';
 
 const SHOP_LINKS = PAWRA_COLLECTIONS.filter((c) => c.handle !== 'frontpage').map((c) => ({
   label: c.title,
@@ -42,6 +43,17 @@ function SupportLinks({loopReturnsUrl}) {
         Support
       </p>
       <ul className="space-y-2">
+        <li>
+          <button
+            type="button"
+            className="reset font-sans text-body-s text-electric-jade transition-colors hover:text-cloud"
+            onClick={() => {
+              void openGorgiasChat();
+            }}
+          >
+            Live Chat
+          </button>
+        </li>
         {links.map((link) => (
           <li key={link.label}>
             {link.external ? (

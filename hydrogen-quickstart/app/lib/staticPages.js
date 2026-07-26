@@ -22,19 +22,21 @@ export const STATIC_PAGES = {
       <p>Secure checkout powered by Shopify. Free shipping on orders over $75.</p>
       <h3>3. Delivered to your door</h3>
       <p>Most orders arrive within 3–5 business days anywhere in the United States.</p>
-      <p>Need help? Contact <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a>.</p>
+      <p>Need help? Use live chat on the site, or email <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a>.</p>
     `,
   },
   contact: {
     title: 'Contact Us',
-    description: 'Get in touch with the PAWRA team.',
+    description: 'Get in touch with the PAWRA team — live chat or email.',
     body: `
+      <p>Questions about products, shipping, orders, or the Walker Program? Start with live chat for the fastest answer, or email us anytime.</p>
       <p><strong>${BRAND.name}</strong><br/>
       ${BRAND.address.line1}<br/>
       ${BRAND.address.city}, ${BRAND.address.state} ${BRAND.address.zip}<br/>
       ${BRAND.address.country}</p>
       <p>Email: <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a><br/>
       Website: <a href="${BRAND.url}">${BRAND.domain}</a></p>
+      <p>We typically reply to email within one business day.</p>
     `,
   },
   'subscribe-and-save': {

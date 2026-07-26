@@ -22,6 +22,7 @@ import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 import {Icon} from '~/components/ui/Icon';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
+import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 
 // ─── SEO Meta ─────────────────────────────────────────────────────────────────
 
@@ -199,6 +200,13 @@ export default function CartPage() {
                 </a>
               </>
             )}
+            <div className="mt-5">
+              <GorgiasChatButton
+                label="Questions before checkout?"
+                variant="secondary"
+                fullWidth
+              />
+            </div>
             <div className="mt-6 flex flex-wrap justify-center gap-4 border-t border-forest-green/10 pt-6">
               <span className="flex items-center gap-1 font-sans text-body-xs text-ink/60">
                 <Icon name="shield" size="sm" /> Secure checkout

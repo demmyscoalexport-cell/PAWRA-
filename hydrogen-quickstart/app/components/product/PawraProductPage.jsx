@@ -30,6 +30,7 @@ import {JudgeMeReviews} from '~/components/product/JudgeMeReviews';
 import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 import {BRAND} from '~/lib/branding';
 import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
+import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
 
@@ -39,8 +40,8 @@ const PRODUCT_FAQ = [
   {q: 'What is the return policy?', a: '30-day returns on unused products in original packaging.'},
   {q: 'Are products safe for cats and dogs?', a: 'Every item is curated for pet safety. Check the product description for species-specific guidance.'},
   {q: 'Do you ship nationwide?', a: 'Yes — we ship to all 50 US states from our Sparrow Bush, NY fulfillment center.'},
-  {q: 'How do I contact support?', a: `Email ${BRAND.supportEmail} and we will respond within one business day.`},
-  {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships.'},
+  {q: 'How do I contact support?', a: `Use live chat on this page for the fastest answer, or email ${BRAND.supportEmail}. We typically reply within one business day.`},
+  {q: 'Can I track my order?', a: 'Yes. You will receive a tracking link by email once your order ships. You can also ask in live chat.'},
 ];
 
 /** Feature highlights grid — icons map to ~/components/ui/Icon names. */
@@ -274,6 +275,13 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </Link>
               .
             </p>
+            <div className="mt-4">
+              <GorgiasChatButton
+                label="Need help? Chat with us"
+                variant="link"
+                className="font-sans text-body-s"
+              />
+            </div>
 
             {/* ─── Trust Badges ─── */}
             <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">
