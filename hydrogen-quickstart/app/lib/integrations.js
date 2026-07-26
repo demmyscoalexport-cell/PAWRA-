@@ -3,6 +3,9 @@ import {
   DEFAULT_GORGIAS_WIDGET_ID,
 } from '~/lib/gorgias';
 
+/** Klaviyo Public API Key / Site ID (PAWRA PET CARES) — safe for client-side use */
+export const DEFAULT_KLAVIYO_COMPANY_ID = 'XeFt95';
+
 /**
  * Third-party app integration config — activated when env vars are set in .env / Oxygen.
  * @param {Env} env
@@ -13,6 +16,7 @@ export function getIntegrations(env) {
   const judgeMePrivate = env.JUDGEME_API_TOKEN || '';
   const gorgiasWidgetId = env.PUBLIC_GORGIAS_WIDGET_ID || DEFAULT_GORGIAS_WIDGET_ID;
   const gorgiasConvertId = env.PUBLIC_GORGIAS_CONVERT_ID || DEFAULT_GORGIAS_CONVERT_ID;
+  const klaviyoCompanyId = env.PUBLIC_KLAVIYO_COMPANY_ID || DEFAULT_KLAVIYO_COMPANY_ID;
 
   return {
     judgeMe: {
@@ -26,8 +30,9 @@ export function getIntegrations(env) {
       cdnHost: env.PUBLIC_JUDGEME_CDN_HOST || 'https://cdn.judge.me',
     },
     klaviyo: {
-      enabled: Boolean(env.PUBLIC_KLAVIYO_COMPANY_ID),
-      companyId: env.PUBLIC_KLAVIYO_COMPANY_ID || '',
+      // Public Site ID ships with a default so Oxygen works before env mirror
+      enabled: Boolean(klaviyoCompanyId),
+      companyId: klaviyoCompanyId,
       // Embedded form ID from Klaviyo → Signup forms → Embed (not the company/public API key)
       formId: env.PUBLIC_KLAVIYO_FORM_ID || '',
     },
