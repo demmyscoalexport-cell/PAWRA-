@@ -28,11 +28,13 @@ export function getIntegrations(env) {
     klaviyo: {
       enabled: Boolean(env.PUBLIC_KLAVIYO_COMPANY_ID),
       companyId: env.PUBLIC_KLAVIYO_COMPANY_ID || '',
+      // Embedded form ID from Klaviyo → Signup forms → Embed (not the company/public API key)
+      formId: env.PUBLIC_KLAVIYO_FORM_ID || '',
     },
     swym: {
       enabled: Boolean(env.PUBLIC_SWYM_STORE_ID),
       storeId: env.PUBLIC_SWYM_STORE_ID || '',
-      wishlistUrl: env.PUBLIC_SWYM_WISHLIST_URL || '/account/wishlist',
+      wishlistUrl: env.PUBLIC_SWYM_WISHLIST_URL || '/pages/wishlist',
     },
     smile: {
       enabled: Boolean(env.PUBLIC_SMILE_PUBLISHABLE_KEY || env.PUBLIC_SMILE_REWARDS_URL),
@@ -64,7 +66,10 @@ export function getIntegrations(env) {
 export function getPublicIntegrations(integrations) {
   return {
     klaviyo: integrations.klaviyo.enabled
-      ? {companyId: integrations.klaviyo.companyId}
+      ? {
+          companyId: integrations.klaviyo.companyId,
+          formId: integrations.klaviyo.formId,
+        }
       : null,
     swym: integrations.swym.enabled
       ? {storeId: integrations.swym.storeId, wishlistUrl: integrations.swym.wishlistUrl}

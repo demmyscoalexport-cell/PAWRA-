@@ -1,66 +1,67 @@
 import {useEffect} from 'react';
+import {ensureKlaviyoQueue} from '~/lib/marketing';
 
 /**
- * Loads third-party scripts after idle so first paint stays fast.
- * Judge.me is loaded via useJudgeme in root (official Hydrogen package).
+ * Loads third-party scripts once after idle so first paint stays fast.
+ * Scripts are intentionally NOT removed on unmount (SPA navigations).
+ * Judge.me → useJudgeme in root. Gorgias → GorgiasProvider.
  * @param {{ integrations?: Record<string, any> | null }} props
  */
 export function ThirdPartyScripts({integrations}) {
   useEffect(() => {
     if (!integrations) return;
 
-    /** @type {HTMLScriptElement[]} */
-    const injected = [];
     let cancelled = false;
 
     function inject() {
       if (cancelled) return;
 
       if (integrations.klaviyo?.companyId) {
-        const s = document.createElement('script');
-        s.async = true;
-        s.src = `https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${integrations.klaviyo.companyId}`;
-        document.head.appendChild(s);
-        injected.push(s);
+        ensureKlaviyoQueue();
+        injectScriptOnce(
+          `klaviyo-onsite-${integrations.klaviyo.companyId}`,
+          `https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${integrations.klaviyo.companyId}`,
+        );
       }
 
       if (integrations.ga4?.measurementId) {
-        const gtag = document.createElement('script');
-        gtag.async = true;
-        gtag.src = `https://www.googletagmanager.com/gtag/js?id=${integrations.ga4.measurementId}`;
-        document.head.appendChild(gtag);
-        injected.push(gtag);
-
-        const inline = document.createElement('script');
-        inline.textContent = `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${integrations.ga4.measurementId}');
-        `;
-        document.head.appendChild(inline);
-        injected.push(inline);
+        const id = integrations.ga4.measurementId;
+        injectScriptOnce(
+          `ga4-gtag-${id}`,
+          `https://www.googletagmanager.com/gtag/js?id=${id}`,
+        );
+        if (!document.getElementById(`ga4-config-${id}`)) {
+          const inline = document.createElement('script');
+          inline.id = `ga4-config-${id}`;
+          inline.textContent = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${id}', { send_page_view: false });
+          `;
+          document.head.appendChild(inline);
+        }
       }
 
       if (integrations.swym?.storeId) {
         window.SwymCallbacks = window.SwymCallbacks || [];
-        const s = document.createElement('script');
-        s.async = true;
-        s.src = `https://cdn.swymrelay.com/code/swym-shopify.js?shop=${integrations.swym.storeId}`;
-        document.head.appendChild(s);
-        injected.push(s);
+        injectScriptOnce(
+          `swym-${integrations.swym.storeId}`,
+          `https://cdn.swymrelay.com/code/swym-shopify.js?shop=${integrations.swym.storeId}`,
+        );
       }
 
       if (integrations.smile?.publishableKey) {
-        const s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://js.smile.io/v1/smile-shopify.js';
-        s.dataset.channelKey = integrations.smile.publishableKey;
-        document.head.appendChild(s);
-        injected.push(s);
+        if (!document.getElementById('smile-ui-script')) {
+          const s = document.createElement('script');
+          s.id = 'smile-ui-script';
+          s.async = true;
+          s.src = 'https://js.smile.io/v1/smile-shopify.js';
+          s.dataset.channelKey = integrations.smile.publishableKey;
+          document.head.appendChild(s);
+        }
       }
-
-      // Gorgias Chat is loaded by <GorgiasProvider /> in root Layout (body, once).
     }
 
     /** @type {number | ReturnType<typeof setTimeout>} */
@@ -78,11 +79,22 @@ export function ThirdPartyScripts({integrations}) {
       } else {
         clearTimeout(/** @type {ReturnType<typeof setTimeout>} */ (handle));
       }
-      for (const node of injected) {
-        node.remove();
-      }
+      // Do not remove injected scripts — analytics/loyalty must persist across routes.
     };
   }, [integrations]);
 
   return null;
+}
+
+/**
+ * @param {string} id
+ * @param {string} src
+ */
+function injectScriptOnce(id, src) {
+  if (document.getElementById(id)) return;
+  const s = document.createElement('script');
+  s.id = id;
+  s.async = true;
+  s.src = src;
+  document.head.appendChild(s);
 }

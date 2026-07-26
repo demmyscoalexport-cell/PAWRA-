@@ -34,6 +34,7 @@ import appStyles from './styles/app.css?url';
 import { PageLayout } from './components/PageLayout';
 import { PawraNotFound } from '~/components/PawraNotFound';
 import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
+import { MarketingBridge } from '~/components/integrations/MarketingBridge';
 import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
 import { GORGIAS_CUSTOMER_QUERY } from '~/graphql/customer-account/GorgiasCustomerQuery';
 import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
@@ -292,6 +293,10 @@ export default function App() {
 
   return (
     <Analytics.Provider cart={data.cart} shop={data.shop} consent={data.consent}>
+      <MarketingBridge
+        ga4MeasurementId={data.integrations?.ga4?.measurementId}
+        klaviyoEnabled={Boolean(data.integrations?.klaviyo?.companyId)}
+      />
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>

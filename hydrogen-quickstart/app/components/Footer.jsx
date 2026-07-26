@@ -110,6 +110,7 @@ export function Footer() {
   /** @type {{ integrations?: { klaviyo?: { companyId?: string }; smile?: { rewardsUrl?: string }; loopReturns?: { returnsUrl?: string } } } | undefined} */
   const rootData = useRouteLoaderData('root');
   const klaviyoId = rootData?.integrations?.klaviyo?.companyId;
+  const klaviyoFormId = rootData?.integrations?.klaviyo?.formId;
   const rewardsUrl = rootData?.integrations?.smile?.rewardsUrl || '/pages/rewards';
   const loopReturnsUrl = rootData?.integrations?.loopReturns?.returnsUrl;
   const judgeMeEnabled = Boolean(rootData?.judgeme || rootData?.integrations?.judgeMe);
@@ -143,7 +144,7 @@ export function Footer() {
               </a>
             </p>
             <SocialLinks variant="footer" className="mt-6" />
-            <FooterNewsletter companyId={klaviyoId} />
+            <FooterNewsletter companyId={klaviyoId} formId={klaviyoFormId} />
             <NavLink
               to={rewardsUrl}
               className="mt-6 inline-flex items-center rounded-md border border-electric-jade/40 bg-electric-jade/10 px-4 py-2 font-sans text-body-s font-semibold text-electric-jade no-underline transition-colors hover:bg-electric-jade/20"

@@ -84,19 +84,23 @@ export const STATIC_PAGES = {
     description: 'Earn points on every order and unlock member-only perks.',
     body: `
       <h3>Join PAWRA Rewards</h3>
-      <p>Earn points on purchases, referrals, and reviews. Redeem for discounts on future orders.</p>
+      <p>Earn points on purchases, referrals, and reviews. Redeem for discounts on future orders for your pets.</p>
       <h3>How to join</h3>
-      <p>Create an account and opt in to rewards at checkout, or sign in to your account dashboard to view your balance.</p>
-      <p>Install the Smile.io loyalty widget in Shopify Admin and set <code>PUBLIC_SMILE_PUBLISHABLE_KEY</code> in Oxygen to activate the live rewards panel.</p>
+      <ol>
+        <li><a href="/account/login">Sign in</a> or create your PAWRA account.</li>
+        <li>Shop as usual — points accrue on eligible orders.</li>
+        <li>Redeem rewards toward future purchases from your account or the rewards panel.</li>
+      </ol>
+      <p>Questions? Email <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a> or use live chat.</p>
     `,
   },
   wishlist: {
     title: 'My Wishlist',
     description: 'Saved products for later.',
     body: `
-      <p>Your wishlist is powered by Swym Wishlist Plus when configured.</p>
-      <p>Set <code>PUBLIC_SWYM_STORE_ID</code> in your environment to enable saved products across sessions.</p>
-      <p><a href="/collections/all">Continue shopping</a></p>
+      <p>Save products you love and come back when you’re ready to order.</p>
+      <p>Browse the catalog and tap the heart on items you want to keep handy for your next shop.</p>
+      <p><a href="/collections/all">Continue shopping</a> · <a href="/account/login">Sign in</a> to keep your list across devices.</p>
     `,
   },
 };

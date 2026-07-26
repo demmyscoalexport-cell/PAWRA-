@@ -113,11 +113,11 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 | Priority | App | Env var(s) | Code status |
 |----------|-----|------------|-------------|
 | A | Judge.me | (above) | Done — finish Oxygen |
-| A | Klaviyo | `PUBLIC_KLAVIYO_COMPANY_ID` | Script hook ready |
-| A | GA4 | `PUBLIC_GA4_MEASUREMENT_ID` | Script hook ready |
+| A | Klaviyo | `PUBLIC_KLAVIYO_COMPANY_ID`, `PUBLIC_KLAVIYO_FORM_ID` | Done — script + events + footer form slot |
+| A | GA4 | `PUBLIC_GA4_MEASUREMENT_ID` | Done — script + SPA pageviews + ecommerce events |
 | B | Gorgias / Inbox | `PUBLIC_GORGIAS_WIDGET_ID`, `PUBLIC_GORGIAS_CONVERT_ID` | Done — chat + AI bridge live |
-| B | Smile.io | `PUBLIC_SMILE_PUBLISHABLE_KEY` | Page + hook ready |
-| B | Swym Wishlist | `PUBLIC_SWYM_STORE_ID` | Hook ready |
+| B | Smile.io | `PUBLIC_SMILE_PUBLISHABLE_KEY` | Script + rewards page ready (paste key) |
+| B | Swym Wishlist | `PUBLIC_SWYM_STORE_ID` | Script + PDP wishlist button (paste key) |
 | C | Loop Returns | `PUBLIC_LOOP_RETURNS_URL` | Footer link ready |
 | C | Recharge | `PUBLIC_RECHARGE_STORE_IDENTIFIER` | Only if subscriptions |
 

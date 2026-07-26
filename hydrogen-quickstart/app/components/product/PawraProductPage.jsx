@@ -31,6 +31,7 @@ import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 import {BRAND} from '~/lib/branding';
 import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
 import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
+import {WishlistButton} from '~/components/product/WishlistButton';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
 
@@ -275,6 +276,9 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               </Link>
               .
             </p>
+            <div className="mt-3">
+              <WishlistButton product={product} selectedVariant={selectedVariant} />
+            </div>
             <div className="mt-4">
               <GorgiasChatButton
                 label="Need help? Chat with us"
