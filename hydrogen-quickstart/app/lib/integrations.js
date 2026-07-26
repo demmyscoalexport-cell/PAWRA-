@@ -33,8 +33,9 @@ export function getIntegrations(env) {
       rewardsUrl: env.PUBLIC_SMILE_REWARDS_URL || '/pages/rewards',
     },
     gorgias: {
-      enabled: Boolean(env.PUBLIC_GORGIAS_WIDGET_ID),
+      enabled: Boolean(env.PUBLIC_GORGIAS_WIDGET_ID || env.PUBLIC_GORGIAS_CONVERT_ID),
       widgetId: env.PUBLIC_GORGIAS_WIDGET_ID || '',
+      convertId: env.PUBLIC_GORGIAS_CONVERT_ID || '',
     },
     loopReturns: {
       enabled: Boolean(env.PUBLIC_LOOP_RETURNS_URL),
@@ -65,7 +66,10 @@ export function getPublicIntegrations(integrations) {
       rewardsUrl: integrations.smile.rewardsUrl,
     },
     gorgias: integrations.gorgias.enabled
-      ? {widgetId: integrations.gorgias.widgetId}
+      ? {
+          widgetId: integrations.gorgias.widgetId,
+          convertId: integrations.gorgias.convertId,
+        }
       : null,
     ga4: integrations.ga4.enabled ? {measurementId: integrations.ga4.measurementId} : null,
     loopReturns: integrations.loopReturns.enabled
