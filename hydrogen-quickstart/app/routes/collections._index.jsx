@@ -19,8 +19,15 @@ import {getPaginationVariables} from '@shopify/hydrogen';
 import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
 import {PawraCollectionCard} from '~/components/PawraCollectionCard';
 
+import {buildSeoMeta} from '~/lib/seo';
+
 export const meta = () => {
-  return [{title: 'PAWRA | Collections'}];
+  return buildSeoMeta({
+    title: 'Shop Collections',
+    description:
+      'Browse PAWRA collections for dogs and cats — food, treats, beds, grooming, and wellness essentials.',
+    url: '/collections',
+  });
 };
 
 export async function loader({context, request}) {

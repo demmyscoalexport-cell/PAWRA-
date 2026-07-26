@@ -39,6 +39,8 @@ import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
 import { GORGIAS_CUSTOMER_QUERY } from '~/graphql/customer-account/GorgiasCustomerQuery';
 import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
 import { THEME_BOOT_SCRIPT } from '~/lib/theme';
+import { BRAND } from '~/lib/branding';
+import { buildSeoMeta, DEFAULT_DESCRIPTION, organizationJsonLd, websiteJsonLd } from '~/lib/seo';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -60,6 +62,19 @@ export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // line below to `return defaultShouldRevalidate` instead.
   // For more details see: https://remix.run/docs/en/main/route/should-revalidate
   return false;
+};
+
+// ─── Default document SEO (child routes override title/description) ───────────
+
+export const meta = () => {
+  return buildSeoMeta({
+    title: BRAND.name,
+    // Brand-only title — avoid "PAWRA | PAWRA" from the default template
+    titleTemplate: '%s',
+    description: DEFAULT_DESCRIPTION,
+    url: '/',
+    jsonLd: [organizationJsonLd(), websiteJsonLd()],
+  });
 };
 
 // ─── Document Head Links ──────────────────────────────────────────────────────

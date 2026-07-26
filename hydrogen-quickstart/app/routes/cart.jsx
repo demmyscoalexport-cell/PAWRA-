@@ -23,12 +23,16 @@ import {Icon} from '~/components/ui/Icon';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
 import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
+import {buildSeoMeta} from '~/lib/seo';
 
-// ─── SEO Meta ─────────────────────────────────────────────────────────────────
-
-/** Cart page title for browser tab and SEO. */
+/** Cart is private — keep out of search indexes. */
 export const meta = () => {
-  return [{title: 'PAWRA | Cart'}];
+  return buildSeoMeta({
+    title: 'Cart',
+    description: 'Your PAWRA shopping cart.',
+    url: '/cart',
+    robots: {noIndex: true, noFollow: true},
+  });
 };
 
 /** Propagate action response headers (cart cookie, redirects) to the client. */

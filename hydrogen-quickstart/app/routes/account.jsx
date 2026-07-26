@@ -22,10 +22,20 @@ import {
   useLoaderData,
 } from 'react-router';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
+import {buildSeoMeta} from '~/lib/seo';
 
 export function shouldRevalidate() {
   return true;
 }
+
+export const meta = () => {
+  return buildSeoMeta({
+    title: 'Account',
+    description: 'Manage your PAWRA account, orders, and addresses.',
+    url: '/account',
+    robots: {noIndex: true, noFollow: true},
+  });
+};
 
 /**
  * @param {Route.LoaderArgs}

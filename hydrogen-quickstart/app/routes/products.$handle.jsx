@@ -16,12 +16,48 @@ import {PawraProductPage} from '~/components/product/PawraProductPage';
 import {GorgiasPageContext} from '~/components/gorgias/GorgiasPageContext';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeProductReviews} from '~/lib/judgeme';
+import {
+  breadcrumbJsonLd,
+  buildSeoMeta,
+  DEFAULT_DESCRIPTION,
+  productJsonLd,
+} from '~/lib/seo';
 
 export const meta = ({data}) => {
-  return [
-    {title: `PAWRA | ${data?.product.title ?? 'Product'}`},
-    {rel: 'canonical', href: `/products/${data?.product.handle}`},
-  ];
+  const product = data?.product;
+  const variant = product?.selectedOrFirstAvailableVariant;
+  const title = product?.seo?.title || product?.title || 'Product';
+  const description =
+    product?.seo?.description || product?.description || DEFAULT_DESCRIPTION;
+  const image = variant?.image?.url || product?.images?.nodes?.[0]?.url;
+  const handle = product?.handle || data?.product?.handle;
+
+  return buildSeoMeta({
+    title,
+    description,
+    url: handle ? `/products/${handle}` : undefined,
+    media: image
+      ? {
+          url: image,
+          type: 'image',
+          altText: product?.title || title,
+          width: variant?.image?.width || product?.images?.nodes?.[0]?.width,
+          height: variant?.image?.height || product?.images?.nodes?.[0]?.height,
+        }
+      : undefined,
+    jsonLd: [
+      breadcrumbJsonLd([
+        {label: 'Home', to: '/'},
+        {label: 'Shop', to: '/collections/all'},
+        {label: product?.title || title, to: handle ? `/products/${handle}` : undefined},
+      ]),
+      productJsonLd({
+        product,
+        selectedVariant: variant,
+        reviews: data?.reviews,
+      }),
+    ].filter(Boolean),
+  });
 };
 
 export async function loader({context, params, request}) {

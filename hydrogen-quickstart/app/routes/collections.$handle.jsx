@@ -11,9 +11,29 @@ import {PAWRA_COLLECTION_FALLBACK, filterProductsByKeywords} from '~/lib/pawraCo
 import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
 import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
+import {
+  breadcrumbJsonLd,
+  buildSeoMeta,
+  DEFAULT_DESCRIPTION,
+} from '~/lib/seo';
 
 export const meta = ({data}) => {
-  return [{title: `PAWRA | ${data?.collection.title ?? 'Collection'}`}];
+  const collection = data?.collection;
+  const title = collection?.title || 'Collection';
+  const description = collection?.description || DEFAULT_DESCRIPTION;
+  const handle = collection?.handle;
+
+  return buildSeoMeta({
+    title,
+    description,
+    url: handle ? `/collections/${handle}` : '/collections',
+    media: collection?.image?.url || undefined,
+    jsonLd: breadcrumbJsonLd([
+      {label: 'Home', to: '/'},
+      {label: 'Collections', to: '/collections'},
+      {label: title, to: handle ? `/collections/${handle}` : undefined},
+    ]),
+  });
 };
 
 export async function loader({context, params, request}) {

@@ -1,22 +1,12 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file redirect.js
- * @description Storefront utility module: redirect.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Localized handle redirects for SEO-safe canonical URLs.
  */
 
 import {redirect} from 'react-router';
 
 /**
+ * If the URL handle doesn't match Shopify's canonical handle, 301 redirect.
  * @param {Request} request
  * @param {...Array<{
  *     handle: string;
@@ -35,6 +25,7 @@ export function redirectIfHandleIsLocalized(request, ...localizedResources) {
   });
 
   if (shouldRedirect) {
-    throw redirect(url.toString());
+    // Permanent redirect preserves SEO equity for renamed handles
+    throw redirect(url.toString(), 301);
   }
 }

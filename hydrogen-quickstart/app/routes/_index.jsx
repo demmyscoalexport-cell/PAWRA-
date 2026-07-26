@@ -22,16 +22,21 @@ import {BRAND} from '~/lib/branding';
 import {HOMEPAGE_COLLECTION_QUERY, HOMEPAGE_PRODUCTS_QUERY} from '~/lib/homepageProducts';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeFeaturedReviews} from '~/lib/judgeme';
+import {
+  buildSeoMeta,
+  DEFAULT_DESCRIPTION,
+  faqJsonLd,
+  HOME_FAQS,
+} from '~/lib/seo';
 
 export const meta = () => {
-  return [
-    {title: `PAWRA — ${BRAND.tagline} | ${BRAND.domain}`},
-    {
-      name: 'description',
-      content:
-        'Premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — delivered to your door.',
-    },
-  ];
+  return buildSeoMeta({
+    title: `${BRAND.name} — ${BRAND.tagline}`,
+    titleTemplate: '%s',
+    description: DEFAULT_DESCRIPTION,
+    url: '/',
+    jsonLd: faqJsonLd(HOME_FAQS),
+  });
 };
 
 export async function loader({context}) {

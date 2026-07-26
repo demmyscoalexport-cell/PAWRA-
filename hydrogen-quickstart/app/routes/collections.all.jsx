@@ -10,7 +10,21 @@ import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} f
 import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
 
-export const meta = () => [{title: 'PAWRA | All Products'}];
+import {breadcrumbJsonLd, buildSeoMeta} from '~/lib/seo';
+
+export const meta = () => {
+  return buildSeoMeta({
+    title: 'All Products',
+    description:
+      'Shop all PAWRA products for dogs and cats — food, treats, beds, grooming, and wellness.',
+    url: '/collections/all',
+    jsonLd: breadcrumbJsonLd([
+      {label: 'Home', to: '/'},
+      {label: 'Collections', to: '/collections'},
+      {label: 'All Products', to: '/collections/all'},
+    ]),
+  });
+};
 
 export async function loader({context, request}) {
   const {storefront} = context;

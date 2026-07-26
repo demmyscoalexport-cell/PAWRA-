@@ -19,12 +19,14 @@ import {BLOG_POSTS} from '~/lib/blogPosts';
 import {Button} from '~/components/ui/Button';
 
 import {BRAND} from '~/lib/branding';
+import {buildSeoMeta} from '~/lib/seo';
 
 export const meta = () => {
-  return [
-    {title: 'PAWRA Journal | Blog'},
-    {name: 'description', content: `Pet care tips, product guides, and wellness advice from ${BRAND.name}.`},
-  ];
+  return buildSeoMeta({
+    title: 'PAWRA Journal',
+    description: `Pet care tips, product guides, and wellness advice from ${BRAND.name}.`,
+    url: '/blog',
+  });
 };
 
 export async function loader() {

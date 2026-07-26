@@ -24,15 +24,30 @@ import {JudgeMeAllReviews} from '~/components/product/JudgeMeAllReviews';
 import {ContactSupportPanel} from '~/components/gorgias/ContactSupportPanel';
 import {WALKER_PROGRAM} from '~/lib/walkerProgram';
 import {BRAND} from '~/lib/branding';
+import {buildSeoMeta, DEFAULT_DESCRIPTION} from '~/lib/seo';
 
 export const meta = ({data, params}) => {
-  if (params?.handle === 'walker-program') {
-    return [{title: `PAWRA | ${WALKER_PROGRAM.title}`}];
+  const handle = params?.handle;
+  if (handle === 'walker-program') {
+    return buildSeoMeta({
+      title: WALKER_PROGRAM.title,
+      description: WALKER_PROGRAM.description,
+      url: '/pages/walker-program',
+    });
   }
-  if (params?.handle === 'reviews') {
-    return [{title: `PAWRA | Customer Reviews | ${BRAND.domain}`}];
+  if (handle === 'reviews') {
+    return buildSeoMeta({
+      title: 'Customer Reviews',
+      description: `See what pet parents say about products from ${BRAND.name}.`,
+      url: '/pages/reviews',
+    });
   }
-  return [{title: `PAWRA | ${data?.page.title ?? 'Page'}`}];
+
+  return buildSeoMeta({
+    title: data?.page?.title || 'Page',
+    description: data?.page?.description || DEFAULT_DESCRIPTION,
+    url: handle ? `/pages/${handle}` : undefined,
+  });
 };
 
 export async function loader({context, request, params}) {

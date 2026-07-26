@@ -22,8 +22,15 @@ import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 
+import {buildSeoMeta} from '~/lib/seo';
+
 export const meta = () => {
-  return [{title: 'PAWRA | Search'}];
+  return buildSeoMeta({
+    title: 'Search',
+    description: 'Search PAWRA products for dogs and cats.',
+    url: '/search',
+    robots: {noIndex: true, noFollow: true},
+  });
 };
 
 export async function loader({request, context}) {

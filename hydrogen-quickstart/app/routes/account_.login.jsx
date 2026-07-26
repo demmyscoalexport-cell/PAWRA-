@@ -7,8 +7,14 @@ import {Form, Link, useLoaderData} from 'react-router';
 import {Logo} from '~/components/ui/Logo';
 import {Button} from '~/components/ui/Button';
 import {BRAND} from '~/lib/branding';
+import {buildSeoMeta} from '~/lib/seo';
 
-export const meta = () => [{title: 'PAWRA | Sign In'}];
+export const meta = () =>
+  buildSeoMeta({
+    title: 'Sign In',
+    url: '/account/login',
+    robots: {noIndex: true, noFollow: true},
+  });
 
 /**
  * @param {Route.LoaderArgs} args

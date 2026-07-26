@@ -17,35 +17,10 @@
 import {useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
-import {BRAND} from '~/lib/branding';
 import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
+import {HOME_FAQS} from '~/lib/seo';
 
-const FAQS = [
-  {
-    q: 'What products does PAWRA sell?',
-    a: 'We curate premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — all delivered to your door.',
-  },
-  {
-    q: 'Do you ship across the US?',
-    a: 'Yes. We ship to all 50 states. Free shipping on orders over $75. Most orders arrive within 3–5 business days.',
-  },
-  {
-    q: 'What is your return policy?',
-    a: `We offer 30-day returns on unused products in original packaging. Start live chat or email ${BRAND.supportEmail} for help.`,
-  },
-  {
-    q: 'How do I track my order?',
-    a: 'After your order ships, you will receive a tracking link by email. You can also view order status in your account, or ask in live chat.',
-  },
-  {
-    q: 'How can I contact support?',
-    a: `Use the chat bubble for the fastest answer, or email ${BRAND.supportEmail}. We typically reply to email within one business day.`,
-  },
-  {
-    q: 'Are your products safe for both cats and dogs?',
-    a: 'Each product page lists species and sizing details. Always check the description before ordering for your pet.',
-  },
-];
+const FAQS = HOME_FAQS;
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);

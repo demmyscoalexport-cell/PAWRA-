@@ -138,6 +138,14 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 - Support email: `support@pawrapetcares.com`
 - Still ops: route support email into Gorgias, Convert campaigns, AI skill polish
 
+### SEO foundation (done in storefront)
+- `app/lib/seo.js` — `buildSeoMeta`, Organization/WebSite/Breadcrumb/FAQ/Product JSON-LD, `HOME_FAQS`
+- Meta + canonicals on home, PDP, collections, pages, blog, policies
+- `noindex` on cart, search, account, login, register
+- Localized handle mismatches → **301** (`redirect.js`)
+- robots.txt allows `/policies`; sitemap still at `/sitemap.xml`
+- Ops next: Google Search Console verify + submit `https://pawrapetcares.com/sitemap.xml`
+
 **Not code:** emails, QR packaging, inventory, Doba, bank/payments approval.
 
 ---
@@ -149,6 +157,9 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 | `hydrogen-quickstart/app/lib/branding.js` | Brand domain / email / social |
 | `hydrogen-quickstart/app/lib/judgeme.js` | Judge.me API |
 | `hydrogen-quickstart/app/lib/integrations.js` | App env switches |
+| `hydrogen-quickstart/app/lib/seo.js` | Meta + JSON-LD helpers |
+| `hydrogen-quickstart/app/lib/gorgias.js` | Gorgias chat helpers |
+| `hydrogen-quickstart/app/lib/marketing.js` | Klaviyo / GA4 events |
 | `hydrogen-quickstart/app/root.jsx` | `useJudgeme` + public integrations |
 | `hydrogen-quickstart/app/components/product/JudgeMe*.jsx` | Review UI |
 | `hydrogen-quickstart/LAUNCH_CHECKLIST.md` | Launch checklist |

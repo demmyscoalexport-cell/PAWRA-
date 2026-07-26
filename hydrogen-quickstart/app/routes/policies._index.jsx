@@ -4,8 +4,15 @@
  */
 
 import {useLoaderData, Link} from 'react-router';
+import {buildSeoMeta} from '~/lib/seo';
 
-export const meta = () => [{title: 'PAWRA | Policies'}];
+export const meta = () =>
+  buildSeoMeta({
+    title: 'Policies',
+    description:
+      'Shipping, returns, privacy, and terms for shopping at PAWRA Pet Cares.',
+    url: '/policies',
+  });
 
 export async function loader({context}) {
   const data = await context.storefront.query(POLICIES_QUERY);

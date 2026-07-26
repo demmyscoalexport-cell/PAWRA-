@@ -5,8 +5,18 @@
 
 import {Link, useLoaderData} from 'react-router';
 
-export const meta = ({data}) => {
-  return [{title: `PAWRA | ${data?.policy.title ?? 'Policy'}`}];
+import {buildSeoMeta, DEFAULT_DESCRIPTION} from '~/lib/seo';
+
+export const meta = ({data, params}) => {
+  const title = data?.policy?.title || 'Policy';
+  const handle = params?.handle;
+  return buildSeoMeta({
+    title,
+    description: data?.policy?.body
+      ? String(data.policy.body).replace(/<[^>]+>/g, ' ').slice(0, 160)
+      : DEFAULT_DESCRIPTION,
+    url: handle ? `/policies/${handle}` : undefined,
+  });
 };
 
 export async function loader({params, context}) {
