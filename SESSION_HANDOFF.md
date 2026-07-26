@@ -115,7 +115,7 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 | A | Judge.me | (above) | Done — finish Oxygen |
 | A | Klaviyo | `PUBLIC_KLAVIYO_COMPANY_ID` | Script hook ready |
 | A | GA4 | `PUBLIC_GA4_MEASUREMENT_ID` | Script hook ready |
-| B | Gorgias / Inbox | `PUBLIC_GORGIAS_WIDGET_ID` | Hook ready |
+| B | Gorgias / Inbox | `PUBLIC_GORGIAS_WIDGET_ID`, `PUBLIC_GORGIAS_CONVERT_ID` | Done — chat + AI bridge live |
 | B | Smile.io | `PUBLIC_SMILE_PUBLISHABLE_KEY` | Page + hook ready |
 | B | Swym Wishlist | `PUBLIC_SWYM_STORE_ID` | Hook ready |
 | C | Loop Returns | `PUBLIC_LOOP_RETURNS_URL` | Footer link ready |
@@ -127,10 +127,16 @@ If widgets fail with `pawrapetcares.com` as shop domain, use the domain shown in
 - Deeper Klaviyo events / forms
 - Live Swym wishlist UI
 - Live Smile rewards panel
-- Gorgias chat bubble
 - Recharge subscribe UI (if needed)
 - Meta / TikTok pixels (not wired yet)
 - Optional Judge.me webhooks
+
+### Gorgias (done in storefront)
+- Chat v3 + Convert bundle, CSP allowlist, cart/email/page context
+- Open-chat CTAs on Contact, cart, PDP, FAQ, footer
+- Logged-in Customer Account email → `captureUserEmail`
+- Support email: `support@pawrapetcares.com`
+- Still ops: route support email into Gorgias, Convert campaigns, AI skill polish
 
 **Not code:** emails, QR packaging, inventory, Doba, bank/payments approval.
 
