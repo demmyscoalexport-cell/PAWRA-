@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file Button.tsx
- * @description Design system UI primitive: Button.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description PAWRA design system button — balanced enterprise variants.
  */
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
@@ -31,15 +20,15 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: PRIMARY_CTA_CLASSES,
   secondary:
-    'bg-transparent text-forest-green border border-forest-green hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
+    'bg-action-secondary text-text-primary border border-border-subtle hover:bg-border-subtle/60 active:bg-border-subtle focus-visible:ring-focus-ring',
   ghost:
-    'bg-transparent text-forest-green border border-transparent hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
+    'bg-transparent text-text-primary border border-transparent hover:bg-action-secondary active:bg-action-secondary focus-visible:ring-focus-ring',
   accent:
-    'bg-electric-jade text-midnight border border-electric-jade hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green shadow-xs',
+    'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 active:bg-accent/20 focus-visible:ring-focus-ring',
   premium:
-    'bg-champagne text-midnight border border-champagne hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green',
+    'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 active:bg-accent/20 focus-visible:ring-focus-ring',
   destructive:
-    'bg-coral text-cloud border border-coral hover:brightness-95 active:brightness-90 focus-visible:ring-coral',
+    'bg-action-destructive text-action-primary-label border border-action-destructive hover:brightness-95 active:brightness-90 focus-visible:ring-action-destructive',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
@@ -57,8 +46,8 @@ type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttribut
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className: string, disabled?: boolean) {
   return [
     'inline-flex items-center justify-center rounded-md font-sans font-medium transition-all duration-base no-underline',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-warm-oat',
-    disabled ? 'cursor-not-allowed opacity-45 pointer-events-none' : '',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg',
+    disabled ? 'cursor-not-allowed opacity-40 pointer-events-none' : '',
     VARIANT_CLASSES[variant],
     SIZE_CLASSES[size],
     className,

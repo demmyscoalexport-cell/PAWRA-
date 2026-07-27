@@ -52,8 +52,8 @@ export default function AllProductsPage() {
   );
 
   return (
-    <div className="bg-warm-oat">
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-12 md:px-8 md:py-16">
+    <div className="bg-page-bg">
+      <section className="border-b border-border-subtle bg-surface px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto max-w-7xl">
           <Breadcrumbs
             className="mb-4"
@@ -63,10 +63,10 @@ export default function AllProductsPage() {
               {label: 'All Products'},
             ]}
           />
-          <h1 className="font-serif text-[3.5rem] leading-[1.1] text-forest-green">
+          <h1 className="font-serif text-[3.5rem] leading-[1.1] text-action-primary">
             All Products
           </h1>
-          <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
+          <p className="mt-4 max-w-2xl font-sans text-body-l text-text-primary/80">
             Browse the full PAWRA catalog — food, beds, toys, grooming, and wellness for cats and dogs.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function AllProductsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
         <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <p className="shrink-0 font-mono text-mono-s text-ink/60">
+          <p className="shrink-0 font-mono text-mono-s text-text-secondary">
             {filteredProducts.length} products
           </p>
           <div className="w-full max-w-3xl">

@@ -21,7 +21,7 @@ export function HeroProductSpotlight({product}) {
 
   return (
     <SectionReveal>
-      <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Link to={productUrl} className="block no-underline">
             {product?.featuredImage ? (
@@ -30,29 +30,29 @@ export function HeroProductSpotlight({product}) {
                 alt={product.featuredImage.altText || product.title}
                 aspectRatio="1/1"
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="min-h-[320px] w-full rounded-xl object-cover lg:min-h-[480px]"
+                className="min-h-[320px] w-full rounded-lg object-cover lg:min-h-[480px]"
               />
             ) : (
               <ProductImagePlaceholder
                 label={product?.title ?? 'Featured Product'}
-                className="min-h-[320px] w-full rounded-xl lg:min-h-[480px]"
+                className="min-h-[320px] w-full rounded-lg lg:min-h-[480px]"
                 aspect="aspect-square"
               />
             )}
           </Link>
           <div>
-            <h2 className="font-serif text-display-s text-forest-green md:text-display-m">
+            <h2 className="font-serif text-display-s text-action-primary md:text-display-m">
               {product?.title ?? 'Featured from our catalog'}
             </h2>
-            <p className="mt-2 font-serif text-heading-s italic text-forest-green/80">
+            <p className="mt-2 font-serif text-heading-s italic text-action-primary/80">
               Hand-picked for your pets.
             </p>
             {product?.priceRange?.minVariantPrice && (
-              <p className="mt-4 font-mono text-mono-l text-forest-green">
+              <p className="mt-4 font-mono text-mono-l text-action-primary">
                 <Money data={product.priceRange.minVariantPrice} />
               </p>
             )}
-            <p className="mt-6 font-sans text-body-l text-ink">
+            <p className="mt-6 font-sans text-body-l text-text-primary">
               Discover premium food, beds, toys, grooming supplies, and wellness products —
               all in one place for cats and dogs.
             </p>
@@ -60,7 +60,7 @@ export function HeroProductSpotlight({product}) {
               {FEATURES.map((f) => (
                 <span
                   key={f}
-                  className="rounded-pill border border-forest-green px-3 py-1 font-sans text-body-xs font-medium text-forest-green"
+                  className="rounded-pill border border-action-primary px-3 py-1 font-sans text-body-xs font-medium text-action-primary"
                 >
                   {f}
                 </span>

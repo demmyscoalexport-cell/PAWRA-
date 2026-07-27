@@ -95,9 +95,9 @@ export default function Homepage() {
       <FrequentlyBoughtTogether products={bundleProducts} />
       <WalkerProgramSection />
       {judgeMeWidgets ? (
-        <section className="bg-cloud px-4 py-16 md:px-8">
+        <section className="bg-surface px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">
-            <h2 className="mb-8 text-center font-serif text-display-s text-forest-green">
+            <h2 className="mb-8 text-center font-serif text-display-s text-action-primary">
               Loved by pet parents
             </h2>
             <JudgemeCarousel />

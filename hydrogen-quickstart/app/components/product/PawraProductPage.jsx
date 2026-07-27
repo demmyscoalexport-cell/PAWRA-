@@ -102,7 +102,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   }, []);
 
   return (
-    <div className="bg-warm-oat">
+    <div className="bg-page-bg">
       {/* ─── Hero: Gallery & Purchase Panel ─── */}
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
         <Breadcrumbs
@@ -119,7 +119,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* ─── Image Gallery ─── */}
           <div>
-            <div className="group relative aspect-square overflow-hidden rounded-xl bg-cloud shadow-card">
+            <div className="group relative aspect-square overflow-hidden rounded-lg bg-surface shadow-sm">
               {activeImage ? (
                 <Image
                   data={activeImage}
@@ -128,7 +128,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                   className="h-full w-full object-cover transition-transform duration-slow group-hover:scale-105"
                 />
               ) : (
-                <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-xl" />
+                <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-lg" />
               )}
             </div>
             {images.length > 1 && (
@@ -138,7 +138,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     key={img.id || i}
                     type="button"
                     className={`aspect-square overflow-hidden rounded-md border-2 reset ${
-                      i === activeImageIndex ? 'border-forest-green' : 'border-transparent'
+                      i === activeImageIndex ? 'border-action-primary' : 'border-transparent'
                     }`}
                     onClick={() => setActiveImageIndex(i)}
                   >
@@ -151,23 +151,23 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
           {/* ─── Product Info & Add to Cart ─── */}
           <div>
-            <h1 className="font-serif text-[2.5rem] leading-tight text-forest-green">{product.title}</h1>
+            <h1 className="font-serif text-[2.5rem] leading-tight text-action-primary">{product.title}</h1>
             <JudgeMePreviewBadge productId={product.id} className="mt-2" />
             <ProductRating rating={reviews?.rating} count={reviews?.count} />
             <div className="mt-6 flex flex-wrap items-baseline gap-3">
               {price && (
-                <span className="font-mono text-[1.5rem] text-forest-green">
+                <span className="font-mono text-[1.5rem] text-action-primary">
                   <Money data={price} />
                 </span>
               )}
               {compareAt && Number(compareAt.amount) > Number(price?.amount ?? 0) && (
-                <span className="font-mono text-mono-m text-ink/40 line-through">
+                <span className="font-mono text-mono-m text-text-secondary line-through">
                   <Money data={compareAt} />
                 </span>
               )}
             </div>
             {installment && (
-              <p className="mt-2 font-sans text-body-s text-ink/70">
+              <p className="mt-2 font-sans text-body-s text-text-secondary">
                 or 4 payments of ${installment} with Shop Pay
               </p>
             )}
@@ -178,7 +178,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               const isColor = option.name.toLowerCase().includes('color');
               return (
                 <div key={option.name} className="mt-8">
-                  <p className="mb-3 font-sans text-body-s font-semibold text-ink">{option.name}</p>
+                  <p className="mb-3 font-sans text-body-s font-semibold text-text-primary">{option.name}</p>
                   <div className={`flex flex-wrap gap-2 ${isColor ? '' : ''}`}>
                     {option.optionValues.map((value) => {
                       const {name, variantUriQuery, selected, available, exists} = value;
@@ -195,7 +195,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                                 void navigate(`?${variantUriQuery}`, {replace: true, preventScrollReset: true});
                               }
                             }}
-                            className={`h-10 w-10 rounded-full border-2 reset ${selected ? 'border-forest-green ring-2 ring-electric-jade' : 'border-cloud'} ${!available ? 'opacity-40' : ''}`}
+                            className={`h-10 w-10 rounded-full border-2 reset ${selected ? 'border-action-primary ring-2 ring-focus-ring' : 'border-cloud'} ${!available ? 'opacity-40' : ''}`}
                             style={{backgroundColor: color}}
                           />
                         );
@@ -212,8 +212,8 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                           }}
                           className={`min-w-[3rem] rounded-md border px-4 py-2 font-sans text-body-s reset ${
                             selected
-                              ? 'border-forest-green bg-forest-green text-cloud'
-                              : 'border-forest-green/20 bg-cloud text-ink'
+                              ? 'border-action-primary bg-action-primary text-action-primary-label'
+                              : 'border-border-subtle bg-surface text-text-primary'
                           } ${!available ? 'opacity-40' : ''}`}
                         >
                           {name}
@@ -222,7 +222,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     })}
                   </div>
                   {option.name.toLowerCase().includes('size') && (
-                    <Link to="/pages/size-guide" className="mt-2 inline-block font-sans text-body-s text-forest-green underline">
+                    <Link to="/pages/size-guide" className="mt-2 inline-block font-sans text-body-s text-action-primary underline">
                       Size guide
                     </Link>
                   )}
@@ -232,8 +232,8 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
             {/* ─── Quantity Stepper ─── */}
             <div className="mt-8">
-              <p className="mb-2 font-sans text-body-s font-semibold text-ink">Quantity</p>
-              <div className="inline-flex items-center rounded-md border border-forest-green/20 bg-cloud">
+              <p className="mb-2 font-sans text-body-s font-semibold text-text-primary">Quantity</p>
+              <div className="inline-flex items-center rounded-md border border-border-subtle bg-surface">
                 <button
                   type="button"
                   className="reset px-4 py-3"
@@ -269,9 +269,9 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 {selectedVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
               </AddToCartButton>
             </div>
-            <p className="mt-4 font-sans text-body-s text-ink/70">
+            <p className="mt-4 font-sans text-body-s text-text-secondary">
               Save on repeat orders with{' '}
-              <Link to="/pages/subscribe-and-save" className="font-semibold text-forest-green underline">
+              <Link to="/pages/subscribe-and-save" className="font-semibold text-action-primary underline">
                 Subscribe &amp; Save
               </Link>
               .
@@ -288,7 +288,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
             </div>
 
             {/* ─── Trust Badges ─── */}
-            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-forest-green/10 pt-8">
+            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-border-subtle pt-8">
               {[
                 `Free US shipping over $${FREE_SHIPPING_THRESHOLD_USD}`,
                 '30-day returns',
@@ -296,8 +296,8 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 'Cats & dogs',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <Icon name="check" size="sm" color="text-electric-jade" />
-                  <span className="font-sans text-body-s text-ink/80">{item}</span>
+                  <Icon name="check" size="sm" color="text-action-primary" />
+                  <span className="font-sans text-body-s text-text-primary/80">{item}</span>
                 </div>
               ))}
             </div>
@@ -307,16 +307,16 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
       {/* ─── Product description (Chewy-style details) ─── */}
       {(product.descriptionHtml || product.description) && (
-        <section className="border-t border-forest-green/10 bg-cloud px-4 py-16 md:px-8">
+        <section className="border-t border-border-subtle bg-surface px-4 py-16 md:px-8">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-serif text-display-s text-forest-green">About this item</h2>
+            <h2 className="font-serif text-display-s text-action-primary">About this item</h2>
             {product.descriptionHtml ? (
               <div
-                className="prose prose-forest mt-8 max-w-none font-sans text-body-m text-ink [&_a]:text-forest-green [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
+                className="prose prose-forest mt-8 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
                 dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
               />
             ) : (
-              <p className="mt-8 font-sans text-body-m text-ink whitespace-pre-line">
+              <p className="mt-8 font-sans text-body-m text-text-primary whitespace-pre-line">
                 {product.description}
               </p>
             )}
@@ -325,14 +325,14 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       )}
 
       {/* ─── Features Grid ─── */}
-      <section className="border-t border-forest-green/10 bg-warm-oat px-4 py-16 md:px-8">
+      <section className="border-t border-border-subtle bg-page-bg px-4 py-16 md:px-8">
         <div className="mx-auto max-w-7xl">
-          <h2 className="font-serif text-display-s text-forest-green">Features</h2>
+          <h2 className="font-serif text-display-s text-action-primary">Features</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
               <div key={f.label} className="flex gap-4">
-                <Icon name={f.icon} size="lg" color="text-forest-green" className="shrink-0" />
-                <p className="font-sans text-body-m text-ink">{f.label}</p>
+                <Icon name={f.icon} size="lg" color="text-action-primary" className="shrink-0" />
+                <p className="font-sans text-body-m text-text-primary">{f.label}</p>
               </div>
             ))}
           </div>
@@ -342,7 +342,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Specifications Table ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-display-s text-forest-green">Specifications</h2>
+          <h2 className="font-serif text-display-s text-action-primary">Specifications</h2>
           <table className="mt-8 w-full font-mono text-mono-s">
             <tbody>
               {[
@@ -352,9 +352,9 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 ['Shipping', `Free over $${FREE_SHIPPING_THRESHOLD_USD} (US)`],
                 ['Returns', '30 days'],
               ].map(([k, v]) => (
-                <tr key={k} className="border-b border-forest-green/10">
-                  <td className="py-3 text-ink/60">{k}</td>
-                  <td className="py-3 text-right text-ink">{v}</td>
+                <tr key={k} className="border-b border-border-subtle">
+                  <td className="py-3 text-text-secondary">{k}</td>
+                  <td className="py-3 text-right text-text-primary">{v}</td>
                 </tr>
               ))}
             </tbody>
@@ -363,14 +363,14 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </section>
 
       {/* ─── What's in the Box ─── */}
-      <section className="bg-cloud px-4 py-16 md:px-8">
+      <section className="bg-surface px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-display-s text-forest-green">What&apos;s in the box</h2>
+          <h2 className="font-serif text-display-s text-action-primary">What&apos;s in the box</h2>
           <ul className="mt-8 space-y-3">
             {['Product', 'Care instructions', 'PAWRA quality guarantee'].map(
               (item) => (
-                <li key={item} className="flex items-center gap-3 font-sans text-body-m text-ink">
-                  <Icon name="check" size="sm" color="text-electric-jade" />
+                <li key={item} className="flex items-center gap-3 font-sans text-body-m text-text-primary">
+                  <Icon name="check" size="sm" color="text-action-primary" />
                   {item}
                 </li>
               ),
@@ -389,16 +389,16 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Product FAQ ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-center font-serif text-display-s text-forest-green">Product FAQ</h2>
+          <h2 className="text-center font-serif text-display-s text-action-primary">Product FAQ</h2>
           <FaqAccordion items={PRODUCT_FAQ} className="mt-10" />
         </div>
       </section>
 
       {/* ─── Related Products ─── */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-forest-green/10 px-4 py-16 md:px-8">
+        <section className="border-t border-border-subtle px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">
-            <h2 className="font-serif text-display-s text-forest-green">Related products</h2>
+            <h2 className="font-serif text-display-s text-action-primary">Related products</h2>
             <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
               {relatedProducts.slice(0, 4).map((p, i) => (
                 <PawraProductCard key={p.id} product={p} loading={i < 4 ? 'eager' : undefined} />
@@ -410,16 +410,16 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
       {/* ─── Sticky Mobile/Desktop CTA Bar ─── */}
       {showStickyBar && selectedVariant && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-electric-jade/20 bg-forest-green px-4 py-3 shadow-lg md:px-8">
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-action-primary/20 bg-action-primary px-4 py-3 shadow-lg md:px-8">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <div className="flex min-w-0 items-center gap-3">
               {activeImage && (
                 <Image data={activeImage} alt="" sizes="48px" className="h-12 w-12 rounded-md object-cover" />
               )}
               <div className="min-w-0">
-                <p className="truncate font-sans text-body-s font-semibold text-cloud">{product.title}</p>
+                <p className="truncate font-sans text-body-s font-semibold text-text-inverse">{product.title}</p>
                 {price && (
-                  <p className="font-mono text-mono-s text-electric-jade">
+                  <p className="font-mono text-mono-s text-action-primary">
                     <Money data={price} />
                   </p>
                 )}
@@ -429,7 +429,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               disabled={!selectedVariant.availableForSale}
               onClick={() => open('cart')}
               lines={[{merchandiseId: selectedVariant.id, quantity: 1, selectedVariant}]}
-              className="shrink-0 rounded-md bg-electric-jade px-6 py-3 font-sans text-body-s font-semibold text-midnight reset hover:brightness-95"
+              className="shrink-0 rounded-md bg-action-primary px-6 py-3 font-sans text-body-s font-semibold text-text-primary reset hover:brightness-95"
             >
               Add to Cart
             </AddToCartButton>

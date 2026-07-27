@@ -28,8 +28,8 @@ export function SocialLinks({variant = 'footer', className = ''}: SocialLinksPro
           title={link.label}
           className={`group inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-base ${
             isFooter
-              ? 'border-cloud/20 bg-cloud/5 text-cloud hover:border-transparent hover:text-white'
-              : 'border-forest-green/15 bg-cloud text-forest-green hover:border-transparent hover:text-white'
+              ? 'border-border-strong/40 bg-surface/5 text-text-inverse hover:border-transparent hover:text-white'
+              : 'border-border-subtle bg-surface text-action-primary hover:border-transparent hover:text-white'
           }`}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = SOCIAL_BRAND_COLORS[platform];

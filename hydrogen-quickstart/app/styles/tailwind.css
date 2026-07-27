@@ -5,13 +5,13 @@
 @layer base {
   html,
   body {
-    @apply bg-warm-oat text-ink font-sans antialiased;
+    @apply bg-page-bg text-text-primary font-sans antialiased;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-serif text-forest-green;
+    @apply font-serif text-text-primary;
   }
 
   code,

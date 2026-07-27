@@ -48,7 +48,7 @@ export function AnnouncementBar() {
   if (closed) return null;
 
   return (
-    <div className="relative bg-forest-green px-4 py-2.5 text-cloud">
+    <div className="relative bg-action-primary px-4 py-2.5 text-action-primary-label">
       <div className="mx-auto flex max-w-7xl items-center justify-center pr-8">
         <p className="hidden text-center font-sans text-body-s font-medium md:block">
           {MESSAGES.join(' · ')}
@@ -60,10 +60,10 @@ export function AnnouncementBar() {
       <button
         type="button"
         onClick={handleClose}
-        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-cloud opacity-80 hover:opacity-100"
+        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-action-primary-label opacity-80 hover:opacity-100"
         aria-label="Close announcement"
       >
-        <Icon name="close" size="sm" color="text-cloud" />
+        <Icon name="close" size="sm" color="text-action-primary-label" />
       </button>
     </div>
   );

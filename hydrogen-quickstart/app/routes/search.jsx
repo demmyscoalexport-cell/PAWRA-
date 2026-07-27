@@ -53,9 +53,9 @@ export default function SearchPage() {
   if (type === 'predictive') return null;
 
   return (
-    <div className="bg-warm-oat px-4 py-12 md:px-8 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-display-s text-forest-green">Search</h1>
+        <h1 className="font-serif text-display-s text-action-primary">Search</h1>
         <SearchForm className="mt-8">
           {({inputRef}) => (
             <div className="flex max-w-xl gap-2">
@@ -65,7 +65,7 @@ export default function SearchPage() {
                 placeholder="Search products, pages, articles…"
                 ref={inputRef}
                 type="search"
-                className="flex-1 rounded-md border border-forest-green/20 bg-cloud px-4 py-3 font-sans text-body-m"
+                className="flex-1 rounded-md border border-border-subtle bg-surface px-4 py-3 font-sans text-body-m"
               />
               <button
                 type="submit"
@@ -76,7 +76,7 @@ export default function SearchPage() {
             </div>
           )}
         </SearchForm>
-        {error && <p className="mt-4 font-sans text-body-s text-coral">{error}</p>}
+        {error && <p className="mt-4 font-sans text-body-s text-sale">{error}</p>}
         {!term || !result?.total ? (
           <div className="mt-12">
             <SearchResults.Empty />
@@ -85,7 +85,7 @@ export default function SearchPage() {
           <SearchResults result={result} term={term}>
             {({products, term: searchTerm}) => (
               <div className="mt-12">
-                <p className="font-mono text-mono-s text-ink/60">
+                <p className="font-mono text-mono-s text-text-secondary">
                   {result.total} results for &ldquo;{searchTerm}&rdquo;
                 </p>
                 <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">

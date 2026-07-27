@@ -18,9 +18,9 @@ export function FrequentlyBoughtTogether({products = []}) {
 
   return (
     <SectionReveal>
-      <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-display-s text-forest-green">
+          <h2 className="font-serif text-display-s text-action-primary">
             Popular picks for pet parents
           </h2>
           {items.length > 0 ? (
@@ -30,11 +30,11 @@ export function FrequentlyBoughtTogether({products = []}) {
               ))}
             </div>
           ) : (
-            <p className="mt-10 font-sans text-body-m text-ink/60">
+            <p className="mt-10 font-sans text-body-m text-text-secondary">
               Bundle suggestions appear when products are available.
             </p>
           )}
-          <p className="mt-8 font-sans text-body-m text-ink/70">
+          <p className="mt-8 font-sans text-body-m text-text-secondary">
             Start with essentials — food, comfort, and grooming — in one order.
           </p>
           <Button variant="primary" size="lg" href="/collections/all" className="mt-8 w-full max-w-md">
@@ -64,14 +64,14 @@ function BundleTile({product, showPlus}) {
         ) : (
           <ProductImagePlaceholder label={product.title} className="h-24 w-24 rounded-lg sm:h-32 sm:w-32" aspect="" />
         )}
-        <p className="mt-2 line-clamp-2 font-sans text-body-xs font-medium text-ink">{product.title}</p>
+        <p className="mt-2 line-clamp-2 font-sans text-body-xs font-medium text-text-primary">{product.title}</p>
         {product.priceRange?.minVariantPrice && (
-          <p className="mt-1 font-mono text-mono-s text-forest-green">
+          <p className="mt-1 font-mono text-mono-s text-action-primary">
             <Money data={product.priceRange.minVariantPrice} />
           </p>
         )}
       </Link>
-      {showPlus && <span className="font-mono text-mono-l text-forest-green">+</span>}
+      {showPlus && <span className="font-mono text-mono-l text-action-primary">+</span>}
     </div>
   );
 }

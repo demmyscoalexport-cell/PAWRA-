@@ -22,20 +22,20 @@ export async function loader({context}) {
  */
 export function ErrorBoundary() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center bg-warm-oat px-4 py-16">
-      <div className="w-full max-w-lg rounded-xl bg-cloud p-8 shadow-card text-center">
-        <h1 className="font-serif text-[2rem] text-forest-green">Sign-in couldn&apos;t finish</h1>
-        <p className="mt-4 font-sans text-body-m text-ink/70">
+    <div className="flex min-h-[60vh] items-center justify-center bg-page-bg px-4 py-16">
+      <div className="w-full max-w-lg rounded-lg bg-surface p-8 shadow-sm text-center">
+        <h1 className="font-serif text-[2rem] text-action-primary">Sign-in couldn&apos;t finish</h1>
+        <p className="mt-4 font-sans text-body-m text-text-secondary">
           Shopify didn&apos;t complete the return to PAWRA. This is usually a Callback URI mismatch
           in Hydrogen → Customer Account API settings.
         </p>
-        <p className="mt-3 font-sans text-body-s text-ink/60">
+        <p className="mt-3 font-sans text-body-s text-text-secondary">
           Confirm Callback URI includes{' '}
           <code className="font-mono text-mono-s">https://pawrapetcares.com/account/authorize</code>
         </p>
         <Link
           to="/account/login"
-          className="mt-8 inline-flex rounded-md bg-forest-green px-5 py-3 font-sans text-body-s font-semibold text-cloud no-underline"
+          className="mt-8 inline-flex rounded-md bg-action-primary px-5 py-3 font-sans text-body-s font-semibold text-action-primary-label no-underline"
         >
           Try sign-in again
         </Link>

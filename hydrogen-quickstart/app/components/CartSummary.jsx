@@ -14,7 +14,7 @@ import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 export function CartSummary({cart, layout}) {
   const className =
     layout === 'page'
-      ? 'cart-summary-page mt-8 rounded-xl border border-forest-green/10 bg-cloud p-6'
+      ? 'cart-summary-page mt-8 rounded-lg border border-border-subtle bg-surface p-6'
       : 'cart-summary-aside';
   const summaryId = useId();
   const discountsHeadingId = useId();
@@ -25,19 +25,19 @@ export function CartSummary({cart, layout}) {
 
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId} className="font-sans text-body-m font-semibold text-ink">
+      <h4 id={summaryId} className="font-sans text-body-m font-semibold text-text-primary">
         Order summary
       </h4>
       <dl role="group" className="cart-subtotal mt-3 flex items-center justify-between font-sans text-body-m">
-        <dt className="text-ink/70">Subtotal</dt>
-        <dd className="font-mono font-semibold text-forest-green">
+        <dt className="text-text-secondary">Subtotal</dt>
+        <dd className="font-mono font-semibold text-action-primary">
           {cart?.cost?.subtotalAmount?.amount ? <Money data={cart?.cost?.subtotalAmount} /> : '-'}
         </dd>
       </dl>
 
       <button
         type="button"
-        className="reset mt-3 font-sans text-body-s font-semibold text-forest-green underline"
+        className="reset mt-3 font-sans text-body-s font-semibold text-action-primary underline"
         onClick={() => setShowExtras((v) => !v)}
         aria-expanded={showExtras}
       >
@@ -70,7 +70,7 @@ export function CartSummary({cart, layout}) {
 function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) {
     return (
-      <p className="mt-4 rounded-md border border-coral/30 bg-coral/10 px-3 py-3 font-sans text-body-s text-ink">
+      <p className="mt-4 rounded-md border border-coral/30 bg-sale/10 px-3 py-3 font-sans text-body-s text-text-primary">
         Checkout is unavailable right now. Refresh and try again, or confirm{' '}
         <code className="font-mono text-mono-s">PUBLIC_CHECKOUT_DOMAIN</code> is set on Oxygen.
       </p>
@@ -82,11 +82,11 @@ function CartCheckoutActions({checkoutUrl}) {
       <a
         href={checkoutUrl}
         target="_self"
-        className="flex h-14 w-full items-center justify-center rounded-md bg-cta-primary font-sans text-body-l font-bold tracking-wide text-cloud no-underline shadow-md transition hover:bg-cta-primary-hover"
+        className="flex h-14 w-full items-center justify-center rounded-md bg-action-primary font-sans text-body-l font-bold tracking-wide text-action-primary-label no-underline shadow-md transition hover:bg-action-primary-hover"
       >
         Checkout
       </a>
-      <p className="mt-2 text-center font-sans text-body-s text-ink/55">
+      <p className="mt-2 text-center font-sans text-body-s text-text-primary/55">
         Secure Shopify checkout · taxes & shipping calculated next
       </p>
       <div className="mt-3">
@@ -136,12 +136,12 @@ function CartDiscounts({discountCodes, discountsHeadingId, discountCodeInputId})
             type="text"
             name="discountCode"
             placeholder="Discount code"
-            className="min-w-0 flex-1 rounded-md border border-forest-green/20 bg-warm-oat px-3 py-2 font-sans text-body-s"
+            className="min-w-0 flex-1 rounded-md border border-border-subtle bg-page-bg px-3 py-2 font-sans text-body-s"
           />
           <button
             type="submit"
             aria-label="Apply discount code"
-            className="rounded-md border border-forest-green/25 px-3 py-2 font-sans text-body-s font-semibold text-forest-green"
+            className="rounded-md border border-action-primary/25 px-3 py-2 font-sans text-body-s font-semibold text-action-primary"
           >
             Apply
           </button>
@@ -224,7 +224,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
     <section aria-label="Gift cards" className="space-y-2">
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
-          <dt id={giftCardHeadingId} className="font-sans text-body-s text-ink/60">
+          <dt id={giftCardHeadingId} className="font-sans text-body-s text-text-secondary">
             Applied gift card(s)
           </dt>
           {giftCardCodes.map((giftCard) => (
@@ -261,13 +261,13 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
             name="giftCardCode"
             placeholder="Gift card code"
             ref={giftCardCodeInput}
-            className="min-w-0 flex-1 rounded-md border border-forest-green/20 bg-warm-oat px-3 py-2 font-sans text-body-s"
+            className="min-w-0 flex-1 rounded-md border border-border-subtle bg-page-bg px-3 py-2 font-sans text-body-s"
           />
           <button
             type="submit"
             disabled={giftCardAddFetcher.state !== 'idle'}
             aria-label="Apply gift card code"
-            className="rounded-md border border-forest-green/25 px-3 py-2 font-sans text-body-s font-semibold text-forest-green"
+            className="rounded-md border border-action-primary/25 px-3 py-2 font-sans text-body-s font-semibold text-action-primary"
           >
             Apply
           </button>

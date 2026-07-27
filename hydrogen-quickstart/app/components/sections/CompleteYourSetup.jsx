@@ -13,9 +13,9 @@ import {Button} from '~/components/ui/Button';
 export function CompleteYourSetup({products = []}) {
   return (
     <SectionReveal>
-      <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <h2 className="text-center font-serif text-display-s text-forest-green">
+          <h2 className="text-center font-serif text-display-s text-action-primary">
             Everything your pet needs. Nothing they don&apos;t.
           </h2>
           {products.length > 0 ? (
@@ -27,7 +27,7 @@ export function CompleteYourSetup({products = []}) {
               ))}
             </div>
           ) : (
-            <p className="mt-10 text-center font-sans text-body-m text-ink/60">
+            <p className="mt-10 text-center font-sans text-body-m text-text-secondary">
               Products will appear here once published to your Headless storefront.
             </p>
           )}

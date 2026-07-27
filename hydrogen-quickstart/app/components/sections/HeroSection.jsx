@@ -87,7 +87,7 @@ export function HeroSection() {
   return (
     <SectionReveal eager>
       <section
-        className="bg-warm-oat px-4 py-8 md:px-8 md:py-12 lg:py-14"
+        className="bg-page-bg px-4 py-8 md:px-8 md:py-12 lg:py-14"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         aria-roledescription="carousel"
@@ -95,13 +95,13 @@ export function HeroSection() {
       >
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="order-2 lg:order-1" key={slide.id} aria-live="polite">
-            <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-forest-green">
+            <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-text-secondary">
               {BRAND.name}
             </p>
-            <h1 className="font-serif text-display-m text-forest-green md:text-display-xl">
+            <h1 className="font-serif text-display-m text-text-primary md:text-display-l">
               {slide.headline}
             </h1>
-            <p className="mt-6 max-w-lg font-sans text-body-l text-ink">
+            <p className="mt-6 max-w-lg font-sans text-body-l text-text-secondary">
               {slide.subheadline}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -123,7 +123,7 @@ export function HeroSection() {
                     aria-selected={i === active}
                     aria-label={`Slide ${i + 1}`}
                     className={`size-2.5 rounded-full reset transition-colors ${
-                      i === active ? 'bg-forest-green' : 'bg-forest-green/30 hover:bg-forest-green/50'
+                      i === active ? 'bg-action-primary' : 'bg-action-primary/30 hover:bg-action-primary/50'
                     }`}
                     onClick={() => goTo(i)}
                   />
@@ -132,7 +132,7 @@ export function HeroSection() {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  className="flex size-10 items-center justify-center rounded-full border border-forest-green/20 bg-white text-forest-green reset hover:bg-warm-oat"
+                  className="flex size-11 items-center justify-center rounded-full border border-border-subtle bg-surface-elevated text-text-primary reset hover:bg-action-secondary"
                   onClick={goPrev}
                   aria-label="Previous slide"
                 >
@@ -140,7 +140,7 @@ export function HeroSection() {
                 </button>
                 <button
                   type="button"
-                  className="flex size-10 items-center justify-center rounded-full border border-forest-green/20 bg-white text-forest-green reset hover:bg-warm-oat"
+                  className="flex size-11 items-center justify-center rounded-full border border-border-subtle bg-surface-elevated text-text-primary reset hover:bg-action-secondary"
                   onClick={goNext}
                   aria-label="Next slide"
                 >
@@ -152,17 +152,17 @@ export function HeroSection() {
             <div className="mt-8 flex items-start gap-3">
               <div className="flex gap-0.5">
                 {Array.from({length: 5}, (_, i) => (
-                  <Icon key={`hero-star-${i}`} name="star" size="sm" color="text-champagne" className="!h-4 !w-4" />
+                  <Icon key={`hero-star-${i}`} name="star" size="sm" color="text-accent" className="!h-4 !w-4" />
                 ))}
               </div>
-              <p className="font-sans text-body-s text-ink/80">
+              <p className="font-sans text-body-s text-text-secondary">
                 &ldquo;The quality is outstanding — my cats and dog love everything we&apos;ve ordered.&rdquo;
-                <span className="mt-1 block font-medium text-ink">Sarah K., Maine</span>
+                <span className="mt-1 block font-medium text-text-primary">Sarah K., Maine</span>
               </p>
             </div>
           </div>
 
-          <div className="relative order-1 min-h-[280px] overflow-hidden rounded-xl lg:order-2 md:min-h-[420px]">
+          <div className="relative order-1 min-h-[280px] overflow-hidden rounded-lg lg:order-2 md:min-h-[420px]">
             {SLIDES.map((s, i) => (
               <HeroSlideMedia
                 key={s.id}

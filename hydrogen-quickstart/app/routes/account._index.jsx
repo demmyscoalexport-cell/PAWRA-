@@ -29,10 +29,10 @@ export default function AccountDashboard() {
   ];
 
   return (
-    <div className="bg-warm-oat px-4 py-10 md:px-8">
+    <div className="bg-page-bg px-4 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-[2.5rem] text-forest-green">Welcome back, {name}</h1>
-        <p className="mt-2 font-sans text-body-m text-ink/70">
+        <h1 className="font-serif text-[2.5rem] text-action-primary">Welcome back, {name}</h1>
+        <p className="mt-2 font-sans text-body-m text-text-secondary">
           Manage orders, saved products, and your PAWRA rewards.
         </p>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -40,11 +40,11 @@ export default function AccountDashboard() {
             <Link
               key={card.title}
               to={card.href}
-              className="rounded-xl bg-cloud p-6 shadow-card no-underline transition-shadow hover:shadow-md"
+              className="rounded-lg bg-surface p-6 shadow-sm no-underline transition-shadow hover:shadow-md"
             >
-              <Icon name={card.icon} size="lg" color="text-forest-green" />
-              <h2 className="mt-4 font-sans text-body-m font-semibold text-ink">{card.title}</h2>
-              <p className="mt-1 font-mono text-mono-s text-ink/60">{card.value}</p>
+              <Icon name={card.icon} size="lg" color="text-action-primary" />
+              <h2 className="mt-4 font-sans text-body-m font-semibold text-text-primary">{card.title}</h2>
+              <p className="mt-1 font-mono text-mono-s text-text-secondary">{card.value}</p>
             </Link>
           ))}
         </div>

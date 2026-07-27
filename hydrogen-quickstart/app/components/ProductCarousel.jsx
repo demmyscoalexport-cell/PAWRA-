@@ -52,20 +52,20 @@ export function ProductCarousel({
   }
 
   return (
-    <section className="bg-cloud px-4 py-10 md:px-8 md:py-14">
+    <section className="bg-surface px-4 py-10 md:px-8 md:py-14">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-serif text-display-s text-forest-green">{title}</h2>
+            <h2 className="font-serif text-display-s text-action-primary">{title}</h2>
             {subtitle ? (
-              <p className="mt-2 max-w-xl font-sans text-body-m text-ink/70">{subtitle}</p>
+              <p className="mt-2 max-w-xl font-sans text-body-m text-text-secondary">{subtitle}</p>
             ) : null}
           </div>
           {products.length > 0 ? (
             <div className="flex gap-2">
               <button
                 type="button"
-                className="reset flex h-12 w-12 items-center justify-center rounded-md border border-forest-green/25 bg-warm-oat text-forest-green disabled:opacity-35"
+                className="reset flex h-12 w-12 items-center justify-center rounded-md border border-action-primary/25 bg-page-bg text-action-primary disabled:opacity-35"
                 onClick={() => scrollByPage(-1)}
                 disabled={!canPrev}
                 aria-label="Previous products"
@@ -74,13 +74,13 @@ export function ProductCarousel({
               </button>
               <button
                 type="button"
-                className="reset flex h-12 min-w-[7.5rem] items-center justify-center gap-1 rounded-md bg-forest-green px-4 font-sans text-body-s font-semibold text-cloud disabled:opacity-35"
+                className="reset flex h-12 min-w-[7.5rem] items-center justify-center gap-1 rounded-md bg-action-primary px-4 font-sans text-body-s font-semibold text-action-primary-label disabled:opacity-35"
                 onClick={() => scrollByPage(1)}
                 disabled={!canNext}
                 aria-label="Next products"
               >
                 Next
-                <Icon name="chevron-right" size="md" color="text-cloud" />
+                <Icon name="chevron-right" size="md" color="text-text-inverse" />
               </button>
             </div>
           ) : null}
@@ -98,7 +98,7 @@ export function ProductCarousel({
             ))}
           </div>
         ) : (
-          <p className="mt-8 font-sans text-body-m text-ink/60">{emptyMessage}</p>
+          <p className="mt-8 font-sans text-body-m text-text-secondary">{emptyMessage}</p>
         )}
       </div>
     </section>

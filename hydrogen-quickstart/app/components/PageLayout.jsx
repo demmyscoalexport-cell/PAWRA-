@@ -97,9 +97,9 @@ function SearchAside() {
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
-                className="w-full rounded-md border border-forest-green/20 px-3 py-2"
+                className="w-full rounded-md border border-border-subtle bg-action-secondary px-3 py-3 font-sans text-body-m text-text-primary outline-none placeholder:text-text-secondary focus:ring-2 focus:ring-focus-ring"
               />
-              <button type="button" onClick={goToSearch} className="mt-2 font-sans text-body-s text-forest-green">
+              <button type="button" onClick={goToSearch} className="mt-3 inline-flex h-11 items-center rounded-md bg-action-primary px-4 font-sans text-body-s font-medium text-action-primary-label">
                 Search
               </button>
             </>

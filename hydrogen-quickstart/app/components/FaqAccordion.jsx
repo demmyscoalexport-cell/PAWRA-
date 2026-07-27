@@ -24,7 +24,7 @@ export function FaqAccordion({items, className = ''}) {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className={`divide-y divide-forest-green/15 border-y border-forest-green/15 ${className}`}>
+    <div className={`divide-y divide-forest-green/15 border-y border-border-subtle ${className}`}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         return (
@@ -35,16 +35,16 @@ export function FaqAccordion({items, className = ''}) {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="font-sans text-body-m font-semibold text-forest-green">{item.q}</span>
+              <span className="font-sans text-body-m font-semibold text-action-primary">{item.q}</span>
               <Icon
                 name="chevron-down"
                 size="md"
-                color="text-electric-jade"
+                color="text-action-primary"
                 className={`shrink-0 transition-transform duration-base ${isOpen ? 'rotate-180' : ''}`}
               />
             </button>
             {isOpen && (
-              <p className="pb-5 font-sans text-body-m text-ink/80">{item.a}</p>
+              <p className="pb-5 font-sans text-body-m text-text-primary/80">{item.a}</p>
             )}
           </div>
         );

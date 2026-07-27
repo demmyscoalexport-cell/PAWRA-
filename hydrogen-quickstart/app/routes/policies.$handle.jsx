@@ -50,14 +50,14 @@ export default function Policy() {
   const {policy} = useLoaderData();
 
   return (
-    <div className="bg-warm-oat px-4 py-12 md:px-8 md:py-20">
+    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
       <div className="mx-auto max-w-3xl">
-        <Link to="/policies" className="font-sans text-body-s text-forest-green underline">
+        <Link to="/policies" className="font-sans text-body-s text-action-primary underline">
           ← All policies
         </Link>
-        <h1 className="mt-6 font-serif text-display-s text-forest-green">{policy.title}</h1>
+        <h1 className="mt-6 font-serif text-display-s text-action-primary">{policy.title}</h1>
         <div
-          className="prose-pawra mt-10 font-sans text-body-m text-ink [&_a]:text-forest-green [&_a]:underline [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-heading-s [&_p]:mt-4"
+          className="prose-pawra mt-10 font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_a]:underline [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-heading-s [&_p]:mt-4"
           dangerouslySetInnerHTML={{__html: policy.body}}
         />
       </div>

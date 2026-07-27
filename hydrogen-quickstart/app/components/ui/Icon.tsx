@@ -229,7 +229,7 @@ type IconProps = {
 
 export function Icon({name, size = 'md', className = '', color}: IconProps) {
   const Svg = ICONS[name];
-  const colorClass = color ?? 'text-forest-green';
+  const colorClass = color ?? 'text-text-primary';
 
   return (
     <span className={`inline-flex shrink-0 items-center justify-center ${SIZE_MAP[size]} ${colorClass} ${className}`}>

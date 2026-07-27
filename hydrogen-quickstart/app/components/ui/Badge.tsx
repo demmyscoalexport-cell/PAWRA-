@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file Badge.tsx
- * @description Design system UI primitive: Badge.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Subtle merchandising / status badges.
  */
 
 export type BadgeType =
@@ -30,35 +19,35 @@ const BADGE_CONFIG: Record<
 > = {
   new: {
     label: 'New',
-    className: 'bg-electric-jade text-midnight',
+    className: 'bg-action-primary/10 text-action-primary',
   },
   'best-seller': {
     label: 'Best Seller',
-    className: 'bg-champagne text-midnight',
+    className: 'bg-accent/10 text-accent',
   },
   'coming-soon': {
     label: 'Coming Soon',
-    className: 'bg-cloud text-ink border border-forest-green/20',
+    className: 'bg-action-secondary text-text-secondary border border-border-subtle',
   },
   'walker-approved': {
     label: 'Walker Approved',
-    className: 'bg-forest-green text-cloud',
+    className: 'bg-action-primary/10 text-action-primary',
   },
   'care-plan': {
     label: 'Care Plan',
-    className: 'bg-forest-night text-electric-jade',
+    className: 'bg-action-secondary text-text-primary border border-border-subtle',
   },
   sale: {
     label: 'Sale',
-    className: 'bg-coral text-cloud',
+    className: 'bg-sale/10 text-sale',
   },
   'in-stock': {
     label: 'In Stock',
-    className: 'bg-electric-jade/20 text-forest-green border border-electric-jade',
+    className: 'bg-success/10 text-success',
   },
   'low-stock': {
     label: 'Low Stock',
-    className: 'bg-coral/15 text-coral border border-coral/40',
+    className: 'bg-warning/10 text-warning',
   },
 };
 

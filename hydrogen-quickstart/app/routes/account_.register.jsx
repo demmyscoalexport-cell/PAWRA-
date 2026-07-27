@@ -42,25 +42,25 @@ export default function RegisterPage() {
   const {customerAccountConfigured} = useLoaderData();
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center bg-warm-oat px-4 py-16">
-      <div className="w-full max-w-md rounded-xl bg-cloud p-8 shadow-card md:p-10">
+    <div className="flex min-h-[70vh] items-center justify-center bg-page-bg px-4 py-16">
+      <div className="w-full max-w-md rounded-lg bg-surface p-8 shadow-sm md:p-10">
         <div className="flex justify-center">
           <Logo variant="primary" height={36} />
         </div>
-        <h1 className="mt-8 text-center font-serif text-[2.5rem] text-forest-green">
+        <h1 className="mt-8 text-center font-serif text-[2.5rem] text-action-primary">
           Create your account
         </h1>
-        <p className="mt-3 text-center font-sans text-body-m text-ink/70">
+        <p className="mt-3 text-center font-sans text-body-m text-text-secondary">
           Use your email to join {BRAND.name}. Shopify sends a one-time code — no password to remember.
         </p>
 
         {!customerAccountConfigured ? (
           <div
-            className="mt-8 rounded-md border border-coral/40 bg-coral/10 px-4 py-3 font-sans text-body-s text-ink"
+            className="mt-8 rounded-md border border-coral/40 bg-sale/10 px-4 py-3 font-sans text-body-s text-text-primary"
             role="alert"
           >
             <p className="font-semibold">Account signup is not configured yet.</p>
-            <p className="mt-2 text-ink/75">
+            <p className="mt-2 text-text-secondary">
               Enable Customer accounts in Shopify Admin and set the Customer Account API env vars on Oxygen.
             </p>
           </div>
@@ -78,9 +78,9 @@ export default function RegisterPage() {
           </Button>
         </Form>
 
-        <p className="mt-6 text-center font-sans text-body-s text-ink/70">
+        <p className="mt-6 text-center font-sans text-body-s text-text-secondary">
           Already have an account?{' '}
-          <Link to="/account/login" className="font-semibold text-forest-green underline">
+          <Link to="/account/login" className="font-semibold text-action-primary underline">
             Sign in
           </Link>
         </p>

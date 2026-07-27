@@ -39,14 +39,14 @@ function SupportLinks({loopReturnsUrl}) {
 
   return (
     <div>
-      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud">
+      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-text-inverse">
         Support
       </p>
       <ul className="space-y-2">
         <li>
           <button
             type="button"
-            className="reset font-sans text-body-s text-electric-jade transition-colors hover:text-cloud"
+            className="reset font-sans text-body-s text-action-primary transition-colors hover:text-text-inverse"
             onClick={() => {
               void openGorgiasChat();
             }}
@@ -61,14 +61,14 @@ function SupportLinks({loopReturnsUrl}) {
                 href={link.to}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
+                className="font-sans text-body-s text-text-inverse/70 no-underline transition-colors hover:text-text-inverse"
               >
                 {link.label}
               </a>
             ) : (
               <NavLink
                 to={link.to}
-                className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
+                className="font-sans text-body-s text-text-inverse/70 no-underline transition-colors hover:text-text-inverse"
               >
                 {link.label}
               </NavLink>
@@ -87,7 +87,7 @@ function SupportLinks({loopReturnsUrl}) {
 function FooterColumn({title, links}) {
   return (
     <div>
-      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud">
+      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-text-inverse">
         {title}
       </p>
       <ul className="space-y-2">
@@ -95,7 +95,7 @@ function FooterColumn({title, links}) {
           <li key={link.label}>
             <NavLink
               to={link.to}
-              className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
+              className="font-sans text-body-s text-text-inverse/70 no-underline transition-colors hover:text-text-inverse"
             >
               {link.label}
             </NavLink>
@@ -116,18 +116,18 @@ export function Footer() {
   const judgeMeEnabled = Boolean(rootData?.judgeme || rootData?.integrations?.judgeMe);
 
   return (
-    <footer className="border-t border-electric-jade bg-forest-night text-cloud">
-      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
+    <footer className="border-t border-border-strong bg-inverse text-text-inverse">
+      <div className="mx-auto max-w-1440 px-5 py-16 md:px-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <Logo variant="light" height={36} />
-            <p className="mt-4 font-serif text-body-l italic text-cloud">
+            <p className="mt-4 font-serif text-body-l italic text-text-inverse">
               {BRAND.tagline}
             </p>
             {judgeMeEnabled ? (
               <NavLink
                 to="/pages/reviews"
-                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-cloud/70 no-underline hover:text-cloud"
+                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-text-inverse/70 no-underline hover:text-text-inverse"
               >
                 <JudgemeAllReviewsRating />
                 <span>
@@ -135,11 +135,11 @@ export function Footer() {
                 </span>
               </NavLink>
             ) : null}
-            <p className="mt-2 font-sans text-body-s text-cloud/60">
+            <p className="mt-2 font-sans text-body-s text-text-inverse/70">
               {BRAND.address.line1}, {BRAND.address.city}, {BRAND.address.state} {BRAND.address.zip}
             </p>
-            <p className="mt-1 font-sans text-body-s text-cloud/60">
-              <a href={`mailto:${BRAND.supportEmail}`} className="text-cloud/70 no-underline hover:text-cloud">
+            <p className="mt-1 font-sans text-body-s text-text-inverse/70">
+              <a href={`mailto:${BRAND.supportEmail}`} className="text-text-inverse/70 no-underline hover:text-text-inverse">
                 {BRAND.supportEmail}
               </a>
             </p>
@@ -147,7 +147,7 @@ export function Footer() {
             <FooterNewsletter companyId={klaviyoId} formId={klaviyoFormId} />
             <NavLink
               to={rewardsUrl}
-              className="mt-6 inline-flex items-center rounded-md border border-electric-jade/40 bg-electric-jade/10 px-4 py-2 font-sans text-body-s font-semibold text-electric-jade no-underline transition-colors hover:bg-electric-jade/20"
+              className="mt-6 inline-flex items-center rounded-md border border-action-primary/40 bg-action-primary/10 px-4 py-2 font-sans text-body-s font-semibold text-action-primary no-underline transition-colors hover:bg-focus-ring/20"
             >
               Join PAWRA Rewards →
             </NavLink>
@@ -158,8 +158,8 @@ export function Footer() {
           <SupportLinks loopReturnsUrl={loopReturnsUrl} />
         </div>
 
-        <div className="mt-12 border-t border-cloud/10 pt-8">
-          <p className="text-center font-mono text-[12px] text-cloud/40">
+        <div className="mt-12 border-t border-border-subtle pt-8">
+          <p className="text-center font-mono text-[12px] text-text-inverse/40">
             {BRAND.copyright}
           </p>
         </div>

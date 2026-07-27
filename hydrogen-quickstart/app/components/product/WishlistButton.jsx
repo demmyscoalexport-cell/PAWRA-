@@ -23,7 +23,7 @@ export function WishlistButton({product, selectedVariant, className = ''}) {
   return (
     <button
       type="button"
-      className={`swym-button swym-add-to-wishlist inline-flex h-12 w-full items-center justify-center gap-2 rounded-md border border-forest-green/25 bg-warm-oat font-sans text-body-s font-semibold text-forest-green transition-colors hover:border-forest-green hover:bg-forest-green hover:text-cloud reset ${className}`.trim()}
+      className={`swym-button swym-add-to-wishlist inline-flex h-12 w-full items-center justify-center gap-2 rounded-md border border-action-primary/25 bg-page-bg font-sans text-body-s font-semibold text-action-primary transition-colors hover:border-action-primary hover:bg-action-primary hover:text-action-primary-label reset ${className}`.trim()}
       data-product-id={empi}
       data-variant-id={epi}
       data-product-url={du}

@@ -1,6 +1,6 @@
 /**
  * @file PawraProductCard.jsx
- * @description Chewy-style product card: image, rating, price, sale badge.
+ * @description Soft product card: image, rating, price, subtle sale badge.
  */
 
 import {Link} from 'react-router';
@@ -29,9 +29,9 @@ export function PawraProductCard({product, loading}) {
     <Link
       to={variantUrl}
       prefetch="intent"
-      className="group flex flex-col overflow-hidden rounded-xl bg-cloud shadow-card transition-shadow hover:shadow-md no-underline"
+      className="group flex flex-col overflow-hidden rounded-lg bg-surface transition-shadow duration-base hover:shadow-sm no-underline"
     >
-      <div className="relative aspect-square overflow-hidden bg-warm-oat">
+      <div className="relative aspect-square overflow-hidden bg-page-bg">
         {image ? (
           <Image
             alt={image.altText || product.title}
@@ -45,27 +45,27 @@ export function PawraProductCard({product, loading}) {
           <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-none" />
         )}
         {onSale ? (
-          <span className="absolute left-3 top-3 rounded-md bg-coral px-2 py-1 font-sans text-body-s font-semibold text-cloud">
+          <span className="absolute left-3 top-3 rounded-pill bg-sale/10 px-3 py-1 font-sans text-body-xs font-medium uppercase tracking-wide text-sale">
             Sale
           </span>
         ) : null}
       </div>
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-sans text-body-m font-semibold text-ink line-clamp-2">{product.title}</h3>
+        <h3 className="font-sans text-body-s font-medium text-text-primary line-clamp-2">{product.title}</h3>
         <JudgeMePreviewBadge productId={product.id} className="mt-1" />
         <div className="mt-auto flex flex-wrap items-baseline gap-2 pt-3">
           {minPrice ? (
-            <p className="font-mono text-mono-m font-semibold text-forest-green">
+            <p className="font-mono text-mono-m font-medium text-text-primary">
               <Money data={minPrice} />
             </p>
           ) : null}
           {onSale ? (
-            <p className="font-mono text-mono-s text-ink/40 line-through">
+            <p className="font-mono text-mono-s text-text-secondary line-through">
               <Money data={compareAt} />
             </p>
           ) : null}
         </div>
-        <span className="mt-3 inline-flex items-center justify-center rounded-md border border-forest-green/20 bg-warm-oat px-3 py-2 font-sans text-body-s font-semibold text-forest-green transition-colors group-hover:border-forest-green group-hover:bg-forest-green group-hover:text-cloud">
+        <span className="mt-3 inline-flex items-center justify-center rounded-md border border-border-subtle bg-action-secondary px-3 py-2 font-sans text-body-s font-medium text-text-primary transition-colors group-hover:border-action-primary group-hover:bg-action-primary group-hover:text-action-primary-label">
           View product
         </span>
       </div>
