@@ -54,12 +54,23 @@ export const NAV_MAIN = [
 
 export const NAV_PAGE_LINKS = [
   {id: 'small-pets', title: 'Small Pets', path: taxonomyCollectionPath(['small-pets'])},
+  {id: 'pharmacy-care', title: 'Pharmacy', path: '/pharmacy'},
+  {id: 'telehealth', title: 'Telehealth', path: '/telehealth'},
+  {id: 'symptom-checker', title: 'Symptom Checker', path: '/health/symptom-checker'},
   {id: 'about', title: 'About', path: '/pages/about'},
   {id: 'how-it-works', title: 'How It Works', path: '/pages/how-it-works'},
   {id: 'subscribe', title: 'Subscribe & Save', path: '/pages/subscribe-and-save'},
   {id: 'walker-program', title: 'Walker Program', path: '/pages/walker-program'},
+  {id: 'breeds', title: 'Breed Guides', path: '/breeds'},
   {id: 'blog', title: 'Blog', path: '/blog'},
   {id: 'contact', title: 'Contact', path: '/pages/contact'},
+];
+
+/** Care destinations surfaced near shop nav */
+export const CARE_NAV_LINKS = [
+  {id: 'care-pharmacy', title: 'Pharmacy', path: '/pharmacy'},
+  {id: 'care-telehealth', title: 'Telehealth', path: '/telehealth'},
+  {id: 'care-health', title: 'Health Hub', path: '/health/symptom-checker'},
 ];
 
 export const MEGA_NAV_ITEMS = NAV_MAIN.filter((item) => item.children?.length);

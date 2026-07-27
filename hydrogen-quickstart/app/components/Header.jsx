@@ -11,8 +11,12 @@ import {PawraLogo} from '~/components/ui/PawraLogo';
 import {Icon} from '~/components/ui/Icon';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {getNavItemById, getNavMegaColumns, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {getNavItemById, getNavMegaColumns, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS, CARE_NAV_LINKS} from '~/lib/mobileNav';
 import {ThemeToggle} from '~/components/ThemeToggle';
+import {LocaleSwitcher} from '~/components/locale/LocaleSwitcher';
+import {VisualSearchButton} from '~/components/search/VisualSearch';
+import {VoiceSearchButton} from '~/components/search/VoiceSearch';
+import {AISearchPanel} from '~/components/search/AISearchPanel';
 
 /**
  * Sticky site header with logo, mega-nav (desktop), hamburger (mobile), search, cart.
@@ -113,6 +117,15 @@ export function Header({cart, isLoggedIn}) {
                 {item.title}
               </NavLink>
             ))}
+            {CARE_NAV_LINKS.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.path}
+                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-text-primary no-underline transition-colors hover:bg-action-secondary hover:text-action-primary"
+              >
+                {item.title}
+              </NavLink>
+            ))}
           </nav>
 
           {/* Center search — opens predictive results (Chewy autosuggest) */}
@@ -120,11 +133,12 @@ export function Header({cart, isLoggedIn}) {
             <HeaderSearchField />
           </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-3 md:gap-4">
+          <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-3">
+            <LocaleSwitcher className="hidden xl:inline-flex" />
             <ThemeToggle />
             <button
               type="button"
-              className="reset inline-flex h-11 w-11 items-center justify-center md:hidden"
+              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring md:hidden"
               onClick={() => open('search')}
               aria-label="Search"
             >
@@ -163,6 +177,7 @@ export function Header({cart, isLoggedIn}) {
 function HeaderSearchField() {
   const queriesDatalistId = useId();
   const [focused, setFocused] = useState(false);
+  const [mode, setMode] = useState(/** @type {'shop' | 'ai'} */ ('shop'));
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -179,12 +194,13 @@ function HeaderSearchField() {
     <div ref={containerRef} className="relative w-full">
       <SearchFormPredictive className="w-full">
         {({fetchResults, goToSearch, inputRef}) => (
-          <div className="flex items-center gap-2 rounded-md bg-action-secondary px-3 py-2">
+          <div className="flex items-center gap-1 rounded-md bg-action-secondary px-2 py-1.5">
             <Icon name="search" size="sm" color="text-action-primary/70" />
             <input
               name="q"
               onChange={(event) => {
                 setFocused(true);
+                setMode('shop');
                 fetchResults(event);
               }}
               onFocus={(event) => {
@@ -206,6 +222,19 @@ function HeaderSearchField() {
               aria-label="Search products"
               autoComplete="off"
             />
+            <VisualSearchButton />
+            <VoiceSearchButton />
+            <button
+              type="button"
+              onClick={() => {
+                setFocused(true);
+                setMode('ai');
+              }}
+              className="reset shrink-0 rounded-md px-2 py-1.5 font-sans text-body-xs font-semibold text-action-primary hover:bg-page-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+              aria-label="Open AI search"
+            >
+              AI
+            </button>
             <button
               type="button"
               onClick={() => {
@@ -222,70 +251,94 @@ function HeaderSearchField() {
 
       {focused ? (
         <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-border-subtle bg-surface p-3 shadow-lg">
-          <SearchResultsPredictive>
-            {({items, total, term, state, closeSearch}) => {
-              const {articles, collections, pages, products, queries} = items;
-              if (state === 'loading' && term.current) {
-                return <p className="px-2 py-3 font-sans text-body-s text-text-secondary">Searching…</p>;
-              }
-              if (!term.current) {
+          <div className="mb-3 flex gap-2">
+            <button
+              type="button"
+              className={`reset rounded-pill px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+                mode === 'shop' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
+              }`}
+              onClick={() => setMode('shop')}
+            >
+              Products
+            </button>
+            <button
+              type="button"
+              className={`reset rounded-pill px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+                mode === 'ai' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
+              }`}
+              onClick={() => setMode('ai')}
+            >
+              Ask AI
+            </button>
+          </div>
+          {mode === 'ai' ? (
+            <AISearchPanel />
+          ) : (
+            <SearchResultsPredictive>
+              {({items, total, term, state, closeSearch}) => {
+                const {articles, collections, pages, products, queries} = items;
+                if (state === 'loading' && term.current) {
+                  return <p className="px-2 py-3 font-sans text-body-s text-text-secondary">Searching…</p>;
+                }
+                if (!term.current) {
+                  return (
+                    <p className="px-2 py-3 font-sans text-body-s text-text-secondary">
+                      Try “dog food”, “cat bed”, or open Ask AI for natural language.
+                    </p>
+                  );
+                }
+                if (!total) {
+                  return <SearchResultsPredictive.Empty term={term} />;
+                }
                 return (
-                  <p className="px-2 py-3 font-sans text-body-s text-text-secondary">
-                    Try “dog food”, “cat bed”, or a brand name.
-                  </p>
+                  <>
+                    <SearchResultsPredictive.Queries queries={queries} queriesDatalistId={queriesDatalistId} />
+                    <SearchResultsPredictive.Products
+                      products={products}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Collections
+                      collections={collections}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Pages
+                      pages={pages}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Articles
+                      articles={articles}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    {term.current && total ? (
+                      <NavLink
+                        to={`${SEARCH_ENDPOINT}?q=${encodeURIComponent(term.current)}`}
+                        className="mt-2 block px-2 py-2 font-sans text-body-s font-semibold text-action-primary no-underline"
+                        onClick={() => setFocused(false)}
+                      >
+                        View all results for <q>{term.current}</q> →
+                      </NavLink>
+                    ) : null}
+                  </>
                 );
-              }
-              if (!total) {
-                return <SearchResultsPredictive.Empty term={term} />;
-              }
-              return (
-                <>
-                  <SearchResultsPredictive.Queries queries={queries} queriesDatalistId={queriesDatalistId} />
-                  <SearchResultsPredictive.Products
-                    products={products}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Collections
-                    collections={collections}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Pages
-                    pages={pages}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Articles
-                    articles={articles}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  {term.current && total ? (
-                    <NavLink
-                      to={`${SEARCH_ENDPOINT}?q=${encodeURIComponent(term.current)}`}
-                      className="mt-2 block px-2 py-2 font-sans text-body-s font-semibold text-action-primary no-underline"
-                      onClick={() => setFocused(false)}
-                    >
-                      View all results for <q>{term.current}</q> →
-                    </NavLink>
-                  ) : null}
-                </>
-              );
-            }}
-          </SearchResultsPredictive>
+              }}
+            </SearchResultsPredictive>
+          )}
         </div>
       ) : null}
     </div>

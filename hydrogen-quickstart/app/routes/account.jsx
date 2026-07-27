@@ -1,6 +1,6 @@
 /**
  * @file account.jsx
- * @description Account shell — enterprise soft navigation.
+ * @description Account shell — enterprise soft navigation for Care hub.
  */
 
 import {
@@ -20,7 +20,7 @@ export function shouldRevalidate() {
 export const meta = () => {
   return buildSeoMeta({
     title: 'Account',
-    description: 'Manage your PAWRA account, orders, and addresses.',
+    description: 'Manage your PAWRA account, pets, orders, and rewards.',
     url: '/account',
     robots: {noIndex: true, noFollow: true},
   });
@@ -66,7 +66,7 @@ export default function AccountLayout() {
       <div className="mx-auto max-w-1440">
         <h1 className="font-serif text-display-m text-text-primary">{heading}</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
-          Orders, profile, and addresses — managed securely with Shopify Customer Accounts.
+          Orders, pets, pharmacy-ready profiles, and rewards — managed securely with Shopify Customer Accounts.
         </p>
         <AccountMenu />
         <div className="mt-10 rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
@@ -80,27 +80,35 @@ export default function AccountLayout() {
 function AccountMenu() {
   const linkClass = ({isActive}) =>
     [
-      'rounded-pill px-4 py-2 font-sans text-body-s font-medium no-underline transition-colors',
+      'rounded-pill px-4 py-2 font-sans text-body-s font-medium no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
       isActive
         ? 'bg-action-primary text-action-primary-label'
         : 'bg-action-secondary text-text-primary hover:bg-border-subtle',
     ].join(' ');
 
+  const links = [
+    {to: '/account', label: 'Dashboard', end: true},
+    {to: '/account/orders', label: 'Orders'},
+    {to: '/account/pets', label: 'My Pets'},
+    {to: '/account/subscriptions', label: 'Subscriptions'},
+    {to: '/account/loyalty', label: 'Loyalty'},
+    {to: '/account/registries', label: 'Registries'},
+    {to: '/account/notifications', label: 'Notifications'},
+    {to: '/account/profile', label: 'Profile'},
+    {to: '/account/addresses', label: 'Addresses'},
+  ];
+
   return (
     <nav className="mt-8 flex flex-wrap gap-2" aria-label="Account">
-      <NavLink to="/account/orders" className={linkClass}>
-        Orders
-      </NavLink>
-      <NavLink to="/account/profile" className={linkClass}>
-        Profile
-      </NavLink>
-      <NavLink to="/account/addresses" className={linkClass}>
-        Addresses
-      </NavLink>
+      {links.map((link) => (
+        <NavLink key={link.to} to={link.to} end={link.end} className={linkClass}>
+          {link.label}
+        </NavLink>
+      ))}
       <Form method="POST" action="/account/logout">
         <button
           type="submit"
-          className="rounded-pill border border-border-subtle bg-surface px-4 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary"
+          className="rounded-pill border border-border-subtle bg-surface px-4 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
         >
           Sign out
         </button>

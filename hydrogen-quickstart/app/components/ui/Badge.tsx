@@ -11,7 +11,8 @@ export type BadgeType =
   | 'care-plan'
   | 'sale'
   | 'in-stock'
-  | 'low-stock';
+  | 'low-stock'
+  | 'rx-required';
 
 const BADGE_CONFIG: Record<
   BadgeType,
@@ -48,6 +49,10 @@ const BADGE_CONFIG: Record<
   'low-stock': {
     label: 'Low Stock',
     className: 'bg-warning/10 text-warning',
+  },
+  'rx-required': {
+    label: 'Rx Required',
+    className: 'bg-action-primary/10 text-action-primary',
   },
 };
 

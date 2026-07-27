@@ -98,6 +98,7 @@ export function TaxonomyCollectionView({
                     key={product.id || product.handle}
                     product={product}
                     loading={index < 4 ? 'eager' : 'lazy'}
+                    showCompare
                   />
                 ))}
               </div>

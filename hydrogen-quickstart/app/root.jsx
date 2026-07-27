@@ -292,6 +292,12 @@ export function Layout({ children }) {
         <ThirdPartyScripts integrations={data?.integrations} />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}`,
+          }}
+        />
         {/* Gorgias — body only, mounts once, persists across SPA navigations */}
         <GorgiasProvider />
       </body>

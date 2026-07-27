@@ -32,6 +32,10 @@ import {BRAND} from '~/lib/branding';
 import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
 import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 import {WishlistButton} from '~/components/product/WishlistButton';
+import {Badge} from '~/components/ui/Badge';
+import {Button} from '~/components/ui/Button';
+import {PhotoReviews} from '~/components/ugc/PhotoReviews';
+import {isPrescriptionRequired} from '~/lib/productFlags';
 
 // ─── Static Content ─────────────────────────────────────────────────────────────
 
@@ -76,6 +80,8 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [autoship, setAutoship] = useState(false);
+  const isRx = isPrescriptionRequired(product);
 
   // ─── Derived State ───
   const images = product.images?.nodes?.length
@@ -151,6 +157,11 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
           {/* ─── Product Info & Add to Cart ─── */}
           <div>
+            {isRx ? (
+              <div className="mb-3">
+                <Badge type="rx-required" />
+              </div>
+            ) : null}
             <h1 className="font-serif text-[2.5rem] leading-tight text-text-primary">{product.title}</h1>
             <JudgeMePreviewBadge productId={product.id} className="mt-2" />
             <ProductRating rating={reviews?.rating} count={reviews?.count} />
@@ -256,18 +267,54 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
             {/* ─── Primary CTA (observed for sticky bar) ─── */}
             <div ref={ctaRef} className="mt-8">
-              <AddToCartButton
-                disabled={!selectedVariant?.availableForSale}
-                onClick={() => open('cart')}
-                lines={
-                  selectedVariant
-                    ? [{merchandiseId: selectedVariant.id, quantity, selectedVariant}]
-                    : []
-                }
-                className={`flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium reset ${PRIMARY_CTA_CLASSES}`}
-              >
-                {selectedVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-              </AddToCartButton>
+              {isRx ? (
+                <div className="space-y-4">
+                  <p className="font-sans text-body-s text-text-secondary">
+                    This item requires a valid prescription. Upload your Rx to continue.
+                  </p>
+                  <Button variant="primary" size="lg" href="/pharmacy/upload" className="w-full">
+                    Start prescription
+                  </Button>
+                  <Link to="/telehealth" className="inline-block font-sans text-body-s font-semibold text-action-primary">
+                    Connect with a vet →
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <label className="mb-4 flex items-start gap-3 rounded-lg border border-border-subtle bg-page-bg p-4">
+                    <input
+                      type="checkbox"
+                      checked={autoship}
+                      onChange={(e) => setAutoship(e.target.checked)}
+                      className="mt-1 accent-[rgb(var(--color-action-primary))]"
+                    />
+                    <span>
+                      <span className="block font-sans text-body-s font-semibold text-text-primary">
+                        Autoship &amp; Save
+                      </span>
+                      <span className="mt-1 block font-sans text-body-s text-text-secondary">
+                        Deliver on a schedule and save. Manage in Account → Subscriptions.
+                      </span>
+                    </span>
+                  </label>
+                  <AddToCartButton
+                    disabled={!selectedVariant?.availableForSale}
+                    onClick={() => open('cart')}
+                    lines={
+                      selectedVariant
+                        ? [{merchandiseId: selectedVariant.id, quantity, selectedVariant}]
+                        : []
+                    }
+                    className={`flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium reset ${PRIMARY_CTA_CLASSES}`}
+                  >
+                    {selectedVariant?.availableForSale
+                      ? autoship
+                        ? 'Add Autoship to Cart'
+                        : 'Add to Cart'
+                      : 'Sold out'}
+                  </AddToCartButton>
+                </>
+              )}
             </div>
             <p className="mt-4 font-sans text-body-s text-text-secondary">
               Save on repeat orders with{' '}
@@ -383,6 +430,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       <div className="px-4 py-4 md:px-8">
         <div className="mx-auto max-w-3xl">
           <JudgeMeReviews product={product} reviews={reviews} />
+          <PhotoReviews />
         </div>
       </div>
 

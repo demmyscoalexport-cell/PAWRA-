@@ -24,6 +24,9 @@ const SHOP_LINKS = [
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
   {label: 'How It Works', to: '/pages/how-it-works'},
+  {label: 'Pharmacy', to: '/pharmacy'},
+  {label: 'Telehealth', to: '/telehealth'},
+  {label: 'Breed Guides', to: '/breeds'},
   {label: 'Reviews', to: '/pages/reviews'},
   {label: 'Walker Program', to: '/pages/walker-program'},
   {label: 'Subscribe & Save', to: '/pages/subscribe-and-save'},
@@ -34,11 +37,14 @@ const COMPANY_LINKS = [
 /** @param {{ loopReturnsUrl?: string }} props */
 function SupportLinks({loopReturnsUrl}) {
   const links = [
-    {label: 'Track Order', to: '/account/orders'},
+    {label: 'Track Order', to: '/track-order'},
     {label: 'Contact', to: '/pages/contact'},
-    {label: 'Returns', to: loopReturnsUrl || '/policies/refund-policy', external: Boolean(loopReturnsUrl)},
-    {label: 'FAQ', to: '/#faq'},
+    {label: 'Returns Portal', to: '/returns'},
+    {label: 'Returns Policy', to: loopReturnsUrl || '/policies/refund-policy', external: Boolean(loopReturnsUrl)},
     {label: 'Shipping', to: '/policies/shipping-policy'},
+    {label: 'Prescription Policy', to: '/pages/prescription-policy'},
+    {label: 'Autoship Terms', to: '/pages/autoship-terms'},
+    {label: 'FAQ', to: '/#faq'},
   ];
 
   return (

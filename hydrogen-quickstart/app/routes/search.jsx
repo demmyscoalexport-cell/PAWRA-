@@ -20,6 +20,7 @@ import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 import {PawraProductCard} from '~/components/PawraProductCard';
+import {AISearchPanel} from '~/components/search/AISearchPanel';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 
 import {buildSeoMeta} from '~/lib/seo';
@@ -65,7 +66,7 @@ export default function SearchPage() {
                 placeholder="Search products, pages, articles…"
                 ref={inputRef}
                 type="search"
-                className="flex-1 rounded-md border border-border-subtle bg-surface px-4 py-3 font-sans text-body-m"
+                className="flex-1 rounded-md border border-border-subtle bg-surface px-4 py-3 font-sans text-body-m outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
               />
               <button
                 type="submit"
@@ -76,6 +77,9 @@ export default function SearchPage() {
             </div>
           )}
         </SearchForm>
+        <div className="mt-8 max-w-3xl">
+          <AISearchPanel />
+        </div>
         {error && <p className="mt-4 font-sans text-body-s text-sale">{error}</p>}
         {!term || !result?.total ? (
           <div className="mt-12">

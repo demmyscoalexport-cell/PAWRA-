@@ -25,6 +25,9 @@ import {CartMain} from '~/components/CartMain';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {useOptimisticCart} from '@shopify/hydrogen';
+import {CompareProvider} from '~/components/compare/CompareContext';
+import {CompareBar} from '~/components/compare/CompareBar';
+import {LocaleProvider} from '~/components/locale/LocaleSwitcher';
 
 export function PageLayout({
   cart,
@@ -35,21 +38,32 @@ export function PageLayout({
   judgeme,
 }) {
   return (
-    <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <AnnouncementBar />
-      {header && (
-        <Suspense fallback={<Header cart={cart} isLoggedIn={false} />}>
-          <Await resolve={isLoggedIn}>
-            {(loggedIn) => <Header cart={cart} isLoggedIn={loggedIn} />}
-          </Await>
-        </Suspense>
-      )}
-      <main>{children}</main>
-      <Footer />
-      {judgeme ? <JudgemeReviewsTab /> : null}
-    </Aside.Provider>
+    <LocaleProvider>
+      <CompareProvider>
+        <Aside.Provider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-action-primary focus:px-4 focus:py-2 focus:font-sans focus:text-body-s focus:font-semibold focus:text-action-primary-label focus:outline-none focus:ring-2 focus:ring-focus-ring"
+          >
+            Skip to content
+          </a>
+          <CartAside cart={cart} />
+          <SearchAside />
+          <AnnouncementBar />
+          {header && (
+            <Suspense fallback={<Header cart={cart} isLoggedIn={false} />}>
+              <Await resolve={isLoggedIn}>
+                {(loggedIn) => <Header cart={cart} isLoggedIn={loggedIn} />}
+              </Await>
+            </Suspense>
+          )}
+          <main id="main-content">{children}</main>
+          <Footer />
+          <CompareBar />
+          {judgeme ? <JudgemeReviewsTab /> : null}
+        </Aside.Provider>
+      </CompareProvider>
+    </LocaleProvider>
   );
 }
 

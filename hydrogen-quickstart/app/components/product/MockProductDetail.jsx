@@ -3,12 +3,15 @@
  * @description Enterprise mock PDP for catalog items not in Shopify.
  */
 
+import {useState} from 'react';
 import {Link} from 'react-router';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
 import {Button} from '~/components/ui/Button';
 import {Badge} from '~/components/ui/Badge';
 import {PawraBadge} from '~/components/ui/PawraBadge';
+import {PhotoReviews} from '~/components/ugc/PhotoReviews';
 import {Money} from '@shopify/hydrogen';
+import {isPrescriptionRequired} from '~/lib/productFlags';
 
 /**
  * @param {{ product: import('~/data/products').MockProduct; relatedProducts?: any[] }} props
@@ -18,11 +21,8 @@ export function MockProductDetail({product, relatedProducts = []}) {
   const compareAt = product.compareAtPriceRange?.minVariantPrice;
   const onSale =
     price && compareAt && Number(compareAt.amount) > Number(price.amount);
-  const isRx = (product.tags || []).some((t) =>
-    ['prescription-dog-food', 'prescription-cat-food', 'rx-dog-food', 'rx-cat-food', 'pharmacy'].includes(
-      t,
-    ),
-  );
+  const isRx = isPrescriptionRequired(product);
+  const [autoship, setAutoship] = useState(false);
 
   return (
     <div className="bg-page-bg">
@@ -43,6 +43,7 @@ export function MockProductDetail({product, relatedProducts = []}) {
                 src={product.featuredImage.url}
                 alt={product.featuredImage.altText || product.title}
                 className="aspect-square w-full object-cover"
+                loading="eager"
               />
             ) : (
               <div className="flex aspect-square items-center justify-center bg-action-secondary font-serif text-heading-m text-text-secondary">
@@ -54,17 +55,16 @@ export function MockProductDetail({product, relatedProducts = []}) {
           <div>
             <div className="mb-4 flex flex-wrap gap-2">
               {onSale ? <Badge type="sale" /> : null}
-              {isRx ? (
-                <span className="inline-flex items-center rounded-pill bg-action-primary/10 px-3 py-1 font-sans text-body-xs font-medium uppercase tracking-wide text-action-primary">
-                  Rx Required
-                </span>
-              ) : null}
+              {isRx ? <Badge type="rx-required" /> : null}
             </div>
             <h1 className="font-serif text-display-m text-text-primary">{product.title}</h1>
             <div className="mt-4 flex flex-wrap items-baseline gap-3">
               {price ? (
                 <p className="font-mono text-mono-m font-medium text-text-primary">
                   <Money data={price} />
+                  {autoship ? (
+                    <span className="ml-2 font-sans text-body-s text-action-primary">Autoship save 5%</span>
+                  ) : null}
                 </p>
               ) : null}
               {onSale && compareAt ? (
@@ -78,10 +78,48 @@ export function MockProductDetail({product, relatedProducts = []}) {
               the mock storefront dataset.
             </p>
 
+            {isRx ? (
+              <div className="mt-6 rounded-lg border border-action-primary/20 bg-action-primary/5 p-4">
+                <p className="font-sans text-body-s font-semibold text-text-primary">Prescription required</p>
+                <p className="mt-1 font-sans text-body-s text-text-secondary">
+                  A valid vet Rx is needed before we can ship this item.
+                </p>
+                <Link
+                  to="/pharmacy/upload"
+                  className="mt-3 inline-block font-sans text-body-s font-semibold text-action-primary no-underline hover:underline"
+                >
+                  Upload a prescription →
+                </Link>
+              </div>
+            ) : (
+              <label className="mt-6 flex items-start gap-3 rounded-lg border border-border-subtle bg-surface p-4">
+                <input
+                  type="checkbox"
+                  checked={autoship}
+                  onChange={(e) => setAutoship(e.target.checked)}
+                  className="mt-1 accent-[rgb(var(--color-action-primary))]"
+                />
+                <span>
+                  <span className="block font-sans text-body-s font-semibold text-text-primary">
+                    Autoship &amp; Save
+                  </span>
+                  <span className="mt-1 block font-sans text-body-s text-text-secondary">
+                    Deliver every 4 weeks and save 5%. Manage anytime in Account → Subscriptions.
+                  </span>
+                </span>
+              </label>
+            )}
+
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button variant="primary" size="lg" href="/collections">
-                Continue shopping
-              </Button>
+              {isRx ? (
+                <Button variant="primary" size="lg" href="/pharmacy/upload">
+                  Start prescription
+                </Button>
+              ) : (
+                <Button variant="primary" size="lg" href="/cart">
+                  {autoship ? 'Add Autoship to cart' : 'Add to cart'}
+                </Button>
+              )}
               <Button variant="secondary" size="lg" href="/telehealth">
                 Ask a vet
               </Button>
@@ -117,6 +155,8 @@ export function MockProductDetail({product, relatedProducts = []}) {
             ) : null}
           </div>
         </div>
+
+        <PhotoReviews />
 
         {relatedProducts.length ? (
           <section className="mt-16">

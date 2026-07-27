@@ -16,6 +16,8 @@ import {
   Testimonials,
   FAQ,
 } from '~/components/sections';
+import {ShoppableGallery} from '~/components/ugc/ShoppableGallery';
+import {AsSeenIn} from '~/components/ugc/AsSeenIn';
 import {ProductCarousel} from '~/components/ProductCarousel';
 import {JudgemeCarousel} from '@judgeme/shopify-hydrogen';
 import {BRAND} from '~/lib/branding';
@@ -94,6 +96,8 @@ export default function Homepage() {
       <Ecosystem />
       <FrequentlyBoughtTogether products={bundleProducts} />
       <WalkerProgramSection />
+      <ShoppableGallery />
+      <AsSeenIn />
       {judgeMeWidgets ? (
         <section className="bg-surface px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">

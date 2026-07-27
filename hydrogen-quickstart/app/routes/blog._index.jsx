@@ -1,39 +1,32 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file blog._index.jsx
- * @description Route module: blog._index — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description PAWRA Journal index — mock articles grid.
  */
 
-import {Link} from 'react-router';
-import {BLOG_POSTS} from '~/lib/blogPosts';
-import {Button} from '~/components/ui/Button';
-
+import {Link, useLoaderData} from 'react-router';
+import {ARTICLES} from '~/data/articles';
 import {BRAND} from '~/lib/branding';
-import {buildSeoMeta} from '~/lib/seo';
+import {buildSeoMeta, breadcrumbJsonLd} from '~/lib/seo';
 
 export const meta = () => {
   return buildSeoMeta({
     title: 'PAWRA Journal',
     description: `Pet care tips, product guides, and wellness advice from ${BRAND.name}.`,
     url: '/blog',
+    jsonLd: breadcrumbJsonLd([
+      {label: 'Home', to: '/'},
+      {label: 'Journal', to: '/blog'},
+    ]),
   });
 };
 
 export async function loader() {
-  return {posts: BLOG_POSTS};
+  return {posts: ARTICLES};
 }
 
 export default function BlogIndex() {
+  const {posts} = useLoaderData();
+
   return (
     <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
       <div className="mx-auto max-w-7xl">
@@ -41,35 +34,33 @@ export default function BlogIndex() {
           PAWRA Journal
         </p>
         <h1 className="mt-3 font-serif text-display-s text-text-primary">Stories for pet people.</h1>
-        <p className="mt-4 max-w-2xl font-sans text-body-l text-text-primary/80">
+        <p className="mt-4 max-w-2xl font-sans text-body-l text-text-secondary">
           Tips, guides, and stories for cat and dog owners who want the best for their pets.
         </p>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {BLOG_POSTS.map((post) => (
-            <article key={post.slug} className="flex flex-col rounded-lg bg-surface p-6 shadow-sm">
-              <p className="font-mono text-mono-s uppercase tracking-wide text-action-primary">
-                {post.category}
-              </p>
-              <h2 className="mt-3 font-serif text-heading-s text-text-primary">{post.title}</h2>
-              <p className="mt-2 font-mono text-mono-s text-text-secondary">{post.date}</p>
-              <p className="mt-4 flex-1 font-sans text-body-m text-text-primary/80">{post.excerpt}</p>
-              <Link
-                to={post.href}
-                className="mt-6 inline-flex items-center gap-2 font-sans text-body-s font-semibold text-action-primary no-underline hover:text-action-primary"
-              >
-                Read More →
-              </Link>
+          {posts.map((post) => (
+            <article key={post.slug} className="flex flex-col overflow-hidden rounded-lg bg-surface shadow-sm">
+              <img src={post.image} alt="" loading="lazy" className="aspect-[16/10] w-full object-cover" />
+              <div className="flex flex-1 flex-col p-6">
+                <p className="font-mono text-mono-s uppercase tracking-wide text-action-primary">
+                  {post.category}
+                </p>
+                <h2 className="mt-3 font-serif text-heading-s text-text-primary">{post.title}</h2>
+                <p className="mt-2 font-mono text-mono-s text-text-secondary">
+                  {post.date} · {post.readTime}
+                </p>
+                <p className="mt-4 flex-1 font-sans text-body-m text-text-secondary">{post.excerpt}</p>
+                <Link
+                  to={`/blog/${post.slug}`}
+                  className="mt-6 inline-flex items-center gap-2 font-sans text-body-s font-semibold text-action-primary no-underline hover:underline"
+                >
+                  Read More →
+                </Link>
+              </div>
             </article>
           ))}
-        </div>
-        <div className="mt-12 text-center">
-          <Button variant="secondary" href="/blogs/journal">
-            View all posts
-          </Button>
         </div>
       </div>
     </div>
   );
 }
-
-/** @typedef {import('./+types/blog._index').Route} Route */
