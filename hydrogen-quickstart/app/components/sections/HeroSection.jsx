@@ -7,6 +7,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
 import {Icon} from '~/components/ui/Icon';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {BRAND} from '~/lib/branding';
 import {PAWRA_HERO_SLIDES} from '~/lib/pawraMedia';
 
@@ -95,9 +96,9 @@ export function HeroSection() {
       >
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="order-2 lg:order-1" key={slide.id} aria-live="polite">
-            <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-text-secondary">
-              {BRAND.name}
-            </p>
+            <div className="mb-6">
+              <PawraLogo variant="primary" height={36} />
+            </div>
             <h1 className="font-serif text-display-m text-text-primary md:text-display-l">
               {slide.headline}
             </h1>

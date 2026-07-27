@@ -23,7 +23,7 @@ export function MockShopNotice() {
       aria-labelledby="mock-shop-notice-heading"
     >
       <div className="inner">
-        <h2 id="mock-shop-notice-heading" className="font-serif text-action-primary">
+        <h2 id="mock-shop-notice-heading" className="font-serif text-text-primary">
           PAWRA — {BRAND.tagline}
         </h2>
         <p>

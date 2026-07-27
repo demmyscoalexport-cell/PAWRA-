@@ -31,7 +31,7 @@ export default function AccountDashboard() {
   return (
     <div className="bg-page-bg px-4 py-10 md:px-8">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-[2.5rem] text-action-primary">Welcome back, {name}</h1>
+        <h1 className="font-serif text-[2.5rem] text-text-primary">Welcome back, {name}</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
           Manage orders, saved products, and your PAWRA rewards.
         </p>

@@ -17,7 +17,7 @@ export function Breadcrumbs({items, className = ''}) {
           const isLast = index === items.length - 1;
           return (
             <li key={item.to ? `${item.to}-${item.label}` : item.label} className="inline-flex items-center gap-1.5">
-              {index > 0 ? <span aria-hidden="true" className="text-text-primary/30">/</span> : null}
+              {index > 0 ? <span aria-hidden="true" className="text-text-secondary/50">&gt;</span> : null}
               {item.to && !isLast ? (
                 <Link to={item.to} className="text-action-primary no-underline hover:underline">
                   {item.label}

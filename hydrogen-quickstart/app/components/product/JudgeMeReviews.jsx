@@ -21,7 +21,7 @@ export function JudgeMeReviews({product, reviews}) {
   return (
     <section id="reviews" className="mt-16 border-t border-border-subtle pt-12">
       <div className="mb-6">
-        <h2 className="font-serif text-heading-s text-action-primary">Customer reviews</h2>
+        <h2 className="font-serif text-heading-s text-text-primary">Customer reviews</h2>
         <ProductRating rating={reviews?.rating} count={reviews?.count} />
       </div>
 

@@ -10,7 +10,7 @@ export function ContactSupportPanel() {
       <p className="font-sans text-body-xs font-medium uppercase tracking-[0.18em] text-action-primary">
         Prefer live help?
       </p>
-      <h2 className="mt-2 font-serif text-display-s text-action-primary">Chat with PAWRA</h2>
+      <h2 className="mt-2 font-serif text-display-s text-text-primary">Chat with PAWRA</h2>
       <p className="mt-3 max-w-xl font-sans text-body-m text-text-secondary">
         Our AI Agent can track orders, answer product questions, explain shipping, and help with
         discounts — usually in seconds. Humans step in when you need them.

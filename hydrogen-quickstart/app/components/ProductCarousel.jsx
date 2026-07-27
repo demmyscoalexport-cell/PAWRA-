@@ -56,7 +56,7 @@ export function ProductCarousel({
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-serif text-display-s text-action-primary">{title}</h2>
+            <h2 className="font-serif text-display-s text-text-primary">{title}</h2>
             {subtitle ? (
               <p className="mt-2 max-w-xl font-sans text-body-m text-text-secondary">{subtitle}</p>
             ) : null}

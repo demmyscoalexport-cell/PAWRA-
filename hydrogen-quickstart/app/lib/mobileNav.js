@@ -1,45 +1,59 @@
 /**
- * Nested navigation — Shop by pet (Chewy-style) → category PLPs.
- * Species-scoped links use `?species=` so Dog Food and Cat Food stay distinct.
+ * @file mobileNav.js
+ * @description Navigation built from Chewy-depth taxonomy (mock catalog).
  */
 
-/** @typedef {{ id: string; title: string; path: string }} NavLeaf */
-/** @typedef {{ id: string; title: string; path?: string; children?: NavLeaf[] }} NavItem */
+import {COLLECTION_TAXONOMY, getMegaMenuColumns, taxonomyCollectionPath} from '~/data/collections';
+
+/** @typedef {{ id: string; title: string; path: string; children?: NavItem[] }} NavItem */
+
+function mapChildren(rootHandle, nodes, pathPrefix) {
+  return (nodes || []).map((node) => ({
+    id: node.handle,
+    title: node.title,
+    path: taxonomyCollectionPath([...pathPrefix, node.handle]),
+    children: (node.children || []).map((child) => ({
+      id: child.handle,
+      title: child.title,
+      path: taxonomyCollectionPath([...pathPrefix, node.handle, child.handle]),
+    })),
+  }));
+}
 
 /** @type {NavItem[]} */
 export const NAV_MAIN = [
   {
     id: 'dogs',
     title: 'Dog',
-    path: '/collections/dogs',
-    children: [
-      {id: 'dogs-all', title: 'Shop all Dog', path: '/collections/dogs'},
-      {id: 'dogs-food', title: 'Food', path: '/collections/food-treats?species=dog&category=food'},
-      {id: 'dogs-treats', title: 'Treats', path: '/collections/food-treats?species=dog&category=treats'},
-      {id: 'dogs-beds', title: 'Beds & Comfort', path: '/collections/beds-comfort?species=dog'},
-      {id: 'dogs-grooming', title: 'Grooming & Wellness', path: '/collections/grooming-wellness?species=dog'},
-      {id: 'dogs-featured', title: 'Best Sellers', path: '/collections/frontpage'},
-    ],
+    path: taxonomyCollectionPath(['dogs']),
+    children: mapChildren('dogs', COLLECTION_TAXONOMY.dogs.children, ['dogs']),
   },
   {
     id: 'cats',
     title: 'Cat',
-    path: '/collections/cats',
-    children: [
-      {id: 'cats-all', title: 'Shop all Cat', path: '/collections/cats'},
-      {id: 'cats-food', title: 'Food', path: '/collections/food-treats?species=cat&category=food'},
-      {id: 'cats-treats', title: 'Treats', path: '/collections/food-treats?species=cat&category=treats'},
-      {id: 'cats-beds', title: 'Beds & Comfort', path: '/collections/beds-comfort?species=cat'},
-      {id: 'cats-grooming', title: 'Grooming & Wellness', path: '/collections/grooming-wellness?species=cat'},
-      {id: 'cats-featured', title: 'Best Sellers', path: '/collections/frontpage'},
-    ],
+    path: taxonomyCollectionPath(['cats']),
+    children: mapChildren('cats', COLLECTION_TAXONOMY.cats.children, ['cats']),
   },
-  {id: 'deals', title: 'Today\'s Deals', path: '/collections/frontpage'},
-  {id: 'shop-all', title: 'Shop All', path: '/collections/all'},
+  {
+    id: 'pharmacy',
+    title: 'Pharmacy',
+    path: taxonomyCollectionPath(['pharmacy']),
+    children: mapChildren('pharmacy', COLLECTION_TAXONOMY.pharmacy.children, ['pharmacy']),
+  },
+  {
+    id: 'deals',
+    title: "Today's Deals",
+    path: taxonomyCollectionPath(['todays-deals']),
+  },
+  {
+    id: 'shop-all',
+    title: 'Shop All',
+    path: '/collections',
+  },
 ];
 
-/** Extra page links shown under Collections in the root panel */
 export const NAV_PAGE_LINKS = [
+  {id: 'small-pets', title: 'Small Pets', path: taxonomyCollectionPath(['small-pets'])},
   {id: 'about', title: 'About', path: '/pages/about'},
   {id: 'how-it-works', title: 'How It Works', path: '/pages/how-it-works'},
   {id: 'subscribe', title: 'Subscribe & Save', path: '/pages/subscribe-and-save'},
@@ -48,10 +62,14 @@ export const NAV_PAGE_LINKS = [
   {id: 'contact', title: 'Contact', path: '/pages/contact'},
 ];
 
-/** Desktop mega-menu columns (Dog / Cat only). */
 export const MEGA_NAV_ITEMS = NAV_MAIN.filter((item) => item.children?.length);
 
 /** @param {string} id */
 export function getNavItemById(id) {
   return NAV_MAIN.find((item) => item.id === id) ?? null;
+}
+
+/** Mega-menu column data for dogs/cats/pharmacy */
+export function getNavMegaColumns(id) {
+  return getMegaMenuColumns(id);
 }

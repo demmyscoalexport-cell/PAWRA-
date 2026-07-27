@@ -1,11 +1,11 @@
 /**
- * @file collections.$handle.jsx
- * @description Single-segment collection route — taxonomy mock catalog first.
+ * @file collections.$.jsx
+ * @description Deep taxonomy paths: /collections/dogs/dog-food/dry-dog-food/...
  */
 
-import {redirect, useLoaderData} from 'react-router';
+import {useLoaderData} from 'react-router';
 import {TaxonomyCollectionView} from '~/components/collection/TaxonomyCollectionView';
-import {loadTaxonomyCollection} from '~/lib/taxonomyCollection';
+import {loadTaxonomyCollection, parseCollectionHandles} from '~/lib/taxonomyCollection';
 import {buildSeoMeta, breadcrumbJsonLd, DEFAULT_DESCRIPTION} from '~/lib/seo';
 
 export const meta = ({data}) => {
@@ -29,24 +29,18 @@ export const meta = ({data}) => {
 };
 
 export async function loader({params}) {
-  const {handle} = params;
-  if (!handle) throw redirect('/collections');
+  const splat = params['*'] || '';
+  const handles = parseCollectionHandles(splat);
+  const payload = loadTaxonomyCollection(handles);
 
-  // Prefer canonical deep path when a leaf is requested by handle alone
-  const payload = loadTaxonomyCollection([handle]);
   if (!payload) {
-    throw new Response(`Collection ${handle} not found`, {status: 404});
-  }
-
-  // If taxonomy resolved to a deeper path than the URL, redirect to canonical
-  if (payload.pathHandles?.length > 1 && payload.pathHandles[payload.pathHandles.length - 1] === handle) {
-    // Leaf looked up by handle — keep short URL working without redirect for UX
+    throw new Response(`Collection not found: ${splat}`, {status: 404});
   }
 
   return payload;
 }
 
-export default function CollectionHandlePage() {
+export default function DeepCollectionPage() {
   const data = useLoaderData();
 
   return (

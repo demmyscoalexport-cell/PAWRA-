@@ -13,9 +13,11 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {PawraProductPage} from '~/components/product/PawraProductPage';
+import {MockProductDetail} from '~/components/product/MockProductDetail';
 import {GorgiasPageContext} from '~/components/gorgias/GorgiasPageContext';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeProductReviews} from '~/lib/judgeme';
+import {getMockProductByHandle, getProductsByTag} from '~/data/products';
 import {
   breadcrumbJsonLd,
   buildSeoMeta,
@@ -29,8 +31,11 @@ export const meta = ({data}) => {
   const title = product?.seo?.title || product?.title || 'Product';
   const description =
     product?.seo?.description || product?.description || DEFAULT_DESCRIPTION;
-  const image = variant?.image?.url || product?.images?.nodes?.[0]?.url;
-  const handle = product?.handle || data?.product?.handle;
+  const image =
+    variant?.image?.url ||
+    product?.images?.nodes?.[0]?.url ||
+    product?.featuredImage?.url;
+  const handle = product?.handle;
 
   return buildSeoMeta({
     title,
@@ -41,21 +46,23 @@ export const meta = ({data}) => {
           url: image,
           type: 'image',
           altText: product?.title || title,
-          width: variant?.image?.width || product?.images?.nodes?.[0]?.width,
-          height: variant?.image?.height || product?.images?.nodes?.[0]?.height,
+          width: variant?.image?.width || product?.images?.nodes?.[0]?.width || product?.featuredImage?.width,
+          height: variant?.image?.height || product?.images?.nodes?.[0]?.height || product?.featuredImage?.height,
         }
       : undefined,
     jsonLd: [
       breadcrumbJsonLd([
         {label: 'Home', to: '/'},
-        {label: 'Shop', to: '/collections/all'},
+        {label: 'Shop', to: '/collections'},
         {label: product?.title || title, to: handle ? `/products/${handle}` : undefined},
       ]),
-      productJsonLd({
-        product,
-        selectedVariant: variant,
-        reviews: data?.reviews,
-      }),
+      data?.isMock
+        ? null
+        : productJsonLd({
+            product,
+            selectedVariant: variant,
+            reviews: data?.reviews,
+          }),
     ].filter(Boolean),
   });
 };
@@ -68,17 +75,37 @@ export async function loader({context, params, request}) {
     throw new Error('Expected product handle to be defined');
   }
 
-  const [{product}, relatedResult] = await Promise.all([
-    storefront.query(PRODUCT_QUERY, {
-      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
-    }),
-    storefront.query(RELATED_QUERY, {
-      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
-    }),
-  ]);
+  let product = null;
+  let relatedResult = null;
+
+  try {
+    [{product}, relatedResult] = await Promise.all([
+      storefront.query(PRODUCT_QUERY, {
+        variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+      }),
+      storefront.query(RELATED_QUERY, {
+        variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+      }),
+    ]);
+  } catch {
+    product = null;
+  }
 
   if (!product?.id) {
-    throw new Response(null, {status: 404});
+    const mock = getMockProductByHandle(handle);
+    if (!mock) {
+      throw new Response(null, {status: 404});
+    }
+    const leafTag = [...(mock.tags || [])].reverse().find(Boolean);
+    const related = getProductsByTag(leafTag || 'dogs')
+      .filter((p) => p.handle !== handle)
+      .slice(0, 4);
+    return {
+      product: mock,
+      relatedProducts: related,
+      reviews: null,
+      isMock: true,
+    };
   }
 
   redirectIfHandleIsLocalized(request, {handle, data: product});
@@ -95,11 +122,16 @@ export async function loader({context, params, request}) {
     product,
     relatedProducts: recommendations.slice(0, 4),
     reviews,
+    isMock: false,
   };
 }
 
 export default function Product() {
-  const {product, relatedProducts, reviews} = useLoaderData();
+  const {product, relatedProducts, reviews, isMock} = useLoaderData();
+
+  if (isMock) {
+    return <MockProductDetail product={product} relatedProducts={relatedProducts} />;
+  }
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,

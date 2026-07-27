@@ -97,7 +97,7 @@ export default function Homepage() {
       {judgeMeWidgets ? (
         <section className="bg-surface px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">
-            <h2 className="mb-8 text-center font-serif text-display-s text-action-primary">
+            <h2 className="mb-8 text-center font-serif text-display-s text-text-primary">
               Loved by pet parents
             </h2>
             <JudgemeCarousel />

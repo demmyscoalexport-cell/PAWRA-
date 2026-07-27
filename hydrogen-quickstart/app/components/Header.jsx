@@ -7,11 +7,11 @@ import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await, NavLink, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
-import {Logo} from '~/components/ui/Logo';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {Icon} from '~/components/ui/Icon';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {getNavItemById, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {getNavItemById, getNavMegaColumns, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
 import {ThemeToggle} from '~/components/ThemeToggle';
 
 /**
@@ -75,7 +75,8 @@ export function Header({cart, isLoggedIn}) {
             </button>
 
             <NavLink to="/" className="no-underline" aria-label="PAWRA home">
-              <Logo variant="icon" height={34} />
+              <PawraLogo variant="icon-only" height={34} className="lg:hidden" />
+              <PawraLogo variant="primary" height={32} className="hidden lg:block" />
             </NavLink>
           </div>
 
@@ -292,7 +293,8 @@ function HeaderSearchField() {
 }
 
 function MegaMenu({item, onClose, onMouseEnter}) {
-  if (!item?.children?.length) return null;
+  if (!item) return null;
+  const columns = getNavMegaColumns(item.id);
 
   return (
     <div
@@ -301,36 +303,71 @@ function MegaMenu({item, onClose, onMouseEnter}) {
       role="region"
       aria-label={`${item.title} categories`}
     >
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:grid-cols-[220px_1fr] md:px-8">
-        <div>
-          <p className="font-serif text-display-s text-action-primary">{item.title}</p>
-          <p className="mt-2 font-sans text-body-s text-text-secondary">
-            Shop {item.title.toLowerCase()} essentials the way you would on a pet superstore — food, comfort, and care.
-          </p>
+      <div className="mx-auto max-w-1440 px-5 py-8 md:px-10">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-serif text-display-s text-text-primary">{item.title}</p>
+            <p className="mt-2 max-w-xl font-sans text-body-s text-text-secondary">
+              Browse {item.title.toLowerCase()} by category — the same depth you expect from a
+              full pet retailer.
+            </p>
+          </div>
           {item.path ? (
             <NavLink
               to={item.path}
               onClick={onClose}
-              className="mt-4 inline-flex font-sans text-body-s font-semibold text-action-primary no-underline hover:underline"
+              className="font-sans text-body-s font-medium text-action-primary no-underline hover:underline"
             >
               Shop all {item.title} →
             </NavLink>
           ) : null}
         </div>
-        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {item.children.map((child) => (
-            <li key={child.id}>
-              <NavLink
-                to={child.path}
-                onClick={onClose}
-                className="flex items-center justify-between rounded-md border border-border-subtle bg-action-secondary px-4 py-3 font-sans text-body-m font-medium text-text-primary no-underline transition-colors hover:border-border-strong hover:bg-page-bg"
-              >
-                {child.title}
-                <Icon name="chevron-right" size="sm" color="text-action-primary/50" />
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+
+        {columns.length ? (
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {columns.map((column) => (
+              <div key={column.href}>
+                <NavLink
+                  to={column.href}
+                  onClick={onClose}
+                  className="font-sans text-body-m font-semibold text-text-primary no-underline hover:text-action-primary"
+                >
+                  {column.title}
+                </NavLink>
+                {column.links?.length ? (
+                  <ul className="mt-3 space-y-2">
+                    {column.links.map((link) => (
+                      <li key={link.href}>
+                        <NavLink
+                          to={link.href}
+                          onClick={onClose}
+                          className="font-sans text-body-s text-text-secondary no-underline transition-colors hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                        >
+                          {link.title}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : item.children?.length ? (
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {item.children.map((child) => (
+              <li key={child.id}>
+                <NavLink
+                  to={child.path}
+                  onClick={onClose}
+                  className="flex items-center justify-between rounded-md border border-border-subtle bg-action-secondary px-4 py-3 font-sans text-body-m font-medium text-text-primary no-underline transition-colors hover:bg-page-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                >
+                  {child.title}
+                  <Icon name="chevron-right" size="sm" color="text-text-secondary" />
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </div>
   );
@@ -373,7 +410,7 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
       <aside className="absolute left-0 top-0 flex h-full w-[min(400px,92vw)] flex-col bg-surface-elevated shadow-md md:w-[420px]">
         <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4">
           {panel === 'root' ? (
-            <Logo variant="dark" height={28} />
+            <PawraLogo variant="primary" height={28} />
           ) : (
             <button
               type="button"
@@ -461,19 +498,44 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
             <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
               {activeItem ? (
                 <>
-                  <p className="mb-2 px-3 font-sans text-body-l font-semibold text-text-primary">
-                    {activeItem.title}
-                  </p>
-                  {activeItem.children?.map((child) => (
+                  <div className="mb-2 flex items-center justify-between gap-2 px-3">
+                    <p className="font-sans text-body-l font-semibold text-text-primary">
+                      {activeItem.title}
+                    </p>
                     <NavLink
-                      key={child.id}
-                      to={child.path}
+                      to={activeItem.path}
                       onClick={onClose}
-                      className="flex items-center justify-between rounded-md px-3 py-3.5 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
+                      className="font-sans text-body-xs font-medium text-action-primary no-underline"
                     >
-                      {child.title}
-                      <Icon name="chevron-right" size="sm" color="text-text-secondary" />
+                      View all
                     </NavLink>
+                  </div>
+                  {activeItem.children?.map((child) => (
+                    <div key={child.id} className="mb-1">
+                      <NavLink
+                        to={child.path}
+                        onClick={onClose}
+                        className="flex items-center justify-between rounded-md px-3 py-3 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
+                      >
+                        {child.title}
+                        <Icon name="chevron-right" size="sm" color="text-text-secondary" />
+                      </NavLink>
+                      {child.children?.length ? (
+                        <ul className="mb-2 ml-3 space-y-1 border-l border-border-subtle pl-3">
+                          {child.children.map((leaf) => (
+                            <li key={leaf.id}>
+                              <NavLink
+                                to={leaf.path}
+                                onClick={onClose}
+                                className="block rounded-md px-2 py-2 font-sans text-body-s text-text-secondary no-underline hover:bg-action-secondary hover:text-text-primary"
+                              >
+                                {leaf.title}
+                              </NavLink>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
                   ))}
                 </>
               ) : null}

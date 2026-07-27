@@ -32,15 +32,24 @@ export function PawraProductCard({product, loading}) {
       className="group flex flex-col overflow-hidden rounded-lg bg-surface transition-shadow duration-base hover:shadow-sm no-underline"
     >
       <div className="relative aspect-square overflow-hidden bg-page-bg">
-        {image ? (
-          <Image
-            alt={image.altText || product.title}
-            aspectRatio="1/1"
-            data={image}
-            loading={loading}
-            sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-            className="h-full w-full object-cover transition-transform duration-base group-hover:scale-[1.02]"
-          />
+        {image?.url ? (
+          image.url.includes('cdn.shopify.com') ? (
+            <Image
+              alt={image.altText || product.title}
+              aspectRatio="1/1"
+              data={image}
+              loading={loading}
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              className="h-full w-full object-cover transition-transform duration-base group-hover:scale-[1.02]"
+            />
+          ) : (
+            <img
+              src={image.url}
+              alt={image.altText || product.title}
+              loading={loading}
+              className="h-full w-full object-cover transition-transform duration-base group-hover:scale-[1.02]"
+            />
+          )
         ) : (
           <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-none" />
         )}

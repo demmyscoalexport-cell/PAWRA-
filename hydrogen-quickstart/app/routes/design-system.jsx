@@ -20,6 +20,13 @@ import {Card} from '~/components/ui/Card';
 import {Icon} from '~/components/ui/Icon';
 import {Logo} from '~/components/ui/Logo';
 import {PulseRing} from '~/components/ui/PulseRing';
+import {PawraLogo} from '~/components/ui/PawraLogo';
+import {PawraIcon} from '~/components/ui/PawraIcon';
+import {PawraWordmark} from '~/components/ui/PawraWordmark';
+import {PawraBadge} from '~/components/ui/PawraBadge';
+import {PawraSpinner} from '~/components/ui/PawraSpinner';
+import {PawraPattern} from '~/components/ui/PawraPattern';
+import {PawraSocialAvatar} from '~/components/ui/PawraSocialAvatar';
 import {BRAND} from '~/lib/branding';
 
 export const meta = () => {
@@ -116,7 +123,41 @@ export default function DesignSystem() {
         </p>
       </header>
 
-      <Section title="Logos">
+      <Section title="Brand identity">
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="rounded-lg border border-border-subtle bg-surface p-6">
+            <p className="mb-4 font-sans text-body-s text-text-secondary">Primary lockup</p>
+            <PawraLogo variant="primary" height={40} />
+          </div>
+          <div className="rounded-lg bg-inverse p-6">
+            <p className="mb-4 font-sans text-body-s text-text-inverse/70">Light on inverse</p>
+            <PawraLogo variant="light" height={40} />
+          </div>
+          <div className="rounded-lg border border-border-subtle bg-surface p-6">
+            <p className="mb-4 font-sans text-body-s text-text-secondary">Icon + wordmark</p>
+            <div className="flex flex-wrap items-center gap-6">
+              <PawraIcon size={48} />
+              <PawraWordmark height={28} />
+            </div>
+          </div>
+          <div className="rounded-lg border border-border-subtle bg-surface p-6">
+            <p className="mb-4 font-sans text-body-s text-text-secondary">Seal · spinner · avatar</p>
+            <div className="flex flex-wrap items-center gap-6">
+              <PawraBadge size={88} />
+              <PawraSpinner size={40} />
+              <PawraSocialAvatar size={88} />
+            </div>
+          </div>
+          <div className="relative col-span-full min-h-[120px] overflow-hidden rounded-lg border border-border-subtle bg-page-bg p-6">
+            <PawraPattern id="ds-pattern" asBackground opacity={0.14} />
+            <p className="relative font-sans text-body-m text-text-primary">
+              Signature pattern texture — understated, enterprise, on-brand.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Legacy logo assets">
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-lg bg-page-bg p-6 shadow-sm">
             <p className="mb-4 font-sans text-body-s text-text-secondary">Primary</p>
@@ -229,7 +270,7 @@ export default function DesignSystem() {
             title="Premium Dog Leash"
             description="Durable braided leash for daily walks."
             badge="new"
-            image={<div className="flex h-full items-center justify-center bg-page-bg font-serif text-heading-s text-action-primary/30">Product</div>}
+            image={<div className="flex h-full items-center justify-center bg-page-bg font-serif text-heading-s text-text-primary/30">Product</div>}
           />
           <Card
             variant="product-hero"

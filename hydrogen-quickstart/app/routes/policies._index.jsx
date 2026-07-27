@@ -39,7 +39,7 @@ export default function Policies() {
   return (
     <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-serif text-display-s text-action-primary">Policies</h1>
+        <h1 className="font-serif text-display-s text-text-primary">Policies</h1>
         <p className="mt-4 font-sans text-body-l text-text-primary/80">
           Shipping, returns, privacy, and terms for shopping at PAWRA.
         </p>

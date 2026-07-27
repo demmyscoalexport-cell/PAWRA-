@@ -136,7 +136,7 @@ export default function CartPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center bg-page-bg px-4 py-20 text-center">
         <ProductImagePlaceholder label="Empty cart" className="mx-auto h-40 w-40 rounded-lg" />
-        <h1 className="mt-8 font-serif text-[2.5rem] text-action-primary">Your cart is empty</h1>
+        <h1 className="mt-8 font-serif text-[2.5rem] text-text-primary">Your cart is empty</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Looks like you haven&apos;t added anything yet
         </p>
@@ -150,14 +150,14 @@ export default function CartPage() {
   return (
     <div className="bg-page-bg px-4 py-10 md:px-8 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-display-s text-action-primary">Your cart</h1>
+        <h1 className="font-serif text-display-s text-text-primary">Your cart</h1>
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_380px]">
           {/* ─── Line Items & Recommendations ─── */}
           <div>
             <CartMain layout="page" cart={cart} showSummary={false} />
             {recommendations.length > 0 && (
               <section className="mt-12 border-t border-border-subtle pt-10">
-                <h2 className="font-serif text-heading-m text-action-primary">Complete your setup</h2>
+                <h2 className="font-serif text-heading-m text-text-primary">Complete your setup</h2>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   {recommendations.map((product, i) => (
                     <PawraProductCard key={product.id} product={product} loading={i < 2 ? 'eager' : undefined} />
@@ -169,7 +169,7 @@ export default function CartPage() {
 
           {/* ─── Order Summary Sidebar ─── */}
           <aside className="h-fit rounded-lg bg-surface p-6 shadow-md">
-            <h2 className="font-serif text-heading-s text-action-primary">Order summary</h2>
+            <h2 className="font-serif text-heading-s text-text-primary">Order summary</h2>
             <dl className="mt-6 space-y-3 font-sans text-body-m">
               <div className="flex justify-between">
                 <dt className="text-text-secondary">Subtotal</dt>

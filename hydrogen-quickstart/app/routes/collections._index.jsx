@@ -1,113 +1,38 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file collections._index.jsx
- * @description Route module: collections._index — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Shop All — top-level taxonomy category cards (mock taxonomy).
  */
 
 import {useLoaderData} from 'react-router';
-import {getPaginationVariables} from '@shopify/hydrogen';
-import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
-import {PawraCollectionCard} from '~/components/PawraCollectionCard';
-
+import {TaxonomyCollectionView} from '~/components/collection/TaxonomyCollectionView';
+import {loadTaxonomyCollection} from '~/lib/taxonomyCollection';
 import {buildSeoMeta} from '~/lib/seo';
 
 export const meta = () => {
   return buildSeoMeta({
-    title: 'Shop Collections',
+    title: 'Shop All',
     description:
-      'Browse PAWRA collections for dogs and cats — food, treats, beds, grooming, and wellness essentials.',
+      'Browse PAWRA by category — dogs, cats, pharmacy, small pets, and today’s deals.',
     url: '/collections',
   });
 };
 
-export async function loader({context, request}) {
-  const paginationVariables = getPaginationVariables(request, {pageBy: 20});
-  const [{collections}] = await Promise.all([
-    context.storefront.query(COLLECTIONS_QUERY, {variables: paginationVariables}),
-  ]);
-
-  const apiByHandle = Object.fromEntries(
-    (collections?.nodes ?? []).map((c) => [c.handle, c]),
-  );
-
-  const displayCollections = PAWRA_COLLECTIONS.map((item) => {
-    const api = item.handle !== 'all' ? apiByHandle[item.handle] : null;
-    return {
-      ...item,
-      image: api?.image ?? null,
-      productCount: api?.products?.nodes?.length ?? null,
-    };
-  });
-
-  return {collections: displayCollections};
+export async function loader() {
+  return loadTaxonomyCollection([]);
 }
 
 export default function CollectionsIndex() {
-  const {collections} = useLoaderData();
+  const data = useLoaderData();
 
   return (
-    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
-      <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-display-s text-action-primary md:text-[3.5rem]">
-          Collections
-        </h1>
-        <p className="mt-4 max-w-2xl font-sans text-body-l text-text-primary/80">
-          Premium pet products for cats and dogs — shop by category or browse the full catalog.
-        </p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {collections.map((collection) => (
-            <PawraCollectionCard
-              key={`${collection.title}-${collection.path}`}
-              title={collection.title}
-              description={collection.description}
-              to={collection.path}
-              productCount={collection.productCount}
-              productCountLabel={collection.productCountLabel}
-              image={collection.image}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    <TaxonomyCollectionView
+      title={data.title}
+      description={data.description}
+      breadcrumbs={data.breadcrumbs}
+      children={data.children}
+      products={data.products}
+      curatedProducts={data.curatedProducts}
+      isLeaf={false}
+    />
   );
 }
-
-const COLLECTIONS_QUERY = `#graphql
-  query StoreCollections(
-    $country: CountryCode
-    $endCursor: String
-    $first: Int
-    $language: LanguageCode
-    $last: Int
-    $startCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collections(first: $first, last: $last, before: $startCursor, after: $endCursor) {
-      nodes {
-        id
-        title
-        handle
-        image {
-          url
-          altText
-        }
-        products(first: 1) {
-          nodes {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
-
-/** @typedef {import('./+types/collections._index').Route} Route */

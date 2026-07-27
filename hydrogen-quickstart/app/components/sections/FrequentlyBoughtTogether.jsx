@@ -20,7 +20,7 @@ export function FrequentlyBoughtTogether({products = []}) {
     <SectionReveal>
       <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-display-s text-action-primary">
+          <h2 className="font-serif text-display-s text-text-primary">
             Popular picks for pet parents
           </h2>
           {items.length > 0 ? (

@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file account.jsx
- * @description Route module: account — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Account shell — enterprise soft navigation.
  */
 
 import {
@@ -73,49 +62,50 @@ export default function AccountLayout() {
     : 'Account Details';
 
   return (
-    <div className="account">
-      <h1>{heading}</h1>
-      <br />
-      <AccountMenu />
-      <br />
-      <br />
-      <Outlet context={{customer}} />
+    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+      <div className="mx-auto max-w-1440">
+        <h1 className="font-serif text-display-m text-text-primary">{heading}</h1>
+        <p className="mt-2 font-sans text-body-m text-text-secondary">
+          Orders, profile, and addresses — managed securely with Shopify Customer Accounts.
+        </p>
+        <AccountMenu />
+        <div className="mt-10 rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
+          <Outlet context={{customer}} />
+        </div>
+      </div>
     </div>
   );
 }
 
 function AccountMenu() {
-  function isActiveStyle({isActive, isPending}) {
-    return {
-      fontWeight: isActive ? 'bold' : undefined,
-      color: isPending ? 'grey' : 'black',
-    };
-  }
+  const linkClass = ({isActive}) =>
+    [
+      'rounded-pill px-4 py-2 font-sans text-body-s font-medium no-underline transition-colors',
+      isActive
+        ? 'bg-action-primary text-action-primary-label'
+        : 'bg-action-secondary text-text-primary hover:bg-border-subtle',
+    ].join(' ');
 
   return (
-    <nav role="navigation">
-      <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
+    <nav className="mt-8 flex flex-wrap gap-2" aria-label="Account">
+      <NavLink to="/account/orders" className={linkClass}>
+        Orders
       </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
+      <NavLink to="/account/profile" className={linkClass}>
+        Profile
       </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
+      <NavLink to="/account/addresses" className={linkClass}>
+        Addresses
       </NavLink>
-      &nbsp;|&nbsp;
-      <Logout />
+      <Form method="POST" action="/account/logout">
+        <button
+          type="submit"
+          className="rounded-pill border border-border-subtle bg-surface px-4 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary"
+        >
+          Sign out
+        </button>
+      </Form>
     </nav>
-  );
-}
-
-function Logout() {
-  return (
-    <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
-    </Form>
   );
 }
 

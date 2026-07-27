@@ -5,17 +5,21 @@
 
 import {NavLink, useRouteLoaderData} from 'react-router';
 import {JudgemeAllReviewsCount, JudgemeAllReviewsRating} from '@judgeme/shopify-hydrogen';
-import {Logo} from '~/components/ui/Logo';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {SocialLinks} from '~/components/SocialLinks';
 import {FooterNewsletter} from '~/components/FooterNewsletter';
 import {BRAND} from '~/lib/branding';
-import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
+import {TAXONOMY_ROOTS, taxonomyCollectionPath} from '~/data/collections';
 import {openGorgiasChat} from '~/lib/gorgias';
 
-const SHOP_LINKS = PAWRA_COLLECTIONS.filter((c) => c.handle !== 'frontpage').map((c) => ({
-  label: c.title,
-  to: c.path,
-}));
+const SHOP_LINKS = [
+  ...TAXONOMY_ROOTS.filter((root) => root.handle !== 'shop-all').map((root) => ({
+    label: root.title,
+    to: taxonomyCollectionPath([root.handle]),
+  })),
+  {label: 'Shop All', to: '/collections'},
+  {label: 'All Products', to: '/collections/all'},
+];
 
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
@@ -120,7 +124,7 @@ export function Footer() {
       <div className="mx-auto max-w-1440 px-5 py-16 md:px-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <Logo variant="light" height={36} />
+            <PawraLogo variant="light" height={36} />
             <p className="mt-4 font-serif text-body-l italic text-text-inverse">
               {BRAND.tagline}
             </p>

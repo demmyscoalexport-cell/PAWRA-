@@ -27,20 +27,20 @@ import {
 } from 'react-router';
 import { useJudgeme } from '@judgeme/shopify-hydrogen';
 import favicon from './assets/favicon.svg?url';
-import { FOOTER_QUERY, HEADER_QUERY } from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from './styles/reset.css?url';
 import tailwindStyles from './styles/tailwind.css?url';
 import appStyles from './styles/app.css?url';
-import { PageLayout } from './components/PageLayout';
-import { PawraNotFound } from '~/components/PawraNotFound';
-import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
-import { MarketingBridge } from '~/components/integrations/MarketingBridge';
-import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
-import { GORGIAS_CUSTOMER_QUERY } from '~/graphql/customer-account/GorgiasCustomerQuery';
-import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
-import { THEME_BOOT_SCRIPT } from '~/lib/theme';
-import { BRAND } from '~/lib/branding';
-import { buildSeoMeta, DEFAULT_DESCRIPTION, organizationJsonLd, websiteJsonLd } from '~/lib/seo';
+import {PageLayout} from './components/PageLayout';
+import {PawraNotFound} from '~/components/PawraNotFound';
+import {ThirdPartyScripts} from '~/components/integrations/ThirdPartyScripts';
+import {MarketingBridge} from '~/components/integrations/MarketingBridge';
+import {GorgiasProvider} from '~/components/gorgias/GorgiasProvider';
+import {GORGIAS_CUSTOMER_QUERY} from '~/graphql/customer-account/GorgiasCustomerQuery';
+import {getIntegrations, getPublicIntegrations} from '~/lib/integrations';
+import {THEME_BOOT_SCRIPT} from '~/lib/theme';
+import {BRAND} from '~/lib/branding';
+import {buildSeoMeta, DEFAULT_DESCRIPTION, organizationJsonLd, websiteJsonLd} from '~/lib/seo';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -117,7 +117,23 @@ export function links() {
       href: 'https://config.gorgias.chat',
       crossOrigin: 'anonymous',
     },
-    { rel: 'icon', type: 'image/svg+xml', href: favicon },
+    {
+      rel: 'theme-color',
+      href: '#0D9488',
+    },
+    {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: favicon,
+    },
+    {
+      rel: 'apple-touch-icon',
+      href: '/apple-touch-icon.svg',
+    },
+    {
+      rel: 'manifest',
+      href: '/site.webmanifest',
+    },
   ];
 }
 

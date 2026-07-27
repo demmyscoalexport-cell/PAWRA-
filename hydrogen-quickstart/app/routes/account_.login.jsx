@@ -4,7 +4,7 @@
  */
 
 import {Form, Link, useLoaderData} from 'react-router';
-import {Logo} from '~/components/ui/Logo';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {Button} from '~/components/ui/Button';
 import {BRAND} from '~/lib/branding';
 import {buildSeoMeta} from '~/lib/seo';
@@ -48,9 +48,9 @@ export default function LoginPage() {
     <div className="flex min-h-[70vh] items-center justify-center bg-page-bg px-4 py-16">
       <div className="w-full max-w-md rounded-lg bg-surface p-8 shadow-sm md:p-10">
         <div className="flex justify-center">
-          <Logo variant="primary" height={36} />
+          <PawraLogo variant="primary" height={36} />
         </div>
-        <h1 className="mt-8 text-center font-serif text-[2.5rem] text-action-primary">Welcome back</h1>
+        <h1 className="mt-8 text-center font-serif text-[2.5rem] text-text-primary">Welcome back</h1>
         <p className="mt-3 text-center font-sans text-body-m text-text-secondary">
           Sign in with your email. Shopify will send you a one-time code — no password needed.
         </p>

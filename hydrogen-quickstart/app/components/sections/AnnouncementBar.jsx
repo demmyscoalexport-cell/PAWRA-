@@ -18,9 +18,9 @@ import {useEffect, useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
 
 const MESSAGES = [
-  'Free shipping on all US orders over $75',
-  'Premium products for cats and dogs',
-  '30-day returns',
+  'Free shipping on US orders over $75',
+  'Vet-informed care products for cats and dogs',
+  'Easy 30-day returns on eligible orders',
 ];
 const STORAGE_KEY = 'pawra-announcement-closed';
 
