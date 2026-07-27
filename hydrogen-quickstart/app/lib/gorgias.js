@@ -27,6 +27,8 @@ export function resolveGorgiasConfig(config) {
   };
 }
 
+const GORGIAS_READY_TIMEOUT_MS = 8000;
+
 /** Wait until GorgiasChat is ready (official init pattern). */
 export function whenGorgiasReady() {
   if (typeof window === 'undefined') {
@@ -38,16 +40,28 @@ export function whenGorgiasReady() {
   }
 
   return new Promise((resolve) => {
+    let settled = false;
+
+    const finish = (api) => {
+      if (settled) return;
+      settled = true;
+      window.removeEventListener('gorgias-widget-loaded', onLoaded);
+      resolve(api || null);
+    };
+
     const onLoaded = () => {
       const api = window.GorgiasChat;
       if (api?.init) {
-        api.init().then(() => resolve(api));
+        api.init().then(() => finish(api)).catch(() => finish(api));
       } else {
-        resolve(api || null);
+        finish(api || null);
       }
     };
 
     window.addEventListener('gorgias-widget-loaded', onLoaded, {once: true});
+
+    // Don't hang forever if CSP / network blocks the widget.
+    setTimeout(() => finish(window.GorgiasChat || null), GORGIAS_READY_TIMEOUT_MS);
   });
 }
 

@@ -103,6 +103,7 @@ export function links() {
     {rel: 'dns-prefetch', href: 'https://cdn.judge.me'},
     {rel: 'dns-prefetch', href: 'https://static.klaviyo.com'},
     {rel: 'dns-prefetch', href: 'https://config.gorgias.chat'},
+    {rel: 'dns-prefetch', href: 'https://cdnjs.cloudflare.com'},
     {rel: 'dns-prefetch', href: 'https://static.9gtb.com'},
     {
       rel: 'preconnect',

@@ -55,7 +55,7 @@ export function NewArrivals({products = []}) {
             </p>
           </div>
           <Link
-            to="/collections/all"
+            to="/collections/all?sort=newest"
             className="font-sans text-body-s font-medium text-action-primary-label no-underline underline-offset-4 hover:underline"
           >
             View all new
