@@ -1,12 +1,13 @@
 /**
  * @file AnnouncementBar.jsx
- * @description Forest-green top bar — free shipping message.
+ * @description Forest-green top bar — shipping + Pet Guarantee.
  */
 
 import {useEffect, useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
+import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
 
-const MESSAGE = 'Free shipping on all US orders over $75';
+const MESSAGE = `Free shipping over $${FREE_SHIPPING_THRESHOLD_USD} · 30-day Pet Guarantee`;
 const STORAGE_KEY = 'pawra-announcement-closed';
 
 export function AnnouncementBar() {

@@ -78,7 +78,8 @@ export default function ReturnsPage() {
       <div className="mx-auto max-w-xl">
         <h1 className="font-serif text-display-s text-action-primary">Returns portal</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
-          Most items can be returned within 30 days. Select your order details below — or review our{' '}
+          Covered by our 30-day Pet Guarantee — if your pet won’t eat it, wear it, or use it, start a return within 30 days.
+          Unused items in original packaging are eligible. Or review our{' '}
           <Link to="/policies/refund-policy" className="font-medium text-action-primary no-underline hover:underline">
             refund policy
           </Link>

@@ -96,7 +96,7 @@ export default function LoginPage() {
             <li>Try another email address or wait 2 minutes and request again.</li>
             <li>
               Store owner: Hydrogen → Customer Account API must list{' '}
-              <span className="font-mono text-mono-s">https://pawrapetcares.com/account/authorize</span> as
+              <span className="font-mono text-mono-s">https://pawrapetshop.com/account/authorize</span> as
               Callback URI.
             </li>
           </ul>

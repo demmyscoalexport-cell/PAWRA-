@@ -1,6 +1,6 @@
 /**
  * @file [robots.txt].jsx
- * @description robots.txt for pawrapetcares.com (Hydrogen / Oxygen).
+ * @description robots.txt for pawrapetshop.com (Hydrogen / Oxygen).
  */
 
 /**

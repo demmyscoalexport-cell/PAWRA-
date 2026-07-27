@@ -6,8 +6,10 @@
 import {Link, useLoaderData} from 'react-router';
 import {
   HeroSection,
+  StarterOffer,
   ShopByPet,
   TrustBar,
+  GuaranteeBand,
   FAQ,
 } from '~/components/sections';
 import {ShoppableGallery} from '~/components/ugc/ShoppableGallery';
@@ -70,6 +72,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <HeroSection />
+      <StarterOffer />
       <ProductCarousel
         products={greetingProducts}
         title="Bestsellers"
@@ -77,6 +80,7 @@ export default function Homepage() {
       />
       <ShopByPet />
       <TrustBar />
+      <GuaranteeBand />
 
       <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-1440">

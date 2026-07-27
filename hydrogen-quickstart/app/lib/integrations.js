@@ -3,7 +3,7 @@ import {
   DEFAULT_GORGIAS_WIDGET_ID,
 } from '~/lib/gorgias';
 
-/** Klaviyo Public API Key / Site ID (PAWRA PET CARES) — safe for client-side use */
+/** Klaviyo Public API Key / Site ID (PAWRA PET SHOP) — safe for client-side use */
 export const DEFAULT_KLAVIYO_COMPANY_ID = 'XeFt95';
 
 /** Footer embed form: PAWRA Footer Email Signup */

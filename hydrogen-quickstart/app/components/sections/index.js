@@ -5,8 +5,10 @@
 
 export {AnnouncementBar} from './AnnouncementBar';
 export {HeroSection} from './HeroSection';
+export {StarterOffer} from './StarterOffer';
 export {ShopByPet} from './ShopByPet';
 export {TrustBar} from './TrustBar';
+export {GuaranteeBand} from './GuaranteeBand';
 export {HeroProductSpotlight} from './HeroProductSpotlight';
 export {CompleteYourSetup} from './CompleteYourSetup';
 export {WhyPawra} from './WhyPawra';

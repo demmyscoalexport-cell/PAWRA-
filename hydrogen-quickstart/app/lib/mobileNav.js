@@ -68,6 +68,8 @@ export const NAV_PAGE_LINKS = [
 
 /** Care destinations surfaced near shop nav (Pharmacy lives in MEGA_NAV) */
 export const CARE_NAV_LINKS = [
+  {id: 'care-quiz', title: 'Care Quiz', path: '/care/quiz'},
+  {id: 'care-starter', title: 'Starter Kits', path: '/bundles/new-dog-starter'},
   {id: 'care-telehealth', title: 'Telehealth', path: '/telehealth'},
   {id: 'care-health', title: 'Health', path: '/health/symptom-checker'},
 ];

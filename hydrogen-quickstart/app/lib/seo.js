@@ -6,7 +6,7 @@ import {getSeoMeta} from '@shopify/hydrogen';
 import {BRAND, SOCIAL_LINKS} from '~/lib/branding';
 
 export const DEFAULT_DESCRIPTION =
-  'Design-driven essentials for dogs and cats — food, comfort, and care delivered with intent.';
+  'PAWRA PET SHOP — Premium Pets Products Store. Starter kits, thoughtful gear, and a 30-day Pet Guarantee so your first order feels safe.';
 
 /**
  * @param {string} path
@@ -25,7 +25,7 @@ export function absoluteUrl(path = '/') {
  */
 export function pageTitle(title) {
   if (!title) return BRAND.name;
-  if (title.includes(BRAND.name)) return title;
+  if (title.includes(BRAND.name) || title.includes(BRAND.shortName)) return title;
   return `${title} | ${BRAND.name}`;
 }
 
@@ -49,7 +49,7 @@ export function organizationJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: BRAND.name,
-    legalName: 'PAWRA LLC',
+    legalName: 'Pawra LLC',
     url: BRAND.url,
     email: BRAND.supportEmail,
     description: BRAND.tagline,
@@ -190,15 +190,23 @@ export function productJsonLd({product, selectedVariant, reviews}) {
 export const HOME_FAQS = [
   {
     q: 'What products does PAWRA sell?',
-    a: 'We curate premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — all delivered to your door.',
+    a: 'We curate pet food, beds, toys, grooming, walk gear, and wellness for cats and dogs — plus starter kits for new pet parents.',
+  },
+  {
+    q: 'What is the 30-day Pet Guarantee?',
+    a: 'If your pet won’t eat it, wear it, or use it, start a return within 30 days of delivery. Unused items in original packaging are eligible — so first orders feel safe.',
   },
   {
     q: 'Do you ship across the US?',
     a: 'Yes. We ship to all 50 states. Free shipping on orders over $75. Most orders arrive within 3–5 business days.',
   },
   {
+    q: 'How do starter kits work?',
+    a: 'Take the 60-second Care Quiz or shop a New Dog / New Cat starter kit. Kits bundle curated essentials at a savings vs buying separately.',
+  },
+  {
     q: 'What is your return policy?',
-    a: `We offer 30-day returns on unused products in original packaging. Start live chat or email ${BRAND.supportEmail} for help.`,
+    a: `We offer 30-day returns on unused products in original packaging. Start a return at /returns, use live chat, or email ${BRAND.supportEmail}.`,
   },
   {
     q: 'How do I track my order?',
@@ -207,9 +215,5 @@ export const HOME_FAQS = [
   {
     q: 'How can I contact support?',
     a: `Use the chat bubble for the fastest answer, or email ${BRAND.supportEmail}. We typically reply to email within one business day.`,
-  },
-  {
-    q: 'Are your products safe for both cats and dogs?',
-    a: 'Each product page lists species and sizing details. Always check the description before ordering for your pet.',
   },
 ];
