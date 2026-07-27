@@ -3,17 +3,18 @@
  * Fills via currentColor; hex constants for SVG strokes.
  */
 
-export const BRAND_FOREST = '#1B3A2D';
-export const BRAND_INK = '#1A1A1A';
+export const BRAND_FOREST = '#2C4A3E';
+export const BRAND_INK = '#1E1E1E';
 /** @deprecated Prefer BRAND_FOREST — kept for import compatibility */
-export const BRAND_TEAL = '#1B3A2D';
+export const BRAND_TEAL = '#2C4A3E';
 /** @deprecated Prefer BRAND_FOREST */
-export const BRAND_BLACK = '#1B3A2D';
-export const BRAND_STONE = '#F5F0E8';
+export const BRAND_BLACK = '#2C4A3E';
+export const BRAND_STONE = '#FDFBF7';
 export const BRAND_WHITE = '#FFFFFF';
-export const BRAND_ACCENT = '#C9A96E';
-export const BRAND_CORAL = '#FF6B5B';
-export const BRAND_JADE = '#2EE8A0';
+export const BRAND_ACCENT = '#E8A538';
+export const BRAND_CORAL = '#E8A538';
+export const BRAND_JADE = '#E8A538';
+export const BRAND_CHESTNUT = '#8B5A3C';
 
 /**
  * Icon mark paths (paw pad + toes + leaf accent).

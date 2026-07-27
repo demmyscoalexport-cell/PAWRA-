@@ -40,7 +40,7 @@ const BADGE_CONFIG: Record<
   },
   sale: {
     label: 'Sale',
-    className: 'bg-sale text-white shadow-sm',
+    className: 'bg-accent text-accent-label shadow-sm dark:shadow-none',
   },
   'in-stock': {
     label: 'In Stock',

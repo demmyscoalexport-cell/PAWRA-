@@ -61,8 +61,8 @@ export function Header({cart, isLoggedIn}) {
   return (
     <>
       <header
-        className={`pawra-header sticky top-0 z-50 bg-header transition-all duration-base ${
-          scrolled ? 'bg-header/95 backdrop-blur-md shadow-sm' : ''
+        className={`pawra-header sticky top-0 z-50 border-b border-border-subtle bg-header/80 text-header-fg backdrop-blur-md transition-all duration-300 ${
+          scrolled ? 'shadow-sm dark:shadow-none' : ''
         }`}
         onMouseLeave={scheduleCloseMega}
       >
@@ -70,17 +70,17 @@ export function Header({cart, isLoggedIn}) {
           <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
-              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-white/10 lg:hidden"
+              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-action-secondary lg:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Open collections menu"
               aria-expanded={menuOpen}
             >
-              <Icon name="menu" size="lg" color="text-white" />
+              <Icon name="menu" size="lg" color="text-header-fg" />
             </button>
 
             <NavLink to="/" className="no-underline" aria-label="PAWRA home">
-              <PawraLogo variant="light" height={34} className="lg:hidden" />
-              <PawraLogo variant="light" height={32} className="hidden lg:block" />
+              <PawraLogo variant="primary" height={34} className="lg:hidden" />
+              <PawraLogo variant="primary" height={32} className="hidden lg:block" />
             </NavLink>
           </div>
 
@@ -97,14 +97,14 @@ export function Header({cart, isLoggedIn}) {
                   to={item.path || '#'}
                   className={`inline-flex items-center gap-1 rounded-md px-3 py-2 font-sans text-body-s font-semibold no-underline transition-colors ${
                     megaOpen === item.id
-                      ? 'bg-white/15 text-electric-jade'
-                      : 'text-white hover:bg-white/10 hover:text-electric-jade'
+                      ? 'bg-action-secondary text-action-primary'
+                      : 'text-header-fg hover:bg-action-secondary hover:text-action-primary'
                   }`}
                   aria-expanded={megaOpen === item.id}
                   aria-haspopup="true"
                 >
                   {item.title}
-                  <Icon name="chevron-right" size="sm" color="text-white/70" className="rotate-90" />
+                  <Icon name="chevron-right" size="sm" color="text-text-secondary" className="rotate-90" />
                 </NavLink>
               </div>
             ))}
@@ -112,7 +112,7 @@ export function Header({cart, isLoggedIn}) {
               <NavLink
                 key={item.id}
                 to={item.path}
-                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-white no-underline transition-colors hover:bg-white/10 hover:text-electric-jade"
+                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-header-fg no-underline transition-colors hover:bg-action-secondary hover:text-action-primary"
               >
                 {item.title}
               </NavLink>
@@ -121,7 +121,7 @@ export function Header({cart, isLoggedIn}) {
               <NavLink
                 key={item.id}
                 to={item.path}
-                className="hidden rounded-md px-3 py-2 font-sans text-body-s font-medium text-white/80 no-underline transition-colors hover:bg-white/10 hover:text-white xl:inline-flex"
+                className="hidden rounded-md px-3 py-2 font-sans text-body-s font-medium text-text-secondary no-underline transition-colors hover:bg-action-secondary hover:text-action-primary xl:inline-flex"
               >
                 {item.title}
               </NavLink>
@@ -135,18 +135,18 @@ export function Header({cart, isLoggedIn}) {
 
           <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-3">
             <LocaleSwitcher className="hidden xl:inline-flex" />
-            <ThemeToggle iconColor="text-white" className="hover:bg-white/10" />
+            <ThemeToggle iconColor="text-header-fg" className="hover:bg-action-secondary" />
             <button
               type="button"
-              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-jade md:hidden"
+              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-action-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring md:hidden"
               onClick={() => open('search')}
               aria-label="Search"
             >
-              <Icon name="search" size="md" color="text-white" />
+              <Icon name="search" size="md" color="text-header-fg" />
             </button>
             {wishlistEnabled ? (
-              <NavLink to={wishlistUrl} className="reset hidden rounded-md p-2 hover:bg-white/10 sm:inline-flex" aria-label="Wishlist">
-                <Icon name="heart" size="md" color="text-white" />
+              <NavLink to={wishlistUrl} className="reset hidden rounded-md p-2 hover:bg-action-secondary sm:inline-flex" aria-label="Wishlist">
+                <Icon name="heart" size="md" color="text-header-fg" />
               </NavLink>
             ) : null}
             <AccountToggle isLoggedIn={isLoggedIn} />
@@ -194,8 +194,8 @@ function HeaderSearchField() {
     <div ref={containerRef} className="relative w-full">
       <SearchFormPredictive className="w-full">
         {({fetchResults, goToSearch, inputRef}) => (
-          <div className="flex items-center gap-1 rounded-md bg-cloud px-2 py-1.5 shadow-sm">
-            <Icon name="search" size="sm" color="text-forest-green/70" />
+          <div className="flex items-center gap-1 rounded-md border border-border-subtle bg-surface px-2 py-1.5 shadow-sm dark:shadow-none">
+            <Icon name="search" size="sm" color="text-text-secondary" />
             <input
               name="q"
               onChange={(event) => {
@@ -218,7 +218,7 @@ function HeaderSearchField() {
               ref={inputRef}
               type="search"
               list={queriesDatalistId}
-              className="w-full border-0 bg-transparent font-sans text-body-m text-ink outline-none placeholder:text-ink/45"
+              className="w-full border-0 bg-transparent font-sans text-body-m text-text-primary outline-none placeholder:text-text-secondary/70"
               aria-label="Search products"
               autoComplete="off"
             />
@@ -429,10 +429,10 @@ function AccountToggle({isLoggedIn}) {
   return (
     <NavLink
       to={isLoggedIn ? '/account' : '/account/login'}
-      className="reset hidden rounded-md p-2 hover:bg-white/10 sm:inline-flex"
+      className="reset hidden rounded-md p-2 hover:bg-action-secondary sm:inline-flex"
       aria-label={isLoggedIn ? 'Account' : 'Sign in'}
     >
-      <Icon name="user" size="md" color="text-white" />
+      <Icon name="user" size="md" color="text-header-fg" />
     </NavLink>
   );
 }
@@ -613,9 +613,9 @@ function CartBadge({count}) {
       }}
       aria-label={`Cart, ${count} items`}
     >
-      <Icon name="cart" size="lg" color="text-white" />
+      <Icon name="cart" size="lg" color="text-header-fg" />
       {count > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-electric-jade px-1 font-mono text-mono-s font-medium text-midnight">
+        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 font-mono text-mono-s font-medium text-accent-label animate-bounce">
           {count}
         </span>
       )}

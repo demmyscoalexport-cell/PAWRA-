@@ -34,7 +34,7 @@ export function PawraProductCard({product, loading, showCompare = false}) {
   const checked = has(product.handle);
 
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-lg bg-surface shadow-sm transition-shadow duration-base hover:shadow-md">
+    <div className="relative flex flex-col overflow-hidden rounded-lg border border-transparent bg-surface shadow-sm transition-all duration-base hover:shadow-md dark:border-border-subtle dark:shadow-none dark:hover:border-border-strong">
       {showCompare ? (
         <label className="absolute left-3 top-3 z-10 flex cursor-pointer items-center gap-1.5 rounded-md bg-surface/95 px-2 py-1 font-sans text-body-xs text-text-primary shadow-sm">
           <input

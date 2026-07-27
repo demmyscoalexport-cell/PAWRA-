@@ -41,14 +41,14 @@ function SupportLinks({loopReturnsUrl}) {
 
   return (
     <div>
-      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-text-primary">
+      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-footer-fg">
         Support
       </p>
       <ul className="space-y-2">
         <li>
           <button
             type="button"
-            className="reset font-sans text-body-s text-text-secondary transition-colors hover:text-text-primary"
+            className="reset font-sans text-body-s text-footer-fg/75 transition-colors hover:text-footer-fg"
             onClick={() => {
               void openGorgiasChat();
             }}
@@ -60,7 +60,7 @@ function SupportLinks({loopReturnsUrl}) {
           <li key={link.label}>
             <NavLink
               to={link.to}
-              className="font-sans text-body-s text-text-secondary no-underline transition-colors hover:text-text-primary"
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
             >
               {link.label}
             </NavLink>
@@ -72,7 +72,7 @@ function SupportLinks({loopReturnsUrl}) {
               href={loopReturnsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-body-s text-text-secondary no-underline transition-colors hover:text-text-primary"
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
             >
               Returns portal
             </a>
@@ -89,7 +89,7 @@ function SupportLinks({loopReturnsUrl}) {
 function FooterColumn({title, links}) {
   return (
     <div>
-      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-text-primary">
+      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-footer-fg">
         {title}
       </p>
       <ul className="space-y-2">
@@ -97,7 +97,7 @@ function FooterColumn({title, links}) {
           <li key={link.label}>
             <NavLink
               to={link.to}
-              className="font-sans text-body-s text-text-secondary no-underline transition-colors hover:text-text-primary"
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
             >
               {link.label}
             </NavLink>
@@ -118,18 +118,20 @@ export function Footer() {
   const judgeMeEnabled = Boolean(rootData?.judgeme || rootData?.integrations?.judgeMe);
 
   return (
-    <footer className="border-t border-border-subtle bg-action-secondary text-text-primary">
+    <footer className="border-t border-border-subtle bg-footer text-footer-fg">
       <div className="mx-auto max-w-1440 px-4 py-16 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <PawraLogo variant="primary" height={28} />
-            <p className="mt-4 max-w-xs font-sans text-body-s text-text-secondary">
+            <div className="text-footer-fg">
+              <PawraLogo variant="light" height={28} />
+            </div>
+            <p className="mt-4 max-w-xs font-sans text-body-s text-footer-fg/75">
               {BRAND.tagline}
             </p>
             {judgeMeEnabled ? (
               <NavLink
                 to="/pages/reviews"
-                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-text-secondary no-underline hover:text-text-primary"
+                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-footer-fg/75 no-underline hover:text-footer-fg"
               >
                 <JudgemeAllReviewsRating />
                 <span>
@@ -141,7 +143,7 @@ export function Footer() {
             <FooterNewsletter companyId={klaviyoId} formId={klaviyoFormId} />
             <NavLink
               to={rewardsUrl}
-              className="mt-6 inline-flex font-sans text-body-s font-medium text-text-primary no-underline underline-offset-4 hover:underline"
+              className="mt-6 inline-flex font-sans text-body-s font-medium text-footer-fg no-underline underline-offset-4 hover:underline"
             >
               PAWRA Rewards
             </NavLink>
@@ -152,31 +154,31 @@ export function Footer() {
           <SupportLinks loopReturnsUrl={loopReturnsUrl} />
         </div>
 
-        <div className="mt-16 border-t border-border-subtle pt-8">
+        <div className="mt-16 border-t border-footer-fg/15 pt-8">
           <nav
-            className="mb-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-body-xs text-text-secondary"
+            className="mb-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-body-xs text-footer-fg/70"
             aria-label="Legal"
           >
-            <NavLink to="/policies/privacy-policy" className="no-underline hover:text-text-primary">
+            <NavLink to="/policies/privacy-policy" className="no-underline hover:text-footer-fg">
               Privacy
             </NavLink>
-            <NavLink to="/policies/refund-policy" className="no-underline hover:text-text-primary">
+            <NavLink to="/policies/refund-policy" className="no-underline hover:text-footer-fg">
               Refunds
             </NavLink>
-            <NavLink to="/policies/shipping-policy" className="no-underline hover:text-text-primary">
+            <NavLink to="/policies/shipping-policy" className="no-underline hover:text-footer-fg">
               Shipping
             </NavLink>
-            <NavLink to="/policies/terms-of-service" className="no-underline hover:text-text-primary">
+            <NavLink to="/policies/terms-of-service" className="no-underline hover:text-footer-fg">
               Terms
             </NavLink>
-            <NavLink to="/returns" className="no-underline hover:text-text-primary">
+            <NavLink to="/returns" className="no-underline hover:text-footer-fg">
               Returns
             </NavLink>
-            <NavLink to="/track-order" className="no-underline hover:text-text-primary">
+            <NavLink to="/track-order" className="no-underline hover:text-footer-fg">
               Track order
             </NavLink>
           </nav>
-          <p className="text-center font-mono text-[12px] text-text-secondary">
+          <p className="text-center font-mono text-[12px] text-footer-fg/60">
             {BRAND.copyright}
           </p>
         </div>

@@ -5,17 +5,29 @@
 @layer base {
   html,
   body {
-    @apply bg-page-bg text-text-primary font-sans antialiased;
+    @apply bg-page-bg text-text-primary font-sans antialiased transition-colors duration-300;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-sans text-text-primary;
+    @apply font-serif text-text-primary;
   }
 
   code,
   pre {
     @apply font-mono;
+  }
+}
+
+@layer utilities {
+  .card-surface {
+    @apply rounded-lg bg-surface border border-transparent shadow-sm;
+  }
+
+  .dark .card-surface,
+  html.dark .card-surface {
+    box-shadow: none;
+    border-color: rgb(var(--color-border-subtle));
   }
 }

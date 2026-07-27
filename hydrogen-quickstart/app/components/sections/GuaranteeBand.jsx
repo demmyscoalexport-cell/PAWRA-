@@ -12,10 +12,10 @@ import {FREE_SHIPPING_THRESHOLD_USD} from '~/lib/commerce';
 export function GuaranteeBand() {
   return (
     <SectionReveal>
-      <section className="bg-header px-4 py-12 text-action-primary-label md:px-10 md:py-16">
+      <section className="bg-action-primary px-4 py-12 text-action-primary-label md:px-10 md:py-16">
         <div className="mx-auto grid max-w-1440 gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
-            <p className="font-sans text-body-xs font-semibold uppercase tracking-widest text-electric-jade">
+            <p className="font-sans text-body-xs font-semibold uppercase tracking-widest text-accent">
               Risk-free first order
             </p>
             <h2 className="mt-3 font-serif text-display-s text-white md:text-heading-l">
@@ -55,7 +55,7 @@ export function GuaranteeBand() {
 function ProofChip({icon, label}) {
   return (
     <li className="flex items-center gap-3 rounded-md border border-white/15 bg-white/5 px-4 py-3">
-      <Icon name={icon} size="sm" color="text-electric-jade" />
+      <Icon name={icon} size="sm" color="text-accent" />
       <span className="font-sans text-body-s text-white">{label}</span>
     </li>
   );

@@ -25,7 +25,7 @@ export function AnnouncementBar() {
   if (closed) return null;
 
   return (
-    <div className="relative bg-header px-4 py-2.5 text-action-primary-label">
+    <div className="relative bg-action-primary px-4 py-2.5 text-action-primary-label">
       <p className="text-center font-sans text-body-xs font-medium tracking-wide md:text-body-s">
         {MESSAGE}
       </p>

@@ -1,6 +1,6 @@
 /**
  * @file tailwind.config.ts
- * @description PAWRA enterprise tokens — forest green, warm cream, coral sale.
+ * @description PAWRA enterprise tokens — Trust & Warmth (light) / Sleek & Cozy (dark).
  */
 
 import type {Config} from 'tailwindcss';
@@ -28,6 +28,9 @@ export default {
         'action-secondary': rgb('action-secondary-bg'),
         'action-destructive': rgb('action-destructive'),
         accent: rgb('accent'),
+        'accent-label': rgb('accent-label'),
+        chestnut: rgb('chestnut'),
+        'chestnut-bright': rgb('chestnut-bright'),
         success: rgb('success'),
         warning: rgb('warning'),
         sale: rgb('sale'),
@@ -44,20 +47,25 @@ export default {
         coral: rgb('sale'),
         champagne: rgb('accent'),
         header: rgb('header'),
+        'header-fg': rgb('header-fg'),
+        footer: rgb('footer'),
+        'footer-fg': rgb('footer-fg'),
         'cta-primary': rgb('action-primary'),
         'cta-primary-hover': rgb('action-primary-hover'),
         'cta-primary-active': rgb('action-primary-hover'),
+        'hero-overlay-from': rgb('hero-overlay-from'),
+        'hero-overlay-to': rgb('hero-overlay-to'),
       },
       fontFamily: {
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
-        'display-xl': ['4.5rem', {lineHeight: '5rem', letterSpacing: '-0.02em', fontWeight: '400'}],
-        'display-l': ['3.5rem', {lineHeight: '4rem', letterSpacing: '-0.02em', fontWeight: '400'}],
-        'display-m': ['2.5rem', {lineHeight: '3rem', letterSpacing: '-0.02em', fontWeight: '400'}],
-        'display-s': ['2rem', {lineHeight: '2.5rem', letterSpacing: '-0.02em', fontWeight: '400'}],
+        'display-xl': ['4.5rem', {lineHeight: '5rem', letterSpacing: '-0.02em', fontWeight: '500'}],
+        'display-l': ['3.5rem', {lineHeight: '4rem', letterSpacing: '-0.02em', fontWeight: '500'}],
+        'display-m': ['2.5rem', {lineHeight: '3rem', letterSpacing: '-0.02em', fontWeight: '500'}],
+        'display-s': ['2rem', {lineHeight: '2.5rem', letterSpacing: '-0.02em', fontWeight: '500'}],
         'heading-xl': ['1.75rem', {lineHeight: '2.25rem', fontWeight: '500'}],
         'heading-l': ['1.75rem', {lineHeight: '2.25rem', fontWeight: '500'}],
         'heading-m': ['1.375rem', {lineHeight: '1.875rem', fontWeight: '500'}],
@@ -105,16 +113,17 @@ export default {
         xs: 'var(--shadow-sm)',
         sm: 'var(--shadow-sm)',
         md: 'var(--shadow-md)',
-        lg: 'var(--shadow-md)',
-        xl: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        xl: 'var(--shadow-lg)',
         card: 'var(--shadow-sm)',
         elevated: 'var(--shadow-md)',
-        'jade-glow': '0 0 0 3px rgb(var(--color-electric-jade) / 0.35)',
-        'jade-glow-lg': '0 0 24px rgb(var(--color-electric-jade) / 0.25)',
+        'jade-glow': '0 0 0 3px rgb(var(--color-accent) / 0.35)',
+        'jade-glow-lg': '0 0 24px rgb(var(--color-accent) / 0.25)',
       },
       animation: {
         'fade-in': 'fade-in 400ms ease-out',
         'slide-up': 'slide-up 500ms ease-out',
+        'theme-spin': 'theme-spin 400ms ease-out',
       },
       keyframes: {
         'fade-in': {
@@ -124,6 +133,10 @@ export default {
         'slide-up': {
           '0%': {opacity: '0', transform: 'translateY(12px)'},
           '100%': {opacity: '1', transform: 'translateY(0)'},
+        },
+        'theme-spin': {
+          '0%': {transform: 'rotate(-90deg) scale(0.85)', opacity: '0.4'},
+          '100%': {transform: 'rotate(0deg) scale(1)', opacity: '1'},
         },
       },
       transitionDuration: {

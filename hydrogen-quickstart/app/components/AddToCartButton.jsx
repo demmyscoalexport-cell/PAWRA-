@@ -15,9 +15,9 @@
  */
 
 import {CartForm} from '@shopify/hydrogen';
-import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
+import {GOLDEN_CTA_CLASSES} from '~/lib/primaryButton';
 
-const DEFAULT_ADD_TO_CART_CLASSES = `rounded-md px-6 py-3 font-sans text-body-m font-medium reset ${PRIMARY_CTA_CLASSES}`;
+const DEFAULT_ADD_TO_CART_CLASSES = `rounded-md px-6 py-3 font-sans text-body-m font-semibold reset ${GOLDEN_CTA_CLASSES}`;
 
 /**
  * @param {{

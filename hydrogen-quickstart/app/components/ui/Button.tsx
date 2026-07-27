@@ -1,17 +1,22 @@
 /**
  * @file Button.tsx
- * @description PAWRA buttons — forest green primary, outline secondary.
+ * @description PAWRA buttons — primary forest, chestnut outline, golden honey CTA.
  */
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
 import {Link} from 'react-router';
-import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
+import {
+  GOLDEN_CTA_CLASSES,
+  PRIMARY_CTA_CLASSES,
+  SECONDARY_CTA_CLASSES,
+} from '~/lib/primaryButton';
 
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'ghost'
   | 'accent'
+  | 'golden'
   | 'premium'
   | 'destructive';
 
@@ -19,16 +24,14 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: PRIMARY_CTA_CLASSES,
-  secondary:
-    'bg-transparent text-text-primary border border-border-subtle hover:border-text-primary active:bg-action-secondary focus-visible:ring-focus-ring',
+  secondary: SECONDARY_CTA_CLASSES,
   ghost:
-    'bg-transparent text-text-primary border border-transparent hover:bg-action-secondary active:bg-action-secondary focus-visible:ring-focus-ring',
-  accent:
-    'bg-transparent text-accent border border-accent/40 hover:border-accent active:bg-accent/10 focus-visible:ring-focus-ring',
-  premium:
-    'bg-transparent text-accent border border-accent/40 hover:border-accent active:bg-accent/10 focus-visible:ring-focus-ring',
+    'bg-transparent text-text-primary border border-transparent hover:bg-action-secondary hover:scale-[1.02] active:scale-100 focus-visible:ring-focus-ring transition-all duration-base',
+  accent: GOLDEN_CTA_CLASSES,
+  golden: GOLDEN_CTA_CLASSES,
+  premium: GOLDEN_CTA_CLASSES,
   destructive:
-    'bg-transparent text-action-destructive border border-action-destructive/40 hover:border-action-destructive focus-visible:ring-action-destructive',
+    'bg-transparent text-action-destructive border border-action-destructive/40 hover:border-action-destructive hover:scale-[1.02] active:scale-100 focus-visible:ring-action-destructive transition-all duration-base',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
@@ -45,7 +48,7 @@ type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttribut
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className: string, disabled?: boolean) {
   return [
-    'inline-flex items-center justify-center rounded-sm font-sans font-medium tracking-normal transition-colors duration-base no-underline',
+    'inline-flex items-center justify-center rounded-md font-sans font-semibold tracking-normal no-underline',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg',
     disabled ? 'cursor-not-allowed opacity-40 pointer-events-none' : '',
     VARIANT_CLASSES[variant],

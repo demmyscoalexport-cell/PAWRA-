@@ -25,7 +25,7 @@ export function HeroSection() {
           loading="eager"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/25 to-black/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero-overlay-from/70 via-hero-overlay-from/40 to-hero-overlay-to/20 dark:from-hero-overlay-from/85 dark:via-hero-overlay-from/60 dark:to-hero-overlay-to/40" />
         <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-1440 flex-col items-center justify-center px-4 py-24 text-center md:min-h-[88vh] md:px-10">
           <div className="mb-8 text-white">
             <PawraLogo variant="light" height={28} />
@@ -38,10 +38,9 @@ export function HeroSection() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button
-              variant="secondary"
+              variant="golden"
               size="lg"
               href="/bundles/new-dog-starter"
-              className="!border-white !bg-white !text-forest-green hover:!bg-white/90"
             >
               Shop starter kit
             </Button>

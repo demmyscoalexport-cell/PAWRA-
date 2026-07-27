@@ -46,11 +46,11 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-[70vh] items-center justify-center bg-page-bg px-4 py-16">
-      <div className="w-full max-w-md rounded-lg bg-surface p-8 shadow-sm md:p-10">
+      <div className="w-full max-w-md rounded-lg border border-border-subtle bg-surface p-8 shadow-lg dark:shadow-none md:p-10">
         <div className="flex justify-center">
           <PawraLogo variant="primary" height={36} />
         </div>
-        <h1 className="mt-8 text-center font-sans text-[2.5rem] text-text-primary">Welcome back</h1>
+        <h1 className="mt-8 text-center font-serif text-display-s text-text-primary">Welcome back</h1>
         <p className="mt-3 text-center font-sans text-body-m text-text-secondary">
           Sign in with your email. Shopify will send you a one-time code — no password needed.
         </p>
