@@ -57,7 +57,7 @@ export default function LoginPage() {
 
         {!customerAccountConfigured ? (
           <div
-            className="mt-8 rounded-md border border-coral/40 bg-sale/10 px-4 py-3 font-sans text-body-s text-text-primary"
+            className="mt-8 rounded-md border border-sale/40 bg-sale/10 px-4 py-3 font-sans text-body-s text-text-primary"
             role="alert"
           >
             <p className="font-semibold">Customer login is not configured yet.</p>
@@ -82,7 +82,7 @@ export default function LoginPage() {
           </Button>
         </Form>
 
-        <p className="mt-4 text-center font-sans text-body-s text-text-primary/55">
+        <p className="mt-4 text-center font-sans text-body-s text-text-secondary">
           You&apos;ll enter your email on Shopify&apos;s secure sign-in page, then check your inbox for a code.
         </p>
 
@@ -90,7 +90,7 @@ export default function LoginPage() {
           <summary className="cursor-pointer font-sans text-body-s font-semibold text-action-primary">
             Not getting a code?
           </summary>
-          <ul className="mt-3 list-disc space-y-2 pl-5 font-sans text-body-s text-text-secondary">
+          <ul className="mt-3 list-disc space-y-2 pl-4 font-sans text-body-s text-text-secondary">
             <li>Check spam / promotions for mail from Shopify.</li>
             <li>Enter your email on the Shopify page (not only this PAWRA screen).</li>
             <li>Try another email address or wait 2 minutes and request again.</li>

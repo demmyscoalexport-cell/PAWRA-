@@ -97,7 +97,7 @@ export default function PetHealthPage() {
             type="button"
             role="tab"
             aria-selected={tab === item.id}
-            className={`reset rounded-pill px-4 py-2 font-sans text-body-s font-medium ${
+            className={`reset rounded-full px-4 py-2 font-sans text-body-s font-medium ${
               tab === item.id
                 ? 'bg-action-primary text-action-primary-label'
                 : 'bg-action-secondary text-text-primary'

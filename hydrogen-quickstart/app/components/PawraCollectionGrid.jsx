@@ -52,7 +52,7 @@ export function PawraCollectionGrid({
 
             {showPagination && hasNextPage ? (
               <div className="mt-10 flex justify-center">
-                <NextLink className="inline-flex h-14 min-w-[14rem] items-center justify-center rounded-md bg-action-primary px-8 font-sans text-body-l font-semibold text-action-primary-label no-underline shadow-md hover:brightness-110">
+                <NextLink className="inline-flex h-14 min-w-[14rem] items-center justify-center rounded-md bg-action-primary px-8 font-sans text-body-l font-semibold text-action-primary-label no-underline shadow-sm hover:brightness-110">
                   {isLoading ? 'Loading…' : 'Next products →'}
                 </NextLink>
               </div>

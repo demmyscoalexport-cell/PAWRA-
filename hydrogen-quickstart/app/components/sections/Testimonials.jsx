@@ -35,7 +35,7 @@ export function Testimonials({reviews}) {
 
   return (
     <SectionReveal>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center font-sans text-display-s text-text-primary">
             What pet owners are saying.

@@ -72,7 +72,7 @@ export default function AccountPetsPage() {
       </div>
 
       {showForm ? (
-        <Form onSubmit={handleAdd} className="grid gap-4 rounded-lg border border-border-subtle bg-page-bg p-5 md:grid-cols-2">
+        <Form onSubmit={handleAdd} className="grid gap-4 rounded-lg border border-border-subtle bg-page-bg p-4 md:grid-cols-2">
           {[
             ['name', 'Name', 'text'],
             ['species', 'Species', 'text'],

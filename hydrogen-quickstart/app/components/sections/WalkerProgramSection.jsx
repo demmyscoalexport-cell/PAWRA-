@@ -15,7 +15,7 @@ import walkerHero from '~/assets/images/walker-program-hero.png';
 export function WalkerProgramSection() {
   return (
     <SectionReveal>
-      <section className="bg-surface px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-surface px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative overflow-hidden rounded-lg">

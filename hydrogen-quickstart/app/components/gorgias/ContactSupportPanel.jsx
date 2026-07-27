@@ -19,7 +19,7 @@ export function ContactSupportPanel() {
         <GorgiasChatButton label="Start live chat" variant="primary" />
         <a
           href={`mailto:${BRAND.supportEmail}`}
-          className="inline-flex h-12 items-center justify-center rounded-md border border-border-subtle px-5 font-sans text-body-s font-semibold text-action-primary no-underline hover:bg-surface"
+          className="inline-flex h-12 items-center justify-center rounded-md border border-border-subtle px-4 font-sans text-body-s font-semibold text-action-primary no-underline hover:bg-surface"
         >
           Email {BRAND.supportEmail}
         </a>

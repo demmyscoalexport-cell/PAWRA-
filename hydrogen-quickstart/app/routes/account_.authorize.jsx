@@ -35,7 +35,7 @@ export function ErrorBoundary() {
         </p>
         <Link
           to="/account/login"
-          className="mt-8 inline-flex rounded-md bg-action-primary px-5 py-3 font-sans text-body-s font-semibold text-action-primary-label no-underline"
+          className="mt-8 inline-flex rounded-md bg-action-primary px-4 py-3 font-sans text-body-s font-semibold text-action-primary-label no-underline"
         >
           Try sign-in again
         </Link>

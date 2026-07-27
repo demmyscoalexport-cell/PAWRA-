@@ -16,7 +16,7 @@ const ITEMS = [
 export function TrustBar() {
   return (
     <SectionReveal>
-      <section className="border-y border-border-subtle bg-page-bg px-4 py-12 md:px-8">
+      <section className="border-y border-border-subtle bg-page-bg px-4 py-12 md:px-10">
         <div className="mx-auto grid max-w-1440 grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
           {ITEMS.map((item) => (
             <div key={item.label} className="flex flex-col items-center text-center md:items-start md:text-left">

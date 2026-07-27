@@ -155,7 +155,7 @@ img {
 
 aside {
   background: rgb(var(--color-surface-elevated));
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   height: 100vh;
   width: min(var(--aside-width), 100vw);
   position: fixed;

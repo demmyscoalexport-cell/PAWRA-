@@ -7,7 +7,7 @@ import {PRESS_LOGOS} from '~/data/platform';
 
 export function AsSeenIn() {
   return (
-    <section className="border-y border-border-subtle bg-page-bg px-5 py-12 md:px-10">
+    <section className="border-y border-border-subtle bg-page-bg px-4 py-12 md:px-10">
       <div className="mx-auto max-w-1440">
         <p className="text-center font-sans text-body-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
           As seen in

@@ -37,10 +37,10 @@ export default function Policies() {
   const {policies} = useLoaderData();
 
   return (
-    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-24">
       <div className="mx-auto max-w-3xl">
         <h1 className="font-sans text-display-s text-text-primary">Policies</h1>
-        <p className="mt-4 font-sans text-body-l text-text-primary/80">
+        <p className="mt-4 font-sans text-body-l text-text-secondary">
           Shipping, returns, privacy, and terms for shopping at PAWRA.
         </p>
         <ul className="mt-10 space-y-4">
@@ -48,7 +48,7 @@ export default function Policies() {
             <li key={policy.id}>
               <Link
                 to={`/policies/${policy.handle}`}
-                className="block rounded-lg bg-surface px-6 py-4 font-sans text-body-m font-semibold text-action-primary no-underline shadow-sm hover:shadow-md"
+                className="block rounded-lg bg-surface px-6 py-4 font-sans text-body-m font-semibold text-action-primary no-underline shadow-sm hover:shadow-sm"
               >
                 {policy.title}
               </Link>

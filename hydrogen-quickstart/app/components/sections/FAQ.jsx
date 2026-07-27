@@ -27,7 +27,7 @@ export function FAQ() {
 
   return (
     <SectionReveal>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center font-sans text-heading-m text-text-primary md:text-heading-l">
             FAQ
@@ -39,7 +39,7 @@ export function FAQ() {
                 <div key={item.q}>
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left reset"
+                    className="flex w-full items-center justify-between gap-4 py-4 text-left reset"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
@@ -54,7 +54,7 @@ export function FAQ() {
                     />
                   </button>
                   {isOpen && (
-                    <p className="pb-5 font-sans text-body-m text-text-primary">{item.a}</p>
+                    <p className="pb-4 font-sans text-body-m text-text-primary">{item.a}</p>
                   )}
                 </div>
               );

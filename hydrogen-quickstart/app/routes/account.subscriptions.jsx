@@ -52,7 +52,7 @@ export default function AccountSubscriptionsPage() {
 
       <ul className="space-y-4">
         {subs.map((sub) => (
-          <li key={sub.id} className="flex flex-col gap-4 rounded-lg border border-border-subtle bg-page-bg p-5 md:flex-row md:items-center">
+          <li key={sub.id} className="flex flex-col gap-4 rounded-lg border border-border-subtle bg-page-bg p-4 md:flex-row md:items-center">
             <img src={sub.image} alt="" className="h-20 w-20 rounded-md object-cover" loading="lazy" />
             <div className="flex-1">
               <Link to={`/products/${sub.productHandle}`} className="font-sans text-body-m font-semibold text-text-primary no-underline hover:text-action-primary">
@@ -79,7 +79,7 @@ export default function AccountSubscriptionsPage() {
         ))}
       </ul>
 
-      <div className="rounded-lg border border-dashed border-border-strong bg-surface px-5 py-6 text-center">
+      <div className="rounded-lg border border-dashed border-border-strong bg-surface px-4 py-6 text-center">
         <p className="font-sans text-body-m text-text-primary">Add a subscription from any product page</p>
         <p className="mt-1 font-sans text-body-s text-text-secondary">Toggle Autoship & Save on eligible PDPs.</p>
         <Button variant="primary" size="md" href="/collections" className="mt-4">

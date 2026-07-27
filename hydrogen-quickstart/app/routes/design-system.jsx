@@ -34,18 +34,18 @@ export const meta = () => {
 };
 
 const COLORS = [
-  {name: 'Page BG (Stone)', token: 'page-bg', hex: '#F8F6F4'},
-  {name: 'Surface (Cloud)', token: 'surface', hex: '#FDFBF9'},
-  {name: 'Text Primary', token: 'text-primary', hex: '#1E293B'},
-  {name: 'Text Secondary', token: 'text-secondary', hex: '#6B7280'},
-  {name: 'Border Subtle', token: 'border-subtle', hex: '#E3DFD8'},
-  {name: 'Focus Ring', token: 'focus-ring', hex: '#5EEAD4'},
-  {name: 'Action Primary', token: 'action-primary', hex: '#0D9488'},
-  {name: 'Action Secondary', token: 'action-secondary', hex: '#F2EFEB'},
-  {name: 'Accent (Amber)', token: 'accent', hex: '#D97706'},
-  {name: 'Sale / Destructive', token: 'sale', hex: '#E11D48'},
-  {name: 'Success', token: 'success', hex: '#059669'},
-  {name: 'Inverse', token: 'inverse', hex: '#0F172A'},
+  {name: 'Page BG', token: 'page-bg', hex: '#FFFFFF'},
+  {name: 'Surface', token: 'surface', hex: '#F9F9F9'},
+  {name: 'Text Primary', token: 'text-primary', hex: '#111111'},
+  {name: 'Text Secondary', token: 'text-secondary', hex: '#666666'},
+  {name: 'Border Subtle', token: 'border-subtle', hex: '#E5E5E5'},
+  {name: 'Focus Ring', token: 'focus-ring', hex: '#D4A5A5'},
+  {name: 'Action Primary', token: 'action-primary', hex: '#111111'},
+  {name: 'Action Secondary', token: 'action-secondary', hex: '#F5F5F5'},
+  {name: 'Accent (Dusty Rose)', token: 'accent', hex: '#D4A5A5'},
+  {name: 'Sale / Destructive', token: 'sale', hex: '#B83A3A'},
+  {name: 'Success', token: 'success', hex: '#3A7D5A'},
+  {name: 'Inverse', token: 'inverse', hex: '#111111'},
 ];
 
 const TYPE_SCALE = [
@@ -111,7 +111,7 @@ function Section({title, children}) {
 
 export default function DesignSystem() {
   return (
-    <div className="design-system mx-auto max-w-6xl px-6 py-12">
+    <div className="design-system mx-auto max-w-6xl px-4 py-12 md:px-10 md:py-16">
       <header className="mb-12">
         <p className="mb-2 font-mono text-mono-s uppercase tracking-widest text-action-primary">
           PAWRA Design System
@@ -258,7 +258,7 @@ export default function DesignSystem() {
           <PulseRing size="md" />
           <PulseRing size="lg" />
           <p className="font-sans text-body-m text-text-inverse/80">
-            Soft teal status indicator for live / active states
+            Soft status indicator for live / active states
           </p>
         </div>
       </Section>
@@ -304,11 +304,11 @@ export default function DesignSystem() {
       <Section title="Shadows & Spacing">
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg bg-surface p-6 shadow-sm">shadow-sm</div>
-          <div className="rounded-lg bg-surface p-6 shadow-md">shadow-md</div>
+          <div className="rounded-lg bg-surface p-6 shadow-sm">shadow-sm</div>
           <div className="rounded-lg bg-surface p-6 shadow-none">shadow-none</div>
         </div>
         <div className="mt-6 flex flex-wrap gap-2">
-          {[4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160].map((px) => (
+          {[4, 8, 16, 24, 32, 48, 64, 96].map((px) => (
             <div key={px} className="flex flex-col items-center">
               <div className="bg-action-primary" style={{width: px, height: 16}} />
               <span className="mt-1 font-mono text-mono-s text-text-secondary">{px}px</span>

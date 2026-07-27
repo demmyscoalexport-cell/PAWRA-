@@ -8,7 +8,7 @@ import {UGC_GALLERY} from '~/data/platform';
 
 export function ShoppableGallery() {
   return (
-    <section className="bg-page-bg px-5 py-16 md:px-10 md:py-24">
+    <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-1440">
         <h2 className="text-center font-sans text-heading-m text-text-primary">#PAWRApets</h2>
         <p className="mx-auto mt-3 max-w-md text-center font-sans text-body-s text-text-secondary">

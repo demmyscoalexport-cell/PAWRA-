@@ -78,7 +78,7 @@ export default function Homepage() {
       <ShopByPet />
       <TrustBar />
 
-      <section className="bg-page-bg px-5 py-16 md:px-10 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-1440">
           <div className="mb-10 flex items-end justify-between gap-4">
             <h2 className="font-sans text-heading-m text-text-primary">The PAWRA Journal</h2>

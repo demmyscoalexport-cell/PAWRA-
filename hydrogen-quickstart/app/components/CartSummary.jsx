@@ -70,7 +70,7 @@ export function CartSummary({cart, layout}) {
 function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) {
     return (
-      <p className="mt-4 rounded-md border border-coral/30 bg-sale/10 px-3 py-3 font-sans text-body-s text-text-primary">
+      <p className="mt-4 rounded-md border border-sale/30 bg-sale/10 px-3 py-3 font-sans text-body-s text-text-primary">
         Checkout is unavailable right now. Refresh and try again, or confirm{' '}
         <code className="font-mono text-mono-s">PUBLIC_CHECKOUT_DOMAIN</code> is set on Oxygen.
       </p>
@@ -82,11 +82,11 @@ function CartCheckoutActions({checkoutUrl}) {
       <a
         href={checkoutUrl}
         target="_self"
-        className="flex h-14 w-full items-center justify-center rounded-md bg-action-primary font-sans text-body-l font-bold tracking-wide text-action-primary-label no-underline shadow-md transition hover:bg-action-primary-hover"
+        className="flex h-14 w-full items-center justify-center rounded-md bg-action-primary font-sans text-body-l font-bold tracking-wide text-action-primary-label no-underline shadow-sm transition hover:bg-action-primary-hover"
       >
         Checkout
       </a>
-      <p className="mt-2 text-center font-sans text-body-s text-text-primary/55">
+      <p className="mt-2 text-center font-sans text-body-s text-text-secondary">
         Secure Shopify checkout · taxes & shipping calculated next
       </p>
       <div className="mt-3">

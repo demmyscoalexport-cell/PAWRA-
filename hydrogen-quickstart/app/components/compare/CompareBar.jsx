@@ -15,7 +15,7 @@ export function CompareBar() {
   const qs = handles.join(',');
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-border-subtle bg-surface/95 px-4 py-3 shadow-md backdrop-blur-md">
+    <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-border-subtle bg-surface/95 px-4 py-3 shadow-sm backdrop-blur-md">
       <div className="mx-auto flex max-w-1440 flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <p className="font-sans text-body-s font-semibold text-text-primary">

@@ -1,6 +1,6 @@
 /**
  * @file PawraSpinner.jsx
- * @description Brand loader — rotating PAWRA mark in deep teal.
+ * @description Brand loader — rotating PAWRA mark.
  */
 
 import {BrandMarkPaths, BRAND_TEAL} from './brandMark';

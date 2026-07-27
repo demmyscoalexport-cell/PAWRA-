@@ -1,6 +1,6 @@
 /**
  * @file PawraPattern.jsx
- * @description Subtle repeating brand texture — low-opacity teal marks.
+ * @description Subtle repeating brand texture — low-opacity marks.
  */
 
 import {BRAND_TEAL} from './brandMark';

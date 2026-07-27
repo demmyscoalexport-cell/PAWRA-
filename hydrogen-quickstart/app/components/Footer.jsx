@@ -119,7 +119,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border-subtle bg-action-secondary text-text-primary">
-      <div className="mx-auto max-w-1440 px-5 py-16 md:px-10 md:py-20">
+      <div className="mx-auto max-w-1440 px-4 py-16 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <PawraLogo variant="primary" height={28} />

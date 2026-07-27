@@ -21,7 +21,7 @@ export function HeroProductSpotlight({product}) {
 
   return (
     <SectionReveal>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Link to={productUrl} className="block no-underline">
             {product?.featuredImage ? (
@@ -44,7 +44,7 @@ export function HeroProductSpotlight({product}) {
             <h2 className="font-sans text-display-s text-text-primary md:text-display-m">
               {product?.title ?? 'Featured from our catalog'}
             </h2>
-            <p className="mt-2 font-sans text-heading-s italic text-text-secondary">
+            <p className="mt-2 font-sans text-heading-s text-text-secondary">
               Hand-picked for your pets.
             </p>
             {product?.priceRange?.minVariantPrice && (
@@ -56,11 +56,11 @@ export function HeroProductSpotlight({product}) {
               Discover premium food, beds, toys, grooming supplies, and wellness products —
               all in one place for cats and dogs.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
               {FEATURES.map((f) => (
                 <span
                   key={f}
-                  className="rounded-pill border border-action-primary px-3 py-1 font-sans text-body-xs font-medium text-action-primary"
+                  className="font-sans text-body-xs font-medium uppercase tracking-wide text-text-secondary"
                 >
                   {f}
                 </span>

@@ -17,7 +17,7 @@ export const meta = () =>
 
 export default function OfflinePage() {
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-page-bg px-5 py-20 text-center">
+    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-page-bg px-4 py-24 text-center">
       <PawraLogo variant="primary" height={36} />
       <h1 className="mt-8 font-sans text-display-s text-text-primary">You&apos;re offline</h1>
       <p className="mt-3 max-w-md font-sans text-body-m text-text-secondary">

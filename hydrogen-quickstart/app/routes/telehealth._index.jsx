@@ -20,7 +20,7 @@ export const meta = () =>
 export default function TelehealthIndex() {
   return (
     <div className="bg-page-bg">
-      <section className="border-b border-border-subtle bg-surface px-5 py-14 md:px-10 md:py-20">
+      <section className="border-b border-border-subtle bg-surface px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-1440">
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             PAWRA Telehealth
@@ -34,7 +34,7 @@ export default function TelehealthIndex() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-1440 gap-6 px-5 py-14 md:grid-cols-2 md:px-10">
+      <section className="mx-auto grid max-w-1440 gap-6 px-4 py-16 md:grid-cols-2 md:px-10">
         <article className="rounded-lg border border-border-subtle bg-surface p-8">
           <h2 className="font-sans text-heading-s text-text-primary">Free Vet Chat</h2>
           <p className="mt-3 font-sans text-body-m text-text-secondary">
@@ -55,7 +55,7 @@ export default function TelehealthIndex() {
         </article>
       </section>
 
-      <section className="border-t border-border-subtle bg-surface px-5 py-14 md:px-10">
+      <section className="border-t border-border-subtle bg-surface px-4 py-16 md:px-10">
         <div className="mx-auto max-w-1440">
           <h2 className="font-sans text-heading-m text-text-primary">How it works</h2>
           <ol className="mt-8 grid gap-6 md:grid-cols-3">

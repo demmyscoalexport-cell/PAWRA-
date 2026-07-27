@@ -110,7 +110,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
   return (
     <div className="bg-page-bg">
       {/* ─── Hero: Gallery & Purchase Panel ─── */}
-      <section className="mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12">
+      <section className="mx-auto max-w-7xl px-4 py-8 md:px-10 md:py-12">
         <Breadcrumbs
           className="mb-6"
           items={[
@@ -206,7 +206,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                                 void navigate(`?${variantUriQuery}`, {replace: true, preventScrollReset: true});
                               }
                             }}
-                            className={`h-10 w-10 rounded-full border-2 reset ${selected ? 'border-action-primary ring-2 ring-focus-ring' : 'border-cloud'} ${!available ? 'opacity-40' : ''}`}
+                            className={`h-10 w-10 rounded-full border-2 reset ${selected ? 'border-action-primary ring-2 ring-focus-ring' : 'border-border-subtle'} ${!available ? 'opacity-40' : ''}`}
                             style={{backgroundColor: color}}
                           />
                         );
@@ -354,12 +354,12 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
       {/* ─── Product description (Chewy-style details) ─── */}
       {(product.descriptionHtml || product.description) && (
-        <section className="border-t border-border-subtle bg-surface px-4 py-16 md:px-8">
+        <section className="border-t border-border-subtle bg-surface px-4 py-16 md:px-10">
           <div className="mx-auto max-w-3xl">
             <h2 className="font-sans text-display-s text-text-primary">About this item</h2>
             {product.descriptionHtml ? (
               <div
-                className="prose prose-forest mt-8 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
+                className="prose mt-8 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
                 dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
               />
             ) : (
@@ -372,7 +372,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       )}
 
       {/* ─── Features Grid ─── */}
-      <section className="border-t border-border-subtle bg-page-bg px-4 py-16 md:px-8">
+      <section className="border-t border-border-subtle bg-page-bg px-4 py-16 md:px-10">
         <div className="mx-auto max-w-7xl">
           <h2 className="font-sans text-display-s text-text-primary">Features</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -387,7 +387,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </section>
 
       {/* ─── Specifications Table ─── */}
-      <section className="px-4 py-16 md:px-8">
+      <section className="px-4 py-16 md:px-10">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-sans text-display-s text-text-primary">Specifications</h2>
           <table className="mt-8 w-full font-mono text-mono-s">
@@ -410,7 +410,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </section>
 
       {/* ─── What's in the Box ─── */}
-      <section className="bg-surface px-4 py-16 md:px-8">
+      <section className="bg-surface px-4 py-16 md:px-10">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-sans text-display-s text-text-primary">What&apos;s in the box</h2>
           <ul className="mt-8 space-y-3">
@@ -427,7 +427,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </section>
 
       {/* ─── Judge.me reviews + write-a-review widget ─── */}
-      <div className="px-4 py-4 md:px-8">
+      <div className="px-4 py-4 md:px-10">
         <div className="mx-auto max-w-3xl">
           <JudgeMeReviews product={product} reviews={reviews} />
           <PhotoReviews />
@@ -435,7 +435,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       </div>
 
       {/* ─── Product FAQ ─── */}
-      <section className="px-4 py-16 md:px-8">
+      <section className="px-4 py-16 md:px-10">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center font-sans text-display-s text-text-primary">Product FAQ</h2>
           <FaqAccordion items={PRODUCT_FAQ} className="mt-10" />
@@ -444,7 +444,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
       {/* ─── Related Products ─── */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-border-subtle px-4 py-16 md:px-8">
+        <section className="border-t border-border-subtle px-4 py-16 md:px-10">
           <div className="mx-auto max-w-7xl">
             <h2 className="font-sans text-display-s text-text-primary">Related products</h2>
             <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -458,16 +458,16 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
 
       {/* ─── Sticky Mobile/Desktop CTA Bar ─── */}
       {showStickyBar && selectedVariant && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-action-primary/20 bg-action-primary px-4 py-3 shadow-lg md:px-8">
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border-subtle bg-action-primary px-4 py-3 shadow-sm md:px-10">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <div className="flex min-w-0 items-center gap-3">
               {activeImage && (
                 <Image data={activeImage} alt="" sizes="48px" className="h-12 w-12 rounded-md object-cover" />
               )}
               <div className="min-w-0">
-                <p className="truncate font-sans text-body-s font-semibold text-text-inverse">{product.title}</p>
+                <p className="truncate font-sans text-body-s font-semibold text-action-primary-label">{product.title}</p>
                 {price && (
-                  <p className="font-mono text-mono-s text-action-primary">
+                  <p className="font-mono text-mono-s text-action-primary-label/80">
                     <Money data={price} />
                   </p>
                 )}
@@ -477,7 +477,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
               disabled={!selectedVariant.availableForSale}
               onClick={() => open('cart')}
               lines={[{merchandiseId: selectedVariant.id, quantity: 1, selectedVariant}]}
-              className="shrink-0 rounded-md bg-action-primary px-6 py-3 font-sans text-body-s font-semibold text-text-primary reset hover:brightness-95"
+              className="shrink-0 rounded-md bg-action-primary-label px-6 py-3 font-sans text-body-s font-semibold text-action-primary reset hover:opacity-90"
             >
               Add to Cart
             </AddToCartButton>

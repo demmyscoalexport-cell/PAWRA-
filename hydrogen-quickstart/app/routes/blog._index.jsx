@@ -28,7 +28,7 @@ export default function BlogIndex() {
   const {posts} = useLoaderData();
 
   return (
-    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-24">
       <div className="mx-auto max-w-7xl">
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           PAWRA Journal

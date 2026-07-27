@@ -37,7 +37,7 @@ export default function PharmacyIndex() {
 
   return (
     <div className="bg-page-bg">
-      <section className="border-b border-border-subtle bg-surface px-5 py-14 md:px-10 md:py-20">
+      <section className="border-b border-border-subtle bg-surface px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-1440">
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             PAWRA Pharmacy
@@ -59,7 +59,7 @@ export default function PharmacyIndex() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-1440 px-5 py-14 md:px-10">
+      <section className="mx-auto max-w-1440 px-4 py-16 md:px-10">
         <h2 className="font-sans text-heading-m text-text-primary">How it works</h2>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {[
@@ -76,7 +76,7 @@ export default function PharmacyIndex() {
         </ol>
       </section>
 
-      <section className="border-y border-border-subtle bg-surface px-5 py-14 md:px-10">
+      <section className="border-y border-border-subtle bg-surface px-4 py-16 md:px-10">
         <div className="mx-auto grid max-w-1440 gap-10 lg:grid-cols-2">
           <div>
             <h2 className="font-sans text-heading-m text-text-primary">Prescription status</h2>
@@ -100,7 +100,7 @@ export default function PharmacyIndex() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-1440 px-5 py-14 md:px-10">
+      <section className="mx-auto max-w-1440 px-4 py-16 md:px-10">
         <div className="mb-6 flex items-end justify-between gap-4">
           <h2 className="font-sans text-heading-m text-text-primary">Featured Rx products</h2>
           <Link to="/collections/pharmacy" className="font-sans text-body-s font-semibold text-action-primary no-underline hover:underline">

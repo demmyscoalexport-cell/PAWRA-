@@ -69,7 +69,7 @@ export default function AccountRegistriesPage() {
 
       <ul className="space-y-4">
         {registries.map((registry) => (
-          <li key={registry.id} className="rounded-lg border border-border-subtle bg-page-bg p-5">
+          <li key={registry.id} className="rounded-lg border border-border-subtle bg-page-bg p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="font-sans text-body-m font-semibold text-text-primary">
@@ -84,9 +84,9 @@ export default function AccountRegistriesPage() {
                 Public page →
               </Link>
             </div>
-            <div className="mt-4 h-2 overflow-hidden rounded-pill bg-action-secondary">
+            <div className="mt-4 h-2 overflow-hidden rounded-full bg-action-secondary">
               <div
-                className="h-full rounded-pill bg-action-primary"
+                className="h-full rounded-full bg-action-primary"
                 style={{width: `${Math.round(registry.progress * 100)}%`}}
               />
             </div>
@@ -97,7 +97,7 @@ export default function AccountRegistriesPage() {
         ))}
       </ul>
 
-      <form onSubmit={createRegistry} className="space-y-4 rounded-lg border border-border-subtle p-5">
+      <form onSubmit={createRegistry} className="space-y-4 rounded-lg border border-border-subtle p-4">
         <h3 className="font-sans text-body-m font-semibold text-text-primary">Create a registry</h3>
         <div className="grid gap-3 md:grid-cols-3">
           <input name="occasion" required placeholder="Occasion" className="rounded-md border border-border-subtle bg-surface px-3 py-2 font-sans text-body-s outline-none focus-visible:ring-2 focus-visible:ring-focus-ring" />

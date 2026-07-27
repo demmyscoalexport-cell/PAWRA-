@@ -55,7 +55,7 @@ export default function AccountNotificationsPage() {
               role="switch"
               aria-checked={prefs[key]}
               onClick={() => toggle(key)}
-              className={`relative h-7 w-12 rounded-pill transition-colors ${
+              className={`relative h-7 w-12 rounded-full transition-colors ${
                 prefs[key] ? 'bg-action-primary' : 'bg-action-secondary'
               }`}
             >

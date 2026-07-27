@@ -66,7 +66,7 @@ export function Header({cart, isLoggedIn}) {
         }`}
         onMouseLeave={scheduleCloseMega}
       >
-        <div className="mx-auto flex h-[72px] max-w-1440 items-center gap-3 px-5 md:gap-6 md:px-10">
+        <div className="mx-auto flex h-[72px] max-w-1440 items-center gap-3 px-4 md:gap-6 md:px-10">
           <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
@@ -121,7 +121,7 @@ export function Header({cart, isLoggedIn}) {
               <NavLink
                 key={item.id}
                 to={item.path}
-                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-text-primary no-underline transition-colors hover:bg-action-secondary hover:text-action-primary"
+                className="hidden rounded-md px-3 py-2 font-sans text-body-s font-medium text-text-secondary no-underline transition-colors hover:bg-action-secondary hover:text-text-primary xl:inline-flex"
               >
                 {item.title}
               </NavLink>
@@ -195,7 +195,7 @@ function HeaderSearchField() {
       <SearchFormPredictive className="w-full">
         {({fetchResults, goToSearch, inputRef}) => (
           <div className="flex items-center gap-1 rounded-md bg-action-secondary px-2 py-1.5">
-            <Icon name="search" size="sm" color="text-action-primary/70" />
+            <Icon name="search" size="sm" color="text-text-secondary" />
             <input
               name="q"
               onChange={(event) => {
@@ -250,11 +250,11 @@ function HeaderSearchField() {
       </SearchFormPredictive>
 
       {focused ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-border-subtle bg-surface p-3 shadow-lg">
-          <div className="mb-3 flex gap-2">
+        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-border-subtle bg-surface p-3 shadow-sm">
+          <div className="mb-3 flex gap-2 border-b border-border-subtle pb-3">
             <button
               type="button"
-              className={`reset rounded-pill px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+              className={`reset rounded-md px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
                 mode === 'shop' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
               }`}
               onClick={() => setMode('shop')}
@@ -263,7 +263,7 @@ function HeaderSearchField() {
             </button>
             <button
               type="button"
-              className={`reset rounded-pill px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+              className={`reset rounded-md px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
                 mode === 'ai' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
               }`}
               onClick={() => setMode('ai')}
@@ -351,12 +351,12 @@ function MegaMenu({item, onClose, onMouseEnter}) {
 
   return (
     <div
-      className="absolute left-0 right-0 top-full border-t border-border-subtle bg-surface-elevated shadow-md"
+      className="absolute left-0 right-0 top-full border-t border-border-subtle bg-surface-elevated shadow-sm"
       onMouseEnter={onMouseEnter}
       role="region"
       aria-label={`${item.title} categories`}
     >
-      <div className="mx-auto max-w-1440 px-5 py-8 md:px-10">
+      <div className="mx-auto max-w-1440 px-4 py-8 md:px-10">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-sans text-heading-m text-text-primary">{item.title}</p>
@@ -459,8 +459,8 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
         onClick={onClose}
         aria-label="Close menu overlay"
       />
-      <aside className="absolute left-0 top-0 flex h-full w-[min(400px,92vw)] flex-col bg-surface-elevated shadow-md md:w-[420px]">
-        <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4">
+      <aside className="absolute left-0 top-0 flex h-full w-[min(400px,92vw)] flex-col bg-surface-elevated shadow-sm md:w-[420px]">
+        <div className="flex items-center justify-between border-b border-border-subtle px-4 py-4">
           {panel === 'root' ? (
             <PawraLogo variant="primary" height={28} />
           ) : (
@@ -484,7 +484,7 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               panel === 'root' ? 'translate-x-0' : '-translate-x-1/2'
             }`}
           >
-            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
+            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-4">
               <p className="mb-2 px-3 font-sans text-body-s font-semibold uppercase tracking-wide text-text-secondary">
                 Shop by pet
               </p>
@@ -547,7 +547,7 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               </div>
             </nav>
 
-            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
+            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-4">
               {activeItem ? (
                 <>
                   <div className="mb-2 flex items-center justify-between gap-2 px-3">
@@ -615,7 +615,7 @@ function CartBadge({count}) {
     >
       <Icon name="cart" size="lg" color="text-text-primary" />
       {count > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-pill bg-action-primary px-1 font-mono text-mono-s font-medium text-action-primary-label">
+        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-action-primary px-1 font-mono text-mono-s font-medium text-action-primary-label">
           {count}
         </span>
       )}

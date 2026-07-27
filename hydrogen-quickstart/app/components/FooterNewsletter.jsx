@@ -8,7 +8,7 @@ export function FooterNewsletter({companyId, formId}) {
   const embedId = formId || companyId;
 
   return (
-    <div className="mt-8 border-b border-border-subtle pb-5">
+    <div className="mt-8 border-b border-border-subtle pb-4">
       <p className="font-sans text-body-s font-medium text-text-primary">Newsletter</p>
       <p className="mt-1 font-sans text-body-xs text-text-secondary">
         New arrivals and quiet updates.

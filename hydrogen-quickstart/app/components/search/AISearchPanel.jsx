@@ -49,7 +49,7 @@ export function AISearchPanel() {
   const result = useMemo(() => (submitted ? mockAiSearch(submitted) : null), [submitted]);
 
   return (
-    <div className="rounded-lg border border-border-subtle bg-surface p-5">
+    <div className="rounded-lg border border-border-subtle bg-surface p-4">
       <p className="font-sans text-body-xs font-medium uppercase tracking-wide text-action-primary">Ask PAWRA AI</p>
       <h2 className="mt-2 font-sans text-heading-s text-text-primary">Describe what you need</h2>
       <p className="mt-2 font-sans text-body-s text-text-secondary">

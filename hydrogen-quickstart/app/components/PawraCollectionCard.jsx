@@ -43,7 +43,7 @@ export function PawraCollectionCard({
     <Link
       to={to}
       prefetch="intent"
-      className="group flex flex-col overflow-hidden rounded-lg bg-surface shadow-sm transition-shadow hover:shadow-md no-underline"
+      className="group flex flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface transition-shadow hover:shadow-sm no-underline"
     >
       <div className="aspect-[4/3] overflow-hidden bg-page-bg">
         {image?.url ? (
@@ -56,7 +56,7 @@ export function PawraCollectionCard({
           <ProductImagePlaceholder label={title} className="h-full min-h-0 rounded-none" />
         )}
       </div>
-      <div className="p-5">
+      <div className="p-4">
         <h2 className="font-sans text-heading-s text-text-primary">{title}</h2>
         {description && (
           <p className="mt-2 font-sans text-body-s text-text-secondary line-clamp-2">{description}</p>

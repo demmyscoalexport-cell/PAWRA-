@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
         {!customerAccountConfigured ? (
           <div
-            className="mt-8 rounded-md border border-coral/40 bg-sale/10 px-4 py-3 font-sans text-body-s text-text-primary"
+            className="mt-8 rounded-md border border-sale/40 bg-sale/10 px-4 py-3 font-sans text-body-s text-text-primary"
             role="alert"
           >
             <p className="font-semibold">Account signup is not configured yet.</p>

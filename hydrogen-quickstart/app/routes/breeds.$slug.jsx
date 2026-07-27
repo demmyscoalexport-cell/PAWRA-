@@ -36,7 +36,7 @@ export async function loader({params}) {
 export default function BreedDetailPage() {
   const {breed, products} = useLoaderData();
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
         <div className="grid gap-10 lg:grid-cols-2">
           <img src={breed.image} alt={breed.name} className="aspect-[4/3] w-full rounded-lg object-cover" />
@@ -57,7 +57,7 @@ export default function BreedDetailPage() {
               ))}
             </dl>
             <h2 className="mt-10 font-sans text-heading-s text-text-primary">Care tips</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 font-sans text-body-m text-text-secondary">
+            <ul className="mt-3 list-disc space-y-2 pl-4 font-sans text-body-m text-text-secondary">
               {breed.tips.map((tip) => (
                 <li key={tip}>{tip}</li>
               ))}

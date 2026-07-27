@@ -33,7 +33,7 @@ export default function AccountDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="rounded-lg border border-border-subtle bg-page-bg p-5">
+        <section className="rounded-lg border border-border-subtle bg-page-bg p-4">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-sans text-body-m font-semibold text-text-primary">Recent orders</h3>
             <Link to="/account/orders" className="font-sans text-body-s text-action-primary no-underline hover:underline">
@@ -58,7 +58,7 @@ export default function AccountDashboard() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-border-subtle bg-page-bg p-5">
+        <section className="rounded-lg border border-border-subtle bg-page-bg p-4">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-sans text-body-m font-semibold text-text-primary">Loyalty</h3>
             <Link to="/account/loyalty" className="font-sans text-body-s text-action-primary no-underline hover:underline">
@@ -68,7 +68,7 @@ export default function AccountDashboard() {
           <LoyaltyProgress points={points} tier={tier} thresholds={MOCK_ACCOUNT_USER.tierThresholds} />
         </section>
 
-        <section className="rounded-lg border border-border-subtle bg-page-bg p-5">
+        <section className="rounded-lg border border-border-subtle bg-page-bg p-4">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-sans text-body-m font-semibold text-text-primary">Active subscriptions</h3>
             <Link to="/account/subscriptions" className="font-sans text-body-s text-action-primary no-underline hover:underline">
@@ -87,7 +87,7 @@ export default function AccountDashboard() {
           </ul>
         </section>
 
-        <section className="rounded-lg border border-border-subtle bg-page-bg p-5">
+        <section className="rounded-lg border border-border-subtle bg-page-bg p-4">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-sans text-body-m font-semibold text-text-primary">Health reminders</h3>
             <Link to="/account/pets" className="font-sans text-body-s text-action-primary no-underline hover:underline">
@@ -108,7 +108,7 @@ export default function AccountDashboard() {
       </div>
 
       {reorder ? (
-        <section className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border-subtle bg-action-secondary/60 px-5 py-4">
+        <section className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border-subtle bg-action-secondary/60 px-4 py-4">
           <div>
             <p className="font-sans text-body-s font-semibold text-text-primary">Quick reorder</p>
             <p className="mt-1 font-sans text-body-s text-text-secondary">{reorder.title}</p>

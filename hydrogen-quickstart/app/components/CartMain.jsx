@@ -105,7 +105,7 @@ function CartEmpty({ hidden = false }) {
       <p className="mt-2 font-sans text-body-s text-text-secondary">
         Find food, treats, beds, and more for dogs and cats.
       </p>
-      <div className="mt-5 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col gap-2">
         <Link
           to="/collections/dogs"
           onClick={close}

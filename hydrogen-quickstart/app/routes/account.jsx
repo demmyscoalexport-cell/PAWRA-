@@ -62,7 +62,7 @@ export default function AccountLayout() {
     : 'Account Details';
 
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
         <h1 className="font-sans text-display-m text-text-primary">{heading}</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
@@ -99,7 +99,7 @@ function AccountMenu() {
   ];
 
   return (
-    <nav className="mt-8 flex flex-wrap gap-5" aria-label="Account">
+    <nav className="mt-8 flex flex-wrap gap-4" aria-label="Account">
       {links.map((link) => (
         <NavLink key={link.to} to={link.to} end={link.end} className={linkClass}>
           {link.label}

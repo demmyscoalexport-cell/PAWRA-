@@ -134,7 +134,7 @@ export default function CartPage() {
   // ─── Empty State ───
   if (!hasItems) {
     return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center bg-page-bg px-4 py-20 text-center">
+      <div className="flex min-h-[60vh] flex-col items-center justify-center bg-page-bg px-4 py-24 text-center">
         <ProductImagePlaceholder label="Empty cart" className="mx-auto h-40 w-40 rounded-lg" />
         <h1 className="mt-8 font-sans text-[2.5rem] text-text-primary">Your cart is empty</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
@@ -148,7 +148,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-page-bg px-4 py-10 md:px-8 md:py-16">
+    <div className="bg-page-bg px-4 py-10 md:px-10 md:py-16">
       <div className="mx-auto max-w-7xl">
         <h1 className="font-sans text-display-s text-text-primary">Your cart</h1>
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_380px]">
@@ -168,7 +168,7 @@ export default function CartPage() {
           </div>
 
           {/* ─── Order Summary Sidebar ─── */}
-          <aside className="h-fit rounded-lg bg-surface p-6 shadow-md">
+          <aside className="h-fit rounded-lg bg-surface p-6 shadow-sm">
             <h2 className="font-sans text-heading-s text-text-primary">Order summary</h2>
             <dl className="mt-6 space-y-3 font-sans text-body-m">
               <div className="flex justify-between">
@@ -204,7 +204,7 @@ export default function CartPage() {
                 </a>
               </>
             )}
-            <div className="mt-5">
+            <div className="mt-4">
               <GorgiasChatButton
                 label="Questions before checkout?"
                 variant="secondary"

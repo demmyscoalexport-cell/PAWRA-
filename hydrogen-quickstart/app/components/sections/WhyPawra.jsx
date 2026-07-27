@@ -38,7 +38,7 @@ const PILLARS = [
 export function WhyPawra() {
   return (
     <SectionReveal>
-      <section className="bg-surface px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-surface px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-3 md:gap-8">
           {PILLARS.map((item) => (
             <div key={item.title} className="rounded-lg border border-border-subtle bg-page-bg p-6 text-center md:text-left">

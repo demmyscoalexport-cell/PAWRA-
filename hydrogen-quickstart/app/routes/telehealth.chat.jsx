@@ -52,14 +52,14 @@ export default function TelehealthChatPage() {
   }, [typing]);
 
   return (
-    <div className="bg-page-bg px-5 py-10 md:px-10 md:py-14">
+    <div className="bg-page-bg px-4 py-10 md:px-10 md:py-16">
       <div className="mx-auto flex max-w-3xl flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface shadow-sm" style={{minHeight: '70vh'}}>
-        <header className="border-b border-border-subtle px-5 py-4">
+        <header className="border-b border-border-subtle px-4 py-4">
           <h1 className="font-sans text-heading-s text-text-primary">Free Vet Chat</h1>
           <p className="font-sans text-body-s text-text-secondary">Demo conversation — not a medical diagnosis.</p>
         </header>
 
-        <div className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
+        <div className="flex-1 space-y-4 overflow-y-auto px-4 py-6">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div
@@ -82,13 +82,13 @@ export default function TelehealthChatPage() {
           ) : null}
         </div>
 
-        <div className="border-t border-border-subtle px-5 py-4">
+        <div className="border-t border-border-subtle px-4 py-4">
           <div className="mb-3 flex flex-wrap gap-2">
             {QUICK.map((label) => (
               <button
                 key={label}
                 type="button"
-                className="reset rounded-pill border border-border-subtle bg-page-bg px-3 py-1.5 font-sans text-body-xs text-text-primary hover:border-action-primary"
+                className="reset rounded-full border border-border-subtle bg-page-bg px-3 py-1.5 font-sans text-body-xs text-text-primary hover:border-action-primary"
                 onClick={() => send(label)}
               >
                 {label}

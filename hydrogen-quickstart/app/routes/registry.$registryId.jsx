@@ -35,7 +35,7 @@ export default function PublicRegistryPage() {
   const purchased = registry.items.filter((i) => i.purchased).length;
 
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-3xl">
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           Gift registry
@@ -45,7 +45,7 @@ export default function PublicRegistryPage() {
         </h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">Event date {registry.date}</p>
 
-        <div className="mt-6 h-2 overflow-hidden rounded-pill bg-action-secondary">
+        <div className="mt-6 h-2 overflow-hidden rounded-full bg-action-secondary">
           <div className="h-full bg-action-primary" style={{width: `${Math.round(registry.progress * 100)}%`}} />
         </div>
         <p className="mt-2 font-mono text-mono-s text-text-secondary">
@@ -60,7 +60,7 @@ export default function PublicRegistryPage() {
                 <p className="font-mono text-mono-s text-text-secondary">${item.price}</p>
               </div>
               {item.purchased ? (
-                <span className="rounded-pill bg-success/10 px-3 py-1 font-sans text-body-xs font-medium text-success">
+                <span className="rounded-full bg-success/10 px-3 py-1 font-sans text-body-xs font-medium text-success">
                   Purchased
                 </span>
               ) : (

@@ -30,7 +30,7 @@ export function JudgeMeReviews({product, reviews}) {
           {list.map((review, index) => (
             <li
               key={`${review.name}-${index}`}
-              className="rounded-lg border border-border-subtle bg-surface/40 p-5"
+              className="rounded-lg border border-border-subtle bg-surface/40 p-4"
             >
               <ProductRating rating={review.rating} count={0} compact />
               <p className="mt-3 font-sans text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>

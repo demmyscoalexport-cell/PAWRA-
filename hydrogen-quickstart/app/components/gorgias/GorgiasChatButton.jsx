@@ -23,9 +23,9 @@ export function GorgiasChatButton({
 
   const variants = {
     primary:
-      'h-12 px-5 bg-action-primary text-action-primary-label hover:bg-action-primary/90 focus-visible:ring-2 focus-visible:ring-focus-ring',
+      'h-12 px-4 bg-action-primary text-action-primary-label hover:bg-action-primary/90 focus-visible:ring-2 focus-visible:ring-focus-ring',
     secondary:
-      'h-12 px-5 border border-action-primary/25 bg-page-bg text-action-primary hover:border-action-primary hover:bg-action-primary hover:text-action-primary-label focus-visible:ring-2 focus-visible:ring-focus-ring',
+      'h-12 px-4 border border-action-primary/25 bg-page-bg text-action-primary hover:border-action-primary hover:bg-action-primary hover:text-action-primary-label focus-visible:ring-2 focus-visible:ring-focus-ring',
     link: 'h-auto px-0 py-1 text-action-primary underline-offset-4 hover:underline',
   };
 

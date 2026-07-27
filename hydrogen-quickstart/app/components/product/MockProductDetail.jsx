@@ -26,7 +26,7 @@ export function MockProductDetail({product, relatedProducts = []}) {
 
   return (
     <div className="bg-page-bg">
-      <div className="mx-auto max-w-1440 px-5 py-8 md:px-10 md:py-12">
+      <div className="mx-auto max-w-1440 px-4 py-8 md:px-10 md:py-12">
         <Breadcrumbs
           className="mb-8"
           items={[
@@ -145,7 +145,7 @@ export function MockProductDetail({product, relatedProducts = []}) {
                     <Link
                       key={tag}
                       to={`/collections/${tag}`}
-                      className="rounded-pill border border-border-subtle bg-action-secondary px-3 py-1 font-sans text-body-xs text-text-primary no-underline hover:border-action-primary"
+                      className="rounded-md border border-border-subtle bg-action-secondary px-3 py-1 font-sans text-body-xs text-text-primary no-underline hover:border-text-primary"
                     >
                       {tag}
                     </Link>

@@ -13,13 +13,13 @@ import {Button} from '~/components/ui/Button';
 export function CompleteYourSetup({products = []}) {
   return (
     <SectionReveal>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center font-sans text-display-s text-text-primary">
             Everything your pet needs. Nothing they don&apos;t.
           </h2>
           {products.length > 0 ? (
-            <div className="mt-10 flex gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
+            <div className="mt-10 flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
               {products.map((product, index) => (
                 <div key={product.id} className="min-w-[240px] flex-shrink-0 md:min-w-0">
                   <PawraProductCard product={product} loading={index < 2 ? 'eager' : undefined} />

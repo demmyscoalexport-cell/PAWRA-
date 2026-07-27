@@ -26,7 +26,7 @@ const PETS = [
 export function ShopByPet() {
   return (
     <SectionReveal eager>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-1440 gap-4 md:grid-cols-2 md:gap-6">
           {PETS.map((pet) => (
             <Link

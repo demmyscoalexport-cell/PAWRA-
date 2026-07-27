@@ -13,7 +13,7 @@ export function PawraNotFound() {
   }));
 
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-page-bg px-4 py-20 text-center">
+    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-page-bg px-4 py-24 text-center">
       <PawraLogo variant="icon-only" height={48} className="mb-6" />
       <p className="font-mono text-mono-s uppercase tracking-widest text-text-secondary">404</p>
       <h1 className="mt-4 font-sans text-[2.5rem] text-text-primary md:text-[3rem]">

@@ -32,7 +32,7 @@ export function FreeShippingProgress({subtotalAmount, className = ''}) {
         )}
       </p>
       <div
-        className="mt-2 h-2 overflow-hidden rounded-pill bg-action-primary/10"
+        className="mt-2 h-2 overflow-hidden rounded-full bg-action-primary/10"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
@@ -40,7 +40,7 @@ export function FreeShippingProgress({subtotalAmount, className = ''}) {
         aria-label={`Free shipping progress toward $${threshold}`}
       >
         <div
-          className="h-full rounded-pill bg-action-primary transition-[width] duration-300 ease-out"
+          className="h-full rounded-full bg-action-primary transition-[width] duration-300 ease-out"
           style={{width: `${progress}%`}}
         />
       </div>

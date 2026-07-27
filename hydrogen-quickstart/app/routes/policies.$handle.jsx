@@ -50,7 +50,7 @@ export default function Policy() {
   const {policy} = useLoaderData();
 
   return (
-    <div className="bg-page-bg px-4 py-12 md:px-8 md:py-20">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-24">
       <div className="mx-auto max-w-3xl">
         <Link to="/policies" className="font-sans text-body-s text-action-primary underline">
           ← All policies

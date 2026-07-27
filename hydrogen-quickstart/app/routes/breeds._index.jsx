@@ -25,7 +25,7 @@ export async function loader() {
 export default function BreedsIndex() {
   const {breeds} = useLoaderData();
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
         <h1 className="font-sans text-display-s text-text-primary">Breed guides</h1>
         <p className="mt-3 max-w-2xl font-sans text-body-l text-text-secondary">

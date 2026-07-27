@@ -26,7 +26,7 @@ export default function SymptomCheckerPage() {
     : [];
 
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-3xl">
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           Health Hub
@@ -57,7 +57,7 @@ export default function SymptomCheckerPage() {
           <div className="mt-10 space-y-8">
             <section className="rounded-lg border border-border-subtle bg-surface p-6">
               <h2 className="font-sans text-body-m font-semibold text-text-primary">Possible considerations</h2>
-              <ul className="mt-3 list-disc space-y-1 pl-5 font-sans text-body-s text-text-secondary">
+              <ul className="mt-3 list-disc space-y-1 pl-4 font-sans text-body-s text-text-secondary">
                 {guide.conditions.map((c) => (
                   <li key={c}>{c}</li>
                 ))}

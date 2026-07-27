@@ -35,7 +35,7 @@ export default function ComparePage() {
 
   if (!products.length) {
     return (
-      <div className="bg-page-bg px-5 py-20 text-center md:px-10">
+      <div className="bg-page-bg px-4 py-24 text-center md:px-10">
         <h1 className="font-sans text-display-s text-text-primary">Compare products</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Select 2–4 products from a collection using Compare.
@@ -60,7 +60,7 @@ export default function ComparePage() {
   ];
 
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
         <h1 className="font-sans text-display-s text-text-primary">Compare</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">

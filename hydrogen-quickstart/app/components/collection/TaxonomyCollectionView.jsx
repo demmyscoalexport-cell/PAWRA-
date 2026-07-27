@@ -45,7 +45,7 @@ export function TaxonomyCollectionView({
 
   return (
     <div className="bg-page-bg">
-      <section className="border-b border-border-subtle bg-surface px-5 py-12 md:px-10 md:py-16">
+      <section className="border-b border-border-subtle bg-surface px-4 py-12 md:px-10 md:py-16">
         <div className="mx-auto max-w-1440">
           <Breadcrumbs className="mb-4" items={breadcrumbs} />
           <h1 className="font-sans text-display-m text-text-primary md:text-display-l">{title}</h1>
@@ -55,7 +55,7 @@ export function TaxonomyCollectionView({
         </div>
       </section>
 
-      <div className="mx-auto max-w-1440 px-5 py-10 md:px-10 md:py-12">
+      <div className="mx-auto max-w-1440 px-4 py-10 md:px-10 md:py-12">
         {showCategories ? (
           <>
             <div className="mb-6 flex items-end justify-between gap-4">

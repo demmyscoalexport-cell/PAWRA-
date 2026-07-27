@@ -41,7 +41,7 @@ export function WalkerProgramPage() {
         {WALKER_SERVICE_REVIEWS.map((review) => (
           <li
             key={review.name}
-            className="rounded-lg border border-border-subtle bg-surface/60 p-5"
+            className="rounded-lg border border-border-subtle bg-surface/60 p-4"
           >
             <p className="font-sans text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>
             <p className="mt-3 font-sans text-body-s font-semibold text-action-primary">

@@ -18,7 +18,7 @@ const CATEGORIES = [
 export function Ecosystem() {
   return (
     <SectionReveal>
-      <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="font-sans text-display-m text-text-primary">
             Shop by category

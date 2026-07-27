@@ -51,7 +51,7 @@ export default function BlogArticlePage() {
   const {article, relatedProducts, relatedArticles} = useLoaderData();
 
   return (
-    <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
       <div className="mx-auto grid max-w-1440 gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">
         <article>
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">

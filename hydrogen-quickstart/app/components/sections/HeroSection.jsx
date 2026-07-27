@@ -22,7 +22,7 @@ export function HeroSection() {
           fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-black/10" />
-        <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-1440 flex-col items-center justify-center px-5 py-24 text-center md:min-h-[88vh] md:px-10">
+        <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-1440 flex-col items-center justify-center px-4 py-24 text-center md:min-h-[88vh] md:px-10">
           <div className="mb-8 text-white">
             <PawraLogo variant="light" height={28} />
           </div>

@@ -53,7 +53,7 @@ export default function AccountLoyaltyPage() {
         <h3 className="font-sans text-body-m font-semibold text-text-primary">Rewards catalog</h3>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {LOYALTY_REWARDS.map((reward) => (
-            <article key={reward.id} className="rounded-lg border border-border-subtle bg-page-bg p-5">
+            <article key={reward.id} className="rounded-lg border border-border-subtle bg-page-bg p-4">
               <p className="font-sans text-body-m font-semibold text-text-primary">{reward.title}</p>
               <p className="mt-1 font-sans text-body-s text-text-secondary">{reward.description}</p>
               <p className="mt-3 font-mono text-mono-s text-action-primary">{reward.points} points</p>
@@ -88,7 +88,7 @@ export default function AccountLoyaltyPage() {
         </ul>
       </section>
 
-      <section className="rounded-lg border border-border-subtle bg-page-bg p-5">
+      <section className="rounded-lg border border-border-subtle bg-page-bg p-4">
         <h3 className="font-sans text-body-m font-semibold text-text-primary">Refer a friend</h3>
         <p className="mt-2 font-sans text-body-s text-text-secondary">
           Share your link. You both get $10 when they place their first order. Credits earned: ${MOCK_REFERRALS.creditEarned}.

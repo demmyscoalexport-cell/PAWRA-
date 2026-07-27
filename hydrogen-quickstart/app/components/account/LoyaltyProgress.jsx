@@ -20,8 +20,8 @@ export function LoyaltyProgress({points, tier, thresholds = {Bronze: 0, Silver: 
         </p>
         <p className="font-mono text-mono-s text-text-secondary">{pct}% to max tier</p>
       </div>
-      <div className="h-2 overflow-hidden rounded-pill bg-action-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-        <div className="h-full rounded-pill bg-action-primary transition-all" style={{width: `${pct}%`}} />
+      <div className="h-2 overflow-hidden rounded-full bg-action-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
+        <div className="h-full rounded-full bg-action-primary transition-all" style={{width: `${pct}%`}} />
       </div>
       <div className="mt-3 flex justify-between">
         {TIERS.map((t) => (
