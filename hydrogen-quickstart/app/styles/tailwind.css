@@ -11,7 +11,7 @@
   h1,
   h2,
   h3 {
-    @apply font-serif text-text-primary;
+    @apply font-sans text-text-primary;
   }
 
   code,

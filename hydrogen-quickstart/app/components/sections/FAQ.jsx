@@ -29,10 +29,10 @@ export function FAQ() {
     <SectionReveal>
       <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-center font-serif text-display-s text-text-primary">
-            Frequently asked questions
+          <h2 className="text-center font-sans text-heading-m text-text-primary md:text-heading-l">
+            FAQ
           </h2>
-          <div className="mt-10 divide-y divide-forest-green/15 border-y border-border-subtle">
+          <div className="mt-10 divide-y divide-border-subtle border-y border-border-subtle">
             {FAQS.map((item, index) => {
               const isOpen = openIndex === index;
               return (

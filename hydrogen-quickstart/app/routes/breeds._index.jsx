@@ -27,7 +27,7 @@ export default function BreedsIndex() {
   return (
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
-        <h1 className="font-serif text-display-s text-text-primary">Breed guides</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Breed guides</h1>
         <p className="mt-3 max-w-2xl font-sans text-body-l text-text-secondary">
           Practical profiles with shopping links matched to size, coat, and lifestyle.
         </p>
@@ -41,7 +41,7 @@ export default function BreedsIndex() {
               <img src={breed.image} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform group-hover:scale-[1.02]" />
               <div className="p-4">
                 <p className="font-mono text-mono-s uppercase tracking-wide text-text-secondary">{breed.species}</p>
-                <h2 className="mt-1 font-serif text-heading-s text-text-primary">{breed.name}</h2>
+                <h2 className="mt-1 font-sans text-heading-s text-text-primary">{breed.name}</h2>
                 <p className="mt-2 font-sans text-body-s text-text-secondary line-clamp-2">{breed.summary}</p>
               </div>
             </Link>

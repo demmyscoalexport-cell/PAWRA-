@@ -42,11 +42,11 @@ export default function PharmacyIndex() {
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             PAWRA Pharmacy
           </p>
-          <h1 className="mt-3 max-w-2xl font-serif text-display-m text-text-primary">
-            Prescription care, delivered with calm confidence
+          <h1 className="mt-3 max-w-2xl font-sans text-display-m text-text-primary">
+            Pharmacy
           </h1>
           <p className="mt-4 max-w-xl font-sans text-body-l text-text-secondary">
-            Upload a prescription, track vet approval, and autoship preventatives — all in one place.
+            Prescriptions and preventatives, handled with care.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button variant="primary" size="lg" href="/pharmacy/upload">
@@ -60,7 +60,7 @@ export default function PharmacyIndex() {
       </section>
 
       <section className="mx-auto max-w-1440 px-5 py-14 md:px-10">
-        <h2 className="font-serif text-heading-m text-text-primary">How it works</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">How it works</h2>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {[
             ['1', 'Upload Rx', 'Share your vet prescription securely.'],
@@ -79,7 +79,7 @@ export default function PharmacyIndex() {
       <section className="border-y border-border-subtle bg-surface px-5 py-14 md:px-10">
         <div className="mx-auto grid max-w-1440 gap-10 lg:grid-cols-2">
           <div>
-            <h2 className="font-serif text-heading-m text-text-primary">Prescription status</h2>
+            <h2 className="font-sans text-heading-m text-text-primary">Prescription status</h2>
             <p className="mt-2 font-sans text-body-s text-text-secondary">
               Demo tracker for {status.product} ({status.petName})
             </p>
@@ -102,7 +102,7 @@ export default function PharmacyIndex() {
 
       <section className="mx-auto max-w-1440 px-5 py-14 md:px-10">
         <div className="mb-6 flex items-end justify-between gap-4">
-          <h2 className="font-serif text-heading-m text-text-primary">Featured Rx products</h2>
+          <h2 className="font-sans text-heading-m text-text-primary">Featured Rx products</h2>
           <Link to="/collections/pharmacy" className="font-sans text-body-s font-semibold text-action-primary no-underline hover:underline">
             Shop pharmacy
           </Link>
@@ -112,7 +112,7 @@ export default function PharmacyIndex() {
             <PawraProductCard key={product.id} product={product} loading={i < 2 ? 'eager' : 'lazy'} showCompare />
           ))}
         </div>
-        <h2 className="mt-16 font-serif text-heading-m text-text-primary">Pharmacy essentials</h2>
+        <h2 className="mt-16 font-sans text-heading-m text-text-primary">Pharmacy essentials</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pharmacyProducts.map((product, i) => (
             <PawraProductCard key={product.id} product={product} loading="lazy" showCompare />

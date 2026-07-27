@@ -37,7 +37,7 @@ export default function AccountLoyaltyPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h2 className="font-serif text-heading-m text-text-primary">PAWRA Rewards</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">PAWRA Rewards</h2>
         <p className="mt-1 font-sans text-body-s text-text-secondary">
           Earn points on every order. Refer friends for $10 / $10 credit.
         </p>

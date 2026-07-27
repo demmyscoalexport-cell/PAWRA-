@@ -1,176 +1,46 @@
 /**
  * @file HeroSection.jsx
- * @description Homepage hero carousel with Cloudinary images and optional WaveSpeed video.
+ * @description Full-bleed minimal hero — single CTA, lifestyle photography.
  */
 
-import {useCallback, useEffect, useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
-import {Icon} from '~/components/ui/Icon';
 import {PawraLogo} from '~/components/ui/PawraLogo';
-import {PAWRA_HERO_SLIDES} from '~/lib/pawraMedia';
+import {getImage} from '~/lib/lifestyleImages';
 
-const SLIDES = PAWRA_HERO_SLIDES;
-const AUTOPLAY_MS = 6000;
-
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setPrefersReducedMotion(query.matches);
-    update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
-
-  return prefersReducedMotion;
-}
-
-/** @param {{ slide: typeof SLIDES[number]; isActive: boolean; isFirst: boolean }} props */
-function HeroSlideMedia({slide, isActive, isFirst}) {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [videoFailed, setVideoFailed] = useState(false);
-  const showVideo = Boolean(slide.video) && !prefersReducedMotion && !videoFailed;
-  const mediaClass = `absolute inset-0 size-full object-cover transition-opacity duration-700 ${
-    isActive ? 'opacity-100' : 'opacity-0'
-  }`;
-
-  if (showVideo) {
-    return (
-      <video
-        key={`${slide.id}-video`}
-        src={slide.video}
-        poster={slide.image}
-        autoPlay={isActive}
-        muted
-        loop
-        playsInline
-        aria-label={slide.imageAlt}
-        className={mediaClass}
-        onError={() => setVideoFailed(true)}
-      />
-    );
-  }
-
-  return (
-    <img
-      key={`${slide.id}-image`}
-      src={slide.image}
-      alt={slide.imageAlt}
-      className={mediaClass}
-      loading={isFirst ? 'eager' : 'lazy'}
-      fetchPriority={isFirst ? 'high' : 'auto'}
-    />
-  );
-}
+const HERO_IMAGE = getImage('hero');
 
 export function HeroSection() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const goTo = useCallback((index) => {
-    setActive((index + SLIDES.length) % SLIDES.length);
-  }, []);
-
-  const goNext = useCallback(() => goTo(active + 1), [active, goTo]);
-  const goPrev = useCallback(() => goTo(active - 1), [active, goTo]);
-
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(goNext, AUTOPLAY_MS);
-    return () => clearInterval(timer);
-  }, [paused, goNext]);
-
-  const slide = SLIDES[active];
-
   return (
     <SectionReveal eager>
-      <section
-        className="bg-page-bg px-4 py-8 md:px-8 md:py-12 lg:py-14"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        aria-roledescription="carousel"
-        aria-label="Featured promotions"
-      >
-        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="order-2 lg:order-1" key={slide.id} aria-live="polite">
-            <div className="mb-6">
-              <PawraLogo variant="primary" height={36} />
-            </div>
-            <h1 className="font-serif text-display-m text-text-primary md:text-display-l">
-              {slide.headline}
-            </h1>
-            <p className="mt-6 max-w-lg font-sans text-body-l text-text-secondary">
-              {slide.subheadline}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button variant="primary" size="lg" href={slide.ctaPrimary.href}>
-                {slide.ctaPrimary.label}
-              </Button>
-              <Button variant="ghost" size="lg" href={slide.ctaSecondary.href}>
-                {slide.ctaSecondary.label}
-              </Button>
-            </div>
-
-            <div className="mt-10 flex items-center gap-4">
-              <div className="flex gap-2" role="tablist" aria-label="Hero slides">
-                {SLIDES.map((s, i) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === active}
-                    aria-label={`Slide ${i + 1}`}
-                    className={`size-2.5 rounded-full reset transition-colors ${
-                      i === active ? 'bg-action-primary' : 'bg-action-primary/30 hover:bg-action-primary/50'
-                    }`}
-                    onClick={() => goTo(i)}
-                  />
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  className="flex size-11 items-center justify-center rounded-full border border-border-subtle bg-surface-elevated text-text-primary reset hover:bg-action-secondary"
-                  onClick={goPrev}
-                  aria-label="Previous slide"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  className="flex size-11 items-center justify-center rounded-full border border-border-subtle bg-surface-elevated text-text-primary reset hover:bg-action-secondary"
-                  onClick={goNext}
-                  aria-label="Next slide"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-8 flex items-start gap-3">
-              <div className="flex gap-0.5">
-                {Array.from({length: 5}, (_, i) => (
-                  <Icon key={`hero-star-${i}`} name="star" size="sm" color="text-accent" className="!h-4 !w-4" />
-                ))}
-              </div>
-              <p className="font-sans text-body-s text-text-secondary">
-                &ldquo;The quality is outstanding — my cats and dog love everything we&apos;ve ordered.&rdquo;
-                <span className="mt-1 block font-medium text-text-primary">Sarah K., Maine</span>
-              </p>
-            </div>
+      <section className="relative min-h-[78vh] w-full overflow-hidden bg-page-bg md:min-h-[88vh]" aria-label="Hero">
+        <img
+          src={HERO_IMAGE}
+          alt="Dog resting in a bright modern interior"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-black/10" />
+        <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-1440 flex-col items-center justify-center px-5 py-24 text-center md:min-h-[88vh] md:px-10">
+          <div className="mb-8 text-white">
+            <PawraLogo variant="light" height={28} />
           </div>
-
-          <div className="relative order-1 min-h-[280px] overflow-hidden rounded-lg lg:order-2 md:min-h-[420px]">
-            {SLIDES.map((s, i) => (
-              <HeroSlideMedia
-                key={s.id}
-                slide={s}
-                isActive={i === active}
-                isFirst={i === 0}
-              />
-            ))}
+          <h1 className="max-w-3xl font-sans text-display-m text-white md:text-display-l">
+            For the modern dog.
+          </h1>
+          <p className="mt-4 max-w-md font-sans text-body-m text-white/80">
+            Essentials designed with calm intent.
+          </p>
+          <div className="mt-10">
+            <Button
+              variant="secondary"
+              size="lg"
+              href="/collections/dogs"
+              className="!border-white !bg-white !text-[#111111] hover:!bg-white/90"
+            >
+              Shop Dogs
+            </Button>
           </div>
         </div>
       </section>

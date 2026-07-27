@@ -61,8 +61,8 @@ export function Header({cart, isLoggedIn}) {
   return (
     <>
       <header
-        className={`pawra-header sticky top-0 z-50 bg-page-bg transition-all duration-base ${
-          scrolled ? 'border-b border-border-subtle bg-page-bg/95 backdrop-blur-md' : ''
+        className={`pawra-header sticky top-0 z-50 border-b border-border-subtle bg-page-bg transition-all duration-base ${
+          scrolled ? 'bg-page-bg/95 backdrop-blur-md' : ''
         }`}
         onMouseLeave={scheduleCloseMega}
       >
@@ -359,10 +359,9 @@ function MegaMenu({item, onClose, onMouseEnter}) {
       <div className="mx-auto max-w-1440 px-5 py-8 md:px-10">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-serif text-display-s text-text-primary">{item.title}</p>
+            <p className="font-sans text-heading-m text-text-primary">{item.title}</p>
             <p className="mt-2 max-w-xl font-sans text-body-s text-text-secondary">
-              Browse {item.title.toLowerCase()} by category — the same depth you expect from a
-              full pet retailer.
+              Browse by category.
             </p>
           </div>
           {item.path ? (

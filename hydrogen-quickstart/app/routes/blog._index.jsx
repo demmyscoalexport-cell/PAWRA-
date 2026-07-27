@@ -33,7 +33,7 @@ export default function BlogIndex() {
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           PAWRA Journal
         </p>
-        <h1 className="mt-3 font-serif text-display-s text-text-primary">Stories for pet people.</h1>
+        <h1 className="mt-3 font-sans text-display-s text-text-primary">Stories for pet people.</h1>
         <p className="mt-4 max-w-2xl font-sans text-body-l text-text-secondary">
           Tips, guides, and stories for cat and dog owners who want the best for their pets.
         </p>
@@ -45,7 +45,7 @@ export default function BlogIndex() {
                 <p className="font-mono text-mono-s uppercase tracking-wide text-action-primary">
                   {post.category}
                 </p>
-                <h2 className="mt-3 font-serif text-heading-s text-text-primary">{post.title}</h2>
+                <h2 className="mt-3 font-sans text-heading-s text-text-primary">{post.title}</h2>
                 <p className="mt-2 font-mono text-mono-s text-text-secondary">
                   {post.date} · {post.readTime}
                 </p>

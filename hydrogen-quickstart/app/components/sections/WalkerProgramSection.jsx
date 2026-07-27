@@ -36,7 +36,7 @@ export function WalkerProgramSection() {
               <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-text-secondary">
                 Walker Referral Program
               </p>
-              <h2 className="mt-3 font-serif text-display-m text-text-primary">
+              <h2 className="mt-3 font-sans text-display-m text-text-primary">
                 Walkers who clients trust — gear they recommend.
               </h2>
               <p className="mt-4 font-sans text-body-l text-text-secondary">
@@ -59,7 +59,7 @@ export function WalkerProgramSection() {
                 key={review.name}
                 className="rounded-lg border border-border-subtle bg-page-bg p-6"
               >
-                <p className="font-serif text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>
+                <p className="font-sans text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>
                 <footer className="mt-4">
                   <p className="font-sans text-body-m font-semibold text-text-primary">{review.name}</p>
                   <p className="font-sans text-body-s text-text-secondary">{review.meta}</p>

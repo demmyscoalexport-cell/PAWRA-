@@ -27,7 +27,7 @@ export default function PharmacyUploadPage() {
   return (
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-2xl">
-        <h1 className="font-serif text-display-s text-text-primary">Upload a prescription</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Upload a prescription</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Drag a PDF or photo of your Rx, then add your vet&apos;s contact details.
         </p>

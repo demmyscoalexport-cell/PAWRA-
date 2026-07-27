@@ -31,7 +31,7 @@ export default function SymptomCheckerPage() {
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           Health Hub
         </p>
-        <h1 className="mt-3 font-serif text-display-s text-text-primary">Symptom checker</h1>
+        <h1 className="mt-3 font-sans text-display-s text-text-primary">Symptom checker</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Educational guidance only — not a diagnosis. For urgent concerns, contact your vet or start a telehealth chat.
         </p>
@@ -74,7 +74,7 @@ export default function SymptomCheckerPage() {
 
             {products.length ? (
               <section>
-                <h2 className="font-serif text-heading-s text-text-primary">Helpful products</h2>
+                <h2 className="font-sans text-heading-s text-text-primary">Helpful products</h2>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   {products.map((product) => (
                     <PawraProductCard key={product.id} product={product} loading="lazy" showCompare />

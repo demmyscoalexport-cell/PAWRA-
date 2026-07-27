@@ -56,7 +56,7 @@ export default function SearchPage() {
   return (
     <div className="bg-page-bg px-4 py-12 md:px-8 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-serif text-display-s text-text-primary">Search</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Search</h1>
         <SearchForm className="mt-8">
           {({inputRef}) => (
             <div className="flex max-w-xl gap-2">

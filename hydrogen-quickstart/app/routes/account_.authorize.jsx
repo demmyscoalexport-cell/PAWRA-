@@ -24,7 +24,7 @@ export function ErrorBoundary() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-page-bg px-4 py-16">
       <div className="w-full max-w-lg rounded-lg bg-surface p-8 shadow-sm text-center">
-        <h1 className="font-serif text-[2rem] text-text-primary">Sign-in couldn&apos;t finish</h1>
+        <h1 className="font-sans text-[2rem] text-text-primary">Sign-in couldn&apos;t finish</h1>
         <p className="mt-4 font-sans text-body-m text-text-secondary">
           Shopify didn&apos;t complete the return to PAWRA. This is usually a Callback URI mismatch
           in Hydrogen → Customer Account API settings.

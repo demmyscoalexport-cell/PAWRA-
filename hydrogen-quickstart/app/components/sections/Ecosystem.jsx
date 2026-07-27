@@ -20,7 +20,7 @@ export function Ecosystem() {
     <SectionReveal>
       <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl text-center">
-          <h2 className="font-serif text-display-m text-text-primary">
+          <h2 className="font-sans text-display-m text-text-primary">
             Shop by category
           </h2>
           <p className="mx-auto mt-4 max-w-2xl font-sans text-body-l text-text-secondary">

@@ -57,7 +57,7 @@ export default function BlogArticlePage() {
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             {article.category}
           </p>
-          <h1 className="mt-3 font-serif text-display-s text-text-primary md:text-display-m">{article.title}</h1>
+          <h1 className="mt-3 font-sans text-display-s text-text-primary md:text-display-m">{article.title}</h1>
           <p className="mt-3 font-mono text-mono-s text-text-secondary">
             {article.date} · {article.readTime} read
           </p>
@@ -68,12 +68,12 @@ export default function BlogArticlePage() {
             loading="eager"
           />
           <div
-            className="prose-pawra mt-10 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-heading-s [&_h2]:text-text-primary [&_p]:mt-4"
+            className="prose-pawra mt-10 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_h2]:mt-8 [&_h2]:font-sans [&_h2]:text-heading-s [&_h2]:text-text-primary [&_p]:mt-4"
             dangerouslySetInnerHTML={{__html: article.body}}
           />
 
           <section className="mt-16">
-            <h2 className="font-serif text-heading-s text-text-primary">Related articles</h2>
+            <h2 className="font-sans text-heading-s text-text-primary">Related articles</h2>
             <ul className="mt-4 space-y-3">
               {relatedArticles.map((item) => (
                 <li key={item.slug}>

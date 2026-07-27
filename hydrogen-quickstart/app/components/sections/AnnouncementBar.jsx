@@ -1,44 +1,20 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file AnnouncementBar.jsx
- * @description Homepage/marketing section: AnnouncementBar.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Minimal top bar — single calm message.
  */
 
 import {useEffect, useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
 
-const MESSAGES = [
-  'Free shipping on US orders over $75',
-  'Vet-informed care products for cats and dogs',
-  'Easy 30-day returns on eligible orders',
-];
+const MESSAGE = 'Free shipping on US orders over $75';
 const STORAGE_KEY = 'pawra-announcement-closed';
 
 export function AnnouncementBar() {
   const [closed, setClosed] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     setClosed(localStorage.getItem(STORAGE_KEY) === 'true');
   }, []);
-
-  useEffect(() => {
-    if (closed) return;
-    const timer = setInterval(() => {
-      setActiveIndex((i) => (i + 1) % MESSAGES.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [closed]);
 
   function handleClose() {
     localStorage.setItem(STORAGE_KEY, 'true');
@@ -48,22 +24,17 @@ export function AnnouncementBar() {
   if (closed) return null;
 
   return (
-    <div className="relative bg-action-primary px-4 py-2.5 text-action-primary-label">
-      <div className="mx-auto flex max-w-7xl items-center justify-center pr-8">
-        <p className="hidden text-center font-sans text-body-s font-medium md:block">
-          {MESSAGES.join(' · ')}
-        </p>
-        <p className="text-center font-sans text-body-s font-medium md:hidden" aria-live="polite">
-          {MESSAGES[activeIndex]}
-        </p>
-      </div>
+    <div className="relative border-b border-border-subtle bg-page-bg px-4 py-2.5 text-text-primary">
+      <p className="text-center font-sans text-body-xs tracking-wide text-text-secondary">
+        {MESSAGE}
+      </p>
       <button
         type="button"
         onClick={handleClose}
-        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-action-primary-label opacity-80 hover:opacity-100"
+        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-text-secondary opacity-80 hover:opacity-100"
         aria-label="Close announcement"
       >
-        <Icon name="close" size="sm" color="text-action-primary-label" />
+        <Icon name="close" size="sm" color="text-text-secondary" />
       </button>
     </div>
   );

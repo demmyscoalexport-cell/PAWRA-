@@ -41,7 +41,7 @@ export default function AccountNotificationsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-serif text-heading-m text-text-primary">Notification preferences</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">Notification preferences</h2>
         <p className="mt-1 font-sans text-body-s text-text-secondary">
           Demo toggles — preferences are not persisted to a backend yet.
         </p>

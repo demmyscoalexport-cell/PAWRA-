@@ -9,7 +9,7 @@ import {Icon} from '~/components/ui/Icon';
 export function PhotoReviews() {
   return (
     <section className="mt-12">
-      <h2 className="font-serif text-heading-s text-text-primary">Customer photos</h2>
+      <h2 className="font-sans text-heading-s text-text-primary">Customer photos</h2>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {MOCK_PHOTO_REVIEWS.map((review) => (
           <figure key={review.id} className="overflow-hidden rounded-lg border border-border-subtle bg-surface">

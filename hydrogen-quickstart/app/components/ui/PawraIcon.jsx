@@ -3,7 +3,7 @@
  * @description Standalone PAWRA brand mark (paw × leaf).
  */
 
-import {BrandMarkPaths, BRAND_TEAL} from './brandMark';
+import {BrandMarkPaths, BRAND_BLACK} from './brandMark';
 
 /**
  * @param {{
@@ -16,7 +16,7 @@ import {BrandMarkPaths, BRAND_TEAL} from './brandMark';
 export function PawraIcon({
   size = 48,
   className = '',
-  color = BRAND_TEAL,
+  color = BRAND_BLACK,
   title = 'PAWRA',
 }) {
   const px = typeof size === 'number' ? size : undefined;

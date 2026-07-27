@@ -47,7 +47,7 @@ export default function RegisterPage() {
         <div className="flex justify-center">
           <PawraLogo variant="primary" height={36} />
         </div>
-        <h1 className="mt-8 text-center font-serif text-[2.5rem] text-text-primary">
+        <h1 className="mt-8 text-center font-sans text-[2.5rem] text-text-primary">
           Create your account
         </h1>
         <p className="mt-3 text-center font-sans text-body-m text-text-secondary">

@@ -27,13 +27,13 @@ export function StaticPageLayout({title, description, children}) {
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             PAWRA
           </p>
-          <h1 className="mt-3 font-serif text-display-s text-text-primary md:text-[3.5rem] md:leading-[1.1]">
+          <h1 className="mt-3 font-sans text-display-s text-text-primary md:text-[3.5rem] md:leading-[1.1]">
             {title}
           </h1>
           {description && (
             <p className="mt-4 font-sans text-body-l text-text-primary/80">{description}</p>
           )}
-          <div className="prose-pawra mt-10 font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_a]:underline [&_h3]:mt-8 [&_h3]:font-serif [&_h3]:text-heading-s [&_h3]:text-text-primary [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5">
+          <div className="prose-pawra mt-10 font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_a]:underline [&_h3]:mt-8 [&_h3]:font-sans [&_h3]:text-heading-s [&_h3]:text-text-primary [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5">
             {children}
           </div>
         </div>

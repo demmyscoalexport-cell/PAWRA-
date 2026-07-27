@@ -55,7 +55,7 @@ export default function TelehealthChatPage() {
     <div className="bg-page-bg px-5 py-10 md:px-10 md:py-14">
       <div className="mx-auto flex max-w-3xl flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface shadow-sm" style={{minHeight: '70vh'}}>
         <header className="border-b border-border-subtle px-5 py-4">
-          <h1 className="font-serif text-heading-s text-text-primary">Free Vet Chat</h1>
+          <h1 className="font-sans text-heading-s text-text-primary">Free Vet Chat</h1>
           <p className="font-sans text-body-s text-text-secondary">Demo conversation — not a medical diagnosis.</p>
         </header>
 

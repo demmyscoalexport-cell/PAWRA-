@@ -55,9 +55,9 @@ export default function Policy() {
         <Link to="/policies" className="font-sans text-body-s text-action-primary underline">
           ← All policies
         </Link>
-        <h1 className="mt-6 font-serif text-display-s text-text-primary">{policy.title}</h1>
+        <h1 className="mt-6 font-sans text-display-s text-text-primary">{policy.title}</h1>
         <div
-          className="prose-pawra mt-10 font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_a]:underline [&_h2]:mt-8 [&_h2]:font-serif [&_h2]:text-heading-s [&_p]:mt-4"
+          className="prose-pawra mt-10 font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_a]:underline [&_h2]:mt-8 [&_h2]:font-sans [&_h2]:text-heading-s [&_p]:mt-4"
           dangerouslySetInnerHTML={{__html: policy.body}}
         />
       </div>

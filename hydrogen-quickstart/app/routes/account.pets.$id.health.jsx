@@ -84,7 +84,7 @@ export default function PetHealthPage() {
         <Link to="/account/pets" className="font-sans text-body-s text-action-primary no-underline hover:underline">
           ← My Pets
         </Link>
-        <h2 className="mt-3 font-serif text-heading-m text-text-primary">{pet.name}&apos;s health records</h2>
+        <h2 className="mt-3 font-sans text-heading-m text-text-primary">{pet.name}&apos;s health records</h2>
         <p className="mt-1 font-sans text-body-s text-text-secondary">
           {pet.breed} · {pet.weight} lb · demo data stored in session only
         </p>

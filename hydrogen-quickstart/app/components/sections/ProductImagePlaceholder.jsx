@@ -20,7 +20,7 @@ export function ProductImagePlaceholder({label = 'Product', className = '', aspe
       className={`flex items-center justify-center bg-page-bg ${aspect} ${className}`}
       aria-hidden="true"
     >
-      <span className="font-serif text-body-s text-action-primary/25">{label}</span>
+      <span className="font-sans text-body-s text-action-primary/25">{label}</span>
     </div>
   );
 }

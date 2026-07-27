@@ -1,6 +1,6 @@
 /**
  * @file PawraProductCard.jsx
- * @description Soft product card: image, rating, price, optional compare checkbox.
+ * @description Minimal product card — soft hover shadow, text sale label.
  */
 
 import {Link} from 'react-router';
@@ -33,22 +33,22 @@ export function PawraProductCard({product, loading, showCompare = false}) {
   const checked = has(product.handle);
 
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-lg bg-surface transition-shadow duration-base hover:shadow-sm">
+    <div className="group relative flex flex-col bg-page-bg transition-shadow duration-base hover:shadow-sm">
       {showCompare ? (
-        <label className="absolute left-3 top-3 z-10 flex cursor-pointer items-center gap-1.5 rounded-md bg-surface/95 px-2 py-1 font-sans text-body-xs text-text-primary shadow-sm">
+        <label className="absolute left-3 top-3 z-10 flex cursor-pointer items-center gap-1.5 bg-page-bg/90 px-2 py-1 font-sans text-body-xs text-text-secondary">
           <input
             type="checkbox"
             checked={checked}
             onChange={() => toggle(product.handle)}
-            className="accent-[rgb(var(--color-action-primary))]"
+            className="accent-[rgb(var(--color-text-primary))]"
             aria-label={`Compare ${product.title}`}
           />
           Compare
         </label>
       ) : null}
 
-      <Link to={variantUrl} prefetch="intent" className="group flex flex-1 flex-col no-underline">
-        <div className="relative aspect-square overflow-hidden bg-page-bg">
+      <Link to={variantUrl} prefetch="intent" className="flex flex-1 flex-col no-underline">
+        <div className="relative aspect-square overflow-hidden rounded-md bg-surface">
           {image?.url ? (
             image.url.includes('cdn.shopify.com') ? (
               <Image
@@ -57,30 +57,30 @@ export function PawraProductCard({product, loading, showCompare = false}) {
                 data={image}
                 loading={loading}
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                className="h-full w-full object-cover transition-transform duration-base group-hover:scale-[1.02]"
+                className="h-full w-full object-cover transition-transform duration-slow group-hover:scale-[1.02]"
               />
             ) : (
               <img
                 src={image.url}
                 alt={image.altText || product.title}
                 loading={loading || 'lazy'}
-                className="h-full w-full object-cover transition-transform duration-base group-hover:scale-[1.02]"
+                className="h-full w-full object-cover transition-transform duration-slow group-hover:scale-[1.02]"
               />
             )
           ) : (
             <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-none" />
           )}
-          <div className="absolute right-3 top-3 flex flex-col gap-1">
+        </div>
+        <div className="flex flex-1 flex-col px-1 pt-4 pb-2">
+          <div className="mb-2 flex flex-wrap gap-3">
             {onSale ? <Badge type="sale" /> : null}
             {rx ? <Badge type="rx-required" /> : null}
           </div>
-        </div>
-        <div className="flex flex-1 flex-col p-4">
           <h3 className="font-sans text-body-s font-medium text-text-primary line-clamp-2">{product.title}</h3>
           <JudgeMePreviewBadge productId={product.id} className="mt-1" />
           <div className="mt-auto flex flex-wrap items-baseline gap-2 pt-3">
             {minPrice ? (
-              <p className="font-mono text-mono-m font-medium text-text-primary">
+              <p className="font-mono text-mono-m text-text-primary">
                 <Money data={minPrice} />
               </p>
             ) : null}
@@ -90,8 +90,8 @@ export function PawraProductCard({product, loading, showCompare = false}) {
               </p>
             ) : null}
           </div>
-          <span className="mt-3 inline-flex items-center justify-center rounded-md border border-border-subtle bg-action-secondary px-3 py-2 font-sans text-body-s font-medium text-text-primary transition-colors group-hover:border-action-primary group-hover:bg-action-primary group-hover:text-action-primary-label">
-            View product
+          <span className="mt-4 inline-flex h-10 items-center justify-center border border-transparent font-sans text-body-s font-medium text-text-primary opacity-0 transition-all group-hover:border-border-subtle group-hover:opacity-100">
+            Quick view
           </span>
         </div>
       </Link>

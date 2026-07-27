@@ -46,7 +46,7 @@ export function MockProductDetail({product, relatedProducts = []}) {
                 loading="eager"
               />
             ) : (
-              <div className="flex aspect-square items-center justify-center bg-action-secondary font-serif text-heading-m text-text-secondary">
+              <div className="flex aspect-square items-center justify-center bg-action-secondary font-sans text-heading-m text-text-secondary">
                 PAWRA
               </div>
             )}
@@ -57,7 +57,7 @@ export function MockProductDetail({product, relatedProducts = []}) {
               {onSale ? <Badge type="sale" /> : null}
               {isRx ? <Badge type="rx-required" /> : null}
             </div>
-            <h1 className="font-serif text-display-m text-text-primary">{product.title}</h1>
+            <h1 className="font-sans text-display-m text-text-primary">{product.title}</h1>
             <div className="mt-4 flex flex-wrap items-baseline gap-3">
               {price ? (
                 <p className="font-mono text-mono-m font-medium text-text-primary">

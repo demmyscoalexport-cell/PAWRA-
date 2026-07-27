@@ -1,11 +1,11 @@
 {
   "name": "PAWRA",
   "short_name": "PAWRA",
-  "description": "Premium pet lifestyle and health — every moment, every pet, every life.",
+  "description": "Design-driven essentials for modern pets.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F8F6F4",
-  "theme_color": "#0D9488",
+  "background_color": "#FFFFFF",
+  "theme_color": "#111111",
   "icons": [
     {
       "src": "/favicon.svg",

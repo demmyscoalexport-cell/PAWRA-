@@ -41,10 +41,10 @@ export function HeroProductSpotlight({product}) {
             )}
           </Link>
           <div>
-            <h2 className="font-serif text-display-s text-text-primary md:text-display-m">
+            <h2 className="font-sans text-display-s text-text-primary md:text-display-m">
               {product?.title ?? 'Featured from our catalog'}
             </h2>
-            <p className="mt-2 font-serif text-heading-s italic text-text-secondary">
+            <p className="mt-2 font-sans text-heading-s italic text-text-secondary">
               Hand-picked for your pets.
             </p>
             {product?.priceRange?.minVariantPrice && (

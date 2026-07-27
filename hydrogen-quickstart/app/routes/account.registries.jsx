@@ -61,7 +61,7 @@ export default function AccountRegistriesPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h2 className="font-serif text-heading-m text-text-primary">Gift registries</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">Gift registries</h2>
         <p className="mt-1 font-sans text-body-s text-text-secondary">
           Create a shareable list for new pets, birthdays, and adoptions.
         </p>

@@ -57,7 +57,7 @@ export function PawraCollectionCard({
         )}
       </div>
       <div className="p-5">
-        <h2 className="font-serif text-heading-s text-text-primary">{title}</h2>
+        <h2 className="font-sans text-heading-s text-text-primary">{title}</h2>
         {description && (
           <p className="mt-2 font-sans text-body-s text-text-secondary line-clamp-2">{description}</p>
         )}

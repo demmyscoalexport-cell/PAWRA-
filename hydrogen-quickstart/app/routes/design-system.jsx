@@ -49,10 +49,10 @@ const COLORS = [
 ];
 
 const TYPE_SCALE = [
-  {name: 'display-xl', className: 'font-serif text-display-xl text-text-primary'},
-  {name: 'display-l', className: 'font-serif text-display-l text-text-primary'},
-  {name: 'display-m', className: 'font-serif text-display-m text-text-primary'},
-  {name: 'display-s', className: 'font-serif text-display-s text-text-primary'},
+  {name: 'display-xl', className: 'font-sans text-display-xl text-text-primary'},
+  {name: 'display-l', className: 'font-sans text-display-l text-text-primary'},
+  {name: 'display-m', className: 'font-sans text-display-m text-text-primary'},
+  {name: 'display-s', className: 'font-sans text-display-s text-text-primary'},
   {name: 'heading-xl', className: 'font-sans text-heading-xl text-text-primary'},
   {name: 'heading-l', className: 'font-sans text-heading-l text-text-primary'},
   {name: 'heading-m', className: 'font-sans text-heading-m text-text-primary'},
@@ -116,7 +116,7 @@ export default function DesignSystem() {
         <p className="mb-2 font-mono text-mono-s uppercase tracking-widest text-action-primary">
           PAWRA Design System
         </p>
-        <h1 className="font-serif text-display-m text-text-primary">Brand Experience Tokens</h1>
+        <h1 className="font-sans text-display-m text-text-primary">Brand Experience Tokens</h1>
         <p className="mt-3 max-w-2xl font-sans text-body-l text-text-secondary">
           {BRAND.tagline} — Visual reference for colors, typography,
           spacing, components, and animations at {BRAND.domain}.
@@ -270,14 +270,14 @@ export default function DesignSystem() {
             title="Premium Dog Leash"
             description="Durable braided leash for daily walks."
             badge="new"
-            image={<div className="flex h-full items-center justify-center bg-page-bg font-serif text-heading-s text-text-primary/30">Product</div>}
+            image={<div className="flex h-full items-center justify-center bg-page-bg font-sans text-heading-s text-text-primary/30">Product</div>}
           />
           <Card
             variant="product-hero"
             title="Cozy Pet Beds"
             description="Comfort essentials for cats and dogs."
             badge="best-seller"
-            image={<div className="flex h-full items-center justify-center font-serif text-heading-l text-action-primary/40">Hero</div>}
+            image={<div className="flex h-full items-center justify-center font-sans text-heading-l text-action-primary/40">Hero</div>}
           />
           <Card
             variant="feature"

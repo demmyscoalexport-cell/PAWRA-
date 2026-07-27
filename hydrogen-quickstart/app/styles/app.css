@@ -5,67 +5,67 @@
   --grid-item-width: 355px;
   --header-height: 72px;
 
-  /* Soft elevation */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  /* Minimal elevation — hover only */
+  --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.04);
 
-  /* Semantic RGB channels — Tailwind opacity modifiers */
-  --color-page-bg: 248 246 244;
-  --color-surface: 253 251 249;
+  /* Wild One–inspired semantic RGB channels */
+  --color-page-bg: 255 255 255;
+  --color-surface: 249 249 249;
   --color-surface-elevated: 255 255 255;
-  --color-text-primary: 30 41 59;
-  --color-text-secondary: 107 114 128;
-  --color-text-inverse: 248 246 244;
-  --color-border-subtle: 227 223 216;
-  --color-border-strong: 197 191 178;
-  --color-focus-ring: 94 234 212;
-  --color-action-primary: 13 148 136;
-  --color-action-primary-hover: 15 118 110;
+  --color-text-primary: 17 17 17;
+  --color-text-secondary: 102 102 102;
+  --color-text-inverse: 255 255 255;
+  --color-border-subtle: 229 229 229;
+  --color-border-strong: 204 204 204;
+  --color-focus-ring: 212 165 165;
+  --color-action-primary: 17 17 17;
+  --color-action-primary-hover: 51 51 51;
   --color-action-primary-label: 255 255 255;
-  --color-action-secondary-bg: 242 239 235;
-  --color-action-destructive: 225 29 72;
-  --color-accent: 217 119 6;
-  --color-success: 5 150 105;
-  --color-warning: 217 119 6;
-  --color-sale: 225 29 72;
-  --color-inverse: 15 23 42;
+  --color-action-secondary-bg: 245 245 245;
+  --color-action-destructive: 184 58 58;
+  --color-accent: 212 165 165;
+  --color-success: 58 125 90;
+  --color-warning: 176 118 58;
+  --color-sale: 184 58 58;
+  --color-inverse: 17 17 17;
 
-  /* Legacy bridges used by plain CSS rules */
-  --color-light: 253 251 249;
-  --color-dark: 30 41 59;
-  --color-header: 248 246 244;
-  --color-warm-oat: 248 246 244;
-  --color-cloud: 253 251 249;
-  --color-ink: 30 41 59;
+  /* Legacy bridges */
+  --color-light: 249 249 249;
+  --color-dark: 17 17 17;
+  --color-header: 255 255 255;
+  --color-warm-oat: 255 255 255;
+  --color-cloud: 249 249 249;
+  --color-ink: 17 17 17;
 }
 
 html.dark {
-  --color-page-bg: 15 23 42;
-  --color-surface: 30 41 59;
-  --color-surface-elevated: 30 41 59;
-  --color-text-primary: 241 245 249;
-  --color-text-secondary: 148 163 184;
-  --color-text-inverse: 30 41 59;
-  --color-border-subtle: 51 65 85;
-  --color-border-strong: 71 85 105;
-  --color-focus-ring: 94 234 212;
-  --color-action-primary: 13 148 136;
-  --color-action-primary-hover: 15 118 110;
-  --color-action-primary-label: 255 255 255;
-  --color-action-secondary-bg: 30 41 59;
-  --color-action-destructive: 225 29 72;
-  --color-accent: 217 119 6;
-  --color-success: 5 150 105;
-  --color-warning: 217 119 6;
-  --color-sale: 225 29 72;
-  --color-inverse: 15 23 42;
+  --color-page-bg: 17 17 17;
+  --color-surface: 26 26 26;
+  --color-surface-elevated: 26 26 26;
+  --color-text-primary: 245 245 245;
+  --color-text-secondary: 153 153 153;
+  --color-text-inverse: 17 17 17;
+  --color-border-subtle: 51 51 51;
+  --color-border-strong: 85 85 85;
+  --color-focus-ring: 212 165 165;
+  --color-action-primary: 255 255 255;
+  --color-action-primary-hover: 229 229 229;
+  --color-action-primary-label: 17 17 17;
+  --color-action-secondary-bg: 34 34 34;
+  --color-action-destructive: 212 115 115;
+  --color-accent: 212 165 165;
+  --color-success: 74 154 106;
+  --color-warning: 201 154 90;
+  --color-sale: 212 115 115;
+  --color-inverse: 17 17 17;
 
-  --color-light: 30 41 59;
-  --color-dark: 241 245 249;
-  --color-header: 15 23 42;
-  --color-warm-oat: 15 23 42;
-  --color-cloud: 30 41 59;
-  --color-ink: 241 245 249;
+  --color-light: 26 26 26;
+  --color-dark: 245 245 245;
+  --color-header: 17 17 17;
+  --color-warm-oat: 17 17 17;
+  --color-cloud: 26 26 26;
+  --color-ink: 245 245 245;
   color-scheme: dark;
 }
 
@@ -78,7 +78,7 @@ main {
 }
 
 img {
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 /*

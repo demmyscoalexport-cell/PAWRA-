@@ -162,7 +162,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 <Badge type="rx-required" />
               </div>
             ) : null}
-            <h1 className="font-serif text-[2.5rem] leading-tight text-text-primary">{product.title}</h1>
+            <h1 className="font-sans text-[2.5rem] leading-tight text-text-primary">{product.title}</h1>
             <JudgeMePreviewBadge productId={product.id} className="mt-2" />
             <ProductRating rating={reviews?.rating} count={reviews?.count} />
             <div className="mt-6 flex flex-wrap items-baseline gap-3">
@@ -356,7 +356,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {(product.descriptionHtml || product.description) && (
         <section className="border-t border-border-subtle bg-surface px-4 py-16 md:px-8">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-serif text-display-s text-text-primary">About this item</h2>
+            <h2 className="font-sans text-display-s text-text-primary">About this item</h2>
             {product.descriptionHtml ? (
               <div
                 className="prose prose-forest mt-8 max-w-none font-sans text-body-m text-text-primary [&_a]:text-action-primary [&_li]:my-1 [&_p]:mb-4 [&_ul]:my-4"
@@ -374,7 +374,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Features Grid ─── */}
       <section className="border-t border-border-subtle bg-page-bg px-4 py-16 md:px-8">
         <div className="mx-auto max-w-7xl">
-          <h2 className="font-serif text-display-s text-text-primary">Features</h2>
+          <h2 className="font-sans text-display-s text-text-primary">Features</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
               <div key={f.label} className="flex gap-4">
@@ -389,7 +389,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Specifications Table ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-display-s text-text-primary">Specifications</h2>
+          <h2 className="font-sans text-display-s text-text-primary">Specifications</h2>
           <table className="mt-8 w-full font-mono text-mono-s">
             <tbody>
               {[
@@ -412,7 +412,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── What's in the Box ─── */}
       <section className="bg-surface px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-display-s text-text-primary">What&apos;s in the box</h2>
+          <h2 className="font-sans text-display-s text-text-primary">What&apos;s in the box</h2>
           <ul className="mt-8 space-y-3">
             {['Product', 'Care instructions', 'PAWRA quality guarantee'].map(
               (item) => (
@@ -437,7 +437,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {/* ─── Product FAQ ─── */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-center font-serif text-display-s text-text-primary">Product FAQ</h2>
+          <h2 className="text-center font-sans text-display-s text-text-primary">Product FAQ</h2>
           <FaqAccordion items={PRODUCT_FAQ} className="mt-10" />
         </div>
       </section>
@@ -446,7 +446,7 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
       {relatedProducts.length > 0 && (
         <section className="border-t border-border-subtle px-4 py-16 md:px-8">
           <div className="mx-auto max-w-7xl">
-            <h2 className="font-serif text-display-s text-text-primary">Related products</h2>
+            <h2 className="font-sans text-display-s text-text-primary">Related products</h2>
             <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
               {relatedProducts.slice(0, 4).map((p, i) => (
                 <PawraProductCard key={p.id} product={p} loading={i < 4 ? 'eager' : undefined} />

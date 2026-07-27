@@ -1,6 +1,6 @@
 /**
  * @file Badge.tsx
- * @description Subtle merchandising / status badges.
+ * @description Minimal text-style merchandising badges.
  */
 
 export type BadgeType =
@@ -20,39 +20,39 @@ const BADGE_CONFIG: Record<
 > = {
   new: {
     label: 'New',
-    className: 'bg-action-primary/10 text-action-primary',
+    className: 'text-text-primary border-l border-text-primary pl-2',
   },
   'best-seller': {
-    label: 'Best Seller',
-    className: 'bg-accent/10 text-accent',
+    label: 'Bestseller',
+    className: 'text-accent border-l border-accent pl-2',
   },
   'coming-soon': {
-    label: 'Coming Soon',
-    className: 'bg-action-secondary text-text-secondary border border-border-subtle',
+    label: 'Coming soon',
+    className: 'text-text-secondary border-l border-border-subtle pl-2',
   },
   'walker-approved': {
-    label: 'Walker Approved',
-    className: 'bg-action-primary/10 text-action-primary',
+    label: 'Walker approved',
+    className: 'text-text-primary border-l border-text-primary pl-2',
   },
   'care-plan': {
-    label: 'Care Plan',
-    className: 'bg-action-secondary text-text-primary border border-border-subtle',
+    label: 'Care plan',
+    className: 'text-text-secondary border-l border-border-subtle pl-2',
   },
   sale: {
     label: 'Sale',
-    className: 'bg-sale/10 text-sale',
+    className: 'text-sale border-l border-sale pl-2',
   },
   'in-stock': {
-    label: 'In Stock',
-    className: 'bg-success/10 text-success',
+    label: 'In stock',
+    className: 'text-success border-l border-success pl-2',
   },
   'low-stock': {
-    label: 'Low Stock',
-    className: 'bg-warning/10 text-warning',
+    label: 'Low stock',
+    className: 'text-warning border-l border-warning pl-2',
   },
   'rx-required': {
-    label: 'Rx Required',
-    className: 'bg-action-primary/10 text-action-primary',
+    label: 'Rx required',
+    className: 'text-accent border-l border-accent pl-2',
   },
 };
 
@@ -67,7 +67,7 @@ export function Badge({type, className = ''}: BadgeProps) {
   return (
     <span
       className={[
-        'inline-flex items-center rounded-pill px-3 py-1 font-sans text-body-xs font-medium uppercase tracking-wide',
+        'inline-flex items-center font-sans text-body-xs font-medium tracking-wide',
         config.className,
         className,
       ]

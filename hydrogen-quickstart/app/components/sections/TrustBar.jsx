@@ -1,39 +1,27 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file TrustBar.jsx
- * @description Homepage/marketing section: TrustBar.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Minimal trust strip — icon + one-word labels.
  */
 
 import {SectionReveal} from './SectionReveal';
 import {Icon} from '~/components/ui/Icon';
 
 const ITEMS = [
-  {icon: 'shield', label: 'Premium Quality', desc: 'Curated products for cats and dogs'},
-  {icon: 'heart', label: 'Pet Wellness', desc: 'Food, beds, toys, grooming & more'},
-  {icon: 'check', label: '30-Day Returns', desc: 'Shop with confidence'},
-  {icon: 'truck', label: 'Free US Shipping', desc: 'On all orders over $75'},
+  {icon: 'truck', label: 'Free shipping'},
+  {icon: 'check', label: '30-day returns'},
+  {icon: 'shield', label: 'Quality curated'},
+  {icon: 'heart', label: 'Designed for pets'},
 ];
 
 export function TrustBar() {
   return (
     <SectionReveal>
-      <section className="border-y border-border-subtle bg-page-bg px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
+      <section className="border-y border-border-subtle bg-page-bg px-4 py-12 md:px-8">
+        <div className="mx-auto grid max-w-1440 grid-cols-2 gap-8 md:grid-cols-4 md:gap-6">
           {ITEMS.map((item) => (
-            <div key={item.label} className="text-center md:text-left">
-              <Icon name={item.icon} size="lg" color="text-action-primary" className="mx-auto !h-12 !w-12 md:mx-0" />
-              <p className="mt-4 font-sans text-body-m font-semibold text-text-primary">{item.label}</p>
-              <p className="mt-2 font-sans text-body-s text-text-secondary">{item.desc}</p>
+            <div key={item.label} className="flex flex-col items-center text-center md:items-start md:text-left">
+              <Icon name={item.icon} size="md" color="text-text-primary" />
+              <p className="mt-3 font-sans text-body-s font-medium text-text-primary">{item.label}</p>
             </div>
           ))}
         </div>

@@ -36,7 +36,7 @@ export default function ComparePage() {
   if (!products.length) {
     return (
       <div className="bg-page-bg px-5 py-20 text-center md:px-10">
-        <h1 className="font-serif text-display-s text-text-primary">Compare products</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Compare products</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Select 2–4 products from a collection using Compare.
         </p>
@@ -62,7 +62,7 @@ export default function ComparePage() {
   return (
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
-        <h1 className="font-serif text-display-s text-text-primary">Compare</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Compare</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
           Side-by-side details for {products.length} products.
         </p>
@@ -80,7 +80,7 @@ export default function ComparePage() {
                         product.image ? (
                           <img src={product.image} alt="" className="h-28 w-28 rounded-md object-cover" loading="lazy" />
                         ) : (
-                          <div className="flex h-28 w-28 items-center justify-center rounded-md bg-page-bg font-serif text-text-secondary">
+                          <div className="flex h-28 w-28 items-center justify-center rounded-md bg-page-bg font-sans text-text-secondary">
                             PAWRA
                           </div>
                         )

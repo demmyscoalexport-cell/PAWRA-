@@ -26,7 +26,7 @@ export default function AccountDashboard() {
   return (
     <div className="space-y-10">
       <div>
-        <h2 className="font-serif text-heading-m text-text-primary">Welcome back, {name}</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">Welcome back, {name}</h2>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
           Your Care hub — orders, pets, autoship, and rewards in one place.
         </p>

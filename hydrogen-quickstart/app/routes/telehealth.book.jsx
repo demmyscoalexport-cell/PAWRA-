@@ -25,7 +25,7 @@ export default function TelehealthBookPage() {
     return (
       <div className="bg-page-bg px-5 py-16 md:px-10">
         <div className="mx-auto max-w-lg rounded-lg border border-border-subtle bg-surface p-8 text-center">
-          <h1 className="font-serif text-heading-m text-text-primary">Appointment confirmed</h1>
+          <h1 className="font-sans text-heading-m text-text-primary">Appointment confirmed</h1>
           <p className="mt-3 font-sans text-body-m text-text-secondary">
             Video consult on {slot.date} at {slot.time} · $25
           </p>
@@ -42,7 +42,7 @@ export default function TelehealthBookPage() {
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto grid max-w-1440 gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <h1 className="font-serif text-display-s text-text-primary">Book a video consult</h1>
+          <h1 className="font-sans text-display-s text-text-primary">Book a video consult</h1>
           <p className="mt-3 font-sans text-body-m text-text-secondary">
             Choose an available time. All slots are mock data for the demo experience.
           </p>

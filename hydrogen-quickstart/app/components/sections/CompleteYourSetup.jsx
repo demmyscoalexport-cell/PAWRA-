@@ -15,7 +15,7 @@ export function CompleteYourSetup({products = []}) {
     <SectionReveal>
       <section className="bg-page-bg px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <h2 className="text-center font-serif text-display-s text-text-primary">
+          <h2 className="text-center font-sans text-display-s text-text-primary">
             Everything your pet needs. Nothing they don&apos;t.
           </h2>
           {products.length > 0 ? (

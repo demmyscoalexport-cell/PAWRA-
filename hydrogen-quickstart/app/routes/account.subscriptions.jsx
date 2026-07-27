@@ -44,7 +44,7 @@ export default function AccountSubscriptionsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="font-serif text-heading-m text-text-primary">Subscriptions</h2>
+        <h2 className="font-sans text-heading-m text-text-primary">Subscriptions</h2>
         <p className="mt-1 font-sans text-body-s text-text-secondary">
           Manage Autoship & Save. Skip, edit quantity, or cancel anytime.
         </p>

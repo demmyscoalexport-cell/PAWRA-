@@ -31,7 +31,7 @@ export default function TrackOrderPage() {
   return (
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-xl">
-        <h1 className="font-serif text-display-s text-text-primary">Track your order</h1>
+        <h1 className="font-sans text-display-s text-text-primary">Track your order</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
           Enter your order number and email. Demo always returns a sample shipment timeline.
         </p>

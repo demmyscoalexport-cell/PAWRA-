@@ -48,7 +48,7 @@ export function TaxonomyCollectionView({
       <section className="border-b border-border-subtle bg-surface px-5 py-12 md:px-10 md:py-16">
         <div className="mx-auto max-w-1440">
           <Breadcrumbs className="mb-4" items={breadcrumbs} />
-          <h1 className="font-serif text-display-m text-text-primary md:text-display-l">{title}</h1>
+          <h1 className="font-sans text-display-m text-text-primary md:text-display-l">{title}</h1>
           {description ? (
             <p className="mt-4 max-w-2xl font-sans text-body-l text-text-secondary">{description}</p>
           ) : null}

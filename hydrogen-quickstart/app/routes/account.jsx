@@ -64,12 +64,12 @@ export default function AccountLayout() {
   return (
     <div className="bg-page-bg px-5 py-12 md:px-10 md:py-16">
       <div className="mx-auto max-w-1440">
-        <h1 className="font-serif text-display-m text-text-primary">{heading}</h1>
+        <h1 className="font-sans text-display-m text-text-primary">{heading}</h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">
           Orders, pets, pharmacy-ready profiles, and rewards — managed securely with Shopify Customer Accounts.
         </p>
         <AccountMenu />
-        <div className="mt-10 rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
+        <div className="mt-10 rounded-lg border border-border-subtle bg-page-bg p-6 md:p-8">
           <Outlet context={{customer}} />
         </div>
       </div>
@@ -80,10 +80,10 @@ export default function AccountLayout() {
 function AccountMenu() {
   const linkClass = ({isActive}) =>
     [
-      'rounded-pill px-4 py-2 font-sans text-body-s font-medium no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
+      'border-b px-1 py-2 font-sans text-body-s font-medium no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
       isActive
-        ? 'bg-action-primary text-action-primary-label'
-        : 'bg-action-secondary text-text-primary hover:bg-border-subtle',
+        ? 'border-text-primary text-text-primary'
+        : 'border-transparent text-text-secondary hover:text-text-primary',
     ].join(' ');
 
   const links = [
@@ -99,7 +99,7 @@ function AccountMenu() {
   ];
 
   return (
-    <nav className="mt-8 flex flex-wrap gap-2" aria-label="Account">
+    <nav className="mt-8 flex flex-wrap gap-5" aria-label="Account">
       {links.map((link) => (
         <NavLink key={link.to} to={link.to} end={link.end} className={linkClass}>
           {link.label}
@@ -108,7 +108,7 @@ function AccountMenu() {
       <Form method="POST" action="/account/logout">
         <button
           type="submit"
-          className="rounded-pill border border-border-subtle bg-surface px-4 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          className="border-b border-transparent px-1 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
         >
           Sign out
         </button>

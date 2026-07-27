@@ -6,7 +6,7 @@ import {getSeoMeta} from '@shopify/hydrogen';
 import {BRAND, SOCIAL_LINKS} from '~/lib/branding';
 
 export const DEFAULT_DESCRIPTION =
-  'Premium pet food, beds, toys, grooming supplies, collars, and wellness products for cats and dogs — delivered to your door.';
+  'Design-driven essentials for dogs and cats — food, comfort, and care delivered with intent.';
 
 /**
  * @param {string} path

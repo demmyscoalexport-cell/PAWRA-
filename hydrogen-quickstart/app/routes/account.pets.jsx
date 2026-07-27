@@ -61,7 +61,7 @@ export default function AccountPetsPage() {
     <div className="space-y-10">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-serif text-heading-m text-text-primary">My Pets</h2>
+          <h2 className="font-sans text-heading-m text-text-primary">My Pets</h2>
           <p className="mt-1 font-sans text-body-s text-text-secondary">
             Profiles power health reminders and product recommendations.
           </p>
@@ -137,7 +137,7 @@ export default function AccountPetsPage() {
 
       {selected ? (
         <section>
-          <h3 className="font-serif text-heading-s text-text-primary">Recommended for {selected.name}</h3>
+          <h3 className="font-sans text-heading-s text-text-primary">Recommended for {selected.name}</h3>
           <p className="mt-1 font-sans text-body-s text-text-secondary">
             Matched to {selected.dietary || 'diet'} preferences and species.
           </p>

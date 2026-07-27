@@ -16,7 +16,7 @@ export function PawraNotFound() {
     <div className="flex min-h-[70vh] flex-col items-center justify-center bg-page-bg px-4 py-20 text-center">
       <PawraLogo variant="icon-only" height={48} className="mb-6" />
       <p className="font-mono text-mono-s uppercase tracking-widest text-text-secondary">404</p>
-      <h1 className="mt-4 font-serif text-[2.5rem] text-text-primary md:text-[3rem]">
+      <h1 className="mt-4 font-sans text-[2.5rem] text-text-primary md:text-[3rem]">
         This page wandered off
       </h1>
       <p className="mt-4 max-w-md font-sans text-body-m text-text-secondary">

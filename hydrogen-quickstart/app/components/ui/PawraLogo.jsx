@@ -1,9 +1,9 @@
 /**
  * @file PawraLogo.jsx
- * @description Primary PAWRA logo — icon + wordmark with theme variants.
+ * @description Monochrome PAWRA logo — black on light, white on dark/inverse.
  */
 
-import {BrandMarkPaths, BrandWordmarkPaths, BRAND_INK, BRAND_TEAL, BRAND_WHITE} from './brandMark';
+import {BrandMarkPaths, BrandWordmarkPaths, BRAND_BLACK, BRAND_WHITE} from './brandMark';
 
 /**
  * @typedef {'primary' | 'icon-only' | 'light' | 'dark'} PawraLogoVariant
@@ -17,17 +17,18 @@ import {BrandMarkPaths, BrandWordmarkPaths, BRAND_INK, BRAND_TEAL, BRAND_WHITE} 
  * }} props
  */
 export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
+  const color =
+    variant === 'light' ? BRAND_WHITE : variant === 'dark' ? BRAND_BLACK : BRAND_BLACK;
+
   if (variant === 'icon-only') {
-    const size = height;
-    const color = BRAND_TEAL;
     return (
       <svg
         role="img"
         aria-label="PAWRA"
         viewBox="0 0 48 48"
-        width={size}
-        height={size}
-        className={className}
+        width={height}
+        height={height}
+        className={`text-text-primary ${className}`}
         style={{color}}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -37,10 +38,8 @@ export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
     );
   }
 
-  const iconColor = variant === 'light' ? BRAND_WHITE : BRAND_TEAL;
-  const textColor = variant === 'light' ? BRAND_WHITE : BRAND_INK;
-  // Horizontal lockup: icon 48 + gap 12 + wordmark 200 = 260; height 48
   const width = Math.round((height / 48) * 260);
+  const ink = variant === 'light' ? BRAND_WHITE : BRAND_BLACK;
 
   return (
     <svg
@@ -50,13 +49,14 @@ export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
       width={width}
       height={height}
       className={className}
+      style={{color: ink}}
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>PAWRA</title>
-      <g transform="translate(0 0)" style={{color: iconColor}}>
+      <g transform="translate(0 0)">
         <BrandMarkPaths />
       </g>
-      <g transform="translate(60 4)" style={{color: textColor}}>
+      <g transform="translate(60 4)">
         <BrandWordmarkPaths />
       </g>
     </svg>

@@ -1,6 +1,6 @@
 /**
  * @file Button.tsx
- * @description PAWRA design system button — balanced enterprise variants.
+ * @description Minimal PAWRA buttons — black primary, outline secondary.
  */
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
@@ -20,21 +20,21 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: PRIMARY_CTA_CLASSES,
   secondary:
-    'bg-action-secondary text-text-primary border border-border-subtle hover:bg-border-subtle/60 active:bg-border-subtle focus-visible:ring-focus-ring',
+    'bg-transparent text-text-primary border border-border-subtle hover:border-text-primary active:bg-action-secondary focus-visible:ring-focus-ring',
   ghost:
     'bg-transparent text-text-primary border border-transparent hover:bg-action-secondary active:bg-action-secondary focus-visible:ring-focus-ring',
   accent:
-    'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 active:bg-accent/20 focus-visible:ring-focus-ring',
+    'bg-transparent text-accent border border-accent/40 hover:border-accent active:bg-accent/10 focus-visible:ring-focus-ring',
   premium:
-    'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 active:bg-accent/20 focus-visible:ring-focus-ring',
+    'bg-transparent text-accent border border-accent/40 hover:border-accent active:bg-accent/10 focus-visible:ring-focus-ring',
   destructive:
-    'bg-action-destructive text-action-primary-label border border-action-destructive hover:brightness-95 active:brightness-90 focus-visible:ring-action-destructive',
+    'bg-transparent text-action-destructive border border-action-destructive/40 hover:border-action-destructive focus-visible:ring-action-destructive',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
   sm: 'h-9 px-4 text-body-s',
   md: 'h-11 px-6 text-body-m',
-  lg: 'h-[52px] px-8 text-body-l',
+  lg: 'h-12 px-8 text-body-m',
 };
 
 type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>) & {
@@ -45,7 +45,7 @@ type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttribut
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className: string, disabled?: boolean) {
   return [
-    'inline-flex items-center justify-center rounded-md font-sans font-medium transition-all duration-base no-underline',
+    'inline-flex items-center justify-center rounded-sm font-sans font-medium tracking-normal transition-colors duration-base no-underline',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg',
     disabled ? 'cursor-not-allowed opacity-40 pointer-events-none' : '',
     VARIANT_CLASSES[variant],

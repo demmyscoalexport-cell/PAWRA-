@@ -25,18 +25,18 @@ export default function TelehealthIndex() {
           <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
             PAWRA Telehealth
           </p>
-          <h1 className="mt-3 max-w-2xl font-serif text-display-m text-text-primary">
-            Vet guidance when you need it
+          <h1 className="mt-3 max-w-2xl font-sans text-display-m text-text-primary">
+            Telehealth
           </h1>
           <p className="mt-4 max-w-xl font-sans text-body-l text-text-secondary">
-            Start with a free chat for quick questions, or book a video visit for deeper support.
+            Vet guidance when you need it.
           </p>
         </div>
       </section>
 
       <section className="mx-auto grid max-w-1440 gap-6 px-5 py-14 md:grid-cols-2 md:px-10">
         <article className="rounded-lg border border-border-subtle bg-surface p-8">
-          <h2 className="font-serif text-heading-s text-text-primary">Free Vet Chat</h2>
+          <h2 className="font-sans text-heading-s text-text-primary">Free Vet Chat</h2>
           <p className="mt-3 font-sans text-body-m text-text-secondary">
             Message a licensed vet about diet, allergies, and everyday concerns. Demo conversation — no PHI sent.
           </p>
@@ -45,7 +45,7 @@ export default function TelehealthIndex() {
           </Button>
         </article>
         <article className="rounded-lg border border-border-subtle bg-surface p-8">
-          <h2 className="font-serif text-heading-s text-text-primary">Video Consultation</h2>
+          <h2 className="font-sans text-heading-s text-text-primary">Video Consultation</h2>
           <p className="mt-3 font-sans text-body-m text-text-secondary">
             15-minute video visit for $25. Pick a slot that works for you — booking is simulated locally.
           </p>
@@ -57,7 +57,7 @@ export default function TelehealthIndex() {
 
       <section className="border-t border-border-subtle bg-surface px-5 py-14 md:px-10">
         <div className="mx-auto max-w-1440">
-          <h2 className="font-serif text-heading-m text-text-primary">How it works</h2>
+          <h2 className="font-sans text-heading-m text-text-primary">How it works</h2>
           <ol className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               ['Tell us about your pet', 'Share species, age, and the concern.'],

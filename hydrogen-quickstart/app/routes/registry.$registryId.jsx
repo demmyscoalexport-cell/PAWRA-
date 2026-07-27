@@ -40,7 +40,7 @@ export default function PublicRegistryPage() {
         <p className="font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-action-primary">
           Gift registry
         </p>
-        <h1 className="mt-3 font-serif text-display-s text-text-primary">
+        <h1 className="mt-3 font-sans text-display-s text-text-primary">
           {registry.occasion} for {registry.recipient}
         </h1>
         <p className="mt-2 font-sans text-body-m text-text-secondary">Event date {registry.date}</p>

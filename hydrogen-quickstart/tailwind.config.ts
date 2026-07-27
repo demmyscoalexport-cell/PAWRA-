@@ -1,6 +1,6 @@
 /**
  * @file tailwind.config.ts
- * @description PAWRA enterprise design tokens — calm, muted, harmonious.
+ * @description PAWRA Wild One–inspired design tokens — minimal black / white / dusty rose.
  */
 
 import type {Config} from 'tailwindcss';
@@ -13,7 +13,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Semantic tokens
         'page-bg': rgb('page-bg'),
         surface: rgb('surface'),
         'surface-elevated': rgb('surface-elevated'),
@@ -34,7 +33,7 @@ export default {
         sale: rgb('sale'),
         inverse: rgb('inverse'),
 
-        // Legacy aliases → new palette (keeps existing classnames balanced)
+        // Legacy aliases → new palette
         'forest-green': rgb('action-primary'),
         'warm-oat': rgb('page-bg'),
         cloud: rgb('surface'),
@@ -50,17 +49,18 @@ export default {
         'cta-primary-active': rgb('action-primary-hover'),
       },
       fontFamily: {
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        // All UI type is Inter — keep serif alias pointing to sans for compatibility
+        serif: ['Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
-        'display-xl': ['5rem', {lineHeight: '6rem', letterSpacing: '-0.01em', fontWeight: '400'}],
-        'display-l': ['3.5rem', {lineHeight: '4.25rem', letterSpacing: '-0.005em', fontWeight: '400'}],
-        'display-m': ['2.5rem', {lineHeight: '3.25rem', letterSpacing: '-0.005em', fontWeight: '400'}],
-        'display-s': ['2rem', {lineHeight: '2.5rem', letterSpacing: '-0.005em', fontWeight: '400'}],
-        'heading-xl': ['1.875rem', {lineHeight: '2.375rem', fontWeight: '600'}],
-        'heading-l': ['1.875rem', {lineHeight: '2.375rem', fontWeight: '600'}],
+        'display-xl': ['4.5rem', {lineHeight: '5rem', letterSpacing: '-0.02em', fontWeight: '400'}],
+        'display-l': ['3.5rem', {lineHeight: '4rem', letterSpacing: '-0.02em', fontWeight: '400'}],
+        'display-m': ['2.5rem', {lineHeight: '3rem', letterSpacing: '-0.02em', fontWeight: '400'}],
+        'display-s': ['2rem', {lineHeight: '2.5rem', letterSpacing: '-0.02em', fontWeight: '400'}],
+        'heading-xl': ['1.75rem', {lineHeight: '2.25rem', fontWeight: '500'}],
+        'heading-l': ['1.75rem', {lineHeight: '2.25rem', fontWeight: '500'}],
         'heading-m': ['1.375rem', {lineHeight: '1.875rem', fontWeight: '500'}],
         'heading-s': ['1.125rem', {lineHeight: '1.625rem', fontWeight: '500'}],
         'heading-xs': ['1rem', {lineHeight: '1.5rem', fontWeight: '500'}],
@@ -69,9 +69,9 @@ export default {
         'body-m': ['1rem', {lineHeight: '1.5rem', fontWeight: '400'}],
         'body-s': ['0.875rem', {lineHeight: '1.25rem', fontWeight: '400'}],
         'body-xs': ['0.75rem', {lineHeight: '1rem', fontWeight: '400'}],
-        'mono-l': ['1rem', {lineHeight: '1.5rem', fontWeight: '500'}],
-        'mono-m': ['1rem', {lineHeight: '1.5rem', fontWeight: '500'}],
-        'mono-s': ['0.875rem', {lineHeight: '1.25rem', fontWeight: '500'}],
+        'mono-l': ['1rem', {lineHeight: '1.5rem', fontWeight: '400'}],
+        'mono-m': ['1rem', {lineHeight: '1.5rem', fontWeight: '400'}],
+        'mono-s': ['0.875rem', {lineHeight: '1.25rem', fontWeight: '400'}],
       },
       spacing: {
         '1': '0.25rem',
@@ -80,7 +80,6 @@ export default {
         '4': '1rem',
         '5': '1.25rem',
         '6': '1.5rem',
-        '7': '1.75rem',
         '8': '2rem',
         '10': '2.5rem',
         '12': '3rem',
@@ -93,12 +92,12 @@ export default {
       },
       borderRadius: {
         none: '0',
-        sm: '0.5rem',
-        md: '0.75rem',
-        lg: '1rem',
-        xl: '1.5rem',
-        '2xl': '1.5rem',
-        '3xl': '1.5rem',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+        '2xl': '1rem',
+        '3xl': '1rem',
         pill: '9999px',
         full: '9999px',
       },
@@ -106,11 +105,11 @@ export default {
         none: 'none',
         xs: 'var(--shadow-sm)',
         sm: 'var(--shadow-sm)',
-        md: 'var(--shadow-md)',
-        lg: 'var(--shadow-md)',
-        xl: 'var(--shadow-md)',
+        md: 'var(--shadow-sm)',
+        lg: 'var(--shadow-sm)',
+        xl: 'var(--shadow-sm)',
         card: 'var(--shadow-sm)',
-        elevated: 'var(--shadow-md)',
+        elevated: 'var(--shadow-sm)',
         'jade-glow': 'none',
         'jade-glow-lg': 'none',
       },
