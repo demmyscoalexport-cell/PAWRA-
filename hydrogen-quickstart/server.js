@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,11 +11,11 @@
  * @file server.js
  * @description Oxygen worker entry — routes requests through Hydrogen and React Router 7.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 /**
- * Oxygen / Cloudflare Workers entry point for PAWRA Pet Shop Hydrogen storefront.
+ * Oxygen / Cloudflare Workers entry point for PAWRA Pet Cares Hydrogen storefront.
  * Wires Hydrogen context, React Router request handling, session cookies, and redirects.
  */
 import * as serverBuild from 'virtual:react-router/server-build';

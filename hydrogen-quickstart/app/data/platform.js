@@ -131,7 +131,7 @@ export const LOYALTY_HISTORY = [
 ];
 
 export const MOCK_REFERRALS = {
-  shareLink: 'https://pawrapetshop.com/r/alex-gold',
+  shareLink: 'https://pawrapetcares.com/r/alex-gold',
   creditEarned: 30,
   friends: [
     {id: 'f1', name: 'Jordan M.', status: 'Joined', credit: 10, date: '2026-05-15'},

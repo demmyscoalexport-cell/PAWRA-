@@ -6,7 +6,7 @@ import {getSeoMeta} from '@shopify/hydrogen';
 import {BRAND, SOCIAL_LINKS} from '~/lib/branding';
 
 export const DEFAULT_DESCRIPTION =
-  'PAWRA PET SHOP — Premium Pets Products Store. Starter kits, thoughtful gear, and a 30-day Pet Guarantee so your first order feels safe.';
+  'PAWRA PET CARES — Premium Pets Products Store. Starter kits, thoughtful gear, and a 30-day Pet Guarantee so your first order feels safe.';
 
 /**
  * @param {string} path

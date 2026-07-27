@@ -31,7 +31,7 @@ export function ErrorBoundary() {
         </p>
         <p className="mt-3 font-sans text-body-s text-text-secondary">
           Confirm Callback URI includes{' '}
-          <code className="font-mono text-mono-s">https://pawrapetshop.com/account/authorize</code>
+          <code className="font-mono text-mono-s">https://pawrapetcares.com/account/authorize</code>
         </p>
         <Link
           to="/account/login"

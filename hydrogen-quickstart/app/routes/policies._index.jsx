@@ -10,7 +10,7 @@ export const meta = () =>
   buildSeoMeta({
     title: 'Policies',
     description:
-      'Shipping, returns, privacy, and terms for shopping at PAWRA Pet Shop.',
+      'Shipping, returns, privacy, and terms for shopping at PAWRA Pet Cares.',
     url: '/policies',
   });
 

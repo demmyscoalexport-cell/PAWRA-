@@ -1,6 +1,6 @@
 /**
  * @file starterKits.js
- * @description First-purchase starter kits + new-pet quiz curation for pawrapetshop.com
+ * @description First-purchase starter kits + new-pet quiz curation for pawrapetcares.com
  */
 
 import {getMockProductByHandle, MOCK_PRODUCTS} from '~/data/products';
