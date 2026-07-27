@@ -1,28 +1,17 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file cart.jsx
- * @description Route module: cart — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Enterprise cart page — unified summary, trust, recommendations.
  */
 
-import {useLoaderData, data} from 'react-router';
+import {useLoaderData, data, Link} from 'react-router';
 import {CartForm, Money} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
+import {CartSummary} from '~/components/CartSummary';
+import {CartErrors} from '~/components/cart/CartErrors';
 import {Button} from '~/components/ui/Button';
 import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
-import {Icon} from '~/components/ui/Icon';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductImagePlaceholder} from '~/components/sections/ProductImagePlaceholder';
-import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
 import {buildSeoMeta} from '~/lib/seo';
 
 /** Cart is private — keep out of search indexes. */
@@ -38,27 +27,23 @@ export const meta = () => {
 /** Propagate action response headers (cart cookie, redirects) to the client. */
 export const headers = ({actionHeaders}) => actionHeaders;
 
-// ─── Cart Action ──────────────────────────────────────────────────────────────
-
 /**
- * Handles all CartForm mutations — add/update/remove lines, discounts, gift cards.
- * Supports optional redirect via `redirectTo` form field after mutation.
+ * Handles all CartForm mutations — add/update/remove lines, discounts, gift cards, notes.
  * @param {Route.ActionArgs} args
  */
 export async function action({request, context}) {
   const {cart} = context;
   const formData = await request.formData();
-  const {action, inputs} = CartForm.getFormInput(formData);
+  const {action: cartAction, inputs} = CartForm.getFormInput(formData);
 
-  if (!action) {
+  if (!cartAction) {
     throw new Error('No action provided');
   }
 
   let status = 200;
   let result;
 
-  // ─── Cart Mutation Dispatch ───
-  switch (action) {
+  switch (cartAction) {
     case CartForm.ACTIONS.LinesAdd:
       result = await cart.addLines(inputs.lines);
       break;
@@ -71,7 +56,7 @@ export async function action({request, context}) {
     case CartForm.ACTIONS.DiscountCodesUpdate: {
       const formDiscountCode = inputs.discountCode;
       const discountCodes = formDiscountCode ? [formDiscountCode] : [];
-      discountCodes.push(...inputs.discountCodes);
+      discountCodes.push(...(inputs.discountCodes || []));
       result = await cart.updateDiscountCodes(discountCodes);
       break;
     }
@@ -89,24 +74,29 @@ export async function action({request, context}) {
       result = await cart.updateBuyerIdentity({...inputs.buyerIdentity});
       break;
     }
+    case CartForm.ACTIONS.NoteUpdate: {
+      result = await cart.updateNote(inputs.note ?? '');
+      break;
+    }
     default:
-      throw new Error(`${action} cart action is not defined`);
+      throw new Error(`${cartAction} cart action is not defined`);
   }
 
   const cartId = result?.cart?.id;
-  const headers = cartId ? cart.setCartId(result.cart.id) : new Headers();
+  const headersOut = cartId ? cart.setCartId(result.cart.id) : new Headers();
   const {cart: cartResult, errors, warnings} = result;
   const redirectTo = formData.get('redirectTo') ?? null;
 
   if (typeof redirectTo === 'string') {
     status = 303;
-    headers.set('Location', redirectTo);
+    headersOut.set('Location', redirectTo);
   }
 
-  return data({cart: cartResult, errors, warnings, analytics: {cartId}}, {status, headers});
+  return data(
+    {cart: cartResult, errors, warnings, analytics: {cartId}},
+    {status, headers: headersOut},
+  );
 }
-
-// ─── Loader ───────────────────────────────────────────────────────────────────
 
 /**
  * Loads current cart and product recommendations for "Complete your setup".
@@ -114,143 +104,168 @@ export async function action({request, context}) {
  */
 export async function loader({context}) {
   const {cart, storefront} = context;
-  const [cartData, {products}] = await Promise.all([
-    cart.get(),
-    storefront.query(RECOMMENDATIONS_QUERY, {variables: {first: 2}}),
-  ]);
-  return {cart: cartData, recommendations: products?.nodes ?? []};
+  const cartData = await cart.get();
+  const firstProductId = cartData?.lines?.nodes?.[0]?.merchandise?.product?.id;
+
+  let recommendations = [];
+  if (firstProductId) {
+    const {productRecommendations} = await storefront.query(PRODUCT_RECOMMENDATIONS_QUERY, {
+      variables: {productId: firstProductId},
+      cache: storefront.CacheShort(),
+    });
+    recommendations = (productRecommendations || []).slice(0, 4);
+  }
+
+  if (recommendations.length < 2) {
+    const {products} = await storefront.query(RECOMMENDATIONS_QUERY, {
+      variables: {first: 4},
+      cache: storefront.CacheShort(),
+    });
+    const fallback = products?.nodes ?? [];
+    const existing = new Set(recommendations.map((p) => p.id));
+    for (const product of fallback) {
+      if (existing.has(product.id)) continue;
+      recommendations.push(product);
+      if (recommendations.length >= 4) break;
+    }
+  }
+
+  return {cart: cartData, recommendations};
 }
 
-// ─── Cart Page ────────────────────────────────────────────────────────────────
-
 /**
- * Full-page cart with line items, order summary sidebar, and cross-sell grid.
- * Renders empty state when cart has no items.
+ * Full-page cart with line items, enterprise order summary, and cross-sell grid.
  */
 export default function CartPage() {
   const {cart, recommendations} = useLoaderData();
   const hasItems = (cart?.totalQuantity ?? 0) > 0;
 
-  // ─── Empty State ───
   if (!hasItems) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center bg-page-bg px-4 py-24 text-center">
         <ProductImagePlaceholder label="Empty cart" className="mx-auto h-40 w-40 rounded-lg" />
-        <h1 className="mt-8 font-sans text-[2.5rem] text-text-primary">Your cart is empty</h1>
+        <h1 className="mt-8 font-serif text-display-s text-action-primary">Your cart is empty</h1>
         <p className="mt-3 font-sans text-body-m text-text-secondary">
-          Looks like you haven&apos;t added anything yet
+          Find food, treats, beds, and care essentials for dogs and cats.
         </p>
-        <Button variant="primary" size="lg" href="/collections" className="mt-8">
-          Start Shopping
-        </Button>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Button variant="primary" size="lg" href="/collections/dogs">
+            Shop Dogs
+          </Button>
+          <Button variant="secondary" size="lg" href="/collections/cats">
+            Shop Cats
+          </Button>
+        </div>
+        <Link
+          to="/track-order"
+          className="mt-6 font-sans text-body-s text-text-secondary no-underline hover:text-action-primary"
+        >
+          Track an existing order →
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="bg-page-bg px-4 py-10 md:px-10 md:py-16">
+    <div className="bg-page-bg px-4 py-10 pb-28 md:px-10 md:py-16 md:pb-16">
       <div className="mx-auto max-w-7xl">
-        <h1 className="font-sans text-display-s text-text-primary">Your cart</h1>
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_380px]">
-          {/* ─── Line Items & Recommendations ─── */}
+        <h1 className="font-serif text-display-s text-action-primary">Your cart</h1>
+        <p className="mt-2 font-sans text-body-m text-text-secondary">
+          {(cart?.totalQuantity ?? 0)} item{(cart?.totalQuantity ?? 0) === 1 ? '' : 's'} · Review and checkout securely
+        </p>
+
+        <CartErrors className="mt-6" />
+
+        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_380px]">
           <div>
             <CartMain layout="page" cart={cart} showSummary={false} />
             {recommendations.length > 0 && (
               <section className="mt-12 border-t border-border-subtle pt-10">
-                <h2 className="font-sans text-heading-m text-text-primary">Complete your setup</h2>
+                <h2 className="font-serif text-heading-m text-action-primary">Complete your setup</h2>
+                <p className="mt-2 font-sans text-body-s text-text-secondary">
+                  Recommended with items in your cart.
+                </p>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   {recommendations.map((product, i) => (
-                    <PawraProductCard key={product.id} product={product} loading={i < 2 ? 'eager' : undefined} />
+                    <PawraProductCard
+                      key={product.id}
+                      product={product}
+                      loading={i < 2 ? 'eager' : undefined}
+                    />
                   ))}
                 </div>
               </section>
             )}
           </div>
 
-          {/* ─── Order Summary Sidebar ─── */}
-          <aside className="h-fit rounded-lg bg-surface p-6 shadow-sm">
-            <h2 className="font-sans text-heading-s text-text-primary">Order summary</h2>
-            <dl className="mt-6 space-y-3 font-sans text-body-m">
-              <div className="flex justify-between">
-                <dt className="text-text-secondary">Subtotal</dt>
-                <dd className="font-mono text-mono-m text-text-primary">
-                  {cart?.cost?.subtotalAmount ? <Money data={cart.cost.subtotalAmount} /> : '—'}
-                </dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-text-secondary">Shipping</dt>
-                <dd className="font-sans text-body-s text-text-secondary">Calculated at checkout</dd>
-              </div>
-            </dl>
-            <div className="my-6 border-t border-border-subtle" />
-            <div className="flex justify-between font-mono text-[1.25rem] font-medium text-text-primary">
-              <span>Total</span>
-              <span>{cart?.cost?.totalAmount ? <Money data={cart.cost.totalAmount} /> : '—'}</span>
-            </div>
-            {cart?.checkoutUrl && (
-              <>
-                <a
-                  href={cart.checkoutUrl}
-                  className={`mt-6 flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium no-underline ${PRIMARY_CTA_CLASSES}`}
-                >
-                  Checkout
-                </a>
-                <a
-                  href={cart.checkoutUrl}
-                  className="mt-3 flex h-[52px] w-full items-center justify-center rounded-md bg-[#5a31f4] font-sans text-body-m font-semibold text-white no-underline hover:brightness-110"
-                  aria-label="Checkout with Shop Pay"
-                >
-                  Shop Pay
-                </a>
-              </>
-            )}
-            <div className="mt-4">
-              <GorgiasChatButton
-                label="Questions before checkout?"
-                variant="secondary"
-                fullWidth
-              />
-            </div>
-            <div className="mt-6 flex flex-wrap justify-center gap-4 border-t border-border-subtle pt-6">
-              <span className="flex items-center gap-1 font-sans text-body-xs text-text-secondary">
-                <Icon name="shield" size="sm" /> Secure checkout
-              </span>
-              <span className="flex items-center gap-1 font-sans text-body-xs text-text-secondary">
-                <Icon name="check" size="sm" /> SSL encrypted
-              </span>
-              <span className="flex items-center gap-1 font-sans text-body-xs text-text-secondary">
-                <Icon name="truck" size="sm" /> Free over $75
-              </span>
-            </div>
+          <aside>
+            <CartSummary layout="page" cart={cart} />
           </aside>
         </div>
       </div>
+
+      {/* Mobile sticky checkout */}
+      {cart?.checkoutUrl ? (
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border-subtle bg-surface/95 px-4 py-3 shadow-md backdrop-blur-md md:hidden">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-sans text-body-xs text-text-secondary">Total</p>
+              <p className="font-mono text-mono-m font-semibold text-action-primary">
+                {cart?.cost?.totalAmount ? <Money data={cart.cost.totalAmount} /> : '—'}
+              </p>
+            </div>
+            <a
+              href={cart.checkoutUrl}
+              className={`inline-flex h-12 flex-1 items-center justify-center rounded-md font-sans text-body-m font-semibold no-underline ${PRIMARY_CTA_CLASSES}`}
+            >
+              Checkout
+            </a>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
 
-// ─── GraphQL ──────────────────────────────────────────────────────────────────
+const PRODUCT_CARD_FIELDS = `
+  id
+  handle
+  title
+  featuredImage {
+    url
+    altText
+    width
+    height
+  }
+  priceRange {
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+  }
+  compareAtPriceRange {
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+  }
+`;
 
-/** Product recommendations shown below cart line items. */
+const PRODUCT_RECOMMENDATIONS_QUERY = `#graphql
+  query CartProductRecommendations($productId: ID!, $country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    productRecommendations(productId: $productId) {
+      ${PRODUCT_CARD_FIELDS}
+    }
+  }
+`;
+
 const RECOMMENDATIONS_QUERY = `#graphql
-  query CartRecommendations($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {
+  query CartRecommendationsFallback($country: CountryCode, $language: LanguageCode, $first: Int!)
+    @inContext(country: $country, language: $language) {
     products(first: $first) {
       nodes {
-        id
-        handle
-        title
-        featuredImage {
-          url
-          altText
-          width
-          height
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
+        ${PRODUCT_CARD_FIELDS}
       }
     }
   }

@@ -468,30 +468,6 @@ export type HomepageCollectionQuery = {
   >;
 };
 
-export type CartRecommendationsQueryVariables = StorefrontAPI.Exact<{
-  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
-  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-  first: StorefrontAPI.Scalars['Int']['input'];
-}>;
-
-export type CartRecommendationsQuery = {
-  products: {
-    nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
-        featuredImage?: StorefrontAPI.Maybe<
-          Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-        >;
-        priceRange: {
-          minVariantPrice: Pick<
-            StorefrontAPI.MoneyV2,
-            'amount' | 'currencyCode'
-          >;
-        };
-      }
-    >;
-  };
-};
-
 export type PageQueryVariables = StorefrontAPI.Exact<{
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
@@ -970,10 +946,6 @@ interface GeneratedQueryTypes {
   '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageCollection($handle: String!, $country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      products(first: $first) {\n        nodes {\n          ...HomepageProduct\n        }\n      }\n    }\n  }\n': {
     return: HomepageCollectionQuery;
     variables: HomepageCollectionQueryVariables;
-  };
-  '#graphql\n  query CartRecommendations($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    products(first: $first) {\n      nodes {\n        id\n        handle\n        title\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n        priceRange {\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n      }\n    }\n  }\n': {
-    return: CartRecommendationsQuery;
-    variables: CartRecommendationsQueryVariables;
   };
   '#graphql\n  query Page(\n    $language: LanguageCode,\n    $country: CountryCode,\n    $handle: String!\n  )\n  @inContext(language: $language, country: $country) {\n    page(handle: $handle) {\n      handle\n      id\n      title\n      body\n      seo {\n        description\n        title\n      }\n    }\n  }\n': {
     return: PageQuery;

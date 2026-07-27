@@ -447,6 +447,22 @@ button.reset:hover:not(:has(> *)) {
   z-index: 2;
 }
 
+.shop-pay-wrap shop-pay-button {
+  width: 100%;
+  display: block;
+}
+
+.cart-checkout-sticky {
+  position: sticky;
+  bottom: 0;
+  padding-bottom: 0.25rem;
+  background: linear-gradient(
+    to top,
+    rgb(var(--color-surface-elevated)) 70%,
+    rgb(var(--color-surface-elevated) / 0.85)
+  );
+}
+
 .cart-line-quantity {
   display: flex;
 }

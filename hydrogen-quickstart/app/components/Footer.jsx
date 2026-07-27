@@ -153,6 +153,29 @@ export function Footer() {
         </div>
 
         <div className="mt-16 border-t border-border-subtle pt-8">
+          <nav
+            className="mb-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-body-xs text-text-secondary"
+            aria-label="Legal"
+          >
+            <NavLink to="/policies/privacy-policy" className="no-underline hover:text-text-primary">
+              Privacy
+            </NavLink>
+            <NavLink to="/policies/refund-policy" className="no-underline hover:text-text-primary">
+              Refunds
+            </NavLink>
+            <NavLink to="/policies/shipping-policy" className="no-underline hover:text-text-primary">
+              Shipping
+            </NavLink>
+            <NavLink to="/policies/terms-of-service" className="no-underline hover:text-text-primary">
+              Terms
+            </NavLink>
+            <NavLink to="/returns" className="no-underline hover:text-text-primary">
+              Returns
+            </NavLink>
+            <NavLink to="/track-order" className="no-underline hover:text-text-primary">
+              Track order
+            </NavLink>
+          </nav>
           <p className="text-center font-mono text-[12px] text-text-secondary">
             {BRAND.copyright}
           </p>

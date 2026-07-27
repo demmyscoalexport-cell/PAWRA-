@@ -302,7 +302,19 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                     onClick={() => open('cart')}
                     lines={
                       selectedVariant
-                        ? [{merchandiseId: selectedVariant.id, quantity, selectedVariant}]
+                        ? [
+                            {
+                              merchandiseId: selectedVariant.id,
+                              quantity,
+                              selectedVariant,
+                              attributes: autoship
+                                ? [
+                                    {key: '_autoship', value: 'true'},
+                                    {key: 'Autoship', value: 'Yes'},
+                                  ]
+                                : [],
+                            },
+                          ]
                         : []
                     }
                     className={`flex h-[52px] w-full items-center justify-center rounded-md font-sans text-body-l font-medium reset ${PRIMARY_CTA_CLASSES}`}

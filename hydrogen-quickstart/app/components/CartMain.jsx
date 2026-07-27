@@ -19,6 +19,7 @@ import { Link } from 'react-router';
 import { useAside } from '~/components/Aside';
 import { CartLineItem } from '~/components/CartLineItem';
 import { FreeShippingProgress } from '~/components/FreeShippingProgress';
+import { CartErrors } from '~/components/cart/CartErrors';
 import { CartSummary } from './CartSummary';
 /**
  * Returns a map of all line items and their children.
@@ -65,6 +66,7 @@ export function CartMain({ layout, cart: originalCart, showSummary = true }) {
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className={`cart-details ${layout === 'aside' ? 'cart-details-aside' : ''}`} hidden={!linesCount}>
         <div className="cart-details-scroll">
+          <CartErrors className="mb-3" />
           {cartHasItems ? (
             <FreeShippingProgress
               subtotalAmount={cart?.cost?.subtotalAmount}

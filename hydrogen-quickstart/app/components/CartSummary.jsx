@@ -1,47 +1,91 @@
 /**
  * @file CartSummary.jsx
- * @description Cart totals + sticky full-width Checkout CTA.
+ * @description Enterprise cart totals — discounts, gift cards, Shop Pay, trust, loyalty.
  */
 
-import {CartForm, Money} from '@shopify/hydrogen';
-import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import {CartForm, Money, ShopPayButton} from '@shopify/hydrogen';
+import {useEffect, useId, useMemo, useRef, useState} from 'react';
+import {useFetcher, useRouteLoaderData} from 'react-router';
 import {GorgiasChatButton} from '~/components/gorgias/GorgiasChatButton';
+import {CartTrustStrip} from '~/components/cart/CartTrustStrip';
+import {CartLoyaltyHint} from '~/components/cart/CartLoyaltyHint';
+import {CartDeliveryEstimate} from '~/components/cart/CartDeliveryEstimate';
+import {CartErrors} from '~/components/cart/CartErrors';
+import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
 
 /**
  * @param {CartSummaryProps}
  */
 export function CartSummary({cart, layout}) {
+  const rootData = useRouteLoaderData('root');
+  const loopReturnsUrl = rootData?.integrations?.loopReturns?.returnsUrl || null;
   const className =
     layout === 'page'
-      ? 'cart-summary-page mt-8 rounded-lg border border-border-subtle bg-surface p-6'
+      ? 'cart-summary-page rounded-lg border border-border-subtle bg-surface p-6 shadow-sm lg:sticky lg:top-24'
       : 'cart-summary-aside';
   const summaryId = useId();
   const discountsHeadingId = useId();
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
   const giftCardInputId = useId();
-  const [showExtras, setShowExtras] = useState(false);
+  const noteId = useId();
+  const [showExtras, setShowExtras] = useState(layout === 'page');
+
+  const shopPayVariants = useMemo(() => {
+    const nodes = cart?.lines?.nodes ?? [];
+    return nodes
+      .map((line) => {
+        const id = line?.merchandise?.id;
+        if (!id) return null;
+        return {id, quantity: line.quantity || 1};
+      })
+      .filter(Boolean);
+  }, [cart?.lines?.nodes]);
 
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId} className="font-sans text-body-m font-semibold text-text-primary">
+      <h2 id={summaryId} className="font-sans text-heading-s text-text-primary">
         Order summary
-      </h4>
-      <dl role="group" className="cart-subtotal mt-3 flex items-center justify-between font-sans text-body-m">
-        <dt className="text-text-secondary">Subtotal</dt>
-        <dd className="font-mono font-semibold text-action-primary">
-          {cart?.cost?.subtotalAmount?.amount ? <Money data={cart?.cost?.subtotalAmount} /> : '-'}
-        </dd>
+      </h2>
+
+      <CartErrors className="mt-3" />
+
+      <dl role="group" className="mt-4 space-y-2 font-sans text-body-m">
+        <div className="flex items-center justify-between">
+          <dt className="text-text-secondary">Subtotal</dt>
+          <dd className="font-mono font-semibold text-action-primary">
+            {cart?.cost?.subtotalAmount?.amount ? <Money data={cart.cost.subtotalAmount} /> : '—'}
+          </dd>
+        </div>
+        <div className="flex items-center justify-between">
+          <dt className="text-text-secondary">Shipping</dt>
+          <dd className="font-sans text-body-s text-text-secondary">Calculated at checkout</dd>
+        </div>
+        <div className="flex items-center justify-between">
+          <dt className="text-text-secondary">Tax</dt>
+          <dd className="font-sans text-body-s text-text-secondary">Calculated at checkout</dd>
+        </div>
       </dl>
+
+      <div className="my-4 border-t border-border-subtle" />
+
+      <div className="flex items-center justify-between font-sans text-body-l font-semibold text-text-primary">
+        <span>Total</span>
+        <span className="font-mono">
+          {cart?.cost?.totalAmount?.amount ? <Money data={cart.cost.totalAmount} /> : '—'}
+        </span>
+      </div>
+
+      <CartDeliveryEstimate className="mt-3" />
+      <CartLoyaltyHint subtotalAmount={cart?.cost?.subtotalAmount} className="mt-3" />
 
       <button
         type="button"
-        className="reset mt-3 font-sans text-body-s font-semibold text-action-primary underline"
+        className="reset mt-4 font-sans text-body-s font-semibold text-action-primary underline"
         onClick={() => setShowExtras((v) => !v)}
         aria-expanded={showExtras}
       >
-        {showExtras ? 'Hide discount & gift card' : 'Add discount or gift card'}
+        {showExtras ? 'Hide discount, gift card & note' : 'Add discount, gift card or note'}
       </button>
 
       {showExtras ? (
@@ -56,18 +100,29 @@ export function CartSummary({cart, layout}) {
             giftCardHeadingId={giftCardHeadingId}
             giftCardInputId={giftCardInputId}
           />
+          <CartNote note={cart?.note} noteId={noteId} />
         </div>
       ) : null}
 
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
+      <CartCheckoutActions
+        checkoutUrl={cart?.checkoutUrl}
+        shopPayVariants={shopPayVariants}
+        layout={layout}
+      />
+
+      <CartTrustStrip className="mt-5" loopReturnsUrl={loopReturnsUrl} />
     </div>
   );
 }
 
 /**
- * @param {{checkoutUrl?: string}}
+ * @param {{
+ *   checkoutUrl?: string;
+ *   shopPayVariants?: Array<{id: string; quantity: number}>;
+ *   layout: CartLayout;
+ * }}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, shopPayVariants = [], layout}) {
   if (!checkoutUrl) {
     return (
       <p className="mt-4 rounded-md border border-sale/30 bg-sale/10 px-3 py-3 font-sans text-body-s text-text-primary">
@@ -78,21 +133,64 @@ function CartCheckoutActions({checkoutUrl}) {
   }
 
   return (
-    <div className="mt-4">
+    <div className={`mt-4 space-y-3 ${layout === 'aside' ? 'cart-checkout-sticky' : ''}`}>
       <a
         href={checkoutUrl}
         target="_self"
-        className="flex h-14 w-full items-center justify-center rounded-md bg-action-primary font-sans text-body-l font-bold tracking-wide text-action-primary-label no-underline shadow-sm transition hover:bg-action-primary-hover"
+        className={`flex h-14 w-full items-center justify-center rounded-md font-sans text-body-l font-semibold no-underline shadow-sm ${PRIMARY_CTA_CLASSES}`}
       >
         Checkout
       </a>
-      <p className="mt-2 text-center font-sans text-body-s text-text-secondary">
-        Secure Shopify checkout · taxes & shipping calculated next
+
+      {shopPayVariants.length > 0 ? (
+        <div className="shop-pay-wrap overflow-hidden rounded-md">
+          <ShopPayButton
+            channel="hydrogen"
+            variantIdsAndQuantities={shopPayVariants}
+            width="100%"
+            className="w-full [&_shop-pay-button]:!w-full"
+          />
+        </div>
+      ) : null}
+
+      <p className="text-center font-sans text-body-xs text-text-secondary">
+        Secure Shopify checkout · taxes &amp; shipping calculated next
       </p>
-      <div className="mt-3">
-        <GorgiasChatButton label="Need help with your cart?" variant="link" className="w-full justify-center text-body-s" />
-      </div>
+      <GorgiasChatButton
+        label="Need help with your cart?"
+        variant="link"
+        className="w-full justify-center text-body-s"
+      />
     </div>
+  );
+}
+
+/**
+ * @param {{ note?: string | null; noteId: string }}
+ */
+function CartNote({note, noteId}) {
+  return (
+    <section aria-label="Order note">
+      <CartForm route="/cart" action={CartForm.ACTIONS.NoteUpdate}>
+        <label htmlFor={noteId} className="mb-1 block font-sans text-body-s font-medium text-text-primary">
+          Gift / order note
+        </label>
+        <textarea
+          id={noteId}
+          name="note"
+          defaultValue={note || ''}
+          rows={3}
+          placeholder="Add a gift message or delivery note"
+          className="w-full rounded-md border border-border-subtle bg-page-bg px-3 py-2 font-sans text-body-s outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+        />
+        <button
+          type="submit"
+          className="mt-2 rounded-md border border-action-primary/25 px-3 py-2 font-sans text-body-s font-semibold text-action-primary"
+        >
+          Save note
+        </button>
+      </CartForm>
+    </section>
   );
 }
 
@@ -115,10 +213,9 @@ function CartDiscounts({discountCodes, discountsHeadingId, discountCodeInputId})
             Discounts
           </dt>
           <UpdateDiscountForm>
-            <div className="cart-discount" role="group" aria-labelledby={discountsHeadingId}>
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button type="submit" aria-label="Remove discount">
+            <div className="cart-discount flex flex-wrap items-center gap-2" role="group" aria-labelledby={discountsHeadingId}>
+              <code className="rounded bg-action-secondary px-2 py-1 font-mono text-mono-s">{codes?.join(', ')}</code>
+              <button type="submit" aria-label="Remove discount" className="font-sans text-body-xs font-semibold text-sale underline">
                 Remove
               </button>
             </div>
@@ -228,7 +325,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
             Applied gift card(s)
           </dt>
           {giftCardCodes.map((giftCard) => (
-            <dd key={giftCard.id} className="cart-discount">
+            <dd key={giftCard.id} className="cart-discount mt-1 flex flex-wrap items-center gap-2">
               <RemoveGiftCardForm
                 giftCardId={giftCard.id}
                 lastCharacters={giftCard.lastCharacters}
@@ -241,7 +338,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
                   }
                 }}
               >
-                <code>***{giftCard.lastCharacters}</code>
+                <code className="font-mono text-mono-s">***{giftCard.lastCharacters}</code>
                 &nbsp;
                 <Money data={giftCard.amountUsed} />
               </RemoveGiftCardForm>
@@ -316,6 +413,7 @@ function RemoveGiftCardForm({giftCardId, lastCharacters, children, onRemoveClick
         aria-label={`Remove gift card ending in ${lastCharacters}`}
         onClick={onRemoveClick}
         ref={buttonRef}
+        className="font-sans text-body-xs font-semibold text-sale underline"
       >
         Remove
       </button>
