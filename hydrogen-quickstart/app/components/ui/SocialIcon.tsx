@@ -44,5 +44,6 @@ type SocialIconProps = {
 
 export function SocialIcon({platform, className = 'h-5 w-5'}: SocialIconProps) {
   const Logo = LOGOS[platform];
+  if (!Logo) return null;
   return <Logo className={className} />;
 }

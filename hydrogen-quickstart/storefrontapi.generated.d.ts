@@ -430,6 +430,39 @@ export type HomepageProductsQuery = {
   };
 };
 
+export type HomepageNewArrivalsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  first: StorefrontAPI.Scalars['Int']['input'];
+}>;
+
+export type HomepageNewArrivalsQuery = {
+  products: {
+    nodes: Array<
+      Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<
+            StorefrontAPI.Image,
+            'id' | 'altText' | 'url' | 'width' | 'height'
+          >
+        >;
+        priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+      }
+    >;
+  };
+};
+
 export type HomepageCollectionQueryVariables = StorefrontAPI.Exact<{
   handle: StorefrontAPI.Scalars['String']['input'];
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
@@ -958,6 +991,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageProducts($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    products(first: $first, sortKey: BEST_SELLING) {\n      nodes {\n        ...HomepageProduct\n      }\n    }\n  }\n': {
     return: HomepageProductsQuery;
     variables: HomepageProductsQueryVariables;
+  };
+  '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageNewArrivals($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    products(first: $first, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...HomepageProduct\n      }\n    }\n  }\n': {
+    return: HomepageNewArrivalsQuery;
+    variables: HomepageNewArrivalsQueryVariables;
   };
   '#graphql\n  #graphql\n  fragment MoneyHomepageProduct on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment HomepageProduct on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n    compareAtPriceRange {\n      minVariantPrice {\n        ...MoneyHomepageProduct\n      }\n    }\n  }\n\n  query HomepageCollection($handle: String!, $country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      products(first: $first) {\n        nodes {\n          ...HomepageProduct\n        }\n      }\n    }\n  }\n': {
     return: HomepageCollectionQuery;

@@ -44,6 +44,8 @@ type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttribut
   variant?: ButtonVariant;
   size?: ButtonSize;
   href?: string;
+  /** Explicit so the button|anchor union still exposes disabled to callers. */
+  disabled?: boolean;
 };
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className: string, disabled?: boolean) {

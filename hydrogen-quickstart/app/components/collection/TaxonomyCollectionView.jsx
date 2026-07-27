@@ -3,8 +3,13 @@
  * @description Parent vs leaf collection layouts for Chewy-depth taxonomy.
  */
 
+import {useSearchParams} from 'react-router';
 import {Breadcrumbs} from '~/components/Breadcrumbs';
 import {CategoryCard} from '~/components/collection/CategoryCard';
+import {
+  CollectionFilters,
+  applyCollectionFilters,
+} from '~/components/CollectionFilters';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductCarousel} from '~/components/ProductCarousel';
 import {getProductImage} from '~/data/productImages';
@@ -43,7 +48,11 @@ export function TaxonomyCollectionView({
   isLeaf = false,
   curatedProducts = [],
 }) {
+  const [searchParams] = useSearchParams();
   const showCategories = !isLeaf && childCategories.length > 0;
+  const visibleProducts = isLeaf
+    ? applyCollectionFilters(products, searchParams)
+    : products;
 
   return (
     <div className="bg-page-bg">
@@ -88,14 +97,17 @@ export function TaxonomyCollectionView({
           </>
         ) : (
           <>
+            <div className="mb-6">
+              <CollectionFilters />
+            </div>
             <div className="mb-8 flex items-center justify-between gap-4">
               <p className="font-mono text-mono-s text-text-secondary">
-                {products.length} product{products.length === 1 ? '' : 's'}
+                {visibleProducts.length} product{visibleProducts.length === 1 ? '' : 's'}
               </p>
             </div>
-            {products.length ? (
+            {visibleProducts.length ? (
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                {products.map((product, index) => (
+                {visibleProducts.map((product, index) => (
                   <PawraProductCard
                     key={product.id || product.handle}
                     product={product}

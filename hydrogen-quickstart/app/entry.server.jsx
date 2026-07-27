@@ -42,6 +42,8 @@ export default async function handleRequest(
     scriptSrc: [
       'https://config.gorgias.chat',
       'https://assets.gorgias.chat',
+      // Gorgias Chat bundle loads a Cloudflare polyfill for older browsers
+      'https://cdnjs.cloudflare.com',
       'https://static.9gtb.com',
       'https://static.klaviyo.com',
       'https://static-forms.klaviyo.com',
@@ -58,6 +60,7 @@ export default async function handleRequest(
       'https://*.gorgias.com',
       'https://*.gorgias.work',
       'wss://*.gorgias.chat',
+      'https://cdnjs.cloudflare.com',
       'https://static.9gtb.com',
       'https://storage.googleapis.com',
       'https://*.klaviyo.com',

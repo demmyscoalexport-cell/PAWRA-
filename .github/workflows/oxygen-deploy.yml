@@ -95,6 +95,9 @@ jobs:
         env:
           NODE_ENV: production
 
+      # `--force` is required: `shopify hydrogen build --codegen` can rewrite
+      # storefrontapi.generated.d.ts after checkout, and hydrogen deploy refuses
+      # dirty trees without it (broke PR preview deploys).
       - name: Publish to Oxygen (Production)
         if: |
           (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
@@ -102,6 +105,7 @@ jobs:
         run: >
           npm exec -- shopify hydrogen deploy
           --token "$SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+          --force
           --no-lockfile-check
           --build-command "true"
           --metadata-user "github-actions"
@@ -115,6 +119,7 @@ jobs:
         run: >
           npm exec -- shopify hydrogen deploy
           --token "$SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN"
+          --force
           --preview
           --no-lockfile-check
           --build-command "true"

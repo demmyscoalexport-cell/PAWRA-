@@ -38,7 +38,7 @@ export function GorgiasPageContext({pageType, product = null}) {
 
     window._gorgiasPageContext = context;
     window.dispatchEvent(new CustomEvent('pawra:gorgias-page', {detail: context}));
-  }, [location.pathname, location.search, resolvedType, product?.id, product?.handle, product?.price, product?.title]);
+  }, [location.pathname, location.search, resolvedType, product]);
 
   return null;
 }
