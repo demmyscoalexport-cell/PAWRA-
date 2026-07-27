@@ -129,16 +129,16 @@ export async function loader({context, params, request}) {
 export default function Product() {
   const {product, relatedProducts, reviews, isMock} = useLoaderData();
 
+  const selectedVariant = useOptimisticVariant(
+    isMock ? null : product.selectedOrFirstAvailableVariant,
+    isMock ? [] : getAdjacentAndFirstAvailableVariants(product),
+  );
+
+  useSelectedOptionInUrlParam(isMock ? [] : selectedVariant?.selectedOptions);
+
   if (isMock) {
     return <MockProductDetail product={product} relatedProducts={relatedProducts} />;
   }
-
-  const selectedVariant = useOptimisticVariant(
-    product.selectedOrFirstAvailableVariant,
-    getAdjacentAndFirstAvailableVariants(product),
-  );
-
-  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
   const productOptions = getProductOptions({
     ...product,

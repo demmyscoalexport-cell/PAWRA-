@@ -34,7 +34,6 @@ export function PageLayout({
   children = null,
   header,
   isLoggedIn,
-  publicStoreDomain,
   judgeme,
 }) {
   return (

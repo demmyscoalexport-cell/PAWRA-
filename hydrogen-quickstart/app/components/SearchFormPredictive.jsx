@@ -15,7 +15,7 @@
  */
 
 import { useFetcher, useNavigate } from 'react-router';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useAside } from './Aside';
 
 export const SEARCH_ENDPOINT = '/search';

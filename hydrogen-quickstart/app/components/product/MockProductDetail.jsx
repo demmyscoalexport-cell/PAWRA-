@@ -92,22 +92,23 @@ export function MockProductDetail({product, relatedProducts = []}) {
                 </Link>
               </div>
             ) : (
-              <label className="mt-6 flex items-start gap-3 rounded-lg border border-border-subtle bg-surface p-4">
+              <div className="mt-6 flex items-start gap-3 rounded-lg border border-border-subtle bg-surface p-4">
                 <input
+                  id="mock-autoship"
                   type="checkbox"
                   checked={autoship}
                   onChange={(e) => setAutoship(e.target.checked)}
                   className="mt-1 accent-[rgb(var(--color-action-primary))]"
                 />
-                <span>
+                <label htmlFor="mock-autoship" className="cursor-pointer">
                   <span className="block font-sans text-body-s font-semibold text-text-primary">
                     Autoship &amp; Save
                   </span>
                   <span className="mt-1 block font-sans text-body-s text-text-secondary">
                     Deliver every 4 weeks and save 5%. Manage anytime in Account → Subscriptions.
                   </span>
-                </span>
-              </label>
+                </label>
+              </div>
             )}
 
             <div className="mt-8 flex flex-wrap gap-3">

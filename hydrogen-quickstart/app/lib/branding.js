@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET CARES               ║
+ * ║          PAWRA PET CARES              ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetcares.com              ║
+ * ║         pawrapetcares.com             ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */

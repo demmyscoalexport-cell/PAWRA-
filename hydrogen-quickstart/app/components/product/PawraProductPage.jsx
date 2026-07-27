@@ -281,22 +281,23 @@ export function PawraProductPage({product, selectedVariant, productOptions, rela
                 </div>
               ) : (
                 <>
-                  <label className="mb-4 flex items-start gap-3 rounded-lg border border-border-subtle bg-page-bg p-4">
+                  <div className="mb-4 flex items-start gap-3 rounded-lg border border-border-subtle bg-page-bg p-4">
                     <input
+                      id="pdp-autoship"
                       type="checkbox"
                       checked={autoship}
                       onChange={(e) => setAutoship(e.target.checked)}
                       className="mt-1 accent-[rgb(var(--color-action-primary))]"
                     />
-                    <span>
+                    <label htmlFor="pdp-autoship" className="cursor-pointer">
                       <span className="block font-sans text-body-s font-semibold text-text-primary">
                         Autoship &amp; Save
                       </span>
                       <span className="mt-1 block font-sans text-body-s text-text-secondary">
                         Deliver on a schedule and save. Manage in Account → Subscriptions.
                       </span>
-                    </span>
-                  </label>
+                    </label>
+                  </div>
                   <AddToCartButton
                     disabled={!selectedVariant?.availableForSale}
                     onClick={() => open('cart')}

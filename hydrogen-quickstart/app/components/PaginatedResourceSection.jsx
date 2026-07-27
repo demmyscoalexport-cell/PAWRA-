@@ -14,7 +14,6 @@
  * @website pawrapetcares.com
  */
 
-import * as React from 'react';
 import {Pagination} from '@shopify/hydrogen';
 
 /**

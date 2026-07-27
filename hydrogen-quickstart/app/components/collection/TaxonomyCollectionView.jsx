@@ -28,7 +28,7 @@ const CATEGORY_IMAGES = {
  *   title: string;
  *   description?: string;
  *   breadcrumbs: Array<{ label: string; to?: string }>;
- *   children?: Array<{ handle: string; title: string; description?: string; href: string }>;
+ *   childCategories?: Array<{ handle: string; title: string; description?: string; href: string }>;
  *   products?: Array<any>;
  *   isLeaf?: boolean;
  *   curatedProducts?: Array<any>;
@@ -38,12 +38,12 @@ export function TaxonomyCollectionView({
   title,
   description,
   breadcrumbs,
-  children = [],
+  childCategories = [],
   products = [],
   isLeaf = false,
   curatedProducts = [],
 }) {
-  const showCategories = !isLeaf && children.length > 0;
+  const showCategories = !isLeaf && childCategories.length > 0;
 
   return (
     <div className="bg-page-bg">
@@ -62,10 +62,10 @@ export function TaxonomyCollectionView({
           <>
             <div className="mb-6 flex items-end justify-between gap-4">
               <h2 className="font-sans text-heading-m text-text-primary">Shop by category</h2>
-              <p className="font-mono text-mono-s text-text-secondary">{children.length} categories</p>
+              <p className="font-mono text-mono-s text-text-secondary">{childCategories.length} categories</p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {children.map((child) => (
+              {childCategories.map((child) => (
                 <CategoryCard
                   key={child.handle}
                   title={child.title}

@@ -3,7 +3,6 @@
  * @description Sticky compare tray when 2+ products selected.
  */
 
-import {Link} from 'react-router';
 import {useCompare} from './CompareContext';
 import {Button} from '~/components/ui/Button';
 import {getMockProductByHandle} from '~/data/products';

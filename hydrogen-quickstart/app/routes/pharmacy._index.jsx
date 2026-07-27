@@ -114,7 +114,7 @@ export default function PharmacyIndex() {
         </div>
         <h2 className="mt-16 font-sans text-heading-m text-text-primary">Pharmacy essentials</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {pharmacyProducts.map((product, i) => (
+          {pharmacyProducts.map((product) => (
             <PawraProductCard key={product.id} product={product} loading="lazy" showCompare />
           ))}
         </div>

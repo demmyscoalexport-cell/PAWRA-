@@ -54,7 +54,7 @@ export default function CollectionHandlePage() {
       title={data.title}
       description={data.description}
       breadcrumbs={data.breadcrumbs}
-      children={data.children}
+      childCategories={data.children}
       products={data.products}
       curatedProducts={data.curatedProducts}
       isLeaf={data.isLeaf}
