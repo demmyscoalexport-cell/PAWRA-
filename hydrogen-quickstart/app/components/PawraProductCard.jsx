@@ -18,9 +18,10 @@ import {isShopifyCdnImage, resolveProductImage} from '~/lib/resolveProductImage'
  *   product: any;
  *   loading?: 'eager' | 'lazy';
  *   showCompare?: boolean;
+ *   showNew?: boolean;
  * }}
  */
-export function PawraProductCard({product, loading, showCompare = false}) {
+export function PawraProductCard({product, loading, showCompare = false, showNew = false}) {
   const variantUrl = useVariantUrl(product.handle);
   const image = resolveProductImage(product);
   const minPrice = product.priceRange?.minVariantPrice;
@@ -72,6 +73,7 @@ export function PawraProductCard({product, loading, showCompare = false}) {
             <ProductImagePlaceholder label={product.title} className="h-full min-h-0 rounded-none" />
           )}
           <div className="absolute left-3 top-3 flex flex-col gap-1">
+            {showNew ? <Badge type="new" /> : null}
             {onSale ? <Badge type="sale" /> : null}
             {rx ? <Badge type="rx-required" /> : null}
           </div>

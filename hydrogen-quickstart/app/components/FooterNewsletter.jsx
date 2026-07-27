@@ -8,9 +8,9 @@ export function FooterNewsletter({companyId, formId}) {
   const embedId = formId || companyId;
 
   return (
-    <div className="mt-8 border-b border-border-subtle pb-4">
-      <p className="font-sans text-body-s font-medium text-text-primary">Newsletter</p>
-      <p className="mt-1 font-sans text-body-xs text-text-secondary">
+    <div className="mt-8 border-b border-footer-fg/20 pb-4">
+      <p className="font-sans text-body-s font-medium text-footer-fg">Newsletter</p>
+      <p className="mt-1 font-sans text-body-xs text-footer-fg/70">
         New arrivals and quiet updates.
       </p>
       {companyId && embedId ? (
@@ -18,7 +18,7 @@ export function FooterNewsletter({companyId, formId}) {
       ) : (
         <a
           href={`mailto:${BRAND.supportEmail}?subject=${encodeURIComponent('PAWRA newsletter')}`}
-          className="mt-4 inline-flex h-11 items-center justify-center border border-border-subtle px-4 font-sans text-body-s font-medium text-text-primary no-underline hover:border-text-primary"
+          className="mt-4 inline-flex h-11 items-center justify-center border border-footer-fg/30 px-4 font-sans text-body-s font-medium text-footer-fg no-underline hover:border-footer-fg hover:bg-footer-fg/10"
         >
           Email to join
         </a>

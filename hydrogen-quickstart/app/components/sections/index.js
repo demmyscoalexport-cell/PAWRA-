@@ -6,6 +6,7 @@
 export {AnnouncementBar} from './AnnouncementBar';
 export {HeroSection} from './HeroSection';
 export {StarterOffer} from './StarterOffer';
+export {NewArrivals} from './NewArrivals';
 export {ShopByPet} from './ShopByPet';
 export {TrustBar} from './TrustBar';
 export {GuaranteeBand} from './GuaranteeBand';
