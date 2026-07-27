@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Travel Bowl Set — PAWRA">
+  <defs>
+    <linearGradient id="bg-travel-bowl-set" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E8"/>
+      <stop offset="100%" stop-color="#EDE6DA"/>
+    </linearGradient>
+    <radialGradient id="glow-travel-bowl-set" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-travel-bowl-set" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#1B3A2D" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg-travel-bowl-set)"/>
+  <rect width="800" height="800" fill="url(#glow-travel-bowl-set)"/>
+  <circle cx="120" cy="120" r="80" fill="#2EE8A0" opacity="0.08"/>
+  <circle cx="700" cy="680" r="100" fill="#588157" opacity="0.08"/>
+  <g filter="url(#soft-travel-bowl-set)">
+    
+        <ellipse cx="340" cy="480" rx="90" ry="30" fill="#8A857C" opacity="0.2"/>
+        <path d="M270 380 Q340 470 410 380" fill="#588157" stroke="#1B3A2D" stroke-width="3"/>
+        <ellipse cx="340" cy="380" rx="70" ry="18" fill="#FFFBF6" stroke="#1B3A2D" stroke-width="2"/>
+        <ellipse cx="480" cy="500" rx="80" ry="26" fill="#8A857C" opacity="0.2"/>
+        <path d="M420 410 Q480 490 540 410" fill="#1B3A2D" stroke="#1B3A2D" stroke-width="3"/>
+        <ellipse cx="480" cy="410" rx="60" ry="16" fill="#FFFBF6" stroke="#1B3A2D" stroke-width="2"/>
+      
+  </g>
+  <text x="400" y="700" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="600" fill="#1B3A2D">Travel Bowl Set</text>
+  <text x="400" y="770" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="4" fill="#8A857C">PAWRA CARE</text>
+</svg>

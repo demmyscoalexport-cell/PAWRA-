@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file routes.js
  * @description Route manifest — combines Hydrogen routes with file-based flat routes.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import { flatRoutes } from '@react-router/fs-routes';

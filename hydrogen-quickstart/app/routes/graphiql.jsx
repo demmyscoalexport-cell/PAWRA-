@@ -1,17 +1,17 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
 
 /**
  * @file graphiql.jsx
- * @description Route module: graphiql — Pawra Pet Shop page or API handler.
+ * @description Route module: graphiql — Pawra Pet Cares page or API handler.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import {graphiqlLoader} from '@shopify/hydrogen';

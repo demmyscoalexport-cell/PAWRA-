@@ -19,9 +19,9 @@ export function JudgeMeReviews({product, reviews}) {
   const list = reviews?.reviews ?? [];
 
   return (
-    <section id="reviews" className="mt-16 border-t border-forest-green/10 pt-12">
+    <section id="reviews" className="mt-16 border-t border-border-subtle pt-12">
       <div className="mb-6">
-        <h2 className="font-serif text-heading-s text-forest-green">Customer reviews</h2>
+        <h2 className="font-sans text-heading-s text-text-primary">Customer reviews</h2>
         <ProductRating rating={reviews?.rating} count={reviews?.count} />
       </div>
 
@@ -30,13 +30,13 @@ export function JudgeMeReviews({product, reviews}) {
           {list.map((review, index) => (
             <li
               key={`${review.name}-${index}`}
-              className="rounded-lg border border-forest-green/10 bg-cloud/40 p-5"
+              className="rounded-lg border border-border-subtle bg-surface/40 p-4"
             >
               <ProductRating rating={review.rating} count={0} compact />
-              <p className="mt-3 font-serif text-body-l italic text-ink">&ldquo;{review.quote}&rdquo;</p>
-              <p className="mt-3 font-sans text-body-s font-semibold text-forest-green">
+              <p className="mt-3 font-sans text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>
+              <p className="mt-3 font-sans text-body-s font-semibold text-action-primary">
                 {review.name}
-                <span className="font-normal text-ink/50"> · {review.meta}</span>
+                <span className="font-normal text-text-secondary"> · {review.meta}</span>
               </p>
             </li>
           ))}

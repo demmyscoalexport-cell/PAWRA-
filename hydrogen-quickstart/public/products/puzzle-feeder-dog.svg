@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Puzzle Feeder — PAWRA">
+  <defs>
+    <linearGradient id="bg-puzzle-feeder-dog" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E8"/>
+      <stop offset="100%" stop-color="#EDE6DA"/>
+    </linearGradient>
+    <radialGradient id="glow-puzzle-feeder-dog" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-puzzle-feeder-dog" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#1B3A2D" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg-puzzle-feeder-dog)"/>
+  <rect width="800" height="800" fill="url(#glow-puzzle-feeder-dog)"/>
+  <circle cx="120" cy="120" r="80" fill="#2EE8A0" opacity="0.08"/>
+  <circle cx="700" cy="680" r="100" fill="#2A9D8F" opacity="0.08"/>
+  <g filter="url(#soft-puzzle-feeder-dog)">
+    
+        <rect x="260" y="260" width="280" height="280" rx="24" fill="#FFFBF6" stroke="#1B3A2D" stroke-width="3"/>
+        <circle cx="340" cy="340" r="36" fill="#2A9D8F"/>
+        <circle cx="460" cy="340" r="36" fill="#1B3A2D"/>
+        <circle cx="340" cy="460" r="36" fill="#1B3A2D"/>
+        <circle cx="460" cy="460" r="36" fill="#2EE8A0"/>
+        <circle cx="400" cy="400" r="22" fill="#FF6B5B"/>
+      
+  </g>
+  <text x="400" y="700" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="600" fill="#1B3A2D">Puzzle Feeder</text>
+  <text x="400" y="770" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="4" fill="#8A857C">PAWRA CARE</text>
+</svg>

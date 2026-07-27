@@ -1,177 +1,59 @@
 /**
  * @file HeroSection.jsx
- * @description Homepage hero carousel with Cloudinary images and optional WaveSpeed video.
+ * @description Full-bleed care-first hero — brand, promise, starter CTAs.
  */
 
-import {useCallback, useEffect, useState} from 'react';
 import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
-import {Icon} from '~/components/ui/Icon';
-import {BRAND} from '~/lib/branding';
-import {PAWRA_HERO_SLIDES} from '~/lib/pawraMedia';
+import {PawraLogo} from '~/components/ui/PawraLogo';
+import {getImage} from '~/lib/lifestyleImages';
+import {PET_GUARANTEE} from '~/data/starterKits';
 
-const SLIDES = PAWRA_HERO_SLIDES;
-const AUTOPLAY_MS = 6000;
-
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setPrefersReducedMotion(query.matches);
-    update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
-
-  return prefersReducedMotion;
-}
-
-/** @param {{ slide: typeof SLIDES[number]; isActive: boolean; isFirst: boolean }} props */
-function HeroSlideMedia({slide, isActive, isFirst}) {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [videoFailed, setVideoFailed] = useState(false);
-  const showVideo = Boolean(slide.video) && !prefersReducedMotion && !videoFailed;
-  const mediaClass = `absolute inset-0 size-full object-cover transition-opacity duration-700 ${
-    isActive ? 'opacity-100' : 'opacity-0'
-  }`;
-
-  if (showVideo) {
-    return (
-      <video
-        key={`${slide.id}-video`}
-        src={slide.video}
-        poster={slide.image}
-        autoPlay={isActive}
-        muted
-        loop
-        playsInline
-        aria-label={slide.imageAlt}
-        className={mediaClass}
-        onError={() => setVideoFailed(true)}
-      />
-    );
-  }
-
-  return (
-    <img
-      key={`${slide.id}-image`}
-      src={slide.image}
-      alt={slide.imageAlt}
-      className={mediaClass}
-      loading={isFirst ? 'eager' : 'lazy'}
-      fetchPriority={isFirst ? 'high' : 'auto'}
-    />
-  );
-}
+const HERO_IMAGE = getImage('hero');
 
 export function HeroSection() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const goTo = useCallback((index) => {
-    setActive((index + SLIDES.length) % SLIDES.length);
-  }, []);
-
-  const goNext = useCallback(() => goTo(active + 1), [active, goTo]);
-  const goPrev = useCallback(() => goTo(active - 1), [active, goTo]);
-
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(goNext, AUTOPLAY_MS);
-    return () => clearInterval(timer);
-  }, [paused, goNext]);
-
-  const slide = SLIDES[active];
-
   return (
     <SectionReveal eager>
       <section
-        className="bg-warm-oat px-4 py-8 md:px-8 md:py-12 lg:py-14"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        aria-roledescription="carousel"
-        aria-label="Featured promotions"
+        className="relative min-h-[78vh] w-full overflow-hidden bg-page-bg md:min-h-[88vh]"
+        aria-label="Hero"
       >
-        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="order-2 lg:order-1" key={slide.id} aria-live="polite">
-            <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-[0.2em] text-forest-green">
-              {BRAND.name}
-            </p>
-            <h1 className="font-serif text-display-m text-forest-green md:text-display-xl">
-              {slide.headline}
-            </h1>
-            <p className="mt-6 max-w-lg font-sans text-body-l text-ink">
-              {slide.subheadline}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button variant="primary" size="lg" href={slide.ctaPrimary.href}>
-                {slide.ctaPrimary.label}
-              </Button>
-              <Button variant="ghost" size="lg" href={slide.ctaSecondary.href}>
-                {slide.ctaSecondary.label}
-              </Button>
-            </div>
-
-            <div className="mt-10 flex items-center gap-4">
-              <div className="flex gap-2" role="tablist" aria-label="Hero slides">
-                {SLIDES.map((s, i) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === active}
-                    aria-label={`Slide ${i + 1}`}
-                    className={`size-2.5 rounded-full reset transition-colors ${
-                      i === active ? 'bg-forest-green' : 'bg-forest-green/30 hover:bg-forest-green/50'
-                    }`}
-                    onClick={() => goTo(i)}
-                  />
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  className="flex size-10 items-center justify-center rounded-full border border-forest-green/20 bg-white text-forest-green reset hover:bg-warm-oat"
-                  onClick={goPrev}
-                  aria-label="Previous slide"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  className="flex size-10 items-center justify-center rounded-full border border-forest-green/20 bg-white text-forest-green reset hover:bg-warm-oat"
-                  onClick={goNext}
-                  aria-label="Next slide"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-8 flex items-start gap-3">
-              <div className="flex gap-0.5">
-                {Array.from({length: 5}, (_, i) => (
-                  <Icon key={`hero-star-${i}`} name="star" size="sm" color="text-champagne" className="!h-4 !w-4" />
-                ))}
-              </div>
-              <p className="font-sans text-body-s text-ink/80">
-                &ldquo;The quality is outstanding — my cats and dog love everything we&apos;ve ordered.&rdquo;
-                <span className="mt-1 block font-medium text-ink">Sarah K., Maine</span>
-              </p>
-            </div>
+        <img
+          src={HERO_IMAGE}
+          alt="Dog resting in a bright modern home"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero-overlay-from/70 via-hero-overlay-from/40 to-hero-overlay-to/20 dark:from-hero-overlay-from/85 dark:via-hero-overlay-from/60 dark:to-hero-overlay-to/40" />
+        <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-1440 flex-col items-center justify-center px-4 py-24 text-center md:min-h-[88vh] md:px-10">
+          <div className="mb-8 text-white">
+            <PawraLogo variant="light" height={28} />
           </div>
-
-          <div className="relative order-1 min-h-[280px] overflow-hidden rounded-xl lg:order-2 md:min-h-[420px]">
-            {SLIDES.map((s, i) => (
-              <HeroSlideMedia
-                key={s.id}
-                slide={s}
-                isActive={i === active}
-                isFirst={i === 0}
-              />
-            ))}
+          <h1 className="max-w-3xl font-serif text-display-m text-white md:text-display-l">
+            Care essentials for modern pets.
+          </h1>
+          <p className="mt-4 max-w-lg font-sans text-body-m text-white/85">
+            Starter kits, thoughtful gear, and a {PET_GUARANTEE.title.toLowerCase()} — so your first order feels safe.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Button
+              variant="golden"
+              size="lg"
+              href="/bundles/new-dog-starter"
+            >
+              Shop starter kit
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              href="/care/quiz"
+              className="!border-white/50 !text-white hover:!bg-white/10"
+            >
+              Take the care quiz
+            </Button>
           </div>
+          <p className="mt-6 font-sans text-body-xs text-white/70">{PET_GUARANTEE.short}</p>
         </div>
       </section>
     </SectionReveal>

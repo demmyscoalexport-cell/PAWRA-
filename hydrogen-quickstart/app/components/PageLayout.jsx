@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file PageLayout.jsx
  * @description Shared component: PageLayout.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import {Await, Link} from 'react-router';
@@ -25,31 +25,44 @@ import {CartMain} from '~/components/CartMain';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {useOptimisticCart} from '@shopify/hydrogen';
+import {CompareProvider} from '~/components/compare/CompareContext';
+import {CompareBar} from '~/components/compare/CompareBar';
+import {LocaleProvider} from '~/components/locale/LocaleSwitcher';
 
 export function PageLayout({
   cart,
   children = null,
   header,
   isLoggedIn,
-  publicStoreDomain,
   judgeme,
 }) {
   return (
-    <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <AnnouncementBar />
-      {header && (
-        <Suspense fallback={<Header cart={cart} isLoggedIn={false} />}>
-          <Await resolve={isLoggedIn}>
-            {(loggedIn) => <Header cart={cart} isLoggedIn={loggedIn} />}
-          </Await>
-        </Suspense>
-      )}
-      <main>{children}</main>
-      <Footer />
-      {judgeme ? <JudgemeReviewsTab /> : null}
-    </Aside.Provider>
+    <LocaleProvider>
+      <CompareProvider>
+        <Aside.Provider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-action-primary focus:px-4 focus:py-2 focus:font-sans focus:text-body-s focus:font-semibold focus:text-action-primary-label focus:outline-none focus:ring-2 focus:ring-focus-ring"
+          >
+            Skip to content
+          </a>
+          <CartAside cart={cart} />
+          <SearchAside />
+          <AnnouncementBar />
+          {header && (
+            <Suspense fallback={<Header cart={cart} isLoggedIn={false} />}>
+              <Await resolve={isLoggedIn}>
+                {(loggedIn) => <Header cart={cart} isLoggedIn={loggedIn} />}
+              </Await>
+            </Suspense>
+          )}
+          <main id="main-content">{children}</main>
+          <Footer />
+          <CompareBar />
+          {judgeme ? <JudgemeReviewsTab /> : null}
+        </Aside.Provider>
+      </CompareProvider>
+    </LocaleProvider>
   );
 }
 
@@ -97,9 +110,9 @@ function SearchAside() {
                 ref={inputRef}
                 type="search"
                 list={queriesDatalistId}
-                className="w-full rounded-md border border-forest-green/20 px-3 py-2"
+                className="w-full rounded-md border border-border-subtle bg-action-secondary px-3 py-3 font-sans text-body-m text-text-primary outline-none placeholder:text-text-secondary focus:ring-2 focus:ring-focus-ring"
               />
-              <button type="button" onClick={goToSearch} className="mt-2 font-sans text-body-s text-forest-green">
+              <button type="button" onClick={goToSearch} className="mt-3 inline-flex h-11 items-center rounded-md bg-action-primary px-4 font-sans text-body-s font-medium text-action-primary-label">
                 Search
               </button>
             </>

@@ -1,52 +1,54 @@
 /**
  * @file Footer.jsx
- * @description Site-wide footer with shop links, loyalty CTA, and newsletter.
+ * @description Minimal light footer with shop links and newsletter.
  */
 
 import {NavLink, useRouteLoaderData} from 'react-router';
 import {JudgemeAllReviewsCount, JudgemeAllReviewsRating} from '@judgeme/shopify-hydrogen';
-import {Logo} from '~/components/ui/Logo';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {SocialLinks} from '~/components/SocialLinks';
 import {FooterNewsletter} from '~/components/FooterNewsletter';
 import {BRAND} from '~/lib/branding';
-import {PAWRA_COLLECTIONS} from '~/lib/pawraCollections';
+import {TAXONOMY_ROOTS, taxonomyCollectionPath} from '~/data/collections';
 import {openGorgiasChat} from '~/lib/gorgias';
 
-const SHOP_LINKS = PAWRA_COLLECTIONS.filter((c) => c.handle !== 'frontpage').map((c) => ({
-  label: c.title,
-  to: c.path,
-}));
+const SHOP_LINKS = [
+  ...TAXONOMY_ROOTS.filter((root) => root.handle !== 'shop-all').map((root) => ({
+    label: root.title,
+    to: taxonomyCollectionPath([root.handle]),
+  })),
+  {label: 'Shop All', to: '/collections'},
+];
 
 const COMPANY_LINKS = [
   {label: 'About', to: '/pages/about'},
-  {label: 'How It Works', to: '/pages/how-it-works'},
-  {label: 'Reviews', to: '/pages/reviews'},
-  {label: 'Walker Program', to: '/pages/walker-program'},
-  {label: 'Subscribe & Save', to: '/pages/subscribe-and-save'},
-  {label: 'Blog', to: '/blog'},
+  {label: 'Pharmacy', to: '/pharmacy'},
+  {label: 'Telehealth', to: '/telehealth'},
+  {label: 'Breed Guides', to: '/breeds'},
+  {label: 'Journal', to: '/blog'},
   {label: 'Contact', to: '/pages/contact'},
 ];
 
 /** @param {{ loopReturnsUrl?: string }} props */
 function SupportLinks({loopReturnsUrl}) {
   const links = [
-    {label: 'Track Order', to: '/account/orders'},
-    {label: 'Contact', to: '/pages/contact'},
-    {label: 'Returns', to: loopReturnsUrl || '/policies/refund-policy', external: Boolean(loopReturnsUrl)},
-    {label: 'FAQ', to: '/#faq'},
+    {label: 'Track Order', to: '/track-order'},
+    {label: 'Returns', to: '/returns'},
     {label: 'Shipping', to: '/policies/shipping-policy'},
+    {label: 'Prescription Policy', to: '/pages/prescription-policy'},
+    {label: 'FAQ', to: '/#faq'},
   ];
 
   return (
     <div>
-      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud">
+      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-footer-fg">
         Support
       </p>
       <ul className="space-y-2">
         <li>
           <button
             type="button"
-            className="reset font-sans text-body-s text-electric-jade transition-colors hover:text-cloud"
+            className="reset font-sans text-body-s text-footer-fg/75 transition-colors hover:text-footer-fg"
             onClick={() => {
               void openGorgiasChat();
             }}
@@ -56,38 +58,38 @@ function SupportLinks({loopReturnsUrl}) {
         </li>
         {links.map((link) => (
           <li key={link.label}>
-            {link.external ? (
-              <a
-                href={link.to}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <NavLink
-                to={link.to}
-                className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
-              >
-                {link.label}
-              </NavLink>
-            )}
+            <NavLink
+              to={link.to}
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
+            >
+              {link.label}
+            </NavLink>
           </li>
         ))}
+        {loopReturnsUrl ? (
+          <li>
+            <a
+              href={loopReturnsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
+            >
+              Returns portal
+            </a>
+          </li>
+        ) : null}
       </ul>
     </div>
   );
 }
 
 /**
- * Renders a titled column of NavLink items.
  * @param {{title: string; links: Array<{label: string; to: string}>}} props
  */
 function FooterColumn({title, links}) {
   return (
     <div>
-      <p className="mb-4 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud">
+      <p className="mb-4 font-sans text-body-xs font-medium uppercase tracking-wide text-footer-fg">
         {title}
       </p>
       <ul className="space-y-2">
@@ -95,7 +97,7 @@ function FooterColumn({title, links}) {
           <li key={link.label}>
             <NavLink
               to={link.to}
-              className="font-sans text-body-s text-cloud/70 no-underline transition-colors hover:text-cloud"
+              className="font-sans text-body-s text-footer-fg/75 no-underline transition-colors hover:text-footer-fg"
             >
               {link.label}
             </NavLink>
@@ -107,7 +109,7 @@ function FooterColumn({title, links}) {
 }
 
 export function Footer() {
-  /** @type {{ integrations?: { klaviyo?: { companyId?: string }; smile?: { rewardsUrl?: string }; loopReturns?: { returnsUrl?: string } } } | undefined} */
+  /** @type {{ integrations?: { klaviyo?: { companyId?: string; formId?: string }; smile?: { rewardsUrl?: string }; loopReturns?: { returnsUrl?: string } } ; judgeme?: unknown } | undefined} */
   const rootData = useRouteLoaderData('root');
   const klaviyoId = rootData?.integrations?.klaviyo?.companyId;
   const klaviyoFormId = rootData?.integrations?.klaviyo?.formId;
@@ -116,18 +118,20 @@ export function Footer() {
   const judgeMeEnabled = Boolean(rootData?.judgeme || rootData?.integrations?.judgeMe);
 
   return (
-    <footer className="border-t border-electric-jade bg-forest-night text-cloud">
-      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
+    <footer className="border-t border-border-subtle bg-footer text-footer-fg">
+      <div className="mx-auto max-w-1440 px-4 py-16 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <Logo variant="light" height={36} />
-            <p className="mt-4 font-serif text-body-l italic text-cloud">
+            <div className="text-footer-fg">
+              <PawraLogo variant="light" height={28} />
+            </div>
+            <p className="mt-4 max-w-xs font-sans text-body-s text-footer-fg/75">
               {BRAND.tagline}
             </p>
             {judgeMeEnabled ? (
               <NavLink
                 to="/pages/reviews"
-                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-cloud/70 no-underline hover:text-cloud"
+                className="mt-3 inline-flex items-center gap-2 font-sans text-body-s text-footer-fg/75 no-underline hover:text-footer-fg"
               >
                 <JudgemeAllReviewsRating />
                 <span>
@@ -135,21 +139,13 @@ export function Footer() {
                 </span>
               </NavLink>
             ) : null}
-            <p className="mt-2 font-sans text-body-s text-cloud/60">
-              {BRAND.address.line1}, {BRAND.address.city}, {BRAND.address.state} {BRAND.address.zip}
-            </p>
-            <p className="mt-1 font-sans text-body-s text-cloud/60">
-              <a href={`mailto:${BRAND.supportEmail}`} className="text-cloud/70 no-underline hover:text-cloud">
-                {BRAND.supportEmail}
-              </a>
-            </p>
             <SocialLinks variant="footer" className="mt-6" />
             <FooterNewsletter companyId={klaviyoId} formId={klaviyoFormId} />
             <NavLink
               to={rewardsUrl}
-              className="mt-6 inline-flex items-center rounded-md border border-electric-jade/40 bg-electric-jade/10 px-4 py-2 font-sans text-body-s font-semibold text-electric-jade no-underline transition-colors hover:bg-electric-jade/20"
+              className="mt-6 inline-flex font-sans text-body-s font-medium text-footer-fg no-underline underline-offset-4 hover:underline"
             >
-              Join PAWRA Rewards →
+              PAWRA Rewards
             </NavLink>
           </div>
 
@@ -158,8 +154,31 @@ export function Footer() {
           <SupportLinks loopReturnsUrl={loopReturnsUrl} />
         </div>
 
-        <div className="mt-12 border-t border-cloud/10 pt-8">
-          <p className="text-center font-mono text-[12px] text-cloud/40">
+        <div className="mt-16 border-t border-footer-fg/15 pt-8">
+          <nav
+            className="mb-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-body-xs text-footer-fg/70"
+            aria-label="Legal"
+          >
+            <NavLink to="/policies/privacy-policy" className="no-underline hover:text-footer-fg">
+              Privacy
+            </NavLink>
+            <NavLink to="/policies/refund-policy" className="no-underline hover:text-footer-fg">
+              Refunds
+            </NavLink>
+            <NavLink to="/policies/shipping-policy" className="no-underline hover:text-footer-fg">
+              Shipping
+            </NavLink>
+            <NavLink to="/policies/terms-of-service" className="no-underline hover:text-footer-fg">
+              Terms
+            </NavLink>
+            <NavLink to="/returns" className="no-underline hover:text-footer-fg">
+              Returns
+            </NavLink>
+            <NavLink to="/track-order" className="no-underline hover:text-footer-fg">
+              Track order
+            </NavLink>
+          </nav>
+          <p className="text-center font-mono text-[12px] text-footer-fg/60">
             {BRAND.copyright}
           </p>
         </div>

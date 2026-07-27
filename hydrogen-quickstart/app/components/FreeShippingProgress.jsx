@@ -17,14 +17,14 @@ export function FreeShippingProgress({subtotalAmount, className = ''}) {
   const currencyCode = subtotalAmount?.currencyCode || 'USD';
 
   return (
-    <div className={`rounded-md border border-forest-green/15 bg-warm-oat/80 px-3 py-3 ${className}`}>
-      <p className="font-sans text-body-s font-medium text-ink">
+    <div className={`rounded-md border border-border-subtle bg-page-bg/80 px-3 py-3 ${className}`}>
+      <p className="font-sans text-body-s font-medium text-text-primary">
         {qualifies ? (
-          <>You&apos;ve unlocked <span className="text-forest-green">free shipping</span>!</>
+          <>You&apos;ve unlocked <span className="text-action-primary">free shipping</span>!</>
         ) : (
           <>
             Add{' '}
-            <span className="font-mono text-forest-green">
+            <span className="font-mono text-action-primary">
               <Money data={{amount: remaining.toFixed(2), currencyCode}} />
             </span>{' '}
             more for free shipping
@@ -32,7 +32,7 @@ export function FreeShippingProgress({subtotalAmount, className = ''}) {
         )}
       </p>
       <div
-        className="mt-2 h-2 overflow-hidden rounded-pill bg-forest-green/10"
+        className="mt-2 h-2 overflow-hidden rounded-full bg-action-primary/10"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
@@ -40,11 +40,11 @@ export function FreeShippingProgress({subtotalAmount, className = ''}) {
         aria-label={`Free shipping progress toward $${threshold}`}
       >
         <div
-          className="h-full rounded-pill bg-electric-jade transition-[width] duration-300 ease-out"
+          className="h-full rounded-full bg-action-primary transition-[width] duration-300 ease-out"
           style={{width: `${progress}%`}}
         />
       </div>
-      <p className="mt-1.5 font-sans text-body-s text-ink/55">
+      <p className="mt-1.5 font-sans text-body-s text-text-secondary">
         Free US shipping on orders over ${threshold}
       </p>
     </div>

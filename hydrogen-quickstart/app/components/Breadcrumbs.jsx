@@ -12,18 +12,18 @@ export function Breadcrumbs({items, className = ''}) {
 
   return (
     <nav aria-label="Breadcrumb" className={className}>
-      <ol className="flex flex-wrap items-center gap-1.5 font-sans text-body-s text-ink/60">
+      <ol className="flex flex-wrap items-center gap-1.5 font-sans text-body-s text-text-secondary">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
             <li key={item.to ? `${item.to}-${item.label}` : item.label} className="inline-flex items-center gap-1.5">
-              {index > 0 ? <span aria-hidden="true" className="text-ink/30">/</span> : null}
+              {index > 0 ? <span aria-hidden="true" className="text-text-secondary/50">&gt;</span> : null}
               {item.to && !isLast ? (
-                <Link to={item.to} className="text-forest-green no-underline hover:underline">
+                <Link to={item.to} className="text-action-primary no-underline hover:underline">
                   {item.label}
                 </Link>
               ) : (
-                <span className={isLast ? 'font-medium text-ink' : undefined} aria-current={isLast ? 'page' : undefined}>
+                <span className={isLast ? 'font-medium text-text-primary' : undefined} aria-current={isLast ? 'page' : undefined}>
                   {item.label}
                 </span>
               )}

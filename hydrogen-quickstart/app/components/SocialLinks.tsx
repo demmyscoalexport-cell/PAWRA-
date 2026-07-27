@@ -1,15 +1,15 @@
 import {SOCIAL_LINKS} from '~/lib/branding';
-import {SocialIcon, SOCIAL_BRAND_COLORS} from '~/components/ui/SocialIcon';
+import {SocialIcon} from '~/components/ui/SocialIcon';
 import type {SocialPlatform} from '~/components/ui/SocialIcon';
 
 type SocialLinksProps = {
-  /** `footer` — light icons on dark bg; `light` — dark icons on light bg */
+  /** `footer` — muted icons on light footer; `light` — dark icons on light bg */
   variant?: 'footer' | 'light';
   className?: string;
 };
 
 /**
- * Row of linked social platform logos with brand-color hover states.
+ * Row of linked social platform logos — monochrome, minimal.
  */
 export function SocialLinks({variant = 'footer', className = ''}: SocialLinksProps) {
   const isFooter = variant === 'footer';
@@ -19,33 +19,21 @@ export function SocialLinks({variant = 'footer', className = ''}: SocialLinksPro
       {SOCIAL_LINKS.map((link) => {
         const platform = link.platform as SocialPlatform;
         return (
-        <a
-          key={link.platform}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`PAWRA on ${link.label}`}
-          title={link.label}
-          className={`group inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-base ${
-            isFooter
-              ? 'border-cloud/20 bg-cloud/5 text-cloud hover:border-transparent hover:text-white'
-              : 'border-forest-green/15 bg-cloud text-forest-green hover:border-transparent hover:text-white'
-          }`}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = SOCIAL_BRAND_COLORS[platform];
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = isFooter ? 'rgba(255,255,255,0.05)' : '';
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.backgroundColor = SOCIAL_BRAND_COLORS[platform];
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.backgroundColor = isFooter ? 'rgba(255,255,255,0.05)' : '';
-          }}
-        >
-          <SocialIcon platform={platform} className="h-5 w-5" />
-        </a>
+          <a
+            key={link.platform}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`PAWRA on ${link.label}`}
+            title={link.label}
+            className={`group inline-flex h-10 w-10 items-center justify-center rounded-sm border transition-colors duration-base ${
+              isFooter
+                ? 'border-border-subtle bg-transparent text-text-secondary hover:border-text-primary hover:text-text-primary'
+                : 'border-border-subtle bg-surface text-text-primary hover:border-text-primary'
+            }`}
+          >
+            <SocialIcon platform={platform} className="h-5 w-5" />
+          </a>
         );
       })}
     </div>

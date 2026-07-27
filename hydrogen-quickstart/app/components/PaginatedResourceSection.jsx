@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,10 +11,9 @@
  * @file PaginatedResourceSection.jsx
  * @description Shared component: PaginatedResourceSection.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
-import * as React from 'react';
 import {Pagination} from '@shopify/hydrogen';
 
 /**

@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file CartMain.jsx
  * @description Shared component: CartMain.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import { useOptimisticCart } from '@shopify/hydrogen';
@@ -19,6 +19,7 @@ import { Link } from 'react-router';
 import { useAside } from '~/components/Aside';
 import { CartLineItem } from '~/components/CartLineItem';
 import { FreeShippingProgress } from '~/components/FreeShippingProgress';
+import { CartErrors } from '~/components/cart/CartErrors';
 import { CartSummary } from './CartSummary';
 /**
  * Returns a map of all line items and their children.
@@ -65,6 +66,7 @@ export function CartMain({ layout, cart: originalCart, showSummary = true }) {
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className={`cart-details ${layout === 'aside' ? 'cart-details-aside' : ''}`} hidden={!linesCount}>
         <div className="cart-details-scroll">
+          <CartErrors className="mb-3" />
           {cartHasItems ? (
             <FreeShippingProgress
               subtotalAmount={cart?.cost?.subtotalAmount}
@@ -101,16 +103,16 @@ function CartEmpty({ hidden = false }) {
   const { close } = useAside();
   return (
     <div hidden={hidden} className="px-1 py-6">
-      <p className="font-sans text-body-l font-semibold text-ink">Your cart is empty</p>
-      <p className="mt-2 font-sans text-body-s text-ink/65">
+      <p className="font-sans text-body-l font-semibold text-text-primary">Your cart is empty</p>
+      <p className="mt-2 font-sans text-body-s text-text-secondary">
         Find food, treats, beds, and more for dogs and cats.
       </p>
-      <div className="mt-5 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col gap-2">
         <Link
           to="/collections/dogs"
           onClick={close}
           prefetch="viewport"
-          className="rounded-md bg-forest-green px-4 py-3 text-center font-sans text-body-s font-semibold text-cloud no-underline"
+          className="rounded-md bg-action-primary px-4 py-3 text-center font-sans text-body-s font-semibold text-action-primary-label no-underline"
         >
           Shop Dog
         </Link>
@@ -118,7 +120,7 @@ function CartEmpty({ hidden = false }) {
           to="/collections/cats"
           onClick={close}
           prefetch="viewport"
-          className="rounded-md border border-forest-green/25 px-4 py-3 text-center font-sans text-body-s font-semibold text-forest-green no-underline"
+          className="rounded-md border border-action-primary/25 px-4 py-3 text-center font-sans text-body-s font-semibold text-action-primary no-underline"
         >
           Shop Cat
         </Link>
@@ -126,7 +128,7 @@ function CartEmpty({ hidden = false }) {
           to="/collections/all"
           onClick={close}
           prefetch="viewport"
-          className="pt-1 text-center font-sans text-body-s font-medium text-forest-green no-underline hover:underline"
+          className="pt-1 text-center font-sans text-body-s font-medium text-action-primary no-underline hover:underline"
         >
           Browse all products →
         </Link>

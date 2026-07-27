@@ -66,7 +66,7 @@ export function CollectionFilters({showSpecies = true}) {
     <div className="flex w-full flex-col gap-4">
       {showSpecies ? (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="mr-1 font-sans text-body-s font-semibold text-ink/60">Pet</span>
+          <span className="mr-1 font-sans text-body-s font-semibold text-text-secondary">Pet</span>
           {SPECIES_FILTER_OPTIONS.map((opt) => {
             const active = species === opt.value;
             return (
@@ -76,8 +76,8 @@ export function CollectionFilters({showSpecies = true}) {
                 onClick={() => updateParams({species: opt.value})}
                 className={`reset rounded-md border px-3 py-1.5 font-sans text-body-s font-medium transition-colors ${
                   active
-                    ? 'border-forest-green bg-forest-green text-cloud'
-                    : 'border-forest-green/20 bg-cloud text-ink hover:border-forest-green/40'
+                    ? 'border-action-primary bg-action-primary text-action-primary-label'
+                    : 'border-border-subtle bg-surface text-text-primary hover:border-action-primary/40'
                 }`}
                 aria-pressed={active}
               >
@@ -89,7 +89,7 @@ export function CollectionFilters({showSpecies = true}) {
       ) : null}
 
       <div className="flex flex-wrap items-center gap-2">
-        <span className="mr-1 font-sans text-body-s font-semibold text-ink/60">Price</span>
+        <span className="mr-1 font-sans text-body-s font-semibold text-text-secondary">Price</span>
         {PRICE_PRESETS.map((preset) => {
           const active = priceMin === preset.priceMin && priceMax === preset.priceMax;
           return (
@@ -104,8 +104,8 @@ export function CollectionFilters({showSpecies = true}) {
               }
               className={`reset rounded-md border px-3 py-1.5 font-sans text-body-s font-medium transition-colors ${
                 active
-                  ? 'border-forest-green bg-forest-green text-cloud'
-                  : 'border-forest-green/20 bg-cloud text-ink hover:border-forest-green/40'
+                  ? 'border-action-primary bg-action-primary text-action-primary-label'
+                  : 'border-border-subtle bg-surface text-text-primary hover:border-action-primary/40'
               }`}
               aria-pressed={active}
             >
@@ -117,11 +117,11 @@ export function CollectionFilters({showSpecies = true}) {
 
       <div className="flex flex-wrap items-end gap-4">
         <label className="flex flex-col gap-1 font-sans text-body-s">
-          <span className="text-ink/60">Sort by</span>
+          <span className="text-text-secondary">Sort by</span>
           <select
             value={sort}
             onChange={(e) => updateParams({sort: e.target.value})}
-            className="rounded-md border border-forest-green/20 bg-cloud px-3 py-2 font-sans text-body-s text-ink"
+            className="rounded-md border border-border-subtle bg-surface px-3 py-2 font-sans text-body-s text-text-primary"
           >
             {COLLECTION_SORT_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -135,7 +135,7 @@ export function CollectionFilters({showSpecies = true}) {
           <button
             type="button"
             onClick={clearFilters}
-            className="reset font-sans text-body-s font-semibold text-forest-green underline"
+            className="reset font-sans text-body-s font-semibold text-action-primary underline"
           >
             Clear filters
           </button>

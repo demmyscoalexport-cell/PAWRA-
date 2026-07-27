@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,11 +11,11 @@
  * @file SearchFormPredictive.jsx
  * @description Shared component: SearchFormPredictive.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import { useFetcher, useNavigate } from 'react-router';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useAside } from './Aside';
 
 export const SEARCH_ENDPOINT = '/search';

@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,11 +11,11 @@
  * @file fragments.js
  * @description Storefront utility module: fragments.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 /**
- * Shared Storefront API GraphQL fragments and queries for PAWRA Pet Shop.
+ * Shared Storefront API GraphQL fragments and queries for PAWRA Pet Cares.
  * Used by root layout (header/footer), cart, and global navigation.
  *
  * @see https://shopify.dev/docs/api/storefront/latest/queries/cart

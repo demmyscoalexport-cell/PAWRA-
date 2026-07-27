@@ -1,28 +1,22 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file Button.tsx
- * @description Design system UI primitive: Button.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description PAWRA buttons — primary forest, chestnut outline, golden honey CTA.
  */
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';
 import {Link} from 'react-router';
-import {PRIMARY_CTA_CLASSES} from '~/lib/primaryButton';
+import {
+  GOLDEN_CTA_CLASSES,
+  PRIMARY_CTA_CLASSES,
+  SECONDARY_CTA_CLASSES,
+} from '~/lib/primaryButton';
 
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'ghost'
   | 'accent'
+  | 'golden'
   | 'premium'
   | 'destructive';
 
@@ -30,22 +24,20 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: PRIMARY_CTA_CLASSES,
-  secondary:
-    'bg-transparent text-forest-green border border-forest-green hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
+  secondary: SECONDARY_CTA_CLASSES,
   ghost:
-    'bg-transparent text-forest-green border border-transparent hover:bg-forest-green/5 active:bg-forest-green/10 focus-visible:ring-electric-jade',
-  accent:
-    'bg-electric-jade text-midnight border border-electric-jade hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green shadow-xs',
-  premium:
-    'bg-champagne text-midnight border border-champagne hover:brightness-95 active:brightness-90 focus-visible:ring-forest-green',
+    'bg-transparent text-text-primary border border-transparent hover:bg-action-secondary hover:scale-[1.02] active:scale-100 focus-visible:ring-focus-ring transition-all duration-base',
+  accent: GOLDEN_CTA_CLASSES,
+  golden: GOLDEN_CTA_CLASSES,
+  premium: GOLDEN_CTA_CLASSES,
   destructive:
-    'bg-coral text-cloud border border-coral hover:brightness-95 active:brightness-90 focus-visible:ring-coral',
+    'bg-transparent text-action-destructive border border-action-destructive/40 hover:border-action-destructive hover:scale-[1.02] active:scale-100 focus-visible:ring-action-destructive transition-all duration-base',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
   sm: 'h-9 px-4 text-body-s',
   md: 'h-11 px-6 text-body-m',
-  lg: 'h-[52px] px-8 text-body-l',
+  lg: 'h-12 px-8 text-body-m',
 };
 
 type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>) & {
@@ -56,9 +48,9 @@ type ButtonProps = (ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttribut
 
 function buttonClasses(variant: ButtonVariant, size: ButtonSize, className: string, disabled?: boolean) {
   return [
-    'inline-flex items-center justify-center rounded-md font-sans font-medium transition-all duration-base no-underline',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-warm-oat',
-    disabled ? 'cursor-not-allowed opacity-45 pointer-events-none' : '',
+    'inline-flex items-center justify-center rounded-md font-sans font-semibold tracking-normal no-underline',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-page-bg',
+    disabled ? 'cursor-not-allowed opacity-40 pointer-events-none' : '',
     VARIANT_CLASSES[variant],
     SIZE_CLASSES[size],
     className,

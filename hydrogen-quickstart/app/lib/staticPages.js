@@ -103,6 +103,56 @@ export const STATIC_PAGES = {
       <p><a href="/collections/all">Continue shopping</a> · <a href="/account/login">Sign in</a> to keep your list across devices.</p>
     `,
   },
+  'prescription-policy': {
+    title: 'Prescription Policy',
+    description: 'How PAWRA Pharmacy handles prescriptions, vet authorization, and fulfillment.',
+    body: `
+      <h3>Valid prescriptions</h3>
+      <p>Prescription products require a valid order from a licensed veterinarian for the pet named on the Rx.</p>
+      <h3>Upload & verification</h3>
+      <p>Upload your prescription at <a href="/pharmacy/upload">/pharmacy/upload</a>. We may contact your clinic to verify details before shipping.</p>
+      <h3>Refills & autoship</h3>
+      <p>Refills follow the written authorization. Autoship for Rx items only continues while the prescription remains valid.</p>
+      <p>Questions? Email <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a> or start a <a href="/telehealth">telehealth</a> chat.</p>
+    `,
+  },
+  'autoship-terms': {
+    title: 'Autoship Terms',
+    description: 'Terms for PAWRA Subscribe & Save / Autoship orders.',
+    body: `
+      <h3>Enrollment</h3>
+      <p>Eligible products may be enrolled in Autoship &amp; Save from the product page or your account subscriptions panel.</p>
+      <h3>Billing & delivery</h3>
+      <p>You will be charged on the schedule you choose. Delivery dates are estimates and may vary by carrier.</p>
+      <h3>Skip, pause, cancel</h3>
+      <p>You may skip the next shipment, change quantity, or cancel anytime from <a href="/account/subscriptions">Account → Subscriptions</a> (demo) or by contacting support.</p>
+      <p>See also <a href="/pages/subscribe-and-save">Subscribe &amp; Save</a> and our <a href="/policies/refund-policy">Returns Policy</a>.</p>
+    `,
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    description: 'How PAWRA collects, uses, and protects your information.',
+    body: `
+      <h3>Information we collect</h3>
+      <p>Account details, order history, pet profile information you provide, and site analytics needed to operate the storefront.</p>
+      <h3>How we use it</h3>
+      <p>To fulfill orders, personalize recommendations, provide Care features (pharmacy / telehealth demos), and improve the experience.</p>
+      <h3>Your choices</h3>
+      <p>Update preferences in <a href="/account/notifications">Notification preferences</a> or email <a href="mailto:${BRAND.supportEmail}">${BRAND.supportEmail}</a>.</p>
+    `,
+  },
+  terms: {
+    title: 'Terms of Service',
+    description: 'Terms governing use of the PAWRA website and services.',
+    body: `
+      <h3>Agreement</h3>
+      <p>By using ${BRAND.domain} you agree to these terms and our Privacy Policy.</p>
+      <h3>Products & health content</h3>
+      <p>Product information and telehealth/symptom tools are educational. They do not replace veterinary care for emergencies.</p>
+      <h3>Accounts</h3>
+      <p>You are responsible for safeguarding login access to your Customer Account.</p>
+    `,
+  },
 };
 
 export function getStaticPage(handle) {

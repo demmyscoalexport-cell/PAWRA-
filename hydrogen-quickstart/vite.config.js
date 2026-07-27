@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,11 +11,11 @@
  * @file vite.config.js
  * @description Vite configuration for Hydrogen, mini-oxygen, and React Router plugins.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 /**
- * Vite configuration for PAWRA Pet Shop Hydrogen storefront.
+ * Vite configuration for PAWRA Pet Cares Hydrogen storefront.
  * Integrates Hydrogen, Mini Oxygen (local dev), and React Router 7.
  */
 import path from 'node:path';

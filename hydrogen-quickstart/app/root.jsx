@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file root.jsx
  * @description Root layout, global loaders, analytics, and document shell.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
@@ -27,20 +27,20 @@ import {
 } from 'react-router';
 import { useJudgeme } from '@judgeme/shopify-hydrogen';
 import favicon from './assets/favicon.svg?url';
-import { FOOTER_QUERY, HEADER_QUERY } from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from './styles/reset.css?url';
 import tailwindStyles from './styles/tailwind.css?url';
 import appStyles from './styles/app.css?url';
-import { PageLayout } from './components/PageLayout';
-import { PawraNotFound } from '~/components/PawraNotFound';
-import { ThirdPartyScripts } from '~/components/integrations/ThirdPartyScripts';
-import { MarketingBridge } from '~/components/integrations/MarketingBridge';
-import { GorgiasProvider } from '~/components/gorgias/GorgiasProvider';
-import { GORGIAS_CUSTOMER_QUERY } from '~/graphql/customer-account/GorgiasCustomerQuery';
-import { getIntegrations, getPublicIntegrations } from '~/lib/integrations';
-import { THEME_BOOT_SCRIPT } from '~/lib/theme';
-import { BRAND } from '~/lib/branding';
-import { buildSeoMeta, DEFAULT_DESCRIPTION, organizationJsonLd, websiteJsonLd } from '~/lib/seo';
+import {PageLayout} from './components/PageLayout';
+import {PawraNotFound} from '~/components/PawraNotFound';
+import {ThirdPartyScripts} from '~/components/integrations/ThirdPartyScripts';
+import {MarketingBridge} from '~/components/integrations/MarketingBridge';
+import {GorgiasProvider} from '~/components/gorgias/GorgiasProvider';
+import {GORGIAS_CUSTOMER_QUERY} from '~/graphql/customer-account/GorgiasCustomerQuery';
+import {getIntegrations, getPublicIntegrations} from '~/lib/integrations';
+import {THEME_BOOT_SCRIPT} from '~/lib/theme';
+import {BRAND} from '~/lib/branding';
+import {buildSeoMeta, DEFAULT_DESCRIPTION, organizationJsonLd, websiteJsonLd} from '~/lib/seo';
 
 // ─── Revalidation Strategy ────────────────────────────────────────────────────
 
@@ -97,7 +97,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
       // display=swap keeps text visible while webfonts load
     },
     {rel: 'dns-prefetch', href: 'https://cdn.judge.me'},
@@ -117,7 +117,23 @@ export function links() {
       href: 'https://config.gorgias.chat',
       crossOrigin: 'anonymous',
     },
-    { rel: 'icon', type: 'image/svg+xml', href: favicon },
+    {
+      rel: 'theme-color',
+      href: '#1B3A2D',
+    },
+    {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: favicon,
+    },
+    {
+      rel: 'apple-touch-icon',
+      href: '/apple-touch-icon.svg',
+    },
+    {
+      rel: 'manifest',
+      href: '/site.webmanifest',
+    },
   ];
 }
 
@@ -276,6 +292,12 @@ export function Layout({ children }) {
         <ThirdPartyScripts integrations={data?.integrations} />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}`,
+          }}
+        />
         {/* Gorgias — body only, mounts once, persists across SPA navigations */}
         <GorgiasProvider />
       </body>

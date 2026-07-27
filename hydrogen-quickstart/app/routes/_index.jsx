@@ -1,24 +1,22 @@
 /**
  * @file _index.jsx
- * @description PAWRA homepage — greet with products, then brand sections.
+ * @description PAWRA homepage — minimal Wild One–inspired composition.
  */
 
-import {useLoaderData} from 'react-router';
+import {Link, useLoaderData} from 'react-router';
 import {
   HeroSection,
+  StarterOffer,
   ShopByPet,
   TrustBar,
-  HeroProductSpotlight,
-  WhyPawra,
-  Ecosystem,
-  FrequentlyBoughtTogether,
-  WalkerProgramSection,
-  Testimonials,
+  GuaranteeBand,
   FAQ,
 } from '~/components/sections';
+import {ShoppableGallery} from '~/components/ugc/ShoppableGallery';
+import {AsSeenIn} from '~/components/ugc/AsSeenIn';
 import {ProductCarousel} from '~/components/ProductCarousel';
-import {JudgemeCarousel} from '@judgeme/shopify-hydrogen';
 import {BRAND} from '~/lib/branding';
+import {ARTICLES} from '~/data/articles';
 import {HOMEPAGE_COLLECTION_QUERY, HOMEPAGE_PRODUCTS_QUERY} from '~/lib/homepageProducts';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeFeaturedReviews} from '~/lib/judgeme';
@@ -31,7 +29,7 @@ import {
 
 export const meta = () => {
   return buildSeoMeta({
-    title: `${BRAND.name} — ${BRAND.tagline}`,
+    title: `${BRAND.name}`,
     titleTemplate: '%s',
     description: DEFAULT_DESCRIPTION,
     url: '/',
@@ -62,50 +60,66 @@ export async function loader({context}) {
   const pool = featured.length > 0 ? featured : catalog;
 
   return {
-    featuredProduct: pool[0] ?? null,
-    greetingProducts: pool.slice(0, 12),
-    bundleProducts: pickBundleProducts(pool.length > 0 ? pool : catalog),
+    greetingProducts: pool.slice(0, 8),
     featuredReviews,
-    judgeMeWidgets: integrations.judgeMe.widgetsEnabled,
+    articles: ARTICLES.slice(0, 3),
   };
 }
 
-function pickBundleProducts(products) {
-  if (products.length <= 3) return products;
-  return [products[0], products[Math.floor(products.length / 2)], products[products.length - 1]];
-}
-
 export default function Homepage() {
-  const {featuredProduct, greetingProducts, bundleProducts, featuredReviews, judgeMeWidgets} =
-    useLoaderData();
+  const {greetingProducts, articles} = useLoaderData();
 
   return (
     <div className="home">
       <HeroSection />
+      <StarterOffer />
       <ProductCarousel
         products={greetingProducts}
-        title="Welcome — shop bestsellers"
-        subtitle="Products pets love right now. Use Next to browse more, or open any card to buy."
+        title="Bestsellers"
+        subtitle=""
       />
       <ShopByPet />
       <TrustBar />
-      <HeroProductSpotlight product={featuredProduct} />
-      <WhyPawra />
-      <Ecosystem />
-      <FrequentlyBoughtTogether products={bundleProducts} />
-      <WalkerProgramSection />
-      {judgeMeWidgets ? (
-        <section className="bg-cloud px-4 py-16 md:px-8">
-          <div className="mx-auto max-w-7xl">
-            <h2 className="mb-8 text-center font-serif text-display-s text-forest-green">
-              Loved by pet parents
-            </h2>
-            <JudgemeCarousel />
+      <GuaranteeBand />
+
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-1440">
+          <div className="mb-10 flex items-end justify-between gap-4">
+            <h2 className="font-serif text-heading-l text-action-primary">The PAWRA Journal</h2>
+            <Link
+              to="/blog"
+              className="font-sans text-body-s text-text-secondary no-underline hover:text-text-primary"
+            >
+              View all
+            </Link>
           </div>
-        </section>
-      ) : (
-        <Testimonials reviews={featuredReviews} />
-      )}
+          <div className="grid gap-8 md:grid-cols-3">
+            {articles.map((post) => (
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="group no-underline"
+              >
+                <img
+                  src={post.image}
+                  alt=""
+                  loading="lazy"
+                  className="aspect-[16/10] w-full rounded-md object-cover"
+                />
+                <p className="mt-4 font-sans text-body-xs uppercase tracking-wide text-text-secondary">
+                  {post.category}
+                </p>
+                <h3 className="mt-2 font-sans text-heading-s text-text-primary group-hover:underline">
+                  {post.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ShoppableGallery />
+      <AsSeenIn />
       <div id="faq">
         <FAQ />
       </div>

@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file PulseRing.tsx
- * @description Design system UI primitive: PulseRing.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Soft status indicator — no glow effects.
  */
 
 type PulseRingProps = {
@@ -33,8 +22,8 @@ export function PulseRing({size = 'md', className = '', label = 'Live GPS status
       role="status"
       aria-label={label}
     >
-      <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-electric-jade opacity-60" />
-      <span className="relative inline-flex h-full w-full rounded-full bg-electric-jade shadow-jade-glow" />
+      <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-action-primary/40" />
+      <span className="relative inline-flex h-full w-full rounded-full bg-action-primary" />
     </span>
   );
 }

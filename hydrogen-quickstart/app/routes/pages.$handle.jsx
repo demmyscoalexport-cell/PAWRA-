@@ -1,17 +1,17 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
 
 /**
  * @file pages.$handle.jsx
- * @description Route module: pages.$handle — Pawra Pet Shop page or API handler.
+ * @description Route module: pages.$handle — Pawra Pet Cares page or API handler.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import {useLoaderData, useParams} from 'react-router';
@@ -132,8 +132,8 @@ export default function Page() {
       {showSocial && (
         <>
           <ContactSupportPanel />
-          <div className="mt-10 border-t border-forest-green/10 pt-8">
-            <p className="font-sans text-body-s font-semibold text-ink">Follow PAWRA</p>
+          <div className="mt-10 border-t border-border-subtle pt-8">
+            <p className="font-sans text-body-s font-semibold text-text-primary">Follow PAWRA</p>
             <SocialLinks variant="light" className="mt-4" />
           </div>
         </>

@@ -1,23 +1,24 @@
 {
   "colors": {
-    "forest-green": "#1B3A2D",
-    "electric-jade": "#2EE8A0",
-    "warm-oat": "#F5F0E8",
-    "midnight": "#0E1A15",
-    "forest-night": "#0F2318",
-    "coral": "#FF6B5B",
-    "cloud": "#F2F2F0",
-    "ink": "#1A1A1A",
-    "champagne": "#C9A96E"
+    "forest-green": "#2C4A3E",
+    "chestnut": "#8B5A3C",
+    "golden-honey": "#E8A538",
+    "warm-ivory": "#FDFBF7",
+    "near-black": "#1E1E1E",
+    "soft-charcoal": "#5A5A5A",
+    "warm-taupe": "#E8E2D9",
+    "muted-forest-black": "#111514",
+    "layered-charcoal": "#1E2422",
+    "forest-pop": "#4A7C65"
   },
   "typography": {
-    "font-serif": "Instrument Serif",
+    "font-serif": "Playfair Display",
     "font-sans": "Inter",
     "font-mono": "JetBrains Mono"
   },
   "brand": {
-    "name": "PAWRA",
+    "name": "PAWRA PET CARES",
     "domain": "pawrapetcares.com",
-    "tagline": "Every moment. Every pet. Every life."
+    "tagline": "Premium Pets Products Store"
   }
 }

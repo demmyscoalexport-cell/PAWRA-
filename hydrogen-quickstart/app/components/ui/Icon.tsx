@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file Icon.tsx
  * @description Design system UI primitive: Icon.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import type {SVGProps} from 'react';
@@ -54,6 +54,8 @@ const SIZE_MAP: Record<IconSize, string> = {
   lg: 'h-6 w-6',
 };
 
+/* Icon names use kebab-case to match design-system tokens. */
+/* eslint-disable @typescript-eslint/naming-convention -- icon registry keys */
 const ICONS: Record<IconName, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
   cart: (props) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -219,6 +221,7 @@ const ICONS: Record<IconName, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
     </svg>
   ),
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 type IconProps = {
   name: IconName;
@@ -229,7 +232,7 @@ type IconProps = {
 
 export function Icon({name, size = 'md', className = '', color}: IconProps) {
   const Svg = ICONS[name];
-  const colorClass = color ?? 'text-forest-green';
+  const colorClass = color ?? 'text-text-primary';
 
   return (
     <span className={`inline-flex shrink-0 items-center justify-center ${SIZE_MAP[size]} ${colorClass} ${className}`}>

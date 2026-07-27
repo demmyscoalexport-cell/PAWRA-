@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Premium Leather Leash — PAWRA">
+  <defs>
+    <linearGradient id="bg-leather-leash-dog" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5F0E8"/>
+      <stop offset="100%" stop-color="#EDE6DA"/>
+    </linearGradient>
+    <radialGradient id="glow-leather-leash-dog" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-leather-leash-dog" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#1B3A2D" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg-leather-leash-dog)"/>
+  <rect width="800" height="800" fill="url(#glow-leather-leash-dog)"/>
+  <circle cx="120" cy="120" r="80" fill="#2EE8A0" opacity="0.08"/>
+  <circle cx="700" cy="680" r="100" fill="#3D405B" opacity="0.08"/>
+  <g filter="url(#soft-leather-leash-dog)">
+    
+        <path d="M220 420 C300 280, 500 560, 580 400" fill="none" stroke="#3D405B" stroke-width="22" stroke-linecap="round"/>
+        <path d="M220 420 C300 280, 500 560, 580 400" fill="none" stroke="#1B3A2D" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="220" cy="420" r="28" fill="none" stroke="#1B3A2D" stroke-width="10"/>
+        <rect x="540" y="370" width="50" height="60" rx="8" fill="#1B3A2D"/>
+      
+  </g>
+  <text x="400" y="700" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="600" fill="#1B3A2D">Premium Leather</text>
+<text x="400" y="728" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="600" fill="#1B3A2D">Leash</text>
+  <text x="400" y="770" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="4" fill="#8A857C">PAWRA CARE</text>
+</svg>

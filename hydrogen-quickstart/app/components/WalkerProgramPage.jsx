@@ -16,7 +16,7 @@ import walkerHero from '~/assets/images/walker-program-hero.png';
 export function WalkerProgramPage() {
   return (
     <StaticPageLayout title={WALKER_PROGRAM.title} description={WALKER_PROGRAM.description}>
-      <div className="relative mb-10 overflow-hidden rounded-xl">
+      <div className="relative mb-10 overflow-hidden rounded-lg">
         <img
           src={walkerHero}
           alt={`${FEATURED_WALKER.name} walking a dog in PAWRA gear`}
@@ -27,13 +27,13 @@ export function WalkerProgramPage() {
         />
         <div className="absolute bottom-4 left-4 flex items-center gap-3">
           <Badge type="walker-approved" />
-          <span className="rounded-md bg-midnight/70 px-3 py-1 font-sans text-body-s text-cloud">
+          <span className="rounded-md bg-inverse/70 px-3 py-1 font-sans text-body-s text-text-inverse">
             {FEATURED_WALKER.name} · {FEATURED_WALKER.location}
           </span>
         </div>
       </div>
 
-      <p className="font-sans text-body-s text-ink/60">{FEATURED_WALKER.address}</p>
+      <p className="font-sans text-body-s text-text-secondary">{FEATURED_WALKER.address}</p>
       <p>{FEATURED_WALKER.blurb}</p>
 
       <h3>What clients say about her walks</h3>
@@ -41,12 +41,12 @@ export function WalkerProgramPage() {
         {WALKER_SERVICE_REVIEWS.map((review) => (
           <li
             key={review.name}
-            className="rounded-lg border border-forest-green/15 bg-cloud/60 p-5"
+            className="rounded-lg border border-border-subtle bg-surface/60 p-4"
           >
-            <p className="font-serif text-body-l italic text-ink">&ldquo;{review.quote}&rdquo;</p>
-            <p className="mt-3 font-sans text-body-s font-semibold text-forest-green">
+            <p className="font-sans text-body-l italic text-text-primary">&ldquo;{review.quote}&rdquo;</p>
+            <p className="mt-3 font-sans text-body-s font-semibold text-action-primary">
               {review.name}
-              <span className="font-normal text-ink/60"> — {review.meta}</span>
+              <span className="font-normal text-text-secondary"> — {review.meta}</span>
             </p>
           </li>
         ))}

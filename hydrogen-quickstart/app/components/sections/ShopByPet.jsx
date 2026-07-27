@@ -1,73 +1,54 @@
 /**
  * @file ShopByPet.jsx
- * @description Chewy-style shop-by-pet entry strip for the homepage.
+ * @description Two image-led tiles — Dog / Cat.
  */
 
 import {Link} from 'react-router';
 import {SectionReveal} from './SectionReveal';
-import {Icon} from '~/components/ui/Icon';
+import {getImage} from '~/lib/lifestyleImages';
 import {collectionPath} from '~/lib/pawraCollections';
 
 const PETS = [
   {
-    name: 'Dog',
-    desc: 'Food, treats, beds, and everyday essentials',
+    name: 'Shop Dogs',
     href: collectionPath('dogs'),
-    icon: 'paw',
+    image: getImage('dog'),
+    alt: 'Dog in a modern living space',
   },
   {
-    name: 'Cat',
-    desc: 'Meals, comfort, grooming, and play',
+    name: 'Shop Cats',
     href: collectionPath('cats'),
-    icon: 'heart',
+    image: getImage('cat'),
+    alt: 'Cat on designer furniture',
   },
 ];
 
 export function ShopByPet() {
   return (
     <SectionReveal eager>
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-10 md:px-8 md:py-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="font-serif text-display-s text-forest-green">Shop by pet</h2>
-              <p className="mt-2 max-w-xl font-sans text-body-m text-ink/70">
-                Start with your pet — then narrow by food, comfort, or care.
-              </p>
-            </div>
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
+        <div className="mx-auto grid max-w-1440 gap-4 md:grid-cols-2 md:gap-6">
+          {PETS.map((pet) => (
             <Link
-              to="/collections/all"
-              className="font-sans text-body-s font-semibold text-forest-green no-underline hover:underline"
+              key={pet.name}
+              to={pet.href}
+              className="group relative aspect-[4/5] overflow-hidden rounded-md no-underline md:aspect-[5/4]"
             >
-              Browse all products →
+              <img
+                src={pet.image}
+                alt={pet.alt}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-slow group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/35" />
+              <span className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6 md:p-8">
+                <span className="font-sans text-heading-m text-white md:text-heading-l">{pet.name}</span>
+                <span className="font-sans text-body-m text-white/90" aria-hidden="true">
+                  →
+                </span>
+              </span>
             </Link>
-          </div>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {PETS.map((pet) => (
-              <Link
-                key={pet.name}
-                to={pet.href}
-                className="group flex items-center gap-5 rounded-xl border border-forest-green/15 bg-warm-oat px-5 py-6 no-underline transition-colors hover:border-forest-green/40 hover:bg-warm-oat/80"
-              >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest-green text-electric-jade">
-                  <Icon name={pet.icon} size="lg" color="text-electric-jade" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-sans text-body-l font-semibold text-forest-green">
-                    {pet.name}
-                  </span>
-                  <span className="mt-1 block font-sans text-body-s text-ink/65">{pet.desc}</span>
-                </span>
-                <Icon
-                  name="arrow-right"
-                  size="md"
-                  color="text-forest-green"
-                  className="shrink-0 transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
     </SectionReveal>

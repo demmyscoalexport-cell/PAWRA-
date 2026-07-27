@@ -1,160 +1,53 @@
 /**
  * @file collections.all.jsx
- * @description All-products catalog with PAWRA collection page styling.
+ * @description All-products leaf view from mock catalog.
  */
 
-import {useLoaderData, useSearchParams} from 'react-router';
-import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {useMemo} from 'react';
-import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
-import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
-import {Breadcrumbs} from '~/components/Breadcrumbs';
-
-import {breadcrumbJsonLd, buildSeoMeta} from '~/lib/seo';
+import {useLoaderData} from 'react-router';
+import {TaxonomyCollectionView} from '~/components/collection/TaxonomyCollectionView';
+import {MOCK_PRODUCTS} from '~/data/products';
+import {buildSeoMeta, breadcrumbJsonLd} from '~/lib/seo';
 
 export const meta = () => {
   return buildSeoMeta({
     title: 'All Products',
-    description:
-      'Shop all PAWRA products for dogs and cats — food, treats, beds, grooming, and wellness.',
+    description: 'Shop the full PAWRA catalog for dogs, cats, pharmacy, and small pets.',
     url: '/collections/all',
     jsonLd: breadcrumbJsonLd([
       {label: 'Home', to: '/'},
-      {label: 'Collections', to: '/collections'},
+      {label: 'Shop', to: '/collections'},
       {label: 'All Products', to: '/collections/all'},
     ]),
   });
 };
 
-export async function loader({context, request}) {
-  const {storefront} = context;
-  const url = new URL(request.url);
-  const filtersActive = hasClientCollectionFilters(url.searchParams);
-  const paginationVariables = filtersActive
-    ? {first: 100}
-    : getPaginationVariables(request, {pageBy: 24});
-
-  const {products} = await storefront.query(CATALOG_QUERY, {
-    variables: paginationVariables,
-  });
-
-  return {products};
+export async function loader() {
+  return {
+    title: 'All Products',
+    description: 'Browse the full PAWRA mock catalog across every category.',
+    breadcrumbs: [
+      {label: 'Home', to: '/'},
+      {label: 'Shop', to: '/collections'},
+      {label: 'All Products'},
+    ],
+    children: [],
+    products: MOCK_PRODUCTS,
+    curatedProducts: [],
+    isLeaf: true,
+  };
 }
 
 export default function AllProductsPage() {
-  const {products} = useLoaderData();
-  const [searchParams] = useSearchParams();
-  const filtersActive = hasClientCollectionFilters(searchParams);
-
-  const filteredProducts = useMemo(
-    () => applyCollectionFilters(products?.nodes ?? [], searchParams),
-    [products?.nodes, searchParams],
-  );
-
+  const data = useLoaderData();
   return (
-    <div className="bg-warm-oat">
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumbs
-            className="mb-4"
-            items={[
-              {label: 'Home', to: '/'},
-              {label: 'Collections', to: '/collections'},
-              {label: 'All Products'},
-            ]}
-          />
-          <h1 className="font-serif text-[3.5rem] leading-[1.1] text-forest-green">
-            All Products
-          </h1>
-          <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
-            Browse the full PAWRA catalog — food, beds, toys, grooming, and wellness for cats and dogs.
-          </p>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
-        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <p className="shrink-0 font-mono text-mono-s text-ink/60">
-            {filteredProducts.length} products
-          </p>
-          <div className="w-full max-w-3xl">
-            <CollectionFilters />
-          </div>
-        </div>
-
-        <PawraCollectionGrid
-          connection={products}
-          products={filteredProducts}
-          filtersActive={filtersActive}
-          emptyMessage="No products published to your Headless storefront yet."
-        />
-      </div>
-
-      <Analytics.CollectionView
-        data={{
-          collection: {id: 'all-products', handle: 'all'},
-        }}
-      />
-    </div>
+    <TaxonomyCollectionView
+      title={data.title}
+      description={data.description}
+      breadcrumbs={data.breadcrumbs}
+      childCategories={data.children}
+      products={data.products}
+      curatedProducts={data.curatedProducts}
+      isLeaf
+    />
   );
 }
-
-const PRODUCT_ITEM_FRAGMENT = `#graphql
-  fragment MoneyProductItem on MoneyV2 {
-    amount
-    currencyCode
-  }
-  fragment ProductItem on Product {
-    id
-    handle
-    title
-    tags
-    productType
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-      maxVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-    compareAtPriceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-  }
-`;
-
-const CATALOG_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query Catalog(
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
-      nodes {
-        ...ProductItem
-      }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        endCursor
-        startCursor
-      }
-    }
-  }
-`;
-
-/** @typedef {import('./+types/collections.all').Route} Route */

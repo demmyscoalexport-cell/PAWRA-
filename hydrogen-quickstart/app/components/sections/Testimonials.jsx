@@ -35,30 +35,30 @@ export function Testimonials({reviews}) {
 
   return (
     <SectionReveal>
-      <section className="bg-warm-oat px-4 py-16 md:px-8 md:py-24">
+      <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <h2 className="text-center font-serif text-display-s text-forest-green">
+          <h2 className="text-center font-sans text-display-s text-text-primary">
             What pet owners are saying.
           </h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {items.map((review) => (
-              <article key={review.name + review.quote.slice(0, 24)} className="rounded-xl bg-cloud p-6 shadow-card">
+              <article key={review.name + review.quote.slice(0, 24)} className="rounded-lg bg-surface p-6 shadow-sm">
                 <div className="flex gap-0.5">
                   {Array.from({length: 5}, (_, i) => (
                     <Icon
                       key={`${review.name}-star-${i}`}
                       name="star"
                       size="sm"
-                      color={i < (review.rating ?? 5) ? 'text-champagne' : 'text-ink/20'}
+                      color={i < (review.rating ?? 5) ? 'text-accent' : 'text-text-primary/20'}
                       className="!h-4 !w-4"
                     />
                   ))}
                 </div>
-                <blockquote className="mt-4 line-clamp-4 font-serif text-heading-xs italic text-ink">
+                <blockquote className="mt-4 line-clamp-4 font-sans text-heading-xs italic text-text-primary">
                   &ldquo;{review.quote}&rdquo;
                 </blockquote>
-                <p className="mt-4 font-sans text-body-m font-semibold text-ink">{review.name}</p>
-                <p className="font-sans text-body-s text-ink/60">{review.meta}</p>
+                <p className="mt-4 font-sans text-body-m font-semibold text-text-primary">{review.name}</p>
+                <p className="font-sans text-body-s text-text-secondary">{review.meta}</p>
               </article>
             ))}
           </div>

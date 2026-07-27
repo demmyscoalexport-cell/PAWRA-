@@ -18,13 +18,13 @@ export function ProductRating({rating = 0, count = 0, compact = false}) {
             key={`star-${i}`}
             name="star"
             size="sm"
-            color={i < stars ? 'text-champagne' : 'text-ink/20'}
+            color={i < stars ? 'text-accent' : 'text-text-primary/20'}
             className={compact ? '!h-3.5 !w-3.5' : '!h-4 !w-4'}
           />
         ))}
       </div>
       {!compact && (
-        <span className="font-mono text-mono-s text-ink/60">
+        <span className="font-mono text-mono-s text-text-secondary">
           {displayRating?.toFixed(1)}
           {count > 0 ? ` · ${count} review${count === 1 ? '' : 's'}` : ''}
         </span>

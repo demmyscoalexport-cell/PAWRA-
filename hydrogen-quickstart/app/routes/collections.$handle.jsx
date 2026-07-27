@@ -1,240 +1,63 @@
 /**
  * @file collections.$handle.jsx
- * @description Collection PLP with filters, sort, and cursor pagination.
+ * @description Single-segment collection route — taxonomy mock catalog first.
  */
 
-import {redirect, useLoaderData, useSearchParams} from 'react-router';
-import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {useMemo} from 'react';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {PAWRA_COLLECTION_FALLBACK, filterProductsByKeywords} from '~/lib/pawraCollections';
-import {CollectionFilters, applyCollectionFilters, hasClientCollectionFilters} from '~/components/CollectionFilters';
-import {PawraCollectionGrid} from '~/components/PawraCollectionGrid';
-import {Breadcrumbs} from '~/components/Breadcrumbs';
-import {
-  breadcrumbJsonLd,
-  buildSeoMeta,
-  DEFAULT_DESCRIPTION,
-} from '~/lib/seo';
+import {redirect, useLoaderData} from 'react-router';
+import {TaxonomyCollectionView} from '~/components/collection/TaxonomyCollectionView';
+import {loadTaxonomyCollection} from '~/lib/taxonomyCollection';
+import {buildSeoMeta, breadcrumbJsonLd, DEFAULT_DESCRIPTION} from '~/lib/seo';
 
 export const meta = ({data}) => {
-  const collection = data?.collection;
-  const title = collection?.title || 'Collection';
-  const description = collection?.description || DEFAULT_DESCRIPTION;
-  const handle = collection?.handle;
+  const title = data?.title || 'Collection';
+  const description = data?.description || DEFAULT_DESCRIPTION;
+  const path = data?.pathHandles?.length
+    ? `/collections/${data.pathHandles.join('/')}`
+    : '/collections';
 
   return buildSeoMeta({
     title,
     description,
-    url: handle ? `/collections/${handle}` : '/collections',
-    media: collection?.image?.url || undefined,
-    jsonLd: breadcrumbJsonLd([
-      {label: 'Home', to: '/'},
-      {label: 'Collections', to: '/collections'},
-      {label: title, to: handle ? `/collections/${handle}` : undefined},
-    ]),
+    url: path,
+    jsonLd: breadcrumbJsonLd(
+      (data?.breadcrumbs || []).map((item) => ({
+        label: item.label,
+        to: item.to,
+      })),
+    ),
   });
 };
 
-export async function loader({context, params, request}) {
+export async function loader({params}) {
   const {handle} = params;
-  const {storefront} = context;
-  const url = new URL(request.url);
-  const filtersActive = hasClientCollectionFilters(url.searchParams);
-  // Ignore leftover cursor when filters are on — always restart from the first page.
-  const paginationVariables = filtersActive
-    ? {first: 100}
-    : getPaginationVariables(request, {pageBy: 24});
+  if (!handle) throw redirect('/collections');
 
-  if (!handle) {
-    throw redirect('/collections');
+  // Prefer canonical deep path when a leaf is requested by handle alone
+  const payload = loadTaxonomyCollection([handle]);
+  if (!payload) {
+    throw new Response(`Collection ${handle} not found`, {status: 404});
   }
 
-  const [{collection}, {products: allProducts}] = await Promise.all([
-    storefront.query(COLLECTION_QUERY, {
-      variables: {handle, ...paginationVariables},
-    }),
-    storefront.query(FALLBACK_PRODUCTS_QUERY, {
-      variables: paginationVariables,
-    }),
-  ]);
-
-  if (collection) {
-    redirectIfHandleIsLocalized(request, {handle, data: collection});
-    return {collection, isFallback: false};
+  // If taxonomy resolved to a deeper path than the URL, redirect to canonical
+  if (payload.pathHandles?.length > 1 && payload.pathHandles[payload.pathHandles.length - 1] === handle) {
+    // Leaf looked up by handle — keep short URL working without redirect for UX
   }
 
-  const fallback = PAWRA_COLLECTION_FALLBACK[handle];
-  if (fallback && allProducts) {
-    const nodes = fallback.fallbackKeywords
-      ? filterProductsByKeywords(allProducts.nodes ?? [], fallback.fallbackKeywords)
-      : (allProducts.nodes ?? []);
-
-    return {
-      collection: {
-        id: `fallback-${handle}`,
-        handle,
-        title: fallback.title,
-        description: fallback.description,
-        products: {
-          ...allProducts,
-          nodes,
-        },
-      },
-      isFallback: true,
-    };
-  }
-
-  throw new Response(`Collection ${handle} not found`, {status: 404});
+  return payload;
 }
 
-export default function CollectionPage() {
-  const {collection} = useLoaderData();
-  const [searchParams] = useSearchParams();
-  const filtersActive = hasClientCollectionFilters(searchParams);
-
-  const filteredProducts = useMemo(
-    () => applyCollectionFilters(collection.products?.nodes ?? [], searchParams),
-    [collection.products?.nodes, searchParams],
-  );
+export default function CollectionHandlePage() {
+  const data = useLoaderData();
 
   return (
-    <div className="bg-warm-oat">
-      <section className="border-b border-forest-green/10 bg-cloud px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumbs
-            className="mb-4"
-            items={[
-              {label: 'Home', to: '/'},
-              {label: 'Collections', to: '/collections'},
-              {label: collection.title},
-            ]}
-          />
-          <h1 className="font-serif text-[3.5rem] leading-[1.1] text-forest-green">
-            {collection.title}
-          </h1>
-          {collection.description && (
-            <p className="mt-4 max-w-2xl font-sans text-body-l text-ink/80">
-              {collection.description}
-            </p>
-          )}
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
-        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <p className="shrink-0 font-mono text-mono-s text-ink/60">
-            {filteredProducts.length} products
-          </p>
-          <div className="w-full max-w-3xl">
-            <CollectionFilters />
-          </div>
-        </div>
-
-        <PawraCollectionGrid
-          connection={collection.products}
-          products={filteredProducts}
-          filtersActive={filtersActive}
-          emptyMessage="No products in this collection yet."
-        />
-      </div>
-
-      <Analytics.CollectionView
-        data={{
-          collection: {id: collection.id, handle: collection.handle},
-        }}
-      />
-    </div>
+    <TaxonomyCollectionView
+      title={data.title}
+      description={data.description}
+      breadcrumbs={data.breadcrumbs}
+      childCategories={data.children}
+      products={data.products}
+      curatedProducts={data.curatedProducts}
+      isLeaf={data.isLeaf}
+    />
   );
 }
-
-const PRODUCT_ITEM_FRAGMENT = `#graphql
-  fragment MoneyProductItem on MoneyV2 {
-    amount
-    currencyCode
-  }
-  fragment ProductItem on Product {
-    id
-    handle
-    title
-    tags
-    productType
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-      maxVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-    compareAtPriceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-  }
-`;
-
-const COLLECTION_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query Collection(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      description
-      products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
-        nodes {
-          ...ProductItem
-        }
-        pageInfo {
-          hasPreviousPage
-          hasNextPage
-          endCursor
-          startCursor
-        }
-      }
-    }
-  }
-`;
-
-const FALLBACK_PRODUCTS_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query FallbackProducts(
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
-      nodes {
-        ...ProductItem
-      }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        endCursor
-        startCursor
-      }
-    }
-  }
-`;
-
-/** @typedef {import('./+types/collections.$handle').Route} Route */

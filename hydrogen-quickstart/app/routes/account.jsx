@@ -1,17 +1,6 @@
 /**
- * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
- * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
- * ║          © 2025 Pawra LLC             ║
- * ╚═══════════════════════════════════════╝
- */
-
-/**
  * @file account.jsx
- * @description Route module: account — Pawra Pet Shop page or API handler.
- * @author Pawra LLC
- * @website pawrapetshop.com
+ * @description Account shell — enterprise soft navigation for Care hub.
  */
 
 import {
@@ -31,7 +20,7 @@ export function shouldRevalidate() {
 export const meta = () => {
   return buildSeoMeta({
     title: 'Account',
-    description: 'Manage your PAWRA account, orders, and addresses.',
+    description: 'Manage your PAWRA account, pets, orders, and rewards.',
     url: '/account',
     robots: {noIndex: true, noFollow: true},
   });
@@ -73,49 +62,58 @@ export default function AccountLayout() {
     : 'Account Details';
 
   return (
-    <div className="account">
-      <h1>{heading}</h1>
-      <br />
-      <AccountMenu />
-      <br />
-      <br />
-      <Outlet context={{customer}} />
+    <div className="bg-page-bg px-4 py-12 md:px-10 md:py-16">
+      <div className="mx-auto max-w-1440">
+        <h1 className="font-sans text-display-m text-text-primary">{heading}</h1>
+        <p className="mt-2 font-sans text-body-m text-text-secondary">
+          Orders, pets, pharmacy-ready profiles, and rewards — managed securely with Shopify Customer Accounts.
+        </p>
+        <AccountMenu />
+        <div className="mt-10 rounded-lg border border-border-subtle bg-page-bg p-6 md:p-8">
+          <Outlet context={{customer}} />
+        </div>
+      </div>
     </div>
   );
 }
 
 function AccountMenu() {
-  function isActiveStyle({isActive, isPending}) {
-    return {
-      fontWeight: isActive ? 'bold' : undefined,
-      color: isPending ? 'grey' : 'black',
-    };
-  }
+  const linkClass = ({isActive}) =>
+    [
+      'border-b px-1 py-2 font-sans text-body-s font-medium no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
+      isActive
+        ? 'border-text-primary text-text-primary'
+        : 'border-transparent text-text-secondary hover:text-text-primary',
+    ].join(' ');
+
+  const links = [
+    {to: '/account', label: 'Dashboard', end: true},
+    {to: '/account/orders', label: 'Orders'},
+    {to: '/account/pets', label: 'My Pets'},
+    {to: '/account/subscriptions', label: 'Subscriptions'},
+    {to: '/account/loyalty', label: 'Loyalty'},
+    {to: '/account/registries', label: 'Registries'},
+    {to: '/account/notifications', label: 'Notifications'},
+    {to: '/account/profile', label: 'Profile'},
+    {to: '/account/addresses', label: 'Addresses'},
+  ];
 
   return (
-    <nav role="navigation">
-      <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <Logout />
+    <nav className="mt-8 flex flex-wrap gap-4" aria-label="Account">
+      {links.map((link) => (
+        <NavLink key={link.to} to={link.to} end={link.end} className={linkClass}>
+          {link.label}
+        </NavLink>
+      ))}
+      <Form method="POST" action="/account/logout">
+        <button
+          type="submit"
+          className="border-b border-transparent px-1 py-2 font-sans text-body-s font-medium text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+        >
+          Sign out
+        </button>
+      </Form>
     </nav>
-  );
-}
-
-function Logout() {
-  return (
-    <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
-    </Form>
   );
 }
 

@@ -7,12 +7,16 @@ import {Suspense, useEffect, useId, useRef, useState} from 'react';
 import {Await, NavLink, useAsyncValue, useRouteLoaderData} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
-import {Logo} from '~/components/ui/Logo';
+import {PawraLogo} from '~/components/ui/PawraLogo';
 import {Icon} from '~/components/ui/Icon';
 import {SEARCH_ENDPOINT, SearchFormPredictive} from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {getNavItemById, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS} from '~/lib/mobileNav';
+import {getNavItemById, getNavMegaColumns, MEGA_NAV_ITEMS, NAV_MAIN, NAV_PAGE_LINKS, CARE_NAV_LINKS} from '~/lib/mobileNav';
 import {ThemeToggle} from '~/components/ThemeToggle';
+import {LocaleSwitcher} from '~/components/locale/LocaleSwitcher';
+import {VisualSearchButton} from '~/components/search/VisualSearch';
+import {VoiceSearchButton} from '~/components/search/VoiceSearch';
+import {AISearchPanel} from '~/components/search/AISearchPanel';
 
 /**
  * Sticky site header with logo, mega-nav (desktop), hamburger (mobile), search, cart.
@@ -57,25 +61,26 @@ export function Header({cart, isLoggedIn}) {
   return (
     <>
       <header
-        className={`pawra-header sticky top-0 z-50 bg-header transition-all duration-base ${
-          scrolled ? 'border-b border-electric-jade/15 bg-header/95 backdrop-blur-md' : ''
+        className={`pawra-header sticky top-0 z-50 border-b border-border-subtle bg-header/80 text-header-fg backdrop-blur-md transition-all duration-300 ${
+          scrolled ? 'shadow-sm dark:shadow-none' : ''
         }`}
         onMouseLeave={scheduleCloseMega}
       >
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-3 px-4 md:gap-6 md:px-8">
+        <div className="mx-auto flex h-[72px] max-w-1440 items-center gap-3 px-4 md:gap-6 md:px-10">
           <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
-              className="reset lg:hidden"
+              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-action-secondary lg:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Open collections menu"
               aria-expanded={menuOpen}
             >
-              <Icon name="menu" size="lg" color="text-cloud" />
+              <Icon name="menu" size="lg" color="text-header-fg" />
             </button>
 
             <NavLink to="/" className="no-underline" aria-label="PAWRA home">
-              <Logo variant="icon" height={34} />
+              <PawraLogo variant="primary" height={34} className="lg:hidden" />
+              <PawraLogo variant="primary" height={32} className="hidden lg:block" />
             </NavLink>
           </div>
 
@@ -92,14 +97,14 @@ export function Header({cart, isLoggedIn}) {
                   to={item.path || '#'}
                   className={`inline-flex items-center gap-1 rounded-md px-3 py-2 font-sans text-body-s font-semibold no-underline transition-colors ${
                     megaOpen === item.id
-                      ? 'bg-cloud/10 text-electric-jade'
-                      : 'text-cloud hover:bg-cloud/10 hover:text-electric-jade'
+                      ? 'bg-action-secondary text-action-primary'
+                      : 'text-header-fg hover:bg-action-secondary hover:text-action-primary'
                   }`}
                   aria-expanded={megaOpen === item.id}
                   aria-haspopup="true"
                 >
                   {item.title}
-                  <Icon name="chevron-right" size="sm" color="text-cloud/70" className="rotate-90" />
+                  <Icon name="chevron-right" size="sm" color="text-text-secondary" className="rotate-90" />
                 </NavLink>
               </div>
             ))}
@@ -107,7 +112,16 @@ export function Header({cart, isLoggedIn}) {
               <NavLink
                 key={item.id}
                 to={item.path}
-                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-cloud no-underline transition-colors hover:bg-cloud/10 hover:text-electric-jade"
+                className="rounded-md px-3 py-2 font-sans text-body-s font-medium text-header-fg no-underline transition-colors hover:bg-action-secondary hover:text-action-primary"
+              >
+                {item.title}
+              </NavLink>
+            ))}
+            {CARE_NAV_LINKS.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.path}
+                className="hidden rounded-md px-3 py-2 font-sans text-body-s font-medium text-text-secondary no-underline transition-colors hover:bg-action-secondary hover:text-action-primary xl:inline-flex"
               >
                 {item.title}
               </NavLink>
@@ -119,19 +133,20 @@ export function Header({cart, isLoggedIn}) {
             <HeaderSearchField />
           </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-3 md:gap-4">
-            <ThemeToggle />
+          <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-3">
+            <LocaleSwitcher className="hidden xl:inline-flex" />
+            <ThemeToggle iconColor="text-header-fg" className="hover:bg-action-secondary" />
             <button
               type="button"
-              className="reset md:hidden"
+              className="reset inline-flex h-11 w-11 items-center justify-center rounded-md hover:bg-action-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring md:hidden"
               onClick={() => open('search')}
               aria-label="Search"
             >
-              <Icon name="search" size="md" color="text-cloud" />
+              <Icon name="search" size="md" color="text-header-fg" />
             </button>
             {wishlistEnabled ? (
-              <NavLink to={wishlistUrl} className="reset hidden sm:inline-flex" aria-label="Wishlist">
-                <Icon name="heart" size="md" color="text-cloud" />
+              <NavLink to={wishlistUrl} className="reset hidden rounded-md p-2 hover:bg-action-secondary sm:inline-flex" aria-label="Wishlist">
+                <Icon name="heart" size="md" color="text-header-fg" />
               </NavLink>
             ) : null}
             <AccountToggle isLoggedIn={isLoggedIn} />
@@ -162,6 +177,7 @@ export function Header({cart, isLoggedIn}) {
 function HeaderSearchField() {
   const queriesDatalistId = useId();
   const [focused, setFocused] = useState(false);
+  const [mode, setMode] = useState(/** @type {'shop' | 'ai'} */ ('shop'));
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -178,12 +194,13 @@ function HeaderSearchField() {
     <div ref={containerRef} className="relative w-full">
       <SearchFormPredictive className="w-full">
         {({fetchResults, goToSearch, inputRef}) => (
-          <div className="flex items-center gap-2 rounded-md bg-cloud px-3 py-2 shadow-sm">
-            <Icon name="search" size="sm" color="text-forest-green/70" />
+          <div className="flex items-center gap-1 rounded-md border border-border-subtle bg-surface px-2 py-1.5 shadow-sm dark:shadow-none">
+            <Icon name="search" size="sm" color="text-text-secondary" />
             <input
               name="q"
               onChange={(event) => {
                 setFocused(true);
+                setMode('shop');
                 fetchResults(event);
               }}
               onFocus={(event) => {
@@ -201,17 +218,30 @@ function HeaderSearchField() {
               ref={inputRef}
               type="search"
               list={queriesDatalistId}
-              className="w-full border-0 bg-transparent font-sans text-body-s text-ink outline-none placeholder:text-ink/45"
+              className="w-full border-0 bg-transparent font-sans text-body-m text-text-primary outline-none placeholder:text-text-secondary/70"
               aria-label="Search products"
               autoComplete="off"
             />
+            <VisualSearchButton />
+            <VoiceSearchButton />
+            <button
+              type="button"
+              onClick={() => {
+                setFocused(true);
+                setMode('ai');
+              }}
+              className="reset shrink-0 rounded-md px-2 py-1.5 font-sans text-body-xs font-semibold text-forest-green hover:bg-page-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+              aria-label="Open AI search"
+            >
+              AI
+            </button>
             <button
               type="button"
               onClick={() => {
                 goToSearch();
                 setFocused(false);
               }}
-              className="reset shrink-0 rounded-md bg-forest-green px-3 py-1.5 font-sans text-body-s font-semibold text-cloud"
+              className="reset shrink-0 rounded-md bg-forest-green px-3 py-1.5 font-sans text-body-s font-semibold text-white"
             >
               Search
             </button>
@@ -220,71 +250,95 @@ function HeaderSearchField() {
       </SearchFormPredictive>
 
       {focused ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-forest-green/10 bg-cloud p-3 shadow-lg">
-          <SearchResultsPredictive>
-            {({items, total, term, state, closeSearch}) => {
-              const {articles, collections, pages, products, queries} = items;
-              if (state === 'loading' && term.current) {
-                return <p className="px-2 py-3 font-sans text-body-s text-ink/60">Searching…</p>;
-              }
-              if (!term.current) {
+        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[70] max-h-[70vh] overflow-y-auto rounded-lg border border-border-subtle bg-surface p-3 shadow-sm">
+          <div className="mb-3 flex gap-2 border-b border-border-subtle pb-3">
+            <button
+              type="button"
+              className={`reset rounded-md px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+                mode === 'shop' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
+              }`}
+              onClick={() => setMode('shop')}
+            >
+              Products
+            </button>
+            <button
+              type="button"
+              className={`reset rounded-md px-3 py-1.5 font-sans text-body-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring ${
+                mode === 'ai' ? 'bg-action-primary text-action-primary-label' : 'bg-action-secondary text-text-primary'
+              }`}
+              onClick={() => setMode('ai')}
+            >
+              Ask AI
+            </button>
+          </div>
+          {mode === 'ai' ? (
+            <AISearchPanel />
+          ) : (
+            <SearchResultsPredictive>
+              {({items, total, term, state, closeSearch}) => {
+                const {articles, collections, pages, products, queries} = items;
+                if (state === 'loading' && term.current) {
+                  return <p className="px-2 py-3 font-sans text-body-s text-text-secondary">Searching…</p>;
+                }
+                if (!term.current) {
+                  return (
+                    <p className="px-2 py-3 font-sans text-body-s text-text-secondary">
+                      Try “dog food”, “cat bed”, or open Ask AI for natural language.
+                    </p>
+                  );
+                }
+                if (!total) {
+                  return <SearchResultsPredictive.Empty term={term} />;
+                }
                 return (
-                  <p className="px-2 py-3 font-sans text-body-s text-ink/60">
-                    Try “dog food”, “cat bed”, or a brand name.
-                  </p>
+                  <>
+                    <SearchResultsPredictive.Queries queries={queries} queriesDatalistId={queriesDatalistId} />
+                    <SearchResultsPredictive.Products
+                      products={products}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Collections
+                      collections={collections}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Pages
+                      pages={pages}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    <SearchResultsPredictive.Articles
+                      articles={articles}
+                      closeSearch={() => {
+                        closeSearch();
+                        setFocused(false);
+                      }}
+                      term={term}
+                    />
+                    {term.current && total ? (
+                      <NavLink
+                        to={`${SEARCH_ENDPOINT}?q=${encodeURIComponent(term.current)}`}
+                        className="mt-2 block px-2 py-2 font-sans text-body-s font-semibold text-action-primary no-underline"
+                        onClick={() => setFocused(false)}
+                      >
+                        View all results for <q>{term.current}</q> →
+                      </NavLink>
+                    ) : null}
+                  </>
                 );
-              }
-              if (!total) {
-                return <SearchResultsPredictive.Empty term={term} />;
-              }
-              return (
-                <>
-                  <SearchResultsPredictive.Queries queries={queries} queriesDatalistId={queriesDatalistId} />
-                  <SearchResultsPredictive.Products
-                    products={products}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Collections
-                    collections={collections}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Pages
-                    pages={pages}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  <SearchResultsPredictive.Articles
-                    articles={articles}
-                    closeSearch={() => {
-                      closeSearch();
-                      setFocused(false);
-                    }}
-                    term={term}
-                  />
-                  {term.current && total ? (
-                    <NavLink
-                      to={`${SEARCH_ENDPOINT}?q=${encodeURIComponent(term.current)}`}
-                      className="mt-2 block px-2 py-2 font-sans text-body-s font-semibold text-forest-green no-underline"
-                      onClick={() => setFocused(false)}
-                    >
-                      View all results for <q>{term.current}</q> →
-                    </NavLink>
-                  ) : null}
-                </>
-              );
-            }}
-          </SearchResultsPredictive>
+              }}
+            </SearchResultsPredictive>
+          )}
         </div>
       ) : null}
     </div>
@@ -292,45 +346,80 @@ function HeaderSearchField() {
 }
 
 function MegaMenu({item, onClose, onMouseEnter}) {
-  if (!item?.children?.length) return null;
+  if (!item) return null;
+  const columns = getNavMegaColumns(item.id);
 
   return (
     <div
-      className="absolute left-0 right-0 top-full border-t border-cloud/10 bg-cloud shadow-lg"
+      className="absolute left-0 right-0 top-full border-t border-border-subtle bg-surface-elevated shadow-sm"
       onMouseEnter={onMouseEnter}
       role="region"
       aria-label={`${item.title} categories`}
     >
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 md:grid-cols-[220px_1fr] md:px-8">
-        <div>
-          <p className="font-serif text-display-s text-forest-green">{item.title}</p>
-          <p className="mt-2 font-sans text-body-s text-ink/65">
-            Shop {item.title.toLowerCase()} essentials the way you would on a pet superstore — food, comfort, and care.
-          </p>
+      <div className="mx-auto max-w-1440 px-4 py-8 md:px-10">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-sans text-heading-m text-text-primary">{item.title}</p>
+            <p className="mt-2 max-w-xl font-sans text-body-s text-text-secondary">
+              Browse by category.
+            </p>
+          </div>
           {item.path ? (
             <NavLink
               to={item.path}
               onClick={onClose}
-              className="mt-4 inline-flex font-sans text-body-s font-semibold text-forest-green no-underline hover:underline"
+              className="font-sans text-body-s font-medium text-action-primary no-underline hover:underline"
             >
               Shop all {item.title} →
             </NavLink>
           ) : null}
         </div>
-        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {item.children.map((child) => (
-            <li key={child.id}>
-              <NavLink
-                to={child.path}
-                onClick={onClose}
-                className="flex items-center justify-between rounded-md border border-forest-green/10 bg-warm-oat/60 px-4 py-3 font-sans text-body-m font-medium text-ink no-underline transition-colors hover:border-forest-green/30 hover:bg-warm-oat"
-              >
-                {child.title}
-                <Icon name="chevron-right" size="sm" color="text-forest-green/50" />
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+
+        {columns.length ? (
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {columns.map((column) => (
+              <div key={column.href}>
+                <NavLink
+                  to={column.href}
+                  onClick={onClose}
+                  className="font-sans text-body-m font-semibold text-text-primary no-underline hover:text-action-primary"
+                >
+                  {column.title}
+                </NavLink>
+                {column.links?.length ? (
+                  <ul className="mt-3 space-y-2">
+                    {column.links.map((link) => (
+                      <li key={link.href}>
+                        <NavLink
+                          to={link.href}
+                          onClick={onClose}
+                          className="font-sans text-body-s text-text-secondary no-underline transition-colors hover:text-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                        >
+                          {link.title}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : item.children?.length ? (
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {item.children.map((child) => (
+              <li key={child.id}>
+                <NavLink
+                  to={child.path}
+                  onClick={onClose}
+                  className="flex items-center justify-between rounded-md border border-border-subtle bg-action-secondary px-4 py-3 font-sans text-body-m font-medium text-text-primary no-underline transition-colors hover:bg-page-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                >
+                  {child.title}
+                  <Icon name="chevron-right" size="sm" color="text-text-secondary" />
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </div>
   );
@@ -340,10 +429,10 @@ function AccountToggle({isLoggedIn}) {
   return (
     <NavLink
       to={isLoggedIn ? '/account' : '/account/login'}
-      className="reset hidden sm:inline-flex"
+      className="reset hidden rounded-md p-2 hover:bg-action-secondary sm:inline-flex"
       aria-label={isLoggedIn ? 'Account' : 'Sign in'}
     >
-      <Icon name="user" size="md" color="text-cloud" />
+      <Icon name="user" size="md" color="text-header-fg" />
     </NavLink>
   );
 }
@@ -366,26 +455,26 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
     <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Collections menu">
       <button
         type="button"
-        className="absolute inset-0 bg-midnight/60 reset"
+        className="absolute inset-0 bg-text-primary/40 reset"
         onClick={onClose}
         aria-label="Close menu overlay"
       />
-      <aside className="absolute left-0 top-0 flex h-full w-[min(400px,92vw)] flex-col bg-midnight shadow-xl md:w-[420px]">
-        <div className="flex items-center justify-between border-b border-cloud/10 px-5 py-4">
+      <aside className="absolute left-0 top-0 flex h-full w-[min(400px,92vw)] flex-col bg-surface-elevated shadow-sm md:w-[420px]">
+        <div className="flex items-center justify-between border-b border-border-subtle px-4 py-4">
           {panel === 'root' ? (
-            <Logo variant="light" height={28} />
+            <PawraLogo variant="primary" height={28} />
           ) : (
             <button
               type="button"
-              className="flex items-center gap-2 reset font-sans text-body-m font-medium text-cloud"
+              className="flex items-center gap-2 reset font-sans text-body-m font-medium text-text-primary"
               onClick={() => setPanel('root')}
             >
-              <Icon name="chevron-left" size="md" color="text-cloud" />
+              <Icon name="chevron-left" size="md" color="text-text-primary" />
               Back
             </button>
           )}
           <button type="button" className="reset" onClick={onClose} aria-label="Close menu">
-            <Icon name="close" size="md" color="text-cloud" />
+            <Icon name="close" size="md" color="text-text-primary" />
           </button>
         </div>
 
@@ -395,8 +484,8 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               panel === 'root' ? 'translate-x-0' : '-translate-x-1/2'
             }`}
           >
-            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
-              <p className="mb-2 px-3 font-sans text-body-s font-semibold uppercase tracking-wide text-cloud/50">
+            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-4">
+              <p className="mb-2 px-3 font-sans text-body-s font-semibold uppercase tracking-wide text-text-secondary">
                 Shop by pet
               </p>
               {NAV_MAIN.map((item) =>
@@ -404,32 +493,32 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
                   <button
                     key={item.id}
                     type="button"
-                    className="flex items-center justify-between rounded-md px-3 py-3.5 text-left font-sans text-body-m font-medium text-cloud reset hover:bg-forest-green/50"
+                    className="flex items-center justify-between rounded-md px-3 py-3.5 text-left font-sans text-body-m font-medium text-text-primary reset hover:bg-action-secondary"
                     onClick={() => setPanel(item.id)}
                   >
                     {item.title}
-                    <Icon name="chevron-right" size="sm" color="text-cloud/70" />
+                    <Icon name="chevron-right" size="sm" color="text-text-secondary" />
                   </button>
                 ) : (
                   <NavLink
                     key={item.id}
                     to={item.path}
                     onClick={onClose}
-                    className="flex items-center justify-between rounded-md px-3 py-3.5 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+                    className="flex items-center justify-between rounded-md px-3 py-3.5 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
                   >
                     {item.title}
                   </NavLink>
                 ),
               )}
 
-              <div className="my-3 border-t border-cloud/10" />
+              <div className="my-3 border-t border-border-subtle" />
 
               {NAV_PAGE_LINKS.map((item) => (
                 <NavLink
                   key={item.id}
                   to={item.path}
                   onClick={onClose}
-                  className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud/90 no-underline hover:bg-forest-green/50"
+                  className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
                 >
                   {item.title}
                 </NavLink>
@@ -439,7 +528,7 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
                 <NavLink
                   to={wishlistUrl}
                   onClick={onClose}
-                  className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud/90 no-underline hover:bg-forest-green/50"
+                  className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
                 >
                   Wishlist
                 </NavLink>
@@ -447,33 +536,58 @@ function CollectionsDrawer({open, onClose, isLoggedIn, wishlistUrl, wishlistEnab
               <NavLink
                 to={isLoggedIn ? '/account' : '/account/login'}
                 onClick={onClose}
-                className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-cloud/90 no-underline hover:bg-forest-green/50"
+                className="rounded-md px-3 py-3 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
               >
                 {isLoggedIn ? 'My Account' : 'Sign In'}
               </NavLink>
 
               <div className="mt-4 flex items-center justify-between rounded-md px-3 py-3">
-                <span className="font-sans text-body-m font-medium text-cloud/90">Appearance</span>
+                <span className="font-sans text-body-m font-medium text-text-primary">Appearance</span>
                 <ThemeToggle />
               </div>
             </nav>
 
-            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-5">
+            <nav className="flex h-full w-1/2 flex-col gap-1 overflow-y-auto p-4">
               {activeItem ? (
                 <>
-                  <p className="mb-2 px-3 font-sans text-body-l font-semibold text-cloud">
-                    {activeItem.title}
-                  </p>
-                  {activeItem.children?.map((child) => (
+                  <div className="mb-2 flex items-center justify-between gap-2 px-3">
+                    <p className="font-sans text-body-l font-semibold text-text-primary">
+                      {activeItem.title}
+                    </p>
                     <NavLink
-                      key={child.id}
-                      to={child.path}
+                      to={activeItem.path}
                       onClick={onClose}
-                      className="flex items-center justify-between rounded-md px-3 py-3.5 font-sans text-body-m font-medium text-cloud no-underline hover:bg-forest-green/50"
+                      className="font-sans text-body-xs font-medium text-action-primary no-underline"
                     >
-                      {child.title}
-                      <Icon name="chevron-right" size="sm" color="text-cloud/70" />
+                      View all
                     </NavLink>
+                  </div>
+                  {activeItem.children?.map((child) => (
+                    <div key={child.id} className="mb-1">
+                      <NavLink
+                        to={child.path}
+                        onClick={onClose}
+                        className="flex items-center justify-between rounded-md px-3 py-3 font-sans text-body-m font-medium text-text-primary no-underline hover:bg-action-secondary"
+                      >
+                        {child.title}
+                        <Icon name="chevron-right" size="sm" color="text-text-secondary" />
+                      </NavLink>
+                      {child.children?.length ? (
+                        <ul className="mb-2 ml-3 space-y-1 border-l border-border-subtle pl-3">
+                          {child.children.map((leaf) => (
+                            <li key={leaf.id}>
+                              <NavLink
+                                to={leaf.path}
+                                onClick={onClose}
+                                className="block rounded-md px-2 py-2 font-sans text-body-s text-text-secondary no-underline hover:bg-action-secondary hover:text-text-primary"
+                              >
+                                {leaf.title}
+                              </NavLink>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
                   ))}
                 </>
               ) : null}
@@ -499,9 +613,9 @@ function CartBadge({count}) {
       }}
       aria-label={`Cart, ${count} items`}
     >
-      <Icon name="cart" size="lg" color="text-cloud" />
+      <Icon name="cart" size="lg" color="text-header-fg" />
       {count > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-pill bg-electric-jade px-1 font-mono text-mono-s font-medium text-midnight">
+        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 font-mono text-mono-s font-medium text-accent-label animate-bounce">
           {count}
         </span>
       )}

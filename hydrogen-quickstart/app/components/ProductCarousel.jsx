@@ -16,9 +16,9 @@ import {Icon} from '~/components/ui/Icon';
  */
 export function ProductCarousel({
   products = [],
-  title = 'Popular right now',
-  subtitle = 'Fresh picks for cats and dogs — start shopping in one tap.',
-  emptyMessage = 'Products will appear here once published to your Hydrogen storefront.',
+  title = 'Bestsellers',
+  subtitle = '',
+  emptyMessage = 'Products will appear here once published.',
 }) {
   const scrollerRef = useRef(null);
   const [canPrev, setCanPrev] = useState(false);
@@ -52,20 +52,20 @@ export function ProductCarousel({
   }
 
   return (
-    <section className="bg-cloud px-4 py-10 md:px-8 md:py-14">
-      <div className="mx-auto max-w-7xl">
+    <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-1440">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-serif text-display-s text-forest-green">{title}</h2>
+            <h2 className="font-serif text-heading-m text-action-primary md:text-heading-l">{title}</h2>
             {subtitle ? (
-              <p className="mt-2 max-w-xl font-sans text-body-m text-ink/70">{subtitle}</p>
+              <p className="mt-2 max-w-xl font-sans text-body-m text-text-secondary">{subtitle}</p>
             ) : null}
           </div>
           {products.length > 0 ? (
             <div className="flex gap-2">
               <button
                 type="button"
-                className="reset flex h-12 w-12 items-center justify-center rounded-md border border-forest-green/25 bg-warm-oat text-forest-green disabled:opacity-35"
+                className="reset flex h-11 w-11 items-center justify-center rounded-sm border border-border-subtle text-text-primary disabled:opacity-30"
                 onClick={() => scrollByPage(-1)}
                 disabled={!canPrev}
                 aria-label="Previous products"
@@ -74,13 +74,12 @@ export function ProductCarousel({
               </button>
               <button
                 type="button"
-                className="reset flex h-12 min-w-[7.5rem] items-center justify-center gap-1 rounded-md bg-forest-green px-4 font-sans text-body-s font-semibold text-cloud disabled:opacity-35"
+                className="reset flex h-11 w-11 items-center justify-center rounded-sm border border-border-subtle text-text-primary disabled:opacity-30"
                 onClick={() => scrollByPage(1)}
                 disabled={!canNext}
                 aria-label="Next products"
               >
-                Next
-                <Icon name="chevron-right" size="md" color="text-cloud" />
+                <Icon name="chevron-right" size="md" />
               </button>
             </div>
           ) : null}
@@ -89,16 +88,16 @@ export function ProductCarousel({
         {products.length > 0 ? (
           <div
             ref={scrollerRef}
-            className="mt-8 flex gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="mt-10 flex gap-6 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:gap-8"
           >
             {products.map((product, index) => (
-              <div key={product.id} className="w-[240px] shrink-0 sm:w-[260px]">
+              <div key={product.id} className="w-[240px] shrink-0 sm:w-[260px] lg:w-[280px]">
                 <PawraProductCard product={product} loading={index < 4 ? 'eager' : 'lazy'} />
               </div>
             ))}
           </div>
         ) : (
-          <p className="mt-8 font-sans text-body-m text-ink/60">{emptyMessage}</p>
+          <p className="mt-8 font-sans text-body-m text-text-secondary">{emptyMessage}</p>
         )}
       </div>
     </section>

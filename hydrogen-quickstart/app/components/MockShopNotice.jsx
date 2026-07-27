@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,7 +11,7 @@
  * @file MockShopNotice.jsx
  * @description Shared component: MockShopNotice.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import {BRAND} from '~/lib/branding';
@@ -23,7 +23,7 @@ export function MockShopNotice() {
       aria-labelledby="mock-shop-notice-heading"
     >
       <div className="inner">
-        <h2 id="mock-shop-notice-heading" className="font-serif text-forest-green">
+        <h2 id="mock-shop-notice-heading" className="font-sans text-text-primary">
           PAWRA — {BRAND.tagline}
         </h2>
         <p>

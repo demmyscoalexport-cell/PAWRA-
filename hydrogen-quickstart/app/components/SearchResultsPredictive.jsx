@@ -1,8 +1,8 @@
 /**
  * ╔═══════════════════════════════════════╗
- * ║          PAWRA PET SHOP               ║
+ * ║          PAWRA PET CARES               ║
  * ║    Premium Pets Products Store        ║
- * ║         pawrapetshop.com              ║
+ * ║         pawrapetcares.com              ║
  * ║          © 2025 Pawra LLC             ║
  * ╚═══════════════════════════════════════╝
  */
@@ -11,12 +11,12 @@
  * @file SearchResultsPredictive.jsx
  * @description Shared component: SearchResultsPredictive.
  * @author Pawra LLC
- * @website pawrapetshop.com
+ * @website pawrapetcares.com
  */
 
 import { Link, useFetcher } from 'react-router';
 import { Image, Money } from '@shopify/hydrogen';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { getEmptyPredictiveSearchResult, urlWithTrackingParams } from '~/lib/search';
 import { useAside } from './Aside';
 
