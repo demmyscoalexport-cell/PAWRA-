@@ -8,7 +8,6 @@ import {SectionReveal} from './SectionReveal';
 import {Button} from '~/components/ui/Button';
 import {Icon} from '~/components/ui/Icon';
 import {PawraLogo} from '~/components/ui/PawraLogo';
-import {BRAND} from '~/lib/branding';
 import {PAWRA_HERO_SLIDES} from '~/lib/pawraMedia';
 
 const SLIDES = PAWRA_HERO_SLIDES;
