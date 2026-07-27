@@ -7,18 +7,20 @@ import {Breadcrumbs} from '~/components/Breadcrumbs';
 import {CategoryCard} from '~/components/collection/CategoryCard';
 import {PawraProductCard} from '~/components/PawraProductCard';
 import {ProductCarousel} from '~/components/ProductCarousel';
+import {getProductImage} from '~/data/productImages';
 
+/** Category tiles use a representative product studio image */
 const CATEGORY_IMAGES = {
-  'dog-food': 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=800&h=600&fit=crop',
-  'dog-treats': 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=600&fit=crop',
-  'dog-toys': 'https://images.unsplash.com/photo-1535294435445-d7249524ef2e?w=800&h=600&fit=crop',
-  'dog-beds': 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&h=600&fit=crop',
-  'dog-grooming': 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&h=600&fit=crop',
-  'dog-walk-travel': 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&h=600&fit=crop',
-  'cat-food': 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&h=600&fit=crop',
-  'cat-treats': 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&h=600&fit=crop',
-  'cat-toys': 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&h=600&fit=crop',
-  pharmacy: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=600&fit=crop',
+  'dog-food': getProductImage('grain-free-salmon-sweet-potato'),
+  'dog-treats': getProductImage('training-bites-dog'),
+  'dog-toys': getProductImage('plush-squirrel-toy'),
+  'dog-beds': getProductImage('ortho-memory-foam-bed'),
+  'dog-grooming': getProductImage('oat-shampoo-dog'),
+  'dog-walk-travel': getProductImage('no-pull-harness'),
+  'cat-food': getProductImage('indoor-cat-kibble'),
+  'cat-treats': getProductImage('organic-catnip'),
+  'cat-toys': getProductImage('feather-wand-cat'),
+  pharmacy: getProductImage('joint-chews-dog'),
 };
 
 /**

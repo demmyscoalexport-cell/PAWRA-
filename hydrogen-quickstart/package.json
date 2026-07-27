@@ -18,7 +18,8 @@
     "probe:admin": "node scripts/probe-admin.mjs",
     "catalog:setup": "node scripts/setup-catalog.mjs",
     "oxygen:env-checklist": "node scripts/print-oxygen-env.mjs",
-    "qa:nav": "node scripts/qa-navigation.mjs"
+    "qa:nav": "node scripts/qa-navigation.mjs",
+    "media:generate-products": "node scripts/generate-product-images.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {

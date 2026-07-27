@@ -11,6 +11,7 @@ import {JudgeMePreviewBadge} from '~/components/product/JudgeMePreviewBadge';
 import {Badge} from '~/components/ui/Badge';
 import {useCompare} from '~/components/compare/CompareContext';
 import {isPrescriptionRequired} from '~/lib/productFlags';
+import {isShopifyCdnImage, resolveProductImage} from '~/lib/resolveProductImage';
 
 /**
  * @param {{
@@ -21,7 +22,7 @@ import {isPrescriptionRequired} from '~/lib/productFlags';
  */
 export function PawraProductCard({product, loading, showCompare = false}) {
   const variantUrl = useVariantUrl(product.handle);
-  const image = product.featuredImage;
+  const image = resolveProductImage(product);
   const minPrice = product.priceRange?.minVariantPrice;
   const compareAt = product.compareAtPriceRange?.minVariantPrice;
   const onSale =
@@ -50,7 +51,7 @@ export function PawraProductCard({product, loading, showCompare = false}) {
       <Link to={variantUrl} prefetch="intent" className="group flex flex-1 flex-col no-underline">
         <div className="relative aspect-square overflow-hidden bg-page-bg">
           {image?.url ? (
-            image.url.includes('cdn.shopify.com') ? (
+            isShopifyCdnImage(image.url) ? (
               <Image
                 alt={image.altText || product.title}
                 aspectRatio="1/1"
