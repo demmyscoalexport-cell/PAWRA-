@@ -1,6 +1,6 @@
 /**
  * @file Badge.tsx
- * @description Minimal text-style merchandising badges.
+ * @description Merchandising / status badges — coral Sale pill, soft status chips.
  */
 
 export type BadgeType =
@@ -20,39 +20,39 @@ const BADGE_CONFIG: Record<
 > = {
   new: {
     label: 'New',
-    className: 'text-text-primary border-l border-text-primary pl-2',
+    className: 'bg-action-primary/10 text-action-primary',
   },
   'best-seller': {
-    label: 'Bestseller',
-    className: 'text-accent border-l border-accent pl-2',
+    label: 'Best Seller',
+    className: 'bg-accent/15 text-accent',
   },
   'coming-soon': {
-    label: 'Coming soon',
-    className: 'text-text-secondary border-l border-border-subtle pl-2',
+    label: 'Coming Soon',
+    className: 'bg-action-secondary text-text-secondary border border-border-subtle',
   },
   'walker-approved': {
-    label: 'Walker approved',
-    className: 'text-text-primary border-l border-text-primary pl-2',
+    label: 'Walker Approved',
+    className: 'bg-action-primary/10 text-action-primary',
   },
   'care-plan': {
-    label: 'Care plan',
-    className: 'text-text-secondary border-l border-border-subtle pl-2',
+    label: 'Care Plan',
+    className: 'bg-action-secondary text-text-primary border border-border-subtle',
   },
   sale: {
     label: 'Sale',
-    className: 'text-sale border-l border-sale pl-2',
+    className: 'bg-sale text-white shadow-sm',
   },
   'in-stock': {
-    label: 'In stock',
-    className: 'text-success border-l border-success pl-2',
+    label: 'In Stock',
+    className: 'bg-success/10 text-success',
   },
   'low-stock': {
-    label: 'Low stock',
-    className: 'text-warning border-l border-warning pl-2',
+    label: 'Low Stock',
+    className: 'bg-warning/15 text-warning',
   },
   'rx-required': {
-    label: 'Rx required',
-    className: 'text-accent border-l border-accent pl-2',
+    label: 'Rx Required',
+    className: 'bg-action-primary/10 text-action-primary',
   },
 };
 
@@ -67,7 +67,7 @@ export function Badge({type, className = ''}: BadgeProps) {
   return (
     <span
       className={[
-        'inline-flex items-center font-sans text-body-xs font-medium tracking-wide',
+        'inline-flex items-center rounded-md px-2.5 py-1 font-sans text-body-xs font-medium tracking-wide',
         config.className,
         className,
       ]

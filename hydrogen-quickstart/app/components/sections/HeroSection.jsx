@@ -26,7 +26,7 @@ export function HeroSection() {
           <div className="mb-8 text-white">
             <PawraLogo variant="light" height={28} />
           </div>
-          <h1 className="max-w-3xl font-sans text-display-m text-white md:text-display-l">
+          <h1 className="max-w-3xl font-serif text-display-m text-white md:text-display-l">
             For the modern dog.
           </h1>
           <p className="mt-4 max-w-md font-sans text-body-m text-white/80">
@@ -37,7 +37,7 @@ export function HeroSection() {
               variant="secondary"
               size="lg"
               href="/collections/dogs"
-              className="!border-white !bg-white !text-[#111111] hover:!bg-white/90"
+              className="!border-white !bg-white !text-forest-green hover:!bg-white/90"
             >
               Shop Dogs
             </Button>

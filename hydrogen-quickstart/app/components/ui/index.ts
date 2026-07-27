@@ -17,4 +17,4 @@ export {PawraBadge} from './PawraBadge';
 export {PawraPattern} from './PawraPattern';
 export {PawraSpinner} from './PawraSpinner';
 export {PawraSocialAvatar} from './PawraSocialAvatar';
-export {BRAND_TEAL, BRAND_INK, BRAND_STONE, BRAND_WHITE} from './brandMark';
+export {BRAND_TEAL, BRAND_FOREST, BRAND_INK, BRAND_STONE, BRAND_WHITE, BRAND_CORAL} from './brandMark';

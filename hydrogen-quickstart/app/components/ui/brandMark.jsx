@@ -1,15 +1,19 @@
 /**
  * Shared PAWRA brand mark geometry — abstract paw × leaf.
- * Monochrome — fills via currentColor.
+ * Fills via currentColor; hex constants for SVG strokes.
  */
 
-export const BRAND_BLACK = '#111111';
-export const BRAND_INK = '#111111';
-/** @deprecated Use BRAND_BLACK — kept for import compatibility */
-export const BRAND_TEAL = '#111111';
-export const BRAND_STONE = '#F9F9F9';
+export const BRAND_FOREST = '#1B3A2D';
+export const BRAND_INK = '#1A1A1A';
+/** @deprecated Prefer BRAND_FOREST — kept for import compatibility */
+export const BRAND_TEAL = '#1B3A2D';
+/** @deprecated Prefer BRAND_FOREST */
+export const BRAND_BLACK = '#1B3A2D';
+export const BRAND_STONE = '#F5F0E8';
 export const BRAND_WHITE = '#FFFFFF';
-export const BRAND_ACCENT = '#D4A5A5';
+export const BRAND_ACCENT = '#C9A96E';
+export const BRAND_CORAL = '#FF6B5B';
+export const BRAND_JADE = '#2EE8A0';
 
 /**
  * Icon mark paths (paw pad + toes + leaf accent).
@@ -29,7 +33,7 @@ export function BrandMarkPaths({leafClassName = '', padClassName = ''}) {
       <path
         className={leafClassName}
         fill="currentColor"
-        opacity="0.28"
+        opacity="0.35"
         d="M31.5 22.5c3.8-1.2 7.2-4.2 8.8-8.2-4.2.4-8 2.8-10.2 6.2-.6 1-.8 2.1-.6 3.2 1.2-.2 1.5-.6 2-.1Z"
       />
     </g>

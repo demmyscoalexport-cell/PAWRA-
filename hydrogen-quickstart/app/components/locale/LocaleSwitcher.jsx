@@ -62,7 +62,7 @@ export function LocaleSwitcher({className = ''}) {
       <select
         value={locale}
         onChange={(e) => setLocale(e.target.value)}
-        className="h-11 max-w-[9.5rem] rounded-md border border-border-subtle bg-surface px-2 font-sans text-body-xs text-text-primary outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+        className="h-11 max-w-[9.5rem] rounded-md border border-white/25 bg-white/10 px-2 font-sans text-body-xs text-white outline-none focus-visible:ring-2 focus-visible:ring-electric-jade [&>option]:bg-header [&>option]:text-white"
         aria-label="Language and currency preference"
       >
         {options.map((option) => (

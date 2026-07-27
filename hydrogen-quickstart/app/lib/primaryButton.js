@@ -1,5 +1,5 @@
 /**
- * Shared primary CTA classes — black / white minimal.
+ * Shared primary CTA classes — forest green fill, white label.
  */
 export const PRIMARY_CTA_CLASSES = [
   'bg-action-primary text-action-primary-label border border-action-primary',

@@ -1,6 +1,6 @@
 /**
  * @file tailwind.config.ts
- * @description PAWRA Wild One–inspired design tokens — minimal black / white / dusty rose.
+ * @description PAWRA enterprise tokens — forest green, warm cream, coral sale.
  */
 
 import type {Config} from 'tailwindcss';
@@ -33,24 +33,23 @@ export default {
         sale: rgb('sale'),
         inverse: rgb('inverse'),
 
-        // Legacy aliases → new palette
-        'forest-green': rgb('action-primary'),
-        'warm-oat': rgb('page-bg'),
-        cloud: rgb('surface'),
-        ink: rgb('text-primary'),
-        'electric-jade': rgb('focus-ring'),
+        // Brand aliases
+        'forest-green': rgb('forest-green'),
+        'warm-oat': rgb('warm-oat'),
+        cloud: rgb('cloud'),
+        ink: rgb('ink'),
+        'electric-jade': rgb('electric-jade'),
         midnight: rgb('inverse'),
         'forest-night': rgb('inverse'),
         coral: rgb('sale'),
         champagne: rgb('accent'),
-        header: rgb('page-bg'),
+        header: rgb('header'),
         'cta-primary': rgb('action-primary'),
         'cta-primary-hover': rgb('action-primary-hover'),
         'cta-primary-active': rgb('action-primary-hover'),
       },
       fontFamily: {
-        // All UI type is Inter — keep serif alias pointing to sans for compatibility
-        serif: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
@@ -105,13 +104,13 @@ export default {
         none: 'none',
         xs: 'var(--shadow-sm)',
         sm: 'var(--shadow-sm)',
-        md: 'var(--shadow-sm)',
-        lg: 'var(--shadow-sm)',
-        xl: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-md)',
+        xl: 'var(--shadow-md)',
         card: 'var(--shadow-sm)',
-        elevated: 'var(--shadow-sm)',
-        'jade-glow': 'none',
-        'jade-glow-lg': 'none',
+        elevated: 'var(--shadow-md)',
+        'jade-glow': '0 0 0 3px rgb(var(--color-electric-jade) / 0.35)',
+        'jade-glow-lg': '0 0 24px rgb(var(--color-electric-jade) / 0.25)',
       },
       animation: {
         'fade-in': 'fade-in 400ms ease-out',

@@ -1,9 +1,9 @@
 /**
  * @file PawraLogo.jsx
- * @description Monochrome PAWRA logo — black on light, white on dark/inverse.
+ * @description PAWRA logo — forest green on light, white on header/inverse.
  */
 
-import {BrandMarkPaths, BrandWordmarkPaths, BRAND_BLACK, BRAND_WHITE} from './brandMark';
+import {BrandMarkPaths, BrandWordmarkPaths, BRAND_FOREST, BRAND_WHITE} from './brandMark';
 
 /**
  * @typedef {'primary' | 'icon-only' | 'light' | 'dark'} PawraLogoVariant
@@ -18,7 +18,7 @@ import {BrandMarkPaths, BrandWordmarkPaths, BRAND_BLACK, BRAND_WHITE} from './br
  */
 export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
   const color =
-    variant === 'light' ? BRAND_WHITE : variant === 'dark' ? BRAND_BLACK : BRAND_BLACK;
+    variant === 'light' ? BRAND_WHITE : BRAND_FOREST;
 
   if (variant === 'icon-only') {
     return (
@@ -28,7 +28,7 @@ export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
         viewBox="0 0 48 48"
         width={height}
         height={height}
-        className={`text-text-primary ${className}`}
+        className={className}
         style={{color}}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -39,7 +39,6 @@ export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
   }
 
   const width = Math.round((height / 48) * 260);
-  const ink = variant === 'light' ? BRAND_WHITE : BRAND_BLACK;
 
   return (
     <svg
@@ -49,7 +48,7 @@ export function PawraLogo({variant = 'primary', height = 36, className = ''}) {
       width={width}
       height={height}
       className={className}
-      style={{color: ink}}
+      style={{color}}
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>PAWRA</title>

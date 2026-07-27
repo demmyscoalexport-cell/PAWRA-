@@ -5,67 +5,71 @@
   --grid-item-width: 355px;
   --header-height: 72px;
 
-  /* Minimal elevation — hover only */
-  --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.04);
+  /* Soft enterprise elevation */
+  --shadow-sm: 0 2px 8px rgba(27, 58, 45, 0.06);
+  --shadow-md: 0 8px 24px rgba(27, 58, 45, 0.1);
 
-  /* Wild One–inspired semantic RGB channels */
-  --color-page-bg: 255 255 255;
-  --color-surface: 249 249 249;
+  /* Brand palette — forest green + warm cream (balanced) */
+  --color-page-bg: 245 240 232; /* warm oat */
+  --color-surface: 255 255 255; /* white cards on cream */
   --color-surface-elevated: 255 255 255;
-  --color-text-primary: 17 17 17;
-  --color-text-secondary: 102 102 102;
-  --color-text-inverse: 255 255 255;
-  --color-border-subtle: 229 229 229;
-  --color-border-strong: 204 204 204;
-  --color-focus-ring: 212 165 165;
-  --color-action-primary: 17 17 17;
-  --color-action-primary-hover: 51 51 51;
+  --color-text-primary: 26 26 26; /* ink */
+  --color-text-secondary: 90 98 94;
+  --color-text-inverse: 245 240 232;
+  --color-border-subtle: 227 220 208;
+  --color-border-strong: 197 186 170;
+  --color-focus-ring: 46 232 160; /* electric jade */
+  --color-action-primary: 27 58 45; /* forest green */
+  --color-action-primary-hover: 15 35 24;
   --color-action-primary-label: 255 255 255;
-  --color-action-secondary-bg: 245 245 245;
-  --color-action-destructive: 184 58 58;
-  --color-accent: 212 165 165;
-  --color-success: 58 125 90;
-  --color-warning: 176 118 58;
-  --color-sale: 184 58 58;
-  --color-inverse: 17 17 17;
+  --color-action-secondary-bg: 242 239 232;
+  --color-action-destructive: 255 107 91;
+  --color-accent: 201 169 110; /* champagne */
+  --color-success: 27 58 45;
+  --color-warning: 201 169 110;
+  --color-sale: 255 107 91; /* coral */
+  --color-inverse: 14 26 21; /* midnight */
 
-  /* Legacy bridges */
-  --color-light: 249 249 249;
-  --color-dark: 17 17 17;
-  --color-header: 255 255 255;
-  --color-warm-oat: 255 255 255;
-  --color-cloud: 249 249 249;
-  --color-ink: 17 17 17;
+  /* Legacy / chrome bridges */
+  --color-light: 245 240 232;
+  --color-dark: 26 26 26;
+  --color-header: 27 58 45; /* header stays forest in both themes */
+  --color-warm-oat: 245 240 232;
+  --color-cloud: 242 242 240;
+  --color-ink: 26 26 26;
+  --color-forest-green: 27 58 45;
+  --color-electric-jade: 46 232 160;
 }
 
 html.dark {
-  --color-page-bg: 17 17 17;
-  --color-surface: 26 26 26;
-  --color-surface-elevated: 26 26 26;
-  --color-text-primary: 245 245 245;
-  --color-text-secondary: 153 153 153;
-  --color-text-inverse: 17 17 17;
-  --color-border-subtle: 51 51 51;
-  --color-border-strong: 85 85 85;
-  --color-focus-ring: 212 165 165;
-  --color-action-primary: 255 255 255;
-  --color-action-primary-hover: 229 229 229;
-  --color-action-primary-label: 17 17 17;
-  --color-action-secondary-bg: 34 34 34;
-  --color-action-destructive: 212 115 115;
-  --color-accent: 212 165 165;
-  --color-success: 74 154 106;
-  --color-warning: 201 154 90;
-  --color-sale: 212 115 115;
-  --color-inverse: 17 17 17;
+  --color-page-bg: 14 26 21;
+  --color-surface: 22 40 32;
+  --color-surface-elevated: 22 40 32;
+  --color-text-primary: 236 240 237;
+  --color-text-secondary: 148 163 154;
+  --color-text-inverse: 245 240 232;
+  --color-border-subtle: 40 58 48;
+  --color-border-strong: 58 82 68;
+  --color-focus-ring: 46 232 160;
+  --color-action-primary: 126 214 168;
+  --color-action-primary-hover: 158 224 186;
+  --color-action-primary-label: 14 26 21;
+  --color-action-secondary-bg: 22 40 32;
+  --color-action-destructive: 255 138 128;
+  --color-accent: 201 169 110;
+  --color-success: 126 214 168;
+  --color-warning: 201 169 110;
+  --color-sale: 255 138 128;
+  --color-inverse: 14 26 21;
 
-  --color-light: 26 26 26;
-  --color-dark: 245 245 245;
-  --color-header: 17 17 17;
-  --color-warm-oat: 17 17 17;
-  --color-cloud: 26 26 26;
-  --color-ink: 245 245 245;
+  --color-light: 22 40 32;
+  --color-dark: 236 240 237;
+  --color-header: 27 58 45;
+  --color-warm-oat: 14 26 21;
+  --color-cloud: 22 40 32;
+  --color-ink: 236 240 237;
+  --color-forest-green: 126 214 168;
+  --color-electric-jade: 46 232 160;
   color-scheme: dark;
 }
 

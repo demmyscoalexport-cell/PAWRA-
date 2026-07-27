@@ -1,12 +1,12 @@
 /**
  * @file AnnouncementBar.jsx
- * @description Minimal top bar — single calm message.
+ * @description Forest-green top bar — free shipping message.
  */
 
 import {useEffect, useState} from 'react';
 import {Icon} from '~/components/ui/Icon';
 
-const MESSAGE = 'Free shipping on US orders over $75';
+const MESSAGE = 'Free shipping on all US orders over $75';
 const STORAGE_KEY = 'pawra-announcement-closed';
 
 export function AnnouncementBar() {
@@ -24,17 +24,17 @@ export function AnnouncementBar() {
   if (closed) return null;
 
   return (
-    <div className="relative border-b border-border-subtle bg-page-bg px-4 py-2.5 text-text-primary">
-      <p className="text-center font-sans text-body-xs tracking-wide text-text-secondary">
+    <div className="relative bg-header px-4 py-2.5 text-action-primary-label">
+      <p className="text-center font-sans text-body-xs font-medium tracking-wide md:text-body-s">
         {MESSAGE}
       </p>
       <button
         type="button"
         onClick={handleClose}
-        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-text-secondary opacity-80 hover:opacity-100"
+        className="absolute right-3 top-1/2 -translate-y-1/2 reset text-action-primary-label opacity-80 hover:opacity-100"
         aria-label="Close announcement"
       >
-        <Icon name="close" size="sm" color="text-text-secondary" />
+        <Icon name="close" size="sm" color="text-action-primary-label" />
       </button>
     </div>
   );

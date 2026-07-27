@@ -1,6 +1,6 @@
 /**
  * @file Button.tsx
- * @description Minimal PAWRA buttons — black primary, outline secondary.
+ * @description PAWRA buttons — forest green primary, outline secondary.
  */
 
 import {forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type Ref} from 'react';

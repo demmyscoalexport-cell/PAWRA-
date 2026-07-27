@@ -81,7 +81,7 @@ export default function Homepage() {
       <section className="bg-page-bg px-4 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-1440">
           <div className="mb-10 flex items-end justify-between gap-4">
-            <h2 className="font-sans text-heading-m text-text-primary">The PAWRA Journal</h2>
+            <h2 className="font-serif text-heading-l text-action-primary">The PAWRA Journal</h2>
             <Link
               to="/blog"
               className="font-sans text-body-s text-text-secondary no-underline hover:text-text-primary"
