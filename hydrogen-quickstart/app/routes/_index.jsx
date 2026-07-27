@@ -7,6 +7,7 @@ import {Link, useLoaderData} from 'react-router';
 import {
   HeroSection,
   StarterOffer,
+  NewArrivals,
   ShopByPet,
   TrustBar,
   GuaranteeBand,
@@ -17,7 +18,11 @@ import {AsSeenIn} from '~/components/ugc/AsSeenIn';
 import {ProductCarousel} from '~/components/ProductCarousel';
 import {BRAND} from '~/lib/branding';
 import {ARTICLES} from '~/data/articles';
-import {HOMEPAGE_COLLECTION_QUERY, HOMEPAGE_PRODUCTS_QUERY} from '~/lib/homepageProducts';
+import {
+  HOMEPAGE_COLLECTION_QUERY,
+  HOMEPAGE_NEW_ARRIVALS_QUERY,
+  HOMEPAGE_PRODUCTS_QUERY,
+} from '~/lib/homepageProducts';
 import {getIntegrations} from '~/lib/integrations';
 import {fetchJudgeMeFeaturedReviews} from '~/lib/judgeme';
 import {
@@ -41,38 +46,46 @@ export async function loader({context}) {
   const {storefront, env} = context;
   const integrations = getIntegrations(env);
 
-  const [{products}, {collection}, featuredReviews] = await Promise.all([
-    storefront.query(HOMEPAGE_PRODUCTS_QUERY, {
-      variables: {first: 16},
-      cache: storefront.CacheShort(),
-    }),
-    storefront.query(HOMEPAGE_COLLECTION_QUERY, {
-      variables: {handle: 'frontpage', first: 12},
-      cache: storefront.CacheShort(),
-    }),
-    integrations.judgeMe.apiEnabled
-      ? fetchJudgeMeFeaturedReviews(integrations.judgeMe)
-      : Promise.resolve([]),
-  ]);
+  const [{products}, {collection}, newArrivalsResult, featuredReviews] =
+    await Promise.all([
+      storefront.query(HOMEPAGE_PRODUCTS_QUERY, {
+        variables: {first: 16},
+        cache: storefront.CacheShort(),
+      }),
+      storefront.query(HOMEPAGE_COLLECTION_QUERY, {
+        variables: {handle: 'frontpage', first: 12},
+        cache: storefront.CacheShort(),
+      }),
+      storefront.query(HOMEPAGE_NEW_ARRIVALS_QUERY, {
+        variables: {first: 8},
+        cache: storefront.CacheShort(),
+      }),
+      integrations.judgeMe.apiEnabled
+        ? fetchJudgeMeFeaturedReviews(integrations.judgeMe)
+        : Promise.resolve([]),
+    ]);
 
   const catalog = products?.nodes ?? [];
   const featured = collection?.products?.nodes ?? [];
   const pool = featured.length > 0 ? featured : catalog;
+  const newest = newArrivalsResult?.products?.nodes ?? [];
 
   return {
     greetingProducts: pool.slice(0, 8),
+    newArrivals: newest.slice(0, 4),
     featuredReviews,
     articles: ARTICLES.slice(0, 3),
   };
 }
 
 export default function Homepage() {
-  const {greetingProducts, articles} = useLoaderData();
+  const {greetingProducts, newArrivals, articles} = useLoaderData();
 
   return (
     <div className="home">
       <HeroSection />
       <StarterOffer />
+      <NewArrivals products={newArrivals} />
       <ProductCarousel
         products={greetingProducts}
         title="Bestsellers"

@@ -42,6 +42,17 @@ export const HOMEPAGE_PRODUCTS_QUERY = `#graphql
   }
 `;
 
+export const HOMEPAGE_NEW_ARRIVALS_QUERY = `#graphql
+  ${HOMEPAGE_PRODUCT_FRAGMENT}
+  query HomepageNewArrivals($country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+      nodes {
+        ...HomepageProduct
+      }
+    }
+  }
+`;
+
 export const HOMEPAGE_COLLECTION_QUERY = `#graphql
   ${HOMEPAGE_PRODUCT_FRAGMENT}
   query HomepageCollection($handle: String!, $country: CountryCode, $language: LanguageCode, $first: Int!) @inContext(country: $country, language: $language) {
