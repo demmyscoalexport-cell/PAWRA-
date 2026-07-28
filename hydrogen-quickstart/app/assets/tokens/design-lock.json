@@ -1,0 +1,321 @@
+{
+  "$schema": "https://pawrapetcares.com/schemas/design-lock.json",
+  "version": "1.0.0",
+  "lockedAt": "2026-07-28",
+  "status": "locked",
+  "brand": {
+    "name": "PAWRA PET CARES",
+    "shortName": "PAWRA",
+    "tagline": "Premium Pets Products Store",
+    "domain": "pawrapetcares.com",
+    "url": "https://pawrapetcares.com",
+    "supportEmail": "support@pawrapetcares.com",
+    "address": {
+      "line1": "76 Main St",
+      "city": "Sparrow Bush",
+      "state": "NY",
+      "zip": "12780",
+      "country": "United States"
+    },
+    "copyright": "© 2025 Pawra LLC · Sparrow Bush, NY · pawrapetcares.com",
+    "legalEntity": "Pawra LLC",
+    "social": [
+      { "platform": "instagram", "href": "https://www.instagram.com/pawrapetcares" },
+      { "platform": "tiktok", "href": "https://www.tiktok.com/@pawrapetcares" },
+      { "platform": "facebook", "href": "https://www.facebook.com/pawrapetcares" },
+      { "platform": "pinterest", "href": "https://www.pinterest.com/pawrapetcares" }
+    ]
+  },
+  "philosophy": {
+    "lightThemeName": "Trust & Warmth",
+    "darkThemeName": "Sleek & Cozy",
+    "principles": [
+      "Enterprise calm — minimal elevation, soft borders, no neon or purple glow",
+      "Brand-first full-bleed heroes — logo, one headline, one support line, one CTA group",
+      "No hero overlays (badges, chips, promo stickers)",
+      "Light: chestnut-tinted shadows; Dark: borders only, no shadows",
+      "Serif for display; sans for UI; mono for codes/stats/copyright",
+      "Motion for presence — short reveals, hover scale 1.02, honor reduced motion"
+    ],
+    "forbidden": [
+      "purple-on-white / purple-to-indigo gradients",
+      "pure black #000000 surfaces",
+      "neon jade #2EE8A0",
+      "champagne #C9A96E as brand accent",
+      "coral #FF6B5B as sale accent",
+      "heavy multi-layer drop shadows",
+      "glow stacks / glassmorphism as default"
+    ]
+  },
+  "rawPalette": {
+    "forest-green": { "hex": "#2C4A3E", "rgb": [44, 74, 62] },
+    "chestnut": { "hex": "#8B5A3C", "rgb": [139, 90, 60] },
+    "golden-honey": { "hex": "#E8A538", "rgb": [232, 165, 56] },
+    "warm-ivory": { "hex": "#FDFBF7", "rgb": [253, 251, 247] },
+    "near-black": { "hex": "#1E1E1E", "rgb": [30, 30, 30] },
+    "soft-charcoal": { "hex": "#5A5A5A", "rgb": [90, 90, 90] },
+    "warm-taupe": { "hex": "#E8E2D9", "rgb": [232, 226, 217] },
+    "muted-forest-black": { "hex": "#111514", "rgb": [17, 21, 20] },
+    "layered-charcoal": { "hex": "#1E2422", "rgb": [30, 36, 34] },
+    "forest-pop": { "hex": "#4A7C65", "rgb": [74, 124, 101] }
+  },
+  "brandConstants": {
+    "BRAND_FOREST": "#2C4A3E",
+    "BRAND_INK": "#1E1E1E",
+    "BRAND_STONE": "#FDFBF7",
+    "BRAND_WHITE": "#FFFFFF",
+    "BRAND_ACCENT": "#E8A538",
+    "BRAND_CHESTNUT": "#8B5A3C",
+    "deprecatedAliases": {
+      "BRAND_TEAL": "#2C4A3E",
+      "BRAND_BLACK": "#2C4A3E",
+      "BRAND_CORAL": "#E8A538",
+      "BRAND_JADE": "#E8A538"
+    }
+  },
+  "themes": {
+    "light": {
+      "name": "Trust & Warmth",
+      "shadows": {
+        "sm": "0 2px 8px rgba(139, 90, 60, 0.08)",
+        "md": "0 8px 24px rgba(139, 90, 60, 0.1)",
+        "lg": "0 16px 40px rgba(139, 90, 60, 0.12)"
+      },
+      "colors": {
+        "page-bg": [253, 251, 247],
+        "surface": [255, 255, 255],
+        "surface-elevated": [255, 255, 255],
+        "text-primary": [30, 30, 30],
+        "text-secondary": [90, 90, 90],
+        "text-inverse": [253, 251, 247],
+        "border-subtle": [232, 226, 217],
+        "border-strong": [197, 186, 170],
+        "focus-ring": [232, 165, 56],
+        "action-primary": [44, 74, 62],
+        "action-primary-hover": [31, 54, 44],
+        "action-primary-label": [255, 255, 255],
+        "action-secondary-bg": [253, 251, 247],
+        "action-destructive": [196, 74, 58],
+        "accent": [232, 165, 56],
+        "accent-label": [30, 30, 30],
+        "chestnut": [139, 90, 60],
+        "chestnut-bright": [139, 90, 60],
+        "success": [44, 74, 62],
+        "warning": [232, 165, 56],
+        "sale": [232, 165, 56],
+        "inverse": [17, 21, 20],
+        "header": [253, 251, 247],
+        "header-fg": [30, 30, 30],
+        "footer": [44, 74, 62],
+        "footer-fg": [240, 237, 232],
+        "hero-overlay-from": [44, 74, 62],
+        "hero-overlay-to": [44, 74, 62]
+      }
+    },
+    "dark": {
+      "name": "Sleek & Cozy",
+      "shadows": { "sm": "none", "md": "none", "lg": "none" },
+      "colors": {
+        "page-bg": [17, 21, 20],
+        "surface": [30, 36, 34],
+        "surface-elevated": [30, 36, 34],
+        "text-primary": [240, 237, 232],
+        "text-secondary": [176, 168, 158],
+        "text-inverse": [17, 21, 20],
+        "border-subtle": [46, 53, 50],
+        "border-strong": [58, 68, 64],
+        "focus-ring": [232, 165, 56],
+        "action-primary": [74, 124, 101],
+        "action-primary-hover": [58, 99, 80],
+        "action-primary-label": [255, 255, 255],
+        "action-secondary-bg": [30, 36, 34],
+        "action-destructive": [224, 120, 104],
+        "accent": [232, 165, 56],
+        "accent-label": [30, 30, 30],
+        "chestnut": [168, 117, 83],
+        "chestnut-bright": [168, 117, 83],
+        "success": [74, 124, 101],
+        "warning": [232, 165, 56],
+        "sale": [232, 165, 56],
+        "inverse": [10, 12, 11],
+        "header": [17, 21, 20],
+        "header-fg": [232, 226, 217],
+        "footer": [10, 12, 11],
+        "footer-fg": [240, 237, 232],
+        "hero-overlay-from": [17, 21, 20],
+        "hero-overlay-to": [17, 21, 20]
+      }
+    }
+  },
+  "typography": {
+    "fonts": {
+      "serif": { "family": "Playfair Display", "fallbacks": ["Georgia", "serif"], "weights": [400, 500, 600, 700], "italicWeights": [400] },
+      "sans": { "family": "Inter", "fallbacks": ["system-ui", "sans-serif"], "weights": [400, 500, 600, 700] },
+      "mono": { "family": "JetBrains Mono", "fallbacks": ["ui-monospace", "monospace"], "weights": [400, 500] }
+    },
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+    "rules": {
+      "h1h2h3": "serif",
+      "uiBodyButtonsNav": "sans",
+      "codesStatsCopyright": "mono",
+      "antialiased": true
+    },
+    "scale": {
+      "display-xl": { "size": "4.5rem", "lineHeight": "5rem", "letterSpacing": "-0.02em", "fontWeight": "500", "family": "serif" },
+      "display-l": { "size": "3.5rem", "lineHeight": "4rem", "letterSpacing": "-0.02em", "fontWeight": "500", "family": "serif" },
+      "display-m": { "size": "2.5rem", "lineHeight": "3rem", "letterSpacing": "-0.02em", "fontWeight": "500", "family": "serif" },
+      "display-s": { "size": "2rem", "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "500", "family": "serif" },
+      "heading-xl": { "size": "1.75rem", "lineHeight": "2.25rem", "fontWeight": "500", "family": "sans" },
+      "heading-l": { "size": "1.75rem", "lineHeight": "2.25rem", "fontWeight": "500", "family": "sans" },
+      "heading-m": { "size": "1.375rem", "lineHeight": "1.875rem", "fontWeight": "500", "family": "sans" },
+      "heading-s": { "size": "1.125rem", "lineHeight": "1.625rem", "fontWeight": "500", "family": "sans" },
+      "heading-xs": { "size": "1rem", "lineHeight": "1.5rem", "fontWeight": "500", "family": "sans" },
+      "body-xl": { "size": "1.125rem", "lineHeight": "1.75rem", "fontWeight": "400", "family": "sans" },
+      "body-l": { "size": "1.125rem", "lineHeight": "1.75rem", "fontWeight": "400", "family": "sans" },
+      "body-m": { "size": "1rem", "lineHeight": "1.5rem", "fontWeight": "400", "family": "sans" },
+      "body-s": { "size": "0.875rem", "lineHeight": "1.25rem", "fontWeight": "400", "family": "sans" },
+      "body-xs": { "size": "0.75rem", "lineHeight": "1rem", "fontWeight": "400", "family": "sans" },
+      "mono-l": { "size": "1rem", "lineHeight": "1.5rem", "fontWeight": "400", "family": "mono" },
+      "mono-m": { "size": "1rem", "lineHeight": "1.5rem", "fontWeight": "400", "family": "mono" },
+      "mono-s": { "size": "0.875rem", "lineHeight": "1.25rem", "fontWeight": "400", "family": "mono" }
+    }
+  },
+  "spacing": {
+    "scaleRem": {
+      "1": 0.25, "2": 0.5, "3": 0.75, "4": 1, "5": 1.25, "6": 1.5,
+      "8": 2, "10": 2.5, "12": 3, "16": 4, "20": 5, "24": 6
+    },
+    "sectionPadding": "px-4 py-16 md:px-10 md:py-24",
+    "headerHeightPx": 72,
+    "asideWidthPx": 400,
+    "gridItemMinWidthPx": 355,
+    "maxContentWidthPx": 1440
+  },
+  "radii": {
+    "none": "0",
+    "sm": "0.25rem",
+    "md": "0.5rem",
+    "lg": "0.75rem",
+    "xl": "1rem",
+    "2xl": "1rem",
+    "3xl": "1rem",
+    "pill": "9999px",
+    "full": "9999px",
+    "defaultImage": "0.5rem",
+    "defaultButton": "0.5rem",
+    "defaultCard": "0.5rem",
+    "productCard": "0.75rem",
+    "capNote": "xl/2xl/3xl all capped at 1rem — do not escalate"
+  },
+  "motion": {
+    "durations": { "fast": "150ms", "base": "250ms", "slow": "400ms", "themeColor": "300ms", "aside": "200ms", "overlay": "400ms", "sectionReveal": "350ms" },
+    "easings": {
+      "sectionReveal": [0.22, 1, 0.36, 1]
+    },
+    "animations": {
+      "fade-in": { "duration": "400ms", "easing": "ease-out" },
+      "slide-up": { "duration": "500ms", "fromY": 12 },
+      "theme-spin": { "duration": "400ms", "fromRotate": -90, "fromScale": 0.85 },
+      "buttonHoverScale": 1.02,
+      "imageHoverScale": 1.02
+    },
+    "respectReducedMotion": true
+  },
+  "themeRuntime": {
+    "storageKey": "pawra-theme",
+    "modes": ["light", "dark", "system"],
+    "default": "system",
+    "htmlClass": "dark",
+    "bootScript": "THEME_BOOT_SCRIPT in app/lib/theme.js"
+  },
+  "components": {
+    "button": {
+      "variants": ["primary", "secondary", "ghost", "accent", "golden", "premium", "destructive"],
+      "sizes": {
+        "sm": { "height": "2.25rem", "paddingX": "1rem", "type": "body-s" },
+        "md": { "height": "2.75rem", "paddingX": "1.5rem", "type": "body-m" },
+        "lg": { "height": "3rem", "paddingX": "2rem", "type": "body-m" }
+      },
+      "radius": "md",
+      "font": "sans semibold",
+      "primary": "forest fill white label",
+      "secondary": "chestnut outline",
+      "golden": "Golden Honey fill near-black label"
+    },
+    "badge": {
+      "types": ["new", "best-seller", "coming-soon", "walker-approved", "care-plan", "sale", "in-stock", "low-stock", "rx-required"],
+      "shape": "rounded-md px-2.5 py-1 text-body-xs font-medium tracking-wide",
+      "sale": "solid accent + accent-label"
+    },
+    "card": {
+      "variants": ["product", "product-hero", "feature", "stat", "testimonial", "walker-program"],
+      "base": "rounded-md bg-surface overflow-hidden"
+    },
+    "icon": {
+      "strokeWidth": 1.75,
+      "sizes": { "sm": 16, "md": 20, "lg": 24 },
+      "names": ["cart", "search", "user", "heart", "paw", "walker", "gps", "check", "arrow-right", "menu", "close", "star", "plus", "minus", "shield", "leaf", "truck", "wifi", "chevron-down", "chevron-right", "chevron-left", "sun", "moon", "instagram", "tiktok", "facebook", "pinterest", "chat"]
+    },
+    "logo": {
+      "component": "PawraLogo",
+      "variants": ["primary", "light", "icon-only", "dark"],
+      "mark": "abstract paw pad + toes + leaf accent",
+      "headerHeights": { "mobile": 34, "desktop": 32 },
+      "heroHeight": 28,
+      "footerHeight": 28
+    },
+    "pattern": {
+      "tile": "64x64",
+      "rotateDeg": 12,
+      "defaultOpacity": 0.12
+    }
+  },
+  "layoutPatterns": {
+    "hero": {
+      "type": "full-bleed",
+      "minHeight": { "mobile": "78vh", "desktop": "88vh" },
+      "overlayLight": "from/70 via/40 to/20 of hero-overlay",
+      "overlayDark": "from/85 via/60 to/40 of hero-overlay",
+      "contents": ["brand logo light", "serif display headline", "one support sentence", "CTA group", "optional micro guarantee"],
+      "forbiddenInFirstViewport": ["stats", "schedules", "promo chips", "floating badges", "address blocks", "secondary marketing"]
+    },
+    "announcementBar": {
+      "bg": "action-primary",
+      "fg": "action-primary-label",
+      "storageKey": "pawra-announcement-closed"
+    },
+    "header": {
+      "sticky": true,
+      "heightPx": 72,
+      "bg": "header/80 backdrop-blur-md",
+      "scrollShadowLightOnly": true
+    },
+    "footer": {
+      "bg": "footer",
+      "fg": "footer-fg",
+      "columns": ["brand+newsletter", "shop", "company", "support"],
+      "copyright": "font-mono 12px opacity 60%"
+    },
+    "sectionReveal": {
+      "from": { "opacity": 0, "y": 16 },
+      "to": { "opacity": 1, "y": 0 },
+      "duration": 0.35,
+      "ease": [0.22, 1, 0.36, 1],
+      "once": true
+    }
+  },
+  "sourceFiles": {
+    "cssTokens": "hydrogen-quickstart/app/styles/app.css",
+    "tailwind": "hydrogen-quickstart/tailwind.config.ts",
+    "baseLayer": "hydrogen-quickstart/app/styles/tailwind.css",
+    "rawTokens": "hydrogen-quickstart/app/assets/tokens/pawra-tokens.json",
+    "branding": "hydrogen-quickstart/app/lib/branding.js",
+    "theme": "hydrogen-quickstart/app/lib/theme.js",
+    "primaryButton": "hydrogen-quickstart/app/lib/primaryButton.js",
+    "brandMark": "hydrogen-quickstart/app/components/ui/brandMark.jsx",
+    "ui": "hydrogen-quickstart/app/components/ui/",
+    "designSystemRoute": "hydrogen-quickstart/app/routes/design-system.jsx",
+    "humanDoc": "DESIGN_LOCK.md"
+  },
+  "legacyNote": "Root src/ + tailwind.config.js uses an older ivory/emerald luxury palette — NOT canonical. Use Hydrogen Trust & Warmth tokens for all new work."
+}

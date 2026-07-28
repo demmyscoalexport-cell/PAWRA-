@@ -33,19 +33,21 @@ export const meta = () => {
   return [{title: `PAWRA Design System | ${BRAND.domain}`}];
 };
 
+/** Locked Trust & Warmth palette — keep in sync with DESIGN_LOCK.md / design-lock.json */
 const COLORS = [
-  {name: 'Warm Oat (Page)', token: 'page-bg', hex: '#F5F0E8'},
+  {name: 'Warm Ivory (Page)', token: 'page-bg', hex: '#FDFBF7'},
   {name: 'Surface (White)', token: 'surface', hex: '#FFFFFF'},
-  {name: 'Text Primary (Ink)', token: 'text-primary', hex: '#1A1A1A'},
-  {name: 'Text Secondary', token: 'text-secondary', hex: '#5A625E'},
-  {name: 'Border Subtle', token: 'border-subtle', hex: '#E3DCD0'},
-  {name: 'Focus / Jade', token: 'focus-ring', hex: '#2EE8A0'},
-  {name: 'Forest Green', token: 'action-primary', hex: '#1B3A2D'},
-  {name: 'Action Secondary', token: 'action-secondary', hex: '#F2EFE8'},
-  {name: 'Champagne Accent', token: 'accent', hex: '#C9A96E'},
-  {name: 'Coral Sale', token: 'sale', hex: '#FF6B5B'},
-  {name: 'Success', token: 'success', hex: '#1B3A2D'},
-  {name: 'Midnight Inverse', token: 'inverse', hex: '#0E1A15'},
+  {name: 'Text Primary (Near Black)', token: 'text-primary', hex: '#1E1E1E'},
+  {name: 'Text Secondary', token: 'text-secondary', hex: '#5A5A5A'},
+  {name: 'Border Subtle (Warm Taupe)', token: 'border-subtle', hex: '#E8E2D9'},
+  {name: 'Focus / Golden Honey', token: 'focus-ring', hex: '#E8A538'},
+  {name: 'Forest Green (Primary)', token: 'action-primary', hex: '#2C4A3E'},
+  {name: 'Action Secondary', token: 'action-secondary', hex: '#FDFBF7'},
+  {name: 'Golden Honey Accent', token: 'accent', hex: '#E8A538'},
+  {name: 'Chestnut', token: 'chestnut', hex: '#8B5A3C'},
+  {name: 'Sale / Warning', token: 'sale', hex: '#E8A538'},
+  {name: 'Success', token: 'success', hex: '#2C4A3E'},
+  {name: 'Muted Forest Black', token: 'inverse', hex: '#111514'},
 ];
 
 const TYPE_SCALE = [
@@ -114,12 +116,13 @@ export default function DesignSystem() {
     <div className="design-system mx-auto max-w-6xl px-4 py-12 md:px-10 md:py-16">
       <header className="mb-12">
         <p className="mb-2 font-mono text-mono-s uppercase tracking-widest text-action-primary">
-          PAWRA Design System
+          PAWRA Design System · Locked
         </p>
-        <h1 className="font-sans text-display-m text-text-primary">Brand Experience Tokens</h1>
+        <h1 className="font-serif text-display-m text-text-primary">Trust &amp; Warmth</h1>
         <p className="mt-3 max-w-2xl font-sans text-body-l text-text-secondary">
-          {BRAND.tagline} — Visual reference for colors, typography,
-          spacing, components, and animations at {BRAND.domain}.
+          {BRAND.tagline} — Canonical visual reference for colors, typography,
+          spacing, components, and motion at {BRAND.domain}. See{' '}
+          <code className="font-mono text-mono-s">DESIGN_LOCK.md</code> for the full lock.
         </p>
       </header>
 
