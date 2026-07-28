@@ -1,0 +1,18 @@
+---
+description: PAWRA locked design system — mandatory for all UI work
+globs:
+  - "hydrogen-quickstart/app/**/*.{jsx,tsx,js,ts,css}"
+  - "src/**/*.{jsx,js,css}"
+  - "tailwind.config.*"
+alwaysApply: true
+---
+
+# PAWRA Design Lock
+
+Before designing or styling anything, follow `/DESIGN_LOCK.md` and `/hydrogen-quickstart/app/assets/tokens/design-lock.json`.
+
+**Palette:** Forest `#2C4A3E` · Chestnut `#8B5A3C` · Golden Honey `#E8A538` · Ivory `#FDFBF7` · Near Black `#1E1E1E`  
+**Dark:** `#111514` / `#1E2422` · Forest Pop `#4A7C65` · same gold · borders instead of shadows  
+**Type:** Playfair Display (serif display) · Inter (sans UI) · JetBrains Mono  
+**Hero:** full-bleed; brand + one headline + one support + CTAs only  
+**Do not invent** new brand colors, neon jade, champagne, coral reds, purple gradients, or pure black.

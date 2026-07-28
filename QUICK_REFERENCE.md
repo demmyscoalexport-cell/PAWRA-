@@ -1,5 +1,20 @@
 # Quick Reference - PAWRA Store Commands
 
+## Design lock (next project)
+
+Canonical PAWRA visual system — **do not reinvent**:
+
+| Doc | Path |
+|---|---|
+| Full lock | `DESIGN_LOCK.md` |
+| JSON lock | `hydrogen-quickstart/app/assets/tokens/design-lock.json` |
+| Compact tokens | `hydrogen-quickstart/app/assets/tokens/pawra-tokens.json` |
+| Agent checklist | `docs/DESIGN_LOCK_AGENT.md` |
+| Live UI | `/design-system` |
+
+**Palette:** `#2C4A3E` forest · `#8B5A3C` chestnut · `#E8A538` golden honey · `#FDFBF7` ivory  
+**Type:** Playfair Display · Inter · JetBrains Mono
+
 ## 🚀 Start Here
 
 ```bash

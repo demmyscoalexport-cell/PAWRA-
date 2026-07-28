@@ -1,4 +1,15 @@
 {
+  "meta": {
+    "version": "1.0.0",
+    "lockedAt": "2026-07-28",
+    "status": "locked",
+    "themes": {
+      "light": "Trust & Warmth",
+      "dark": "Sleek & Cozy"
+    },
+    "canonicalDoc": "DESIGN_LOCK.md",
+    "fullLock": "design-lock.json"
+  },
   "colors": {
     "forest-green": "#2C4A3E",
     "chestnut": "#8B5A3C",
@@ -9,16 +20,52 @@
     "warm-taupe": "#E8E2D9",
     "muted-forest-black": "#111514",
     "layered-charcoal": "#1E2422",
-    "forest-pop": "#4A7C65"
+    "forest-pop": "#4A7C65",
+    "footer-fg": "#F0EDE8",
+    "destructive-light": "#C44A3A",
+    "destructive-dark": "#E07868",
+    "border-strong-light": "#C5BAAA",
+    "action-primary-hover-light": "#1F362C",
+    "action-primary-hover-dark": "#3A6350",
+    "chestnut-dark": "#A87553",
+    "text-secondary-dark": "#B0A89E",
+    "border-subtle-dark": "#2E3532",
+    "border-strong-dark": "#3A4440",
+    "inverse-dark": "#0A0C0B"
   },
   "typography": {
     "font-serif": "Playfair Display",
     "font-sans": "Inter",
-    "font-mono": "JetBrains Mono"
+    "font-mono": "JetBrains Mono",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  },
+  "layout": {
+    "headerHeightPx": 72,
+    "maxContentWidthPx": 1440,
+    "asideWidthPx": 400,
+    "gridItemMinWidthPx": 355,
+    "radiusCapRem": 1,
+    "defaultRadiusRem": 0.5
+  },
+  "shadows": {
+    "light": {
+      "sm": "0 2px 8px rgba(139, 90, 60, 0.08)",
+      "md": "0 8px 24px rgba(139, 90, 60, 0.1)",
+      "lg": "0 16px 40px rgba(139, 90, 60, 0.12)"
+    },
+    "dark": {
+      "sm": "none",
+      "md": "none",
+      "lg": "none"
+    }
   },
   "brand": {
     "name": "PAWRA PET CARES",
+    "shortName": "PAWRA",
+    "tagline": "Premium Pets Products Store",
     "domain": "pawrapetcares.com",
-    "tagline": "Premium Pets Products Store"
+    "url": "https://pawrapetcares.com",
+    "supportEmail": "support@pawrapetcares.com",
+    "copyright": "© 2025 Pawra LLC · Sparrow Bush, NY · pawrapetcares.com"
   }
 }

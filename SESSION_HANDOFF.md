@@ -7,6 +7,22 @@
 **Shopify store:** PAWRA PET CARES (`pawra-pet-cares` / also shows `emderi-ry.myshopify.com`)  
 **Tagline:** Every moment. Every pet. Every life.
 
+---
+
+## Design lock (mandatory for next projects)
+
+Canonical visual system is **locked**. Before any new UI work, read:
+
+- **`DESIGN_LOCK.md`** (repo root) — full human lock
+- **`hydrogen-quickstart/app/assets/tokens/design-lock.json`** — machine-readable twin
+- **`docs/DESIGN_LOCK_AGENT.md`** — agent checklist
+- Live showcase: `/design-system`
+
+**Themes:** Light = Trust & Warmth · Dark = Sleek & Cozy  
+**Core hex:** Forest `#2C4A3E` · Chestnut `#8B5A3C` · Golden Honey `#E8A538` · Ivory `#FDFBF7`
+
+---
+
 **Latest commits:**
 - `73605eb` — Judge.me shop domain example → `pawrapetcares.com`
 - `bf4fe7b` — Full Judge.me Hydrogen widgets (`@judgeme/shopify-hydrogen`)
