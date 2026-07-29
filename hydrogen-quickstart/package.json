@@ -17,6 +17,7 @@
     "probe:storefront": "node scripts/probe-storefront.mjs",
     "probe:admin": "node scripts/probe-admin.mjs",
     "catalog:setup": "node scripts/setup-catalog.mjs",
+    "catalog:publish": "node scripts/publish-all-products.mjs",
     "oxygen:env-checklist": "node scripts/print-oxygen-env.mjs",
     "qa:nav": "node scripts/qa-navigation.mjs",
     "media:generate-products": "node scripts/generate-product-images.mjs"

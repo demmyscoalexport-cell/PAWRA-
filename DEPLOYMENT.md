@@ -14,7 +14,15 @@ Old Shopify accounts and storefront IDs have been removed from this repo. Connec
 4. **Settings → Customer accounts** — enable
 5. **Settings → Payments** — configure Shopify Payments
 6. Import or create products
-7. **Products → Bulk edit → Sales channels** — publish to your **Hydrogen storefront** (not Online Store only)
+7. **Publish all products to Hydrogen** (required — Online Store alone is not enough):
+
+   ```bash
+   cd hydrogen-quickstart
+   # .env needs SHOPIFY_ADMIN_API_TOKEN (write_publications, read_products, read_publications)
+   npm run catalog:publish
+   ```
+
+   Or in Admin: **Products → Bulk edit → Sales channels** → check your **Hydrogen** storefront.
 8. **Settings → Domains** — connect `pawrapetcares.com` to **Hydrogen Production** (not Online Store)
 9. Add `checkout.pawrapetcares.com` → Target **Online Store** (checkout)
 10. **Hydrogen → Domains** — confirm brand domain is Primary on Production

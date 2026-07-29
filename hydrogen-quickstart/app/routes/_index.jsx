@@ -43,11 +43,11 @@ export async function loader({context}) {
 
   const [{products}, {collection}, featuredReviews] = await Promise.all([
     storefront.query(HOMEPAGE_PRODUCTS_QUERY, {
-      variables: {first: 16},
+      variables: {first: 24},
       cache: storefront.CacheShort(),
     }),
     storefront.query(HOMEPAGE_COLLECTION_QUERY, {
-      variables: {handle: 'frontpage', first: 12},
+      variables: {handle: 'frontpage', first: 24},
       cache: storefront.CacheShort(),
     }),
     integrations.judgeMe.apiEnabled
