@@ -1,16 +1,22 @@
 #!/usr/bin/env node
 /**
- * Create PAWRA smart collections, tag products, and publish to Headless channel.
- * Requires a valid SHOPIFY_ADMIN_API_TOKEN with read/write products & collections.
+ * Create PAWRA smart collections, tag products, and publish to Hydrogen.
+ * Requires a valid SHOPIFY_ADMIN_API_TOKEN with read/write products,
+ * collections, and publications.
  *
  *   npm run catalog:setup
  *   npm run catalog:setup -- --dry-run
+ *
+ * Prefer `npm run catalog:publish` when you only need to publish products.
  */
 
 import {adminGraphql} from './shopifyAdmin.js';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
 
 const dryRun = process.argv.includes('--dry-run');
-const HEADLESS_PUBLICATION_ID = process.env.PUBLIC_STOREFRONT_ID || '1000157996';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {Array<{ handle: string; title: string; description: string; rules: Array<{ column: string; relation: string; condition: string }> }>} */
 const COLLECTIONS = [
@@ -171,15 +177,16 @@ async function updateProductMeta(product) {
     return;
   }
 
+  // Admin API 2026+: productUpdate takes ProductUpdateInput as `product`
   const data = await adminGraphql(
-    `mutation($input: ProductInput!) {
-      productUpdate(input: $input) {
+    `mutation($product: ProductUpdateInput!) {
+      productUpdate(product: $product) {
         product { id title tags productType }
         userErrors { field message }
       }
     }`,
     {
-      input: {
+      product: {
         id: product.id,
         tags: mergedTags,
         productType,
@@ -196,46 +203,17 @@ async function updateProductMeta(product) {
   console.log(`  ✓ Tagged "${product.title}" (${productType})`);
 }
 
-async function publishProductsToHeadless() {
-  const data = await adminGraphql(
-    `query {
-      publications(first: 20) {
-        nodes { id name }
-      }
-    }`,
-  );
-
-  const publication = data.publications.nodes.find(
-    (p) => p.name?.toLowerCase().includes('headless') || p.id.includes(HEADLESS_PUBLICATION_ID),
-  );
-
-  if (!publication) {
-    console.warn('  ⚠ Headless publication not found — publish products manually in Admin');
-    return;
+function runPublishScript() {
+  const script = path.join(__dirname, 'publish-all-products.mjs');
+  const args = [script];
+  if (dryRun) args.push('--dry-run');
+  const result = spawnSync(process.execPath, args, {
+    stdio: 'inherit',
+    env: process.env,
+  });
+  if (result.status) {
+    process.exit(result.status);
   }
-
-  const products = await fetchAllProducts();
-
-  for (const product of products) {
-    if (dryRun) {
-      console.log(`  [dry-run] Would publish ${product.title} to ${publication.name}`);
-      continue;
-    }
-
-    await adminGraphql(
-      `mutation($id: ID!, $input: [PublicationInput!]!) {
-        publishablePublish(id: $id, input: $input) {
-          userErrors { field message }
-        }
-      }`,
-      {
-        id: product.id,
-        input: [{publicationId: publication.id}],
-      },
-    );
-  }
-
-  console.log(`  ✓ Published ${products.length} products to "${publication.name}"`);
 }
 
 async function main() {
@@ -253,10 +231,10 @@ async function main() {
     await updateProductMeta(product);
   }
 
-  console.log('\n3. Headless publication');
-  await publishProductsToHeadless();
+  console.log('\n3. Publish all products to Hydrogen');
+  runPublishScript();
 
-  console.log('\nDone. Run npm run probe:admin && npm run catalog:list to verify.');
+  console.log('\nDone. Run npm run probe:admin && npm run probe:storefront to verify.');
 }
 
 main().catch((err) => {
